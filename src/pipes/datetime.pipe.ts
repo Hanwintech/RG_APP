@@ -1,10 +1,4 @@
 import { Injectable, Pipe } from '@angular/core';
-/*
-  Generated class for the DateTime pipe.
-
-  See https://angular.io/docs/ts/latest/guide/pipes.html for more info on
-  Angular 2 Pipes.
-*/
 
 @Pipe({
   name: 'datetime'

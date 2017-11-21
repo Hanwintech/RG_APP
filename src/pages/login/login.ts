@@ -1,5 +1,3 @@
-import { PageService } from './../../services/page.service';
-import { CacheService } from './../../services/cache.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, IonicPage, Platform } from 'ionic-angular';
 import { ApiService } from '../../services/api.service';
@@ -19,9 +17,7 @@ export class LoginPage {
     public navParams: NavParams,
     public apiService: ApiService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
-    private cacheService: CacheService,
-    private pageService: PageService) {
+    private alertCtrl: AlertController) {
 
     var logout = navParams.get("logout");
     if (!logout) {

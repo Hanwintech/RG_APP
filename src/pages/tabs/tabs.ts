@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Tabs, Platform, AlertController } from 'ionic-angular';
-import { CacheService } from './../../services/cache.service';
 import { Storage } from '@ionic/storage';
 
 @IonicPage()

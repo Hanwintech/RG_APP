@@ -1,6 +1,6 @@
 {
-  "name": "HYGZF_APP",
-  "app_id": "",
+  "name": "rg_app",
+  "app_id": "com.hanwintech.rg_app",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

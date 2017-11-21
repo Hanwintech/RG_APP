@@ -1,0 +1,28 @@
+<!--
+  Generated template for the Login page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>公房收费开票系统</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="login()" #form="ngForm">
+    <ion-item>
+      <ion-label fixed>用户名</ion-label>
+      <ion-input type="text" required [(ngModel)]="auth.account" name="account"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>密码</ion-label>
+      <ion-input type="password" required [(ngModel)]="auth.password" name="password"></ion-input>
+    </ion-item>
+    <div class="spacer" style="height: 40px;"></div>
+    <button ion-button type="submit" [disabled]="!form.form.valid" block>登录</button>
+  </form>
+</ion-content>

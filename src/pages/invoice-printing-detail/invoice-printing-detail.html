@@ -1,0 +1,91 @@
+<!--
+  Generated template for the InvoicePrintingDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>打印发票</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <h2>姓名</h2>
+      <p>{{billing.name}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>证件号码</h2>
+      <p>{{billing.certNo}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>合同类型</h2>
+      <p>{{contractType[billing.contractType]}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>租贷位置</h2>
+      <p>{{billing.address}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>费用类型</h2>
+      <p>{{feeStatus[billing.feeStatus]}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>期数</h2>
+      <p>{{billing.terms}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>租金</h2>
+      <p>{{billing.money}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>支付日期</h2>
+      <p>{{billing.payedDate | datetime}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>状态</h2>
+      <p>{{bookignInvoiceStatus[billing.status]}}</p>
+    </ion-item>
+  </ion-list>
+  <form #form="ngForm">
+    <ion-item>
+      <ion-label stacked>发票号码簿</ion-label>
+      <ion-select [(ngModel)]="invoiceNoBookId" name="invoiceNoBookId" cancelText="取消" okText="确定" multiple="false" (ionChange)="fetchInvoiceNo()"
+        required>
+        <ion-option *ngFor="let item of invoiceNoBook" value='{{item.id}}'>{{item.bookNo}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>发票号码</ion-label>
+      <ion-select [(ngModel)]="billing.invoiceNo" name="invoiceNo" cancelText="取消" okText="确定" multiple="false" required>
+        <ion-option *ngFor="let item of invoiceNos" value='{{item.id}}'>{{item.no}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>开票人</ion-label>
+      <ion-input [(ngModel)]="billing.invoiceUser" name="invoiceUser" type="text" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>备注</ion-label>
+      <ion-textarea [(ngModel)]="billing.remark" name="remark" type="text"></ion-textarea>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col>
+        <button ion-button [disabled]="!form.form.valid" (click)="print()" full clear color="light">打印</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button [disabled]="!form.form.valid" (click)="submit()" full clear color="light">提交</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

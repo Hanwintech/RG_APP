@@ -4,24 +4,13 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, IonicPage, Platform } from 'ionic-angular';
 import { ApiService } from '../../services/api.service';
 
-// declare var cordova: any;
-
-/**
- * Generated class for the LoginPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  auth = {
-    account: "",
-    password: ""
-  };
+  auth = { account: "", password: "" };
 
   version = "";
 
@@ -50,27 +39,24 @@ export class LoginPage {
 
   }
 
-  ionViewDidLoad() {
-  }
-
+  ionViewDidLoad() { }
 
   login() {
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       return;
     }
-    // this.pageService.showLoading('正在登录');
+    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
+    loading.present();
     this.apiService.getToken(this.auth.account, this.auth.password)
       .subscribe(
       res => {
-        // this.pageService.dismissLoading();
         let user = <any>res;
         localStorage.setItem('account', this.auth.account);
         localStorage.setItem('password', this.auth.password);
         this.apiService.token = user.access_token;
-        this.navCtrl.setRoot("CollectRentPage");
+        this.navCtrl.setRoot("TabPage");
       }
       , error => {
-        // this.pageService.dismissLoading();
         var message = '登录失败';
         if (error.status == 401) {
           message = "用户名或密码错误"
@@ -81,10 +67,6 @@ export class LoginPage {
           buttons: ['确定']
         });
         alert.present();
-      }
-      );
-
+      });
   }
-
 }
-

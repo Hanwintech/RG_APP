@@ -66,7 +66,7 @@
             "cordova-plugin-ble-central": {}
         },
         "platforms": [
-            "android"
+            "android","ios"
         ]
     }
 }

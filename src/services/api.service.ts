@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import { Md5 } from "ts-md5/dist/md5";
 import 'rxjs/add/operator/map';
-/**
- * ApiService
- */
+
 @Injectable()
 export class ApiService {
 
@@ -27,7 +25,6 @@ export class ApiService {
         if (!this._baseUrl) {
             this._baseUrl = localStorage.getItem('baseUrl');
             if (!this._baseUrl || this._baseUrl.length == 0) {
-            //  this._baseUrl = "http://58.211.42.174:10517";
                 this._baseUrl = "http://192.168.100.78:8607";
             }
         }
@@ -38,10 +35,7 @@ export class ApiService {
         this._baseUrl = v;
     }
 
-    //baseUrl: string = "http://10.10.11.76:10022"
-    constructor(private http: Http) {
-
-    }
+    constructor(private http: Http) { }
 
     getToken(account: string, password: string) {
         let headers = new Headers();
@@ -62,12 +56,6 @@ export class ApiService {
         if (request.method == 'POST') {
             headers.append('Content-Type', 'application/json');
         }
-        var timestamp = Math.round(new Date().getTime()/1000)+28800;
-        var nonce = "hygzf_app";
-        var signature = Md5.hashStr("sipmch2017" + timestamp + nonce);
-        headers.append('timestamp', timestamp.toString());
-        headers.append('nonce', nonce);
-        headers.append('signature', signature.toString().toUpperCase());
         let options = {
             method: request.method,
             url: this.baseUrl + request.requestUrl,
@@ -77,6 +65,5 @@ export class ApiService {
         };
         return this.http.request(new Request(options))
             .map(res => <IHttpCommonResponse<any>>res.json());
-
     }
 }

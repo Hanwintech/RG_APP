@@ -8,7 +8,6 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiService } from '../services/api.service';
-import { CacheService } from '../services/cache.service';
 import { PageService } from '../services/page.service';
 import { HttpModule } from '@angular/http';
 import { BLE } from '@ionic-native/ble';
@@ -36,7 +35,6 @@ import { BLE } from '@ionic-native/ble';
     StatusBar,
     SplashScreen,
     ApiService,
-    CacheService,
     PageService,
     BLEService,
     BLE,

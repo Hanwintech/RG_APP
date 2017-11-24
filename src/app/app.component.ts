@@ -12,27 +12,18 @@ export class MyApp {
 
   rootPage: any = 'LoginPage';
 
-  pages: Array<{title: string,icon: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, 
-    public splashScreen: SplashScreen, 
-    private toastCtrl: ToastController,
-    private ionicApp: IonicApp) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public toastCtrl: ToastController,
+    public ionicApp: IonicApp
+  ) {
     this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: '租金收取', icon: "cash", component: 'CollectRentPage' },
-      { title: '签约费用收取',icon: "card", component: 'FirstCollectRentPage' },
-      { title: '打印发票', icon: "print", component: 'InvoicePrintingPage' }
-    ];
-
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.registerBackButtonAction();//注册返回按键事件
@@ -40,8 +31,6 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 
@@ -52,16 +41,12 @@ export class MyApp {
   registerBackButtonAction() {
     this.platform.registerBackButtonAction(() => {
       //如果想点击返回按钮隐藏toast或loading或Overlay就把下面加上
-      // this.ionicApp._toastPortal.getActive() || this.ionicApp._loadingPortal.getActive() || this.ionicApp._overlayPortal.getActive()
       let activePortal = this.ionicApp._modalPortal.getActive();
       if (activePortal) {
         activePortal.dismiss().catch(() => { });
         activePortal.onDidDismiss(() => { });
         return;
       }
-      // let activeVC = this.nav.getActive();
-      // let tabs = activeVC.instance.tabs;
-      // let activeNav = tabs.getSelected();
       return this.nav.canGoBack() ? this.nav.pop() : this.showExit()
     }, 1);
   }

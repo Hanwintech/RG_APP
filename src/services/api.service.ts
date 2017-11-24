@@ -2,7 +2,6 @@ import { IHttpCommonResponse } from './../models/http-common-response.model';
 import { BaseRequest } from './../apis/base-request.api';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
-import { Md5 } from "ts-md5/dist/md5";
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -25,7 +24,7 @@ export class ApiService {
         if (!this._baseUrl) {
             this._baseUrl = localStorage.getItem('baseUrl');
             if (!this._baseUrl || this._baseUrl.length == 0) {
-                this._baseUrl = "http://192.168.100.78:8607";
+                this._baseUrl = "http://10.10.10.219:9090";
             }
         }
         return this._baseUrl;
@@ -44,7 +43,7 @@ export class ApiService {
             method: RequestMethod.Post,
             url: this.baseUrl + '/api/token',
             headers: headers,
-            body: "grant_type=custom" + "&username=" + account + "&password=" + password + "&user_type=2"
+            body: "grant_type=password" + "&username=" + account + "&password=" + password
         };
         return this.http.request(new Request(options))
             .map(res => res.json());

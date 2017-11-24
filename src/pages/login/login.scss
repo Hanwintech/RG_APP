@@ -1,3 +1,17 @@
 page-login {
-
+    .fixed-content, .scroll-content{
+        overflow: hidden;
+    }
+    form {
+        margin-top: 20%;
+        .item-block {
+            padding-right: 16px;
+            background:none
+        }
+    }
+    .scroll-content{
+        background-image:url('../assets/login/bg.png');
+        background-repeat:no-repeat;
+        background-size: 100%;
+    }
 }

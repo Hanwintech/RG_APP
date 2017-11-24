@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, IonicPage, Platform } from 'ionic-angular';
 import { ApiService } from '../../services/api.service';
+import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -32,10 +33,7 @@ export class LoginPage {
       localStorage.removeItem('account');
       localStorage.removeItem('password');
     }
-
   }
-
-  ionViewDidLoad() { }
 
   login() {
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
@@ -50,7 +48,7 @@ export class LoginPage {
         localStorage.setItem('account', this.auth.account);
         localStorage.setItem('password', this.auth.password);
         this.apiService.token = user.access_token;
-        this.navCtrl.setRoot("TabPage");
+        this.navCtrl.setRoot(TabsPage);
       }
       , error => {
         var message = '登录失败';

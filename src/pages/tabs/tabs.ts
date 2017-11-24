@@ -8,11 +8,10 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  tab1Root = 'MyPage';
-  tab2Root = 'StatisticsPage';
-  tab3Root = 'StatisticsPage';
-  tab4Root = 'InspectSearchPage';
+  tab1Root = 'SelfIndexPage';
+  tab2Root = 'SelfIndexPage';
+  tab3Root = 'SelfIndexPage';
+  tab4Root = 'SelfIndexPage';
 
   constructor() { }
-  ionViewDidEnter() { }
 }

@@ -12,9 +12,11 @@ import { PageService } from '../services/page.service';
 import { HttpModule } from '@angular/http';
 import { BLE } from '@ionic-native/ble';
 
+import { TabsPage } from '../pages/tabs/tabs';
+
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,TabsPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,7 @@ import { BLE } from '@ionic-native/ble';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,TabsPage
   ],
   providers: [
     StatusBar,

@@ -23,9 +23,11 @@ import { TabsPage } from '../pages/tabs/tabs';
     IonicModule.forRoot(MyApp, {
       platforms: {
         ios: {
-          backButtonText: '返回'
+          backButtonText: '返回',
         }
-      }
+      },
+      iconMode: 'ios', 
+      mode: 'ios' 
     }),
     HttpModule
   ],

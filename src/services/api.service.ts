@@ -6,6 +6,26 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiService {
+    public get areaCode(): string {
+        return "js"; //江苏省 = 1,
+        // return "nj"; //南京市 = 2,
+        // return "wx"; //无锡市 = 3,
+        // return "xz"; //徐州市 = 4,
+        // return "cz"; //常州市 = 5,
+        // return "sz"; //苏州市 = 6,
+        // return "nt"; //南通市 = 7,
+        // return "lyg"; //连云港市 = 8,
+        // return "ha"; //淮安市 = 9,
+        // return "yc"; //盐城市 = 10,
+        // return "yz"; //扬州市 = 11,
+        // return "zj"; //镇江市 = 12,
+        // return "tz"; //泰州市 = 13,
+        // return "sq"; //宿迁市 = 14,
+        // return ""; //昆山市 = 15,
+        // return ""; //泰兴市 = 16,
+        // return ""; //沭阳县 = 17
+        // return "df"; //大丰
+    }
 
     private _token: string;
     public get token(): string {
@@ -19,19 +39,25 @@ export class ApiService {
         this._token = v;
     }
 
-    private _baseUrl: string;
     public get baseUrl(): string {
-        if (!this._baseUrl) {
-            this._baseUrl = localStorage.getItem('baseUrl');
-            if (!this._baseUrl || this._baseUrl.length == 0) {
-                this._baseUrl = "http://10.10.10.219:9090";
-            }
-        }
-        return this._baseUrl;
-    }
-    public set baseUrl(v: string) {
-        localStorage.setItem('baseUrl', v);
-        this._baseUrl = v;
+        return "http://10.10.10.219:9090"; //江苏省 = 1,
+        // return ""; //南京市 = 2,
+        // return ""; //无锡市 = 3,
+        // return ""; //徐州市 = 4,
+        // return ""; //常州市 = 5,
+        // return ""; //苏州市 = 6,
+        // return ""; //南通市 = 7,
+        // return ""; //连云港市 = 8,
+        // return ""; //淮安市 = 9,
+        // return ""; //盐城市 = 10,
+        // return ""; //扬州市 = 11,
+        // return ""; //镇江市 = 12,
+        // return ""; //泰州市 = 13,
+        // return ""; //宿迁市 = 14,
+        // return ""; //昆山市 = 15,
+        // return ""; //泰兴市 = 16,
+        // return ""; //沭阳县 = 17
+        // return ""; //大丰
     }
 
     constructor(private http: Http) { }

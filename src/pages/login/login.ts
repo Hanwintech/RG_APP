@@ -11,15 +11,16 @@ import { TabsPage } from '../tabs/tabs';
 export class LoginPage {
   auth = { account: "", password: "" };
 
-  version = "";
+  private areaCode = "";
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public platform: Platform,
     public navParams: NavParams,
     public apiService: ApiService,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
-
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController
+  ) {
     var logout = navParams.get("logout");
     if (!logout) {
       var account = localStorage.getItem('account');
@@ -33,6 +34,8 @@ export class LoginPage {
       localStorage.removeItem('account');
       localStorage.removeItem('password');
     }
+
+    this.areaCode = this.apiService.areaCode;
   }
 
   login() {

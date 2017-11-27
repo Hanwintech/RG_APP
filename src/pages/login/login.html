@@ -1,14 +1,22 @@
 <ion-content padding>
   <form (ngSubmit)="login()" #form="ngForm">
-    <ion-item>
-      <ion-label floating>用户名</ion-label>
-      <ion-input type="text" required [(ngModel)]="auth.account" name="account"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>密码</ion-label>
-      <ion-input type="password" required [(ngModel)]="auth.password" name="password"></ion-input>
-    </ion-item>
-    <div class="spacer" style="height: 40px;"></div>
+    <div class="logo">
+        <img alt="" src="../assets/login/bg_login_logo_{{areaCode}}.png" />
+    </div>
+    <div class="spacer"></div>
+    <div class="loginBar accountBar">
+      <img alt="" src="../assets/login/login_user.png" />
+      <ion-item>
+        <ion-input placeholder="请输入账号" type="text" [(ngModel)]="auth.account" name="account"></ion-input>
+      </ion-item>
+    </div>
+    <div class="loginBar passwordBar">
+      <img alt="" src="../assets/login/login_lock.png" />
+      <ion-item>
+        <ion-input placeholder="请输入密码" type="password" [(ngModel)]="auth.password" name="password"></ion-input>
+      </ion-item>
+    </div>
+    <div class="spacer"></div>
     <button ion-button type="submit" [disabled]="!form.form.valid" block>登录</button>
   </form>
 </ion-content>

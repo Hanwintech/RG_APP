@@ -3,7 +3,7 @@
     <name>rg_app</name>
     <description>如皋试验区文物安全巡查APP</description>
     <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.10.10.85:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -81,13 +81,14 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
+    <allow-navigation href="http://localhost:8100" />
+    <allow-navigation href="http://10.10.10.85:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
-    <plugin name="cordova-plugin-ble-central" spec="^1.1.4" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <allow-navigation href="http://localhost:8100" />
+    <plugin name="cordova-plugin-ble-central" spec="^1.1.4" />
 </widget>

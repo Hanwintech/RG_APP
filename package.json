@@ -22,7 +22,7 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
-    "run": "ionic cordova run android --livereload --address localhost"
+    "run": "ionic cordova run android --livereload"
   },
   "dependencies": {
     "@angular/common": "4.1.3",

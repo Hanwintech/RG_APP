@@ -17,13 +17,15 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {
+      backButtonText: '',
+      tabsHideOnSubPages: true,
       platforms: {
         ios: {
           backButtonText: '返回',
         }
       },
-      iconMode: 'ios', 
-      mode: 'ios' 
+      iconMode: 'ios',
+      mode: 'ios'
     }),
     HttpModule
   ],
@@ -36,7 +38,7 @@ import { HttpModule } from '@angular/http';
     SplashScreen,
     ApiService,
     PageService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

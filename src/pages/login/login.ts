@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, IonicPage } from 'ionic-angular';
-import { ApiService } from '../../services/api.service';
+
+import { ApiService } from './../../services/api.service';
+import { EnumAreaCode } from './../../models/enum'
 
 @IonicPage()
 @Component({
@@ -10,7 +12,7 @@ import { ApiService } from '../../services/api.service';
 export class LoginPage {
   auth = { account: "", password: "" };
 
-  private areaCode = "";
+  private areaCode: string;
 
   constructor(
     private navCtrl: NavController,
@@ -19,7 +21,7 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
   ) {
-    this.areaCode = this.apiService.areaCode;
+    this.areaCode = (this.apiService.areaCode as number).toString();
 
     var logout = navParams.get("logout");
     if (!logout) {

@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, Platform, App, NavParams, ActionSheetController } from 'ionic-angular';
 
-/**
- * Generated class for the SelfIndexPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ApiService } from './../../../services/api.service';
+import { EnumAreaCode } from './../../../models/enum'
 
 @IonicPage()
 @Component({
@@ -15,12 +11,17 @@ import { IonicPage, NavController, Platform, App, NavParams, ActionSheetControll
 })
 export class SelfIndexPage {
 
+  private area: string;
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    private navCtrl: NavController,
+    private navParams: NavParams,
     private app: App,
-    public platform: Platform,
-    public actionSheetCtrl: ActionSheetController) {
+    private platform: Platform,
+    private actionSheetCtrl: ActionSheetController,
+    private apiService: ApiService
+  ) {
+    this.area = EnumAreaCode[this.apiService.areaCode];
   }
 
   private editInfo(){

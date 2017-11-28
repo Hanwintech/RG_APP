@@ -1,19 +1,58 @@
-<!--
-  Generated template for the SelfEditInfoPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>self-edit-info</ion-title>
+    <ion-title>个人信息编辑</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <ion-list>
 
-<ion-content padding>
+    <ion-item>
+      <ion-label fixed>账号</ion-label>
+      <ion-label>admin</ion-label>
+    </ion-item>
 
-    <button ion-button style="position:absolute;bottom:1em;" block (click)="exitMenu()">退出系统</button>
+    <ion-item>
+      <ion-label fixed>姓名</ion-label>
+      <ion-label>系统管理员</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>手机号</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>座机号</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>邮箱</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>原始密码</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>新密码</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>密码确认</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="exitMenu()">提交</button>
+      </ion-col>
+      <ion-col style="border-left: solid 1px #fff;">
+        <button ion-button block (click)="exitMenu()">退出系统</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

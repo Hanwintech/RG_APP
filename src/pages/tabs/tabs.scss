@@ -1,3 +1,9 @@
 page-tabs {
-
+    [ng-reflect-name=twoLine]{
+        width: 44px !important;
+        height: 48px !important;
+        background-image: url('../assets/icon/tabs_twoLine_normal.png');
+        background-repeat:no-repeat;
+        background-size: 100%;
+    }
 }

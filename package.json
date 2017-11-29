@@ -50,7 +50,8 @@
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
     "ts-md5": "^1.2.2",
-    "zone.js": "0.8.12"
+    "zone.js": "0.8.12",
+    "cordova-plugin-ble-central": "^1.1.4"
   },
   "devDependencies": {
     "@ionic/app-scripts": "2.1.4",
@@ -62,7 +63,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {}
+      "ionic-plugin-keyboard": {},
+      "cordova-plugin-ble-central": {}
     },
     "platforms": [
       "android",

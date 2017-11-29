@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, IonicPage } from 'ionic-angular';
 
 import { ApiService } from './../../services/api.service';
-import { EnumAreaCode } from './../../models/enum'
 
 @IonicPage()
 @Component({
@@ -21,7 +20,7 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
   ) {
-    this.areaCode = (this.apiService.areaCode as number).toString();
+    this.areaCode = this.apiService.areaCode.toString();
 
     var logout = navParams.get("logout");
     if (!logout) {
@@ -35,6 +34,10 @@ export class LoginPage {
     } else {
       localStorage.removeItem('account');
       localStorage.removeItem('password');
+      localStorage.removeItem('name');
+      localStorage.removeItem('mobile');
+      localStorage.removeItem('phone');
+      localStorage.removeItem('email');
     }
   }
 
@@ -46,22 +49,21 @@ export class LoginPage {
     loading.present();
     this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
       res => {
-        let user = <any>res;
         localStorage.setItem('account', this.auth.account);
         localStorage.setItem('password', this.auth.password);
-        this.apiService.token = user.access_token;
+        localStorage.setItem('name', res.userName);
+        localStorage.setItem('mobile', res.mobilePhone);
+        localStorage.setItem('phone', res.officePhone);
+        localStorage.setItem('email', res.email);
+        this.apiService.token = res.access_token;
         this.navCtrl.setRoot("TabsPage");
       },
       error => {
-        var message = '登录失败';
+        var message = '登录失败！';
         if (error.status == 401) {
-          message = "用户名或密码错误"
+          message = "用户名或密码错误！"
         }
-        let alert = this.alertCtrl.create({
-          title: message,
-          subTitle: "",
-          buttons: ['确定']
-        });
+        let alert = this.alertCtrl.create({ title: message, subTitle: "", buttons: ['确定'] });
         alert.present();
       });
   }

@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiService } from '../services/api.service';
 import { PageService } from '../services/page.service';
+import { ValidateService } from '../services/validate.service';
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { HttpModule } from '@angular/http';
     SplashScreen,
     ApiService,
     PageService,
+    ValidateService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

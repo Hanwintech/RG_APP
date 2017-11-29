@@ -24,7 +24,11 @@ export class SelfIndexPage {
     this.area = EnumAreaCode[this.apiService.areaCode];
   }
 
-  private editInfo(){
+  editInfo() {
     this.navCtrl.push("SelfEditInfoPage");
+  }
+
+  culturalRelicInfoList() {
+    this.navCtrl.push("CulturalRelicInfoListPage");
   }
 }

@@ -9,37 +9,37 @@
 
     <ion-item>
       <ion-label fixed>账号</ion-label>
-      <ion-label>admin</ion-label>
+      <ion-label>{{userInfo.account}}</ion-label>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>姓名</ion-label>
-      <ion-label>系统管理员</ion-label>
+      <ion-label>{{userInfo.name}}</ion-label>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>手机号</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="userInfo.mobilePhone"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>座机号</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="userInfo.officePhone"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>邮箱</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="userInfo.email"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>原始密码</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="userInfo.password"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>新密码</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="newPassword"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>密码确认</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>
@@ -48,7 +48,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <button ion-button block (click)="exitMenu()">提交</button>
+        <button ion-button block (click)="submit()">提交</button>
       </ion-col>
       <ion-col style="border-left: solid 1px #fff;">
         <button ion-button block (click)="exitMenu()">退出系统</button>

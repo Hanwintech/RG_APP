@@ -37,21 +37,19 @@ page-self-index {
         padding: 15px 0;
         .iconButton {
             display: inline-block;
-            width: calc(25vw - 6px);
+            width: 24%;
             font-size: 12px;
             text-align: center;
+            border-right: solid 1px #c7c7c7;
             img {
-                width: calc(25vw - 57px);
+                width: 4em;
             }
+        }
+        .iconButton:last-child {
+            border-right: 0;
         }
         .iconButton:active {
             background-color: #eeeeee;
-        }
-        .spliter {
-            width: 1px;
-            height: 15vw;
-            background-color: #c7c7c7;
-            display: inline-block;
         }
     }
     ion-list {

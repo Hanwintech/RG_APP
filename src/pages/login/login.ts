@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
 import { ApiService } from './../../services/api.service';
+import { PageService } from './../../services/page.service';
 
 @IonicPage()
 @Component({
@@ -17,8 +18,7 @@ export class LoginPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private apiService: ApiService,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private pageService: PageService
   ) {
     this.areaCode = this.apiService.areaCode.toString();
 
@@ -35,6 +35,9 @@ export class LoginPage {
       localStorage.removeItem('account');
       localStorage.removeItem('password');
       localStorage.removeItem('name');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('manageUnitId');
+      localStorage.removeItem('userType');
       localStorage.removeItem('mobile');
       localStorage.removeItem('phone');
       localStorage.removeItem('email');
@@ -45,13 +48,16 @@ export class LoginPage {
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       return;
     }
-    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
-    loading.present();
+    this.pageService.showLoading("正在登录...");
     this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
       res => {
+        this.pageService.dismissLoading();
         localStorage.setItem('account', this.auth.account);
         localStorage.setItem('password', this.auth.password);
         localStorage.setItem('name', res.userName);
+        localStorage.setItem('userId', res.userID);
+        localStorage.setItem('manageUnitId', res.manageUnitID);
+        localStorage.setItem('userType', res.userType);
         localStorage.setItem('mobile', res.mobilePhone);
         localStorage.setItem('phone', res.officePhone);
         localStorage.setItem('email', res.email);
@@ -59,12 +65,12 @@ export class LoginPage {
         this.navCtrl.setRoot("TabsPage");
       },
       error => {
+        this.pageService.dismissLoading();
         var message = '登录失败！';
         if (error.status == 401) {
           message = "用户名或密码错误！"
         }
-        let alert = this.alertCtrl.create({ title: message, subTitle: "", buttons: ['确定'] });
-        alert.present();
+        this.pageService.showErrorMessage(message);
       });
   }
 }

@@ -23,7 +23,6 @@ export class PageService {
 
     dismissLoading() {
         if (this.loading) {
-            console.log(this.loading);
             this.loading.dismissAll();
         }
     }

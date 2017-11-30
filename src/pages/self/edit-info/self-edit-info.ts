@@ -25,6 +25,9 @@ export class SelfEditInfoPage {
     private validateService: ValidateService
   ) {
     this.userInfo = new UserEntity(localStorage.getItem('account'), localStorage.getItem('name'));
+    this.userInfo.id = localStorage.getItem("userId");
+    this.userInfo.manageUnit = localStorage.getItem("manageUnitId");
+    this.userInfo.userType = Number(localStorage.getItem("userType"));
     this.userInfo.mobilePhone = localStorage.getItem('mobile');
     this.userInfo.officePhone = localStorage.getItem('phone');
     this.userInfo.email = localStorage.getItem('email');
@@ -81,7 +84,7 @@ export class SelfEditInfoPage {
           this.pageService.showMessage('提交成功!');
           this.navCtrl.pop();
         } else {
-          this.pageService.showMessage(res.reason);
+          this.pageService.showErrorMessage(res.reason);
         }
       },
       error => {

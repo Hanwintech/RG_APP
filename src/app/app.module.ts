@@ -9,6 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiService } from '../services/api.service';
 import { PageService } from '../services/page.service';
 import { ValidateService } from '../services/validate.service';
+import { SystemConst } from '../services/system-const.service';
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -40,6 +41,7 @@ import { HttpModule } from '@angular/http';
     ApiService,
     PageService,
     ValidateService,
+    SystemConst,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

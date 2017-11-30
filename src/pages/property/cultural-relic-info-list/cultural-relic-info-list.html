@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>不可移动文物</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="search()">
+      <button ion-button icon-only (click)="showSimpleSearch()">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
       <button ion-button icon-only>
@@ -16,6 +16,20 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list ng-bind="EnumCulturalRelicLevel">
+    <ion-item *ngFor="let cr of datasource">
+      <img src="./../../../assets/icon/empty_small.png">
+      <div class="description">
+        <h3>{{cr.upCulturalRelic.culturalRelicName}}</h3>
+        <div>{{cr.upCulturalRelic.remark}}</div>
+        <h4>{{cr.enumAreaName}}-{{cr.upCulturalRelic.districtName}}</h4>
+        <h5>{{getCulturalRelicLevelName(cr.upCulturalRelic.culturalRelicLevel)}}</h5>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+      <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

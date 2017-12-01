@@ -129,7 +129,12 @@ export class CulturalRelicInfoSearch {
     }
     public clearNumbers() {
         this.culturalRelicLevel = -1;
-
+        this.area = -1;
+        this.district = -1;
+        this.culturalRelicType = -1;
+        this.culturalRelicTwoStageType = -1;
+        this.mapLabelStatus = -1;
+        this.coordinateAccurate = -1;
     }
 }
 

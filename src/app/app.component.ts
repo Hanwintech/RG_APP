@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 
+declare var BMap;
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -74,8 +76,18 @@ export class MyApp {
     let watch = this.geolocation.watchPosition();
     watch.subscribe((resp) => {
       if (resp.coords) {
-        localStorage.setItem('longitude', resp.coords.longitude.toString());
-        localStorage.setItem('latitude', resp.coords.latitude.toString());
+        let longitude = resp.coords.longitude;
+        let latitude = resp.coords.latitude;
+        let point = new BMap.Point(longitude, latitude);
+        let convertor = new BMap.Convertor();
+        let pointArr = [];
+        pointArr.push(point);
+        convertor.translate(pointArr, 1, 5, function (data) {
+          if (data.status === 0) {
+            localStorage.setItem('longitude', data.points[0].lng);
+            localStorage.setItem('latitude', data.points[0].lat);
+          }
+        });
       } else {
         localStorage.removeItem('longitude');
         localStorage.removeItem('latitude');

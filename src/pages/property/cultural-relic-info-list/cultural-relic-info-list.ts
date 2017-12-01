@@ -65,6 +65,7 @@ export class CulturalRelicInfoListPage {
         if (res.success) {
           if (isNewSearch) {
             this.datasource = [];
+            this.nextPageIndex = 0;
           }
 console.log(res.data);
           this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;

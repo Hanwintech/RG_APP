@@ -39,34 +39,45 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>类别</ion-label>
-      <ion-select [(ngModel)]="search.culturalRelicLevel" cancelText="取消" interface="action-sheet">
-        <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList" value="kvp.key">{{kvp.value}}</ion-option>
+      <ion-select [(ngModel)]="search.culturalRelicLevel" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
-      <!-- <ion-input type="password" [(ngModel)]="search.newPassword"></ion-input> -->
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
-      <!-- <ion-input type="password" [(ngModel)]="search.newPasswordConfirm"></ion-input> -->
+      <ion-select [(ngModel)]="search.area" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+        <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>县区</ion-label>
-      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+      <ion-select [(ngModel)]="search.district" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>类型</ion-label>
-      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+      <ion-select [(ngModel)]="search.culturalRelicType" cancelText="取消" interface="popover" (ngModelChange)="typeChanged()">
+        <ion-option *ngFor="let kvp of searchDataSource.culturalRelicTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>二级分类</ion-label>
-      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+      <ion-select [(ngModel)]="search.culturalRelicTwoStageType" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of twoStageTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>地图标注情况</ion-label>
-      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+      <ion-select [(ngModel)]="search.mapLabelStatus" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of searchDataSource.mapLabelStatusList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>标注精确度</ion-label>
-      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+      <ion-select [(ngModel)]="search.coordinateAccurate" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of searchDataSource.coordinateAccurateList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
     </ion-item>
   </ion-list>
 </ion-content>

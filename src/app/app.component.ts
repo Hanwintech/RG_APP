@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,6 +18,7 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public toastCtrl: ToastController,
+    public geolocation: Geolocation,
     public ionicApp: IonicApp
   ) {
     this.initializeApp();
@@ -27,6 +29,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.registerBackButtonAction();//注册返回按键事件
+      this.watchPosition();//监控实时位置
     });
   }
 
@@ -64,5 +67,19 @@ export class MyApp {
       this.backButtonPressed = true;
       setTimeout(() => this.backButtonPressed = false, 2000);//2秒内没有再次点击返回则将触发标志标记为false
     }
+  }
+
+  //监控实时位置
+  watchPosition() {
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((resp) => {
+      if (resp.coords) {
+        localStorage.setItem('longitude', resp.coords.longitude.toString());
+        localStorage.setItem('latitude', resp.coords.latitude.toString());
+      } else {
+        localStorage.removeItem('longitude');
+        localStorage.removeItem('latitude');
+      }
+    });
   }
 }

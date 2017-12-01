@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, IonicPage, Platform } from 'ionic-angular';
-import { ApiService } from '../../services/api.service';
-import { TabsPage } from '../tabs/tabs';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
+
+import { ApiService } from './../../services/api.service';
+import { PageService } from './../../services/page.service';
 
 @IonicPage()
 @Component({
@@ -11,16 +12,16 @@ import { TabsPage } from '../tabs/tabs';
 export class LoginPage {
   auth = { account: "", password: "" };
 
-  private areaCode = "";
+  private areaCode: string;
 
   constructor(
-    public navCtrl: NavController,
-    public platform: Platform,
-    public navParams: NavParams,
-    public apiService: ApiService,
-    public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private apiService: ApiService,
+    private pageService: PageService
   ) {
+    this.areaCode = this.apiService.areaCode.toString();
+
     var logout = navParams.get("logout");
     if (!logout) {
       var account = localStorage.getItem('account');
@@ -33,37 +34,43 @@ export class LoginPage {
     } else {
       localStorage.removeItem('account');
       localStorage.removeItem('password');
+      localStorage.removeItem('name');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('manageUnitId');
+      localStorage.removeItem('userType');
+      localStorage.removeItem('mobile');
+      localStorage.removeItem('phone');
+      localStorage.removeItem('email');
     }
-
-    this.areaCode = this.apiService.areaCode;
   }
 
-  login() {
+  private login() {
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       return;
     }
-    let loading = this.loadingCtrl.create({ dismissOnPageChange: true, content: '正在登录' });
-    loading.present();
-    this.apiService.getToken(this.auth.account, this.auth.password)
-      .subscribe(
+    this.pageService.showLoading("正在登录...");
+    this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
       res => {
-        let user = <any>res;
+        this.pageService.dismissLoading();
         localStorage.setItem('account', this.auth.account);
         localStorage.setItem('password', this.auth.password);
-        this.apiService.token = user.access_token;
-        this.navCtrl.setRoot(TabsPage);
-      }
-      , error => {
-        var message = '登录失败';
+        localStorage.setItem('name', res.userName);
+        localStorage.setItem('userId', res.userID);
+        localStorage.setItem('manageUnitId', res.manageUnitID);
+        localStorage.setItem('userType', res.userType);
+        localStorage.setItem('mobile', res.mobilePhone);
+        localStorage.setItem('phone', res.officePhone);
+        localStorage.setItem('email', res.email);
+        this.apiService.token = res.access_token;
+        this.navCtrl.setRoot("TabsPage");
+      },
+      error => {
+        this.pageService.dismissLoading();
+        var message = '登录失败！';
         if (error.status == 401) {
-          message = "用户名或密码错误"
+          message = "用户名或密码错误！"
         }
-        let alert = this.alertCtrl.create({
-          title: message,
-          subTitle: "",
-          buttons: ['确定']
-        });
-        alert.present();
+        this.pageService.showErrorMessage(message);
       });
   }
 }

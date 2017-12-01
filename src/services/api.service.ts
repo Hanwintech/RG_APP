@@ -4,27 +4,12 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { EnumAreaCode } from './../models/enum'
+
 @Injectable()
 export class ApiService {
-    public get areaCode(): string {
-        return "js"; //江苏省 = 1,
-        // return "nj"; //南京市 = 2,
-        // return "wx"; //无锡市 = 3,
-        // return "xz"; //徐州市 = 4,
-        // return "cz"; //常州市 = 5,
-        // return "sz"; //苏州市 = 6,
-        // return "nt"; //南通市 = 7,
-        // return "lyg"; //连云港市 = 8,
-        // return "ha"; //淮安市 = 9,
-        // return "yc"; //盐城市 = 10,
-        // return "yz"; //扬州市 = 11,
-        // return "zj"; //镇江市 = 12,
-        // return "tz"; //泰州市 = 13,
-        // return "sq"; //宿迁市 = 14,
-        // return ""; //昆山市 = 15,
-        // return ""; //泰兴市 = 16,
-        // return ""; //沭阳县 = 17
-        // return "df"; //大丰
+    public get areaCode(): EnumAreaCode {
+        return EnumAreaCode.江苏省;
     }
 
     private _token: string;
@@ -56,8 +41,8 @@ export class ApiService {
         // return ""; //宿迁市 = 14,
         // return ""; //昆山市 = 15,
         // return ""; //泰兴市 = 16,
-        // return ""; //沭阳县 = 17
-        // return ""; //大丰
+        // return ""; //沭阳县 = 17,
+        // return ""; //大丰 = 18
     }
 
     constructor(private http: Http) { }

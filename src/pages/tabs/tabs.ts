@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  tab1Root = 'SelfIndexPage';
+  tab1Root = 'TwoLinePage';
   tab2Root = '';
   tab3Root = '';
   tab4Root = 'SelfIndexPage';

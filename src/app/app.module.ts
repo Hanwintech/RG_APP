@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { MyApp } from './app.component';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geolocation } from '@ionic-native/geolocation';
+
+import { MyApp } from './app.component';
+
 import { ApiService } from '../services/api.service';
 import { PageService } from '../services/page.service';
 import { ValidateService } from '../services/validate.service';
@@ -38,6 +40,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
     ApiService,
     PageService,
     ValidateService,

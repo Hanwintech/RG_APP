@@ -1,3 +1,23 @@
 page-common-simple-search {
-
+    .searchBox {
+        background-color: #fff;
+        border-radius: 3px;
+        .icon-ios {
+            font-size: 22px;
+            position: fixed;
+            margin: 5px 10px;
+        }
+        .ion-ios-search-outline {
+            float: left;
+        }
+        .text-input-ios {
+            width:100%;
+            margin:0;
+            padding: 8px 30px 7px 35px;
+        }
+        .ion-ios-close-outline {
+            float: right;
+            right:0;
+        }
+    }
 }

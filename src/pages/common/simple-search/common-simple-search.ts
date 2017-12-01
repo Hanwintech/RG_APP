@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CommonSimpleSearchPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -14,12 +7,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'common-simple-search.html',
 })
 export class CommonSimpleSearchPage {
+  private keyWord: String;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private params: NavParams, private viewCtrl: ViewController) {
+    this.keyWord = params.data.keyWord;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CommonSimpleSearchPage');
+  close() {
+    this.viewCtrl.dismiss({ "needSearch": false });
   }
 
+  clear() {
+    this.keyWord = "";
+  }
+
+  doSearch() {
+    this.viewCtrl.dismiss({ "needSearch": true, "keyWord": this.keyWord });
+  }
 }

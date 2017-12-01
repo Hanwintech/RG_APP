@@ -9,8 +9,8 @@ import { Storage } from '@ionic/storage';
 })
 export class TabsPage {
   tab1Root = 'SelfIndexPage';
-  tab2Root = 'SelfIndexPage';
-  tab3Root = 'SelfIndexPage';
+  tab2Root = '';
+  tab3Root = '';
   tab4Root = 'SelfIndexPage';
 
   constructor() { }

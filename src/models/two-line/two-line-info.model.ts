@@ -23,3 +23,24 @@ export class UTCulturalRelicPoint {
     public y: number;
     public sortIndex: number;
 }
+
+export class UTMapDistrictCluster {
+    public id: string;
+    public enumArea: number;
+    public district: number;
+    public districtType: number;
+    public pCMapLevelMin: number;
+    public pCMapLevelMax: number;
+    public appMapLevelMin: number;
+    public appMapLevelMax: number;
+    public coordinateX: number;
+    public coordinateY: number;
+    public parentDistrict: number;
+    public hasChildDistrict: boolean;
+    public remark: string;
+    public addDate: string;
+    public adderID: string;
+    public updateDate: string;
+    public updaterID: string;
+    public isDeleted: boolean;
+}

@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { GetCulturalRelicInfoList } from './../../../apis/property/get-cultural-relic-info-list.api';
-import { CulturalRelicInfo, CulturalRelicInfoSearch } from './../../../models/property/cultural-relic-info.model';
+import { CulturalRelicInfo, CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
@@ -16,6 +16,7 @@ import { SystemConst } from './../../../services/system-const.service';
 export class CulturalRelicInfoListPage {
   private nextPageIndex: number;
   private search: CulturalRelicInfoSearch;
+  private searchDataSource: CulturalRelicInfoSearchDataSource;
   private datasource: CulturalRelicInfo[];
 
   constructor(
@@ -65,6 +66,8 @@ export class CulturalRelicInfoListPage {
           if (isNewSearch) {
             this.datasource = [];
           }
+console.log(res.data);
+          this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
 
           //获取新一页的数据
           let temp: CulturalRelicInfo[] = res.data.culturalRelicInfoList ? res.data.culturalRelicInfoList : [];
@@ -74,7 +77,7 @@ export class CulturalRelicInfoListPage {
 
           //控制瀑布流控件状态
           if (event) {
-            if (temp.length < this.search.pageSize) {
+            if (res.data.isLastPage) {
               event.enable(false);
             } else {
               event.complete();
@@ -111,10 +114,10 @@ export class CulturalRelicInfoListPage {
   }
 
   showSearch() {
-    let profileModal = this.modalCtrl.create('CulturalRelicSearchPage', { "keyWord": this.search.keyword });
+    let profileModal = this.modalCtrl.create('CulturalRelicSearchPage', { "search": this.search, "dataSource":this.searchDataSource });
     profileModal.onDidDismiss(data => {
       if (data.needSearch) {
-        this.search.keyword = data.keyWord;
+        this.search = data.search;
         this.doSearch(null, true);
       }
     });

@@ -1,18 +1,76 @@
-<!--
-  Generated template for the CulturalRelicSearchPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>cultural-relic-search</ion-title>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
+    <ion-title>搜索文物</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="clear()">清空</button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>文物名称</ion-label>
+      <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>文物代码</ion-label>
+      <ion-input type="text" [(ngModel)]="search.culturalRelicCode"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>文物地址</ion-label>
+      <ion-input type="text" [(ngModel)]="search.location"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>统计年代</ion-label>
+      <ion-input type="text" [(ngModel)]="search.statisticsTime"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>管理单位</ion-label>
+      <ion-input type="text" [(ngModel)]="search.manageUnitName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>简介</ion-label>
+      <ion-input type="password" [(ngModel)]="search.remark"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>类别</ion-label>
+      <ion-select [(ngModel)]="search.culturalRelicLevel" cancelText="取消" interface="action-sheet">
+        <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList" value="kvp.key">{{kvp.value}}</ion-option>
+      </ion-select>
+      <!-- <ion-input type="password" [(ngModel)]="search.newPassword"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地区</ion-label>
+      <!-- <ion-input type="password" [(ngModel)]="search.newPasswordConfirm"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>县区</ion-label>
+      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>类型</ion-label>
+      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>二级分类</ion-label>
+      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地图标注情况</ion-label>
+      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>标注精确度</ion-label>
+      <!-- <ion-input type="password" [(ngModel)]="newPasswordConfirm"></ion-input> -->
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <button ion-button block (click)="doSearch()">确定</button>
+</ion-footer>

@@ -1,6 +1,7 @@
 import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
-import { TwoLineInfo } from "./two-line-info.model";
+import { TwoLineInfo, UTMapDistrictCluster } from "./../two-line/two-line-info.model";
+import { TreeDataInfo } from "./../tree-data-info.model";
 
 export class CulturalRelicInfo {
     public culturalRelic: CulturalRelicInfoDetail;
@@ -122,4 +123,33 @@ export class CulturalRelicInfoSearch {
     public districtName: string;
     public districtCoordinateX: number;
     public districtCoordinateY: number;
+
+    constructor() {
+        this.clearNumbers();
+    }
+    public clearNumbers() {
+        this.culturalRelicLevel = -1;
+
+    }
+}
+
+export class CulturalRelicInfoSearchDataSource {
+    //级别
+    public culturalRelicLevelList: IntegerKeyValue[];
+    //所属区域
+    public areaList: IntegerKeyValue[];
+    //所属子区域
+    public districtList: TreeDataInfo[];
+    //分类
+    public culturalRelicTypeList: IntegerKeyValue[];
+    /// 二级分类
+    public culturalRelicTwoStageTypeList: TreeDataInfo[];
+    //地图标注情况
+    public mapLabelStatusList: IntegerKeyValue[];
+    //标注精确度
+    public coordinateAccurateList: IntegerKeyValue[];
+    //两线标注情况
+    public twoLimitTabTypeList: IntegerKeyValue[];
+
+    public mapDistrictClusterList: UTMapDistrictCluster[];
 }

@@ -67,7 +67,7 @@ export class CulturalRelicInfoListPage {
             this.datasource = [];
             this.nextPageIndex = 0;
           }
-console.log(res.data);
+          console.log(res.data);
           this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
 
           //获取新一页的数据
@@ -107,6 +107,7 @@ console.log(res.data);
     let profileModal = this.modalCtrl.create('CommonSimpleSearchPage', { "keyWord": this.search.keyword });
     profileModal.onDidDismiss(data => {
       if (data.needSearch) {
+        this.search.isDefaultSearch = true;
         this.search.keyword = data.keyWord;
         this.doSearch(null, true);
       }
@@ -115,9 +116,10 @@ console.log(res.data);
   }
 
   showSearch() {
-    let profileModal = this.modalCtrl.create('CulturalRelicSearchPage', { "search": this.search, "dataSource":this.searchDataSource });
+    let profileModal = this.modalCtrl.create('CulturalRelicSearchPage', { "search": this.search, "dataSource": this.searchDataSource });
     profileModal.onDidDismiss(data => {
       if (data.needSearch) {
+        this.search.isDefaultSearch = false;
         this.search = data.search;
         this.doSearch(null, true);
       }

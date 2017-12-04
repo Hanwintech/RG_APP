@@ -19,6 +19,8 @@ export class CulturalRelicSearchPage {
     this.searchDataSource = params.data.dataSource;
     this.districtList = [];
     this.twoStageTypeList = [];
+    this.areaChanged();
+    this.typeChanged();
   }
 
   areaChanged() {
@@ -77,6 +79,10 @@ export class CulturalRelicSearchPage {
     this.search.manageUnitName = "";
     this.search.remark = "";
     this.search.clearNumbers();
+    this.districtList = [];
+    this.twoStageTypeList = [];
+    this.areaChanged();
+    this.typeChanged();
   }
 
   doSearch() {

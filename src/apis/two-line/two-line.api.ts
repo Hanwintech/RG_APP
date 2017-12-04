@@ -7,8 +7,6 @@ export class GetCulturalRelicMapInfosUrl extends BaseRequest {
         super();
         this.method = "POST";
         this.requestUrl = "/api/system/get_cultural_relic_map_infos";
-        //this.requestUrl = "/api/system/get_two_line_image_list";
-        
         this.requestBody = this.search;
     }
 }

@@ -5,6 +5,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { MyApp } from './app.component';
 
@@ -41,6 +43,8 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     Geolocation,
+    File,
+    FileTransfer,
     ApiService,
     PageService,
     ValidateService,

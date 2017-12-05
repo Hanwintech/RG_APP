@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>查看图片</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager loop="{{picUrls && picUrls.length > 1}}" initialSlide="{{currentIndex}}">
+    <ion-slide *ngFor="let pic of picUrls">
+      <img src="{{pic}}">
+    </ion-slide>
+  </ion-slides>
+</ion-content>

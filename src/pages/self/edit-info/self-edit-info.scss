@@ -1,6 +1,6 @@
 page-self-edit-info {
     ion-content {
-        .item-ios {
+        ion-item.item {
             padding-left: 0;
             ion-label:first-child {
                 padding-left: 16px;
@@ -19,7 +19,7 @@ page-self-edit-info {
             padding: 0;
             .col {
                 padding: 0;
-                .button-ios {
+                .button {
                     margin: 0;
                     padding: 0;
                 }

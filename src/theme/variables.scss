@@ -14,10 +14,6 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
-.alert-head {
-    background-color: #1bbbbb;
-}
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -26,7 +22,7 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 $colors: ( primary: #1bbbbb, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222, background: #e4ebeb, grayText: #818080, avater: #EDAA45);
-$toolbar-background:#1bbbbb;
+$toolbar-background:color($colors, primary, base);
 $img-placeholder-background: #EDAA45;
 // App iOS Variables
 // --------------------------------------------------
@@ -35,7 +31,7 @@ $item-ios-divider-background: color($colors, background, base);
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-$label-md-text-color:#1bbbbb;
+$label-md-text-color: color($colors, primary, base);
 $item-md-divider-background:color($colors, background, base);
 // App Windows Variables
 // --------------------------------------------------
@@ -56,6 +52,10 @@ $item-md-divider-background:color($colors, background, base);
 // --------------------------------------------------
 @import "roboto";
 @import "noto-sans";
+.alert-head {
+    background-color: color($colors, primary, base);
+}
+
 ion-header {
     .toolbar-ios ion-title {
         padding-left: 45px;
@@ -64,8 +64,9 @@ ion-header {
         }
     }
 }
-ion-item-options{
-    .button{
-        width:2.6em;
+
+ion-item-options {
+    .button {
+        width: 2.6em;
     }
 }

@@ -67,7 +67,6 @@ export class CulturalRelicInfoListPage {
             this.datasource = [];
             this.nextPageIndex = 0;
           }
-          console.log(res.data);
           this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
 
           //获取新一页的数据
@@ -96,7 +95,7 @@ export class CulturalRelicInfoListPage {
           event.enable(false);
         }
         this.pageService.showErrorMessage(error);
-      })
+      });
   }
 
   getCulturalRelicLevelName(culturalRelicLevel: number): string {
@@ -132,11 +131,11 @@ export class CulturalRelicInfoListPage {
   }
 
   add() {
-    //this.navCtrl.push('CulturalRelicInfoEditPage');
+    this.navCtrl.push('CulturalRelicInfoEditPage');
   }
 
   edit(culturalRelicID: string) {
-    //this.navCtrl.push('CulturalRelicInfoEditPage', culturalRelicID);
+    this.navCtrl.push('CulturalRelicInfoEditPage', culturalRelicID);
   }
 
   delete(culturalRelicID: string) { }

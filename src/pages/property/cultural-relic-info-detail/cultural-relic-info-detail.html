@@ -9,6 +9,118 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div class="headImg">
+    <img src="{{culturalRelicInfo.miniImageUrl ? culturalRelicInfo.miniImageUrl : './../../../assets/icon/empty_middle.png'}}">
+  </div>
 
+  <ion-list>
+    <ion-item class="subTitle">
+      基本信息
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>文物名称</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.culturalRelicName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>文物编码</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.culturalRelicCode}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地区</ion-label>
+      <ion-label>{{culturalRelicInfo.enumAreaName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>县区</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.districtName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>类别</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.levelName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地址</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.location}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>标注精确度</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.coordinateAccurateName}}</ion-label>
+    </ion-item>
+    <ion-item class="subTitle">
+      简介
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>统计年代</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.statisticsTime}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>管理单位</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.manageUnitName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>类型</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.culturalRelicTypeName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>二级类型</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.culturalRelicTwoStageTypeName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>简介</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.remark}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="culturalRelicInfo.attachmentList && culturalRelicInfo.attachmentList.length > 0" class="littleTitle">
+      附件
+    </ion-item>
+    <ion-item *ngIf="culturalRelicInfo.attachmentList && culturalRelicInfo.attachmentList.length > 0" class="attachment">
+      <div *ngFor="let att of culturalRelicInfo.attachmentList" class="attachmentContent">
+        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <div class="description">
+          <div class="fileShowName">{{att.fileShowName}}</div>
+          <div class="fileName">{{att.fileName}}</div>
+        </div>
+        <button ion-button outline (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
+        <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
+      </div>
+    </ion-item>
+    <ion-item class="subTitle">
+      两线信息
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>标注情况</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.twoLimitTabName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>保护范围</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.protectionRange}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>建设控制地带</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.constructionControl}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>相关图片</ion-label>
+      <ion-label *ngIf="culturalRelicInfo.twoLimitImageList && culturalRelicInfo.twoLimitImageList.length > 0">
+        <button ion-button outline (click)="showTwoLimitImageList()" style="margin-right:14px;">
+          点击查看相关图片
+        </button>
+      </ion-label>
+      <ion-label *ngIf="!culturalRelicInfo.twoLimitImageList || culturalRelicInfo.twoLimitImageList.length == 0">
+        无
+      </ion-label>
+    </ion-item>
+    <ion-item class="subTitle">
+      两线附件
+    </ion-item>
+    <ion-item *ngIf="culturalRelicInfo.twoLimitAttachmentList && culturalRelicInfo.twoLimitAttachmentList.length > 0" class="attachment">
+      <div *ngFor="let att of culturalRelicInfo.twoLimitAttachmentList" class="attachmentContent">
+        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <div class="description">
+          <div class="fileShowName">{{att.fileShowName}}</div>
+          <div class="fileName">{{att.fileName}}</div>
+        </div>
+        <button ion-button outline (click)="download(att.fileUrl, att.fileShowName)">下载</button>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

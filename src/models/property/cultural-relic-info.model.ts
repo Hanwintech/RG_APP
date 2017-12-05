@@ -15,6 +15,11 @@ export class CulturalRelicInfo {
     public twoLineInfoList: TwoLineInfo[];
     public coordinateAccurateList: IntegerKeyValue[];
     public twoLimitImageList: Attachment[];
+
+    constructor() {
+        this.culturalRelic = new CulturalRelicInfoDetail();
+        this.upCulturalRelic = new UPGetCulturalRelicInfos();
+    }
 }
 
 export class CulturalRelicInfoDetail {

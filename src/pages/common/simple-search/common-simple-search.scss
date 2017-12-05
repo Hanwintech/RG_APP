@@ -2,7 +2,7 @@ page-common-simple-search {
     .searchBox {
         background-color: #fff;
         border-radius: 3px;
-        .icon-ios {
+        .icon {
             font-size: 22px;
             position: fixed;
             margin: 5px 10px;
@@ -10,7 +10,7 @@ page-common-simple-search {
         .ion-ios-search-outline {
             float: left;
         }
-        .text-input-ios {
+        .text-input {
             width:100%;
             margin:0;
             padding: 8px 30px 7px 35px;

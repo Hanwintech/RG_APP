@@ -44,9 +44,10 @@ export class CulturalRelicInfoListPage {
       this.search.currentLongitude = Number(longitude);
     }
     let latitude = localStorage.getItem('latitude');
-    if (longitude) {
+    if (latitude) {
       this.search.currentLatitude = Number(latitude);
     }
+    console.log(longitude);console.log(latitude);
     this.search.culturalRelicSearchType = EnumCulturalRelicSearchType.不可移动文物;
 
     this.datasource = [];

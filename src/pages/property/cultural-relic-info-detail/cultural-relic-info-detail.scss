@@ -74,7 +74,7 @@ page-cultural-relic-info-detail {
                     float: left;
                     max-width: 2.5em;
                     max-height: 2.5em;
-                    position: fixed;
+                    position: absolute;
                 }
                 .description {
                     width: 100%;
@@ -100,7 +100,7 @@ page-cultural-relic-info-detail {
                 }
                 .button {
                     float: left;
-                    position: fixed;
+                    position: absolute;
                     margin-left: -55px;
                 }
             }

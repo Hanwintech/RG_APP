@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { File } from '@ionic-native/file';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -86,7 +86,7 @@ export class CulturalRelicInfoDetailPage {
 
   download(fileUrl: string, fileName:string) {
     fileUrl = fileUrl.replace("/CompressionFile/","/OriginalFile/")
-    this.fileTransfer.download(fileUrl, this.file.dataDirectory + fileName).then((entry) => {      
+    this.fileTransfer.download(fileUrl, this.file.externalRootDirectory + 'com.hanwintech.wwbhzf/' + fileName).then((entry) => {      
       this.pageService.showMessage('下载完成: ' + entry.toURL());
     }, (error) => {
       this.pageService.showErrorMessage(error);

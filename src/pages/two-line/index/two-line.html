@@ -1,6 +1,11 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>巡查在线</ion-title>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="back()">
+              <ion-icon name="ios-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+        <ion-title>{{pageTitle}}</ion-title>
         <ion-buttons right>
           <button ion-button icon-only (click)="inspectHistory()">
             <ion-icon name="md-bookmarks"></ion-icon>

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Tabs, Platform, AlertController } from 'ionic-angular';
+import { IonicPage, Tabs, Platform,NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 @IonicPage()
@@ -8,10 +8,18 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  tab1Root = 'TwoLinePage';
-  tab2Root = '';
-  tab3Root = '';
-  tab4Root = 'SelfIndexPage';
+  @ViewChild('myTabs') tabRef: Tabs;
 
-  constructor() { }
+  tab1Root: any;
+  tab2Root: any;
+  tab3Root: any;
+  tab4Root: any;
+  constructor( public navParams: NavParams) { 
+    this.tab1Root = 'TwoLinePage';
+    this.tab2Root = 'SelfIndexPage';
+    this.tab3Root = 'SelfIndexPage';
+    this.tab4Root = 'SelfIndexPage';
+  }
+  ionViewDidEnter(){
+  }
 }

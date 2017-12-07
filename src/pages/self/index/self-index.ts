@@ -31,4 +31,8 @@ export class SelfIndexPage {
   culturalRelicInfoList() {
     this.navCtrl.push("CulturalRelicInfoListPage");
   }
+
+  museumInfoList() {
+    this.navCtrl.push("MuseumInfoListPage");
+  }
 }

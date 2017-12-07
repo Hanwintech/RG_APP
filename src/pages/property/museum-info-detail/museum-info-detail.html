@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>文物详情</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showLocation()">
+        <ion-icon name="ios-pin-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="headImg">
+    <img src="{{museumInfo.miniImageUrl ? museumInfo.miniImageUrl : './../../../assets/icon/empty_middle.png'}}">
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>博物馆名称</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.museumName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地区</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.enumAreaName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>县区</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.districtName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>质量等级</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.qualityGradeName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地址</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.location}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>标注精确度</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.coordinateAccurateName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>电话</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.telephone}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>传真</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.fax}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>网站</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.websiteURL}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>官方微博</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.officialBlogName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>微信</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.weiXinAccount}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>藏品数量</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.collectionQuantity}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>基本陈列名称</ion-label>
+      <ion-label>{{museumInfo.museumDetailInfo.basicDisplayName}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="museumInfo.attachmentList && museumInfo.attachmentList.length > 0" class="littleTitle">
+      附件
+    </ion-item>
+    <ion-item *ngIf="museumInfo.attachmentList && museumInfo.attachmentList.length > 0" class="attachment">
+      <div *ngFor="let att of museumInfo.attachmentList" class="attachmentContent">
+        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <div class="description">
+          <div class="fileShowName">{{att.fileShowName}}</div>
+          <div class="fileName">{{att.fileName}}</div>
+        </div>
+        <button ion-button outline (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
+        <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

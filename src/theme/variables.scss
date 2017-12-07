@@ -70,7 +70,7 @@ ion-header {
 }
 
 .list-ios .item-block .item-inner {
-    border-bottom: 1px solid color($colors, border, base) !important;
+    border-bottom-width: 1px !important;
 }
 
 ion-item-options {

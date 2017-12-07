@@ -37,17 +37,17 @@ export class MuseumInfoDetail {
     public coordinateY: number;
     //电话号码
     public telephone: string;
-    // 传真
+    //传真
     public fax: string;
-    // 网址地址
+    //网址地址
     public websiteURL: string;
-    // 官方微博名
+    //官方微博名
     public officialBlogName: string;
-    // 微信公众号
+    //微信公众号
     public weiXinAccount: string;
     //藏品数量
     public collectionQuantity: number;
-    // 基本成列名称
+    //基本成列名称
     public basicDisplayName: string;
     //描述
     public remark: string;
@@ -69,6 +69,10 @@ export class MuseumInfoDetail {
     public coordinateType: string;
     //质量等级
     public qualityGrade: number;
+    //标注精确度
+    public coordinateAccurate: number;
+    //标注精确度名称
+    public coordinateAccurateName: string;
 
     public patrolCount: number;
     public patrolCountProcessing: number;

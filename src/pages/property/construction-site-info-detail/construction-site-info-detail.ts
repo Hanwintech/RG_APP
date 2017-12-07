@@ -12,10 +12,10 @@ import { Attachment } from "./../../../models/attachment.model";
 
 @IonicPage()
 @Component({
-  selector: 'page-cultural-relic-info-detail',
-  templateUrl: 'cultural-relic-info-detail.html',
+  selector: 'page-construction-site-info-detail',
+  templateUrl: 'construction-site-info-detail.html',
 })
-export class CulturalRelicInfoDetailPage extends DetailPage {
+export class ConstructionSiteInfoDetailPage extends DetailPage {
   private culturalRelicInfo: CulturalRelicInfo;
 
   constructor(
@@ -49,11 +49,11 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
       });
   }
 
-  showPicture(fileUrl: string, attachmentList: Attachment[]) {    
+  showPicture(fileUrl: string, attachmentList: Attachment[]) {
     super.showSlidesPage(attachmentList, fileUrl);
   }
 
-  download(fileUrl: string, fileName:string) {
+  download(fileUrl: string, fileName: string) {
     super.downloadFile(fileUrl, fileName);
   }
 

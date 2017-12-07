@@ -4,20 +4,21 @@ page-common-simple-search {
         border-radius: 3px;
         .icon {
             font-size: 22px;
-            position: fixed;
+            position: absolute;
             margin: 5px 10px;
         }
         .ion-ios-search-outline {
             float: left;
         }
         .text-input {
-            width:100%;
-            margin:0;
+            width: 100%;
+            margin: 0;
             padding: 8px 30px 7px 35px;
         }
         .ion-ios-close-outline {
             float: right;
-            right:0;
+            right: 0;
+            z-index: 999999;
         }
     }
 }

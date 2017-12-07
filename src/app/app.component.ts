@@ -30,7 +30,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.registerBackButtonAction();//注册返回按键事件
+      //this.registerBackButtonAction();//注册返回按键事件
       this.watchPosition();//监控实时位置
     });
   }
@@ -52,6 +52,13 @@ export class MyApp {
         activePortal.onDidDismiss(() => { });
         return;
       }
+      console.log(this.nav);
+      console.log(this.nav.getViews());
+      console.log(this.nav.getActiveChildNavs());
+      console.log(this.nav.getActiveChildNavs()[0].length());
+      console.log(this.nav.getActiveChildNavs()[0].getActiveChildNavs());
+      console.log(this.nav.getActiveChildNavs()[0].getActiveChildNavs().length);
+      console.log(this.nav.getActiveChildNavs()[0].getActiveChildNavs()[0]);
       return this.nav.canGoBack() ? this.nav.pop() : this.showExit()
     }, 1);
   }
@@ -73,6 +80,9 @@ export class MyApp {
 
   //监控实时位置
   watchPosition() {
+    // localStorage.setItem('longitude', '120.78877004348');
+    // localStorage.setItem('latitude', '31.346248778536');
+
     let watch = this.geolocation.watchPosition();
     watch.subscribe((resp) => {
       if (resp.coords) {
@@ -92,6 +102,8 @@ export class MyApp {
         localStorage.removeItem('longitude');
         localStorage.removeItem('latitude');
       }
+      // localStorage.setItem('longitude', '120.78877004348');
+      // localStorage.setItem('latitude', '31.346248778536');
     });
   }
 }

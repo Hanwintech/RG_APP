@@ -16,10 +16,10 @@ page-login {
             background:rgba(255,255,255,0.8);
             border: solid 1px #745d50;
             img{
-                position: fixed;
+                position: absolute;
                 float: left;
                 height:32px;
-                margin-top: 10px;
+                margin-top: 8px;
                 margin-left: 10px;
                 z-index: 99999;
             }
@@ -29,6 +29,9 @@ page-login {
                 .item-inner{
                     border-bottom: 0px !important;
                 }
+            }
+            .text-input{
+                margin-top:13px;
             }
         }
         .accountBar{

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>不可移动文物</ion-title>
+    <ion-title>博物馆</ion-title>
     <ion-buttons right>
       <button ion-button icon-only (click)="showSimpleSearch()">
         <ion-icon name="ios-search-outline"></ion-icon>
@@ -18,13 +18,12 @@
 <ion-content>
   <ion-list>
     <ion-item-sliding #item *ngFor="let cr of datasource">
-      <ion-item (click)="view(cr.upCulturalRelic.culturalRelicID)">
+      <ion-item (click)="view(cr.museumDetailInfo.id)">
         <img src="{{cr.miniImageUrl ? cr.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
         <div class="description">
-          <h3>{{cr.upCulturalRelic.culturalRelicName}}</h3>
-          <div>{{cr.upCulturalRelic.remark}}</div>
-          <h4>{{cr.enumAreaName}}-{{cr.upCulturalRelic.districtName}}</h4>
-          <h5>{{getCulturalRelicLevelName(cr.upCulturalRelic.culturalRelicLevel)}}</h5>
+          <h3>{{cr.museumDetailInfo.museumName}}</h3>
+          <div>{{cr.museumDetailInfo.remark}}</div>
+          <h4>{{cr.museumDetailInfo.enumAreaName}}-{{cr.museumDetailInfo.districtName}}</h4>
         </div>
       </ion-item>
       <ion-item-options side="left">

@@ -10,10 +10,10 @@ import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-cultural-relic-info-list',
-  templateUrl: 'cultural-relic-info-list.html',
+  selector: 'page-construction-site-info-list',
+  templateUrl: 'construction-site-info-list.html',
 })
-export class CulturalRelicInfoListPage {
+export class ConstructionSiteInfoListPage {
   private nextPageIndex: number;
   private search: CulturalRelicInfoSearch;
   private searchDataSource: CulturalRelicInfoSearchDataSource;
@@ -32,13 +32,20 @@ export class CulturalRelicInfoListPage {
     this.nextPageIndex = this.systemConst.DEFAULT_PAGE_INDEX;
 
     this.search = new CulturalRelicInfoSearch();
-    this.search.isDefaultSearch = true;
+    this.search.isDefaultSearch = false;
     this.search.isNeedPaging = true;
     this.search.searchType = EnumSearchType.All;
     this.search.pageSize = this.systemConst.DEFAULT_PAGE_SIZE;
     this.search.userId = localStorage.getItem("userId");
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
+    this.search.area = this.systemConst.EMPTY_INTEGER;
+    this.search.district = this.systemConst.EMPTY_INTEGER;
+    this.search.culturalRelicType = this.systemConst.EMPTY_INTEGER;
+    this.search.culturalRelicTwoStageType = this.systemConst.EMPTY_INTEGER;
+    this.search.mapLabelStatus = this.systemConst.EMPTY_INTEGER;
+    this.search.coordinateAccurate = this.systemConst.EMPTY_INTEGER;
+    this.search.culturalRelicLevel = <number>EnumCulturalRelicLevel.工地;
     let longitude = localStorage.getItem('longitude');
     if (longitude) {
       this.search.currentLongitude = Number(longitude);
@@ -47,7 +54,7 @@ export class CulturalRelicInfoListPage {
     if (latitude) {
       this.search.currentLatitude = Number(latitude);
     }
-    this.search.culturalRelicSearchType = EnumCulturalRelicSearchType.不可移动文物;
+    this.search.culturalRelicSearchType = EnumCulturalRelicSearchType.工地;
 
     this.datasource = [];
 
@@ -126,17 +133,13 @@ export class CulturalRelicInfoListPage {
     searchModal.present();
   }
 
-  view(culturalRelicID: string) {
-    this.navCtrl.push('CulturalRelicInfoDetailPage', culturalRelicID);
+  view(constructionSiteID: string) {
+    this.navCtrl.push('ConstructionSiteInfoDetailPage', constructionSiteID);
   }
 
-  add() {
-    this.navCtrl.push('CulturalRelicInfoEditPage');
-  }
+  add() { }
 
-  edit(culturalRelicID: string) {
-    this.navCtrl.push('CulturalRelicInfoEditPage', culturalRelicID);
-  }
+  edit(constructionSiteID: string) { }
 
-  delete(culturalRelicID: string) { }
+  delete(constructionSiteID: string) { }
 }

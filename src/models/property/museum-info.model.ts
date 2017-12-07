@@ -1,9 +1,7 @@
 import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { BaseApiSearch } from "./../base-api-search.model";
-import { TwoLineInfo, UTMapDistrictCluster } from "./../two-line/two-line-info.model";
 import { TreeDataInfo } from "./../tree-data-info.model";
-import { SystemConst } from './../../services/system-const.service';
 
 export class MuseumInfo {
     public museumDetailInfo: MuseumInfoDetail;
@@ -14,7 +12,6 @@ export class MuseumInfo {
         this.museumDetailInfo = new MuseumInfoDetail();
     }
 }
-
 
 export class MuseumInfoDetail {
     //主键ID

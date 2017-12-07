@@ -3,21 +3,21 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
-import { GetMuseumInfoList } from './../../../apis/property/get-museum-info-list.api';
-import { MuseumInfo, MuseumInfoSearch, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
-import { EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
+import { GetCulturalRelicInfoList } from './../../../apis/property/get-cultural-relic-info-list.api';
+import { CulturalRelicInfo, CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
+import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-museum-info-list',
-  templateUrl: 'museum-info-list.html',
+  selector: 'page-construction-site-info-list',
+  templateUrl: 'construction-site-info-list.html',
 })
-export class MuseumInfoListPage {
+export class ConstructionSiteInfoListPage {
   private nextPageIndex: number;
-  private search: MuseumInfoSearch;
-  private searchDataSource: MuseumInfoSearchDataSource;
-  private datasource: MuseumInfo[];
+  private search: CulturalRelicInfoSearch;
+  private searchDataSource: CulturalRelicInfoSearchDataSource;
+  private datasource: CulturalRelicInfo[];
 
   constructor(
     private navCtrl: NavController,
@@ -31,14 +31,21 @@ export class MuseumInfoListPage {
 
     this.nextPageIndex = this.systemConst.DEFAULT_PAGE_INDEX;
 
-    this.search = new MuseumInfoSearch();
-    this.search.isDefaultSearch = true;
+    this.search = new CulturalRelicInfoSearch();
+    this.search.isDefaultSearch = false;
     this.search.isNeedPaging = true;
     this.search.searchType = EnumSearchType.All;
     this.search.pageSize = this.systemConst.DEFAULT_PAGE_SIZE;
     this.search.userId = localStorage.getItem("userId");
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
+    this.search.area = this.systemConst.EMPTY_INTEGER;
+    this.search.district = this.systemConst.EMPTY_INTEGER;
+    this.search.culturalRelicType = this.systemConst.EMPTY_INTEGER;
+    this.search.culturalRelicTwoStageType = this.systemConst.EMPTY_INTEGER;
+    this.search.mapLabelStatus = this.systemConst.EMPTY_INTEGER;
+    this.search.coordinateAccurate = this.systemConst.EMPTY_INTEGER;
+    this.search.culturalRelicLevel = <number>EnumCulturalRelicLevel.工地;
     let longitude = localStorage.getItem('longitude');
     if (longitude) {
       this.search.currentLongitude = Number(longitude);
@@ -47,7 +54,7 @@ export class MuseumInfoListPage {
     if (latitude) {
       this.search.currentLatitude = Number(latitude);
     }
-    this.search.searchType = EnumCulturalRelicSearchType.博物馆;
+    this.search.culturalRelicSearchType = EnumCulturalRelicSearchType.工地;
 
     this.datasource = [];
 
@@ -60,18 +67,18 @@ export class MuseumInfoListPage {
   }
 
   doSearch(event, isNewSearch) {
-    this.apiService.sendApi(new GetMuseumInfoList(this.search)).subscribe(
+    this.apiService.sendApi(new GetCulturalRelicInfoList(this.search)).subscribe(
       res => {
         if (res.success) {
           if (isNewSearch) {
             this.datasource = [];
             this.nextPageIndex = 0;
           }
-          this.searchDataSource = res.data.museumInfoSearchDataSource;
-          
+          this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
+
           //获取新一页的数据
-          let temp: MuseumInfo[] = res.data.museumInfoList ? res.data.museumInfoList : [];
-          for (let cr of temp) { 
+          let temp: CulturalRelicInfo[] = res.data.culturalRelicInfoList ? res.data.culturalRelicInfoList : [];
+          for (let cr of temp) {
             this.datasource.push(cr);
           }
 
@@ -98,6 +105,10 @@ export class MuseumInfoListPage {
       });
   }
 
+  getCulturalRelicLevelName(culturalRelicLevel: number): string {
+    return EnumCulturalRelicLevel[culturalRelicLevel];
+  }
+
   showSimpleSearch() {
     let searchModal = this.modalCtrl.create('CommonSimpleSearchPage', { "keyWord": this.search.keyword });
     searchModal.onDidDismiss(data => {
@@ -111,25 +122,24 @@ export class MuseumInfoListPage {
   }
 
   showSearch() {
-    let searchModal = this.modalCtrl.create('MuseumSearchPage', { "search": this.search, "dataSource": this.searchDataSource });
+    let searchModal = this.modalCtrl.create('CulturalRelicSearchPage', { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
       if (data.needSearch) {
         this.search.isDefaultSearch = false;
         this.search = data.search;
-        console.log(this.search);
         this.doSearch(null, true);
       }
     });
     searchModal.present();
   }
 
-  view(museumID: string) {
-    this.navCtrl.push('MuseumInfoDetailPage', museumID);
+  view(constructionSiteID: string) {
+    this.navCtrl.push('ConstructionSiteInfoDetailPage', constructionSiteID);
   }
 
   add() { }
 
-  edit(museumID: string) { }
+  edit(constructionSiteID: string) { }
 
-  delete(museumID: string) { }
+  delete(constructionSiteID: string) { }
 }

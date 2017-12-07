@@ -35,4 +35,8 @@ export class SelfIndexPage {
   museumInfoList() {
     this.navCtrl.push("MuseumInfoListPage");
   }
+
+  constructionSiteList() {
+    this.navCtrl.push("ConstructionSiteInfoListPage");
+  }
 }

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>工地详情</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showLocation()">
+        <ion-icon name="ios-pin-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="headImg">
+    <img src="{{culturalRelicInfo.miniImageUrl ? culturalRelicInfo.miniImageUrl : './../../../assets/icon/empty_middle.png'}}">
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>工地名称</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.culturalRelicName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>工地编码</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.culturalRelicCode}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地区</ion-label>
+      <ion-label>{{culturalRelicInfo.enumAreaName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>县区</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.districtName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地址</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.location}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>标注精确度</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.coordinateAccurateName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>管理单位</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.manageUnitName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>简介</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.remark}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="culturalRelicInfo.attachmentList && culturalRelicInfo.attachmentList.length > 0" class="littleTitle">
+      附件
+    </ion-item>
+    <ion-item *ngIf="culturalRelicInfo.attachmentList && culturalRelicInfo.attachmentList.length > 0" class="attachment">
+      <div *ngFor="let att of culturalRelicInfo.attachmentList" class="attachmentContent">
+        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <div class="description">
+          <div class="fileShowName">{{att.fileShowName}}</div>
+          <div class="fileName">{{att.fileName}}</div>
+        </div>
+        <button ion-button outline (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
+        <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

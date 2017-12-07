@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>工地</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showSimpleSearch()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="showSearch()">
+        <ion-icon name="ios-funnel-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="add()">
+        <ion-icon name="ios-add-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding #item *ngFor="let cr of datasource">
+      <ion-item (click)="view(cr.upCulturalRelic.culturalRelicID)">
+        <img src="{{cr.miniImageUrl ? cr.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+        <div class="description">
+          <h3>{{cr.upCulturalRelic.culturalRelicName}}</h3>
+          <div>{{cr.upCulturalRelic.remark}}</div>
+          <h4>{{cr.enumAreaName}}-{{cr.upCulturalRelic.districtName}}</h4>
+          <h5>{{getCulturalRelicLevelName(cr.upCulturalRelic.culturalRelicLevel)}}</h5>
+        </div>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button icon-only color="primary" (click)="edit(cr.upCulturalRelic.culturalRelicID)">
+          <ion-icon name="ios-create-outline"></ion-icon>
+        </button>
+        <button ion-button icon-only color="danger" (click)="delete(cr.upCulturalRelic.culturalRelicID)">
+          <ion-icon name="ios-close-outline"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

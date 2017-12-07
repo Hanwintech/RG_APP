@@ -6,17 +6,17 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../BasePage/detail-page';
-import { GetMuseumInfo } from './../../../apis/property/get-museum-info.api';
-import { MuseumInfo } from './../../../models/property/museum-info.model';
+import { GetCulturalRelicInfo } from './../../../apis/property/get-cultural-relic-info.api';
+import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
 import { Attachment } from "./../../../models/attachment.model";
 
 @IonicPage()
 @Component({
-  selector: 'page-museum-info-detail',
-  templateUrl: 'museum-info-detail.html',
+  selector: 'page-construction-site-info-detail',
+  templateUrl: 'construction-site-info-detail.html',
 })
-export class MuseumInfoDetailPage extends DetailPage {
-  private museumInfo: MuseumInfo;
+export class ConstructionSiteInfoDetailPage extends DetailPage {
+  private culturalRelicInfo: CulturalRelicInfo;
 
   constructor(
     public navCtrl: NavController,
@@ -27,17 +27,19 @@ export class MuseumInfoDetailPage extends DetailPage {
     public fileTransfer: FileTransfer
   ) {
     super(navCtrl, file, fileTransfer, pageService);
+    
+    this.culturalRelicInfo = new CulturalRelicInfo();
 
-    this.museumInfo = new MuseumInfo();
+    let culturalRelicID = this.navParams.data
 
-    let museumID = this.navParams.data
-
-    this.apiService.sendApi(new GetMuseumInfo(museumID)).subscribe(
+    this.apiService.sendApi(new GetCulturalRelicInfo(culturalRelicID)).subscribe(
       res => {
         if (res.success) {
-          this.museumInfo = res.data;
+          this.culturalRelicInfo = res.data;
 
-          super.changeAttachmentFileType(this.museumInfo.attachmentList)
+          super.changeAttachmentFileType(this.culturalRelicInfo.attachmentList)
+          super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
+          super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitAttachmentList)
         } else {
           this.pageService.showErrorMessage(res.reason);
         }
@@ -56,10 +58,14 @@ export class MuseumInfoDetailPage extends DetailPage {
   }
 
   showAttachmentList(fileUrl: string) {
-    this.showPicture(fileUrl, this.museumInfo.attachmentList)
+    this.showPicture(fileUrl, this.culturalRelicInfo.attachmentList)
+  }
+
+  showTwoLimitImageList() {
+    this.showPicture("", this.culturalRelicInfo.twoLimitImageList)
   }
 
   showLocation() {
-    console.log(this.museumInfo.museumDetailInfo.id);
+    console.log(this.culturalRelicInfo.upCulturalRelic.culturalRelicID);
   }
 }

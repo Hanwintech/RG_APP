@@ -22,16 +22,16 @@
       <img src="../assets/self/construction_site.png">
       <br> 工地
     </div>
-    <div class="iconButton">
+    <div class="iconButton" (click)="culturalRelicMap()">
       <img src="../assets/self/cultural_relic_map.png">
       <br> 文物地图
     </div>
   </div>
   <ion-list>
-    <button ion-item (click)="alert(1);">
+    <button ion-item (click)="culturalRelicTwoLine();">
       <img src="../assets/self/two_line.png"> 国保单位两线监控
     </button>
-    <button ion-item (click)="alert(1);">
+    <button ion-item (click)="allTodo();">
       <img src="../assets/self/all_todo.png"> 待办事宜
     </button>
     <button ion-item (click)="alert(1);">
@@ -40,7 +40,7 @@
     <button ion-item (click)="alert(1);">
       <img src="../assets/self/notice.png"> 通知公告
     </button>
-    <button ion-item (click)="alert(1);">
+    <button ion-item (click)="messageCenter();">
       <img src="../assets/self/message_center.png"> 消息中心
     </button>
     <button ion-item (click)="alert(1);">

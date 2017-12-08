@@ -6,20 +6,22 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { ListPage } from './../../../BasePage/list-page';
-import { GetMuseumInfoList } from './../../../apis/property/get-museum-info-list.api';
-import { MuseumInfo, MuseumInfoSearch, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
-import { EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
+import { GetMessageCenterInfoList } from './../../../apis/self/get-message-center-info-list.api';
+import { MessageCenterInfo, MessageCenterEntity, MessageCenterInfoSearch, MessageCenterInfoSearchDataSource } from './../../../models/self/message-center-info.model';
+import { EnumSearchType, EnumMessageShowType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-museum-info-list',
-  templateUrl: 'museum-info-list.html',
+  selector: 'page-message-center-info-list',
+  templateUrl: 'message-center-info-list.html',
 })
-export class MuseumInfoListPage extends ListPage {
-  private search: MuseumInfoSearch;
-  private searchDataSource: MuseumInfoSearchDataSource;
-  private datasource: MuseumInfo[];
+export class MessageCenterInfoListPage extends ListPage {
+  private pageTitle: string;
+  private messageShowType: EnumMessageShowType;
+  private search: MessageCenterInfoSearch;
+  private searchDataSource: MessageCenterInfoSearchDataSource;
+  private datasource: MessageCenterInfo[];
 
   constructor(
     public navCtrl: NavController,
@@ -35,7 +37,10 @@ export class MuseumInfoListPage extends ListPage {
 
     this.pageService.showLoading("数据加载中...");
 
-    this.search = new MuseumInfoSearch();
+    this.messageShowType = this.navParams.data.messageShowType;
+    this.pageTitle = EnumMessageShowType[this.messageShowType];
+
+    this.search = new MessageCenterInfoSearch();
     this.search.isDefaultSearch = true;
     this.search.isNeedPaging = true;
     this.search.searchType = EnumSearchType.All;
@@ -43,15 +48,7 @@ export class MuseumInfoListPage extends ListPage {
     this.search.userId = localStorage.getItem("userId");
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
-    let longitude = localStorage.getItem('longitude');
-    if (longitude) {
-      this.search.currentLongitude = Number(longitude);
-    }
-    let latitude = localStorage.getItem('latitude');
-    if (latitude) {
-      this.search.currentLatitude = Number(latitude);
-    }
-    this.search.searchType = EnumCulturalRelicSearchType.博物馆;
+    this.search.messageShowType = <number>this.messageShowType;
 
     this.datasource = [];
 
@@ -64,20 +61,20 @@ export class MuseumInfoListPage extends ListPage {
   }
 
   doSearch(event, isNewSearch) {
-    this.apiService.sendApi(new GetMuseumInfoList(this.search)).subscribe(
+    this.apiService.sendApi(new GetMessageCenterInfoList(this.search)).subscribe(
       res => {
         if (res.success) {
           if (isNewSearch) {
             this.datasource = [];
             this.nextPageIndex = 0;
           }
-          this.searchDataSource = res.data.museumInfoSearchDataSource;
-
+          this.searchDataSource = res.data.messageCenterInfoSearchDataSource;
           //获取新一页的数据
-          let temp: MuseumInfo[] = res.data.museumInfoList ? res.data.museumInfoList : [];
+          let temp: MessageCenterInfo[] = res.data.messageCenterInfoList ? res.data.messageCenterInfoList : [];
           for (let cr of temp) {
             this.datasource.push(cr);
           }
+          console.log(this.datasource);
 
           //控制瀑布流控件状态
           if (event) {
@@ -117,7 +114,7 @@ export class MuseumInfoListPage extends ListPage {
   }
 
   showSearch() {
-    super.showConditionalSearchPage('CulturalRelicSearchPage', { "search": this.search, "dataSource": this.searchDataSource })
+    super.showConditionalSearchPage('MessageCenterSearchPage', { "search": this.search, "dataSource": this.searchDataSource })
       .then(data => {
         if (data.needSearch) {
           this.search.isDefaultSearch = false;
@@ -130,13 +127,7 @@ export class MuseumInfoListPage extends ListPage {
       });
   }
 
-  view(museumID: string) {
-    this.navCtrl.push('MuseumInfoDetailPage', museumID);
+  view(messageCenterEntity: MessageCenterEntity) {
+    this.navCtrl.push('MessageCenterInfoDetailPage', messageCenterEntity);
   }
-
-  add() { }
-
-  edit(museumID: string) { }
-
-  delete(museumID: string) { }
 }

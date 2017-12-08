@@ -19,7 +19,7 @@ export enum EnumAreaCode {
     大丰 = 18,
 }
 
-export enum EnumCulturalRelicLevel{
+export enum EnumCulturalRelicLevel {
     全国重点文物保护单位 = 1,
     省级文物保护单位 = 2,
     市级文物保护单位 = 3,
@@ -36,10 +36,17 @@ export enum EnumSearchType {
     PreciseSearch = 3
 }
 
-
 export enum EnumCulturalRelicSearchType {
     全部 = 1,
     不可移动文物 = 2,
     博物馆 = 3,
     工地 = 4
+}
+
+export enum EnumMessageShowType {
+    待办事宜 = 1,
+    消息中心 = 2,
+    督察通知 = 3,
+    通知公告 = 4,
+    全部消息 = 5
 }

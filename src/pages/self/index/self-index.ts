@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, Platform, App, NavParams, ActionSheetController } from 'ionic-angular';
 
 import { ApiService } from './../../../services/api.service';
-import { EnumAreaCode } from './../../../models/enum'
+import { EnumAreaCode,EnumMessageShowType } from './../../../models/enum'
 
 @IonicPage()
 @Component({
@@ -38,5 +38,21 @@ export class SelfIndexPage {
 
   constructionSiteList() {
     this.navCtrl.push("ConstructionSiteInfoListPage");
+  }
+
+  culturalRelicMap() {
+    this.navCtrl.push("TwoLinePage", { "title": "文物地图" });
+  }
+
+  culturalRelicTwoLine() {
+    this.navCtrl.push("TwoLinePage");
+  }
+
+  allTodo() {
+    this.navCtrl.push("MessageCenterInfoListPage", { "messageShowType": EnumMessageShowType.待办事宜 });
+  }
+
+  messageCenter(){
+    this.navCtrl.push("MessageCenterInfoListPage", { "messageShowType": EnumMessageShowType.消息中心 });
   }
 }

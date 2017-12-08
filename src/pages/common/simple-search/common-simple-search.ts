@@ -7,10 +7,10 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
   templateUrl: 'common-simple-search.html',
 })
 export class CommonSimpleSearchPage {
-  private keyWord: String;
+  private keyword: String;
 
   constructor(private params: NavParams, private viewCtrl: ViewController) {
-    this.keyWord = params.data.keyWord;
+    this.keyword = params.data.keyword;
   }
 
   close() {
@@ -18,10 +18,10 @@ export class CommonSimpleSearchPage {
   }
 
   clear() {
-    this.keyWord = "";
+    this.keyword = "";
   }
 
   doSearch() {
-    this.viewCtrl.dismiss({ "needSearch": true, "keyWord": this.keyWord });
+    this.viewCtrl.dismiss({ "needSearch": true, "keyword": this.keyword });
   }
 }

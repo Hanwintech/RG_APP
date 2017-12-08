@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -10,11 +11,10 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { MyApp } from './app.component';
 
-import { ApiService } from '../services/api.service';
-import { PageService } from '../services/page.service';
-import { ValidateService } from '../services/validate.service';
-import { SystemConst } from '../services/system-const.service';
-import { HttpModule } from '@angular/http';
+import { ApiService } from './../services/api.service';
+import { PageService } from './../services/page.service';
+import { ValidateService } from './../services/validate.service';
+import { SystemConst } from './../services/system-const.service';
 
 @NgModule({
   declarations: [

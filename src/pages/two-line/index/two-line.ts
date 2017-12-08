@@ -7,8 +7,8 @@ import { GetCulturalRelicMapInfosUrl } from './../../../apis/two-line/two-line.a
 import { CulturalRelicInfoSearch } from './../../../models/property/cultural-relic-info.model';
 import { UserInfo, UserEntity } from './../../../models/user-info.model';
 import { TwoLineInfo } from './../../../models/two-line/two-line-info.model';
-import { UTMapDistrictCluster } from './../../../models/two-line/two-line-info.model';
-
+import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
+import { Console } from '@angular/core/src/console';
 
 declare var BMap;
 declare var BMapLib;
@@ -30,7 +30,7 @@ export class TwoLinePage {
   private userInfo: UserEntity;
   private search: CulturalRelicInfoSearch;
   private twoLine = [];
-  private mapDistrictCluster: UTMapDistrictCluster;
+  private mapDistrictClusterInfo: UTMapDistrictClusterInfo[];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -52,7 +52,7 @@ export class TwoLinePage {
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     var pointData = new BMap.Point(120.78877004348, 31.346248778536);
-    this.map.centerAndZoom(pointData, 17);
+    this.map.centerAndZoom(pointData, 16);
     this.map.addControl(new BMap.MapTypeControl({
       mapTypes: [
         BMAP_NORMAL_MAP,
@@ -68,13 +68,9 @@ export class TwoLinePage {
     // this.getLocation(longT,lati);
     // },1000000);
     this.getLocation(longT, lati);
-    this.getData();
-    this.zoom();
+    this.getData(this.map.getZoom());
+    this.mapAddEventListener();
     //this.drawTwoLine();
-  }
-
-  ionViewWillLeave() {
-
   }
   back() {
     this.navCtrl.setRoot("TabsPage", "aa");
@@ -96,10 +92,9 @@ export class TwoLinePage {
 
   drawTwoLine(linePoint, color) {
     var Polygon = new BMap.Polygon(linePoint, { strokeColor: color, fillColor: "", fillOpacity: 0, strokeWeight: 2, strokeOpacity: 1 });   //创建折线
-    console.log(Polygon);
     this.map.addOverlay(Polygon);
   }
-  getData() {
+  getData(mapLevel) {
     let that = this;
     this.search = new CulturalRelicInfoSearch();
     this.userInfo = new UserEntity(localStorage.getItem('account'), localStorage.getItem('name'));
@@ -107,61 +102,68 @@ export class TwoLinePage {
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
     this.search.isDefaultSearch = true;
-    this.search.mapLevel = 18.0;
+
+    this.search.mapLevel = mapLevel;
     this.search.isAll = true;
     this.search.isNeedPaging = false;
     this.search.isNeedSearchDataSource = true;
     this.search.searchType = 1;
     this.search.culturalRelicSearchType = 1;
-    this.search.currentLongitude = 120.78877004348;
-    this.search.currentLatitude = 31.346248778536;
 
-    this.search.culturalRelicName = "沙湖科技园";
-    this.search.leftTopCoordinateX = 0;
-    this.search.leftTopCoordinateY = 0;
-    this.search.rightBottomCoordinateX = 400;
-    this.search.rightBottomCoordinateY = 600;
+    //this.search.culturalRelicName = "沙湖科技园";
+    this.search.leftTopCoordinateX = this.map.getBounds().Le;
+    this.search.leftTopCoordinateY = this.map.getBounds().Fe;
+    this.search.rightBottomCoordinateX = this.map.getBounds().Ge;
+    this.search.rightBottomCoordinateY = this.map.getBounds().Ke;
     this.apiService.sendApi(new GetCulturalRelicMapInfosUrl(this.search)).subscribe(
       res => {
         if (res.success) {
           console.log(res);
           this.twoLine = res.data.twoLineInfoList;
-          let mapDistrictClusterList = res.data.culturalRelicInfoSearchDataSource.mapDistrictClusterList;
+          this.mapDistrictClusterInfo = res.data.mapDistrictClusterInfoList;
+          let mapZoom = this.map.getZoom();
+          if (mapZoom > 15) {
+            for (let info of this.twoLine) {
+              let color = "#" + info.twoLinePolygon.color;
+              let line = [];
+              for (let twoLinePoint of info.twoLinePointList) {
+                line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
+              }
+              this.drawTwoLine(line, color);
+            }
+          }
 
-          // for (let info of this.twoLine) {
-          //   let color = "#" + info.twoLinePolygon.color;
-          //   let line = [];
-          //   for (let twoLinePoint of info.twoLinePointList) {
-          //     line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
-          //   }
-          //   this.drawTwoLine(line, color);
-          // }
-          // let markers = [];
-          // for (let i = 0; i < mapDistrictClusterList.length; i++) {
-          //   this.mapDistrictCluster = mapDistrictClusterList[i];
-          //   let pt = new BMap.Point(this.mapDistrictCluster.coordinateX, this.mapDistrictCluster.coordinateY);
-          //   markers.push(new BMap.Marker(pt));
-          // }
-          // var markerClusterer = new BMapLib.MarkerClusterer(this.map, { markers: markers });
         }
       }, error => {
-
       }
     );
   }
 
-  private zoom() {
-    // this.map.addEventListener("zoomend",function(){
-    //   alert(this.getZoom());
-    // })
+  private mapAddEventListener() {
+    this.map.addEventListener("zoomend", function () {
+      this.map.clearOverlays();
+      let mapZoom = this.map.getZoom();
+      this.getData(mapZoom);
+      if (this.mapDistrictClusterInfo.length>0) {
+        for (let cluster of this.mapDistrictClusterInfo) {
+          this.zoom(cluster.coordinateX, cluster.coordinateY, cluster.showName);
+        }
+      }
+
+    }.bind(this))
+    this.map.addEventListener("dragend",function(){
+
+    }.bind(this));
+
+  }
+  private zoom(x, y, name) {
     var label;
-    var point = new BMap.Point(120.78877004348, 31.346248778536);
+    var point = new BMap.Point(x, y);
     var option = {
       position: point,
-      offset: new BMap.Size(130, 130)
     }
     for (let i = 0; i < 10; i++) {
-      label = new BMap.Label("<div style='margin:7px auto;'><p style='white-space:normal'>苏州</p><p></p></div>", option);
+      label = new BMap.Label("<div style='margin:7px auto;'><p style='white-space:normal'>" + name + "</p><p></p></div>", option);
 
     }
     label.setStyle({
@@ -175,6 +177,9 @@ export class TwoLinePage {
       fontFamily: "微软雅黑",
       textAlign: 'center'
     });
+    label.addEventListener("click",function(){
+      this.map.clearOverlays();
+    }.bind(this));
     this.map.addOverlay(label);
   }
 }

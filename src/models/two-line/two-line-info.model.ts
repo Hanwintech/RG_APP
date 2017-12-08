@@ -44,3 +44,22 @@ export class UTMapDistrictCluster {
     public updaterID: string;
     public isDeleted: boolean;
 }
+
+export class UTMapDistrictClusterInfo {
+    businessID:number
+    caseCount:number
+    caseDoingCount:number
+    coordinateX:number
+    coordinateY:number
+    culturalRelicCount:number
+    culturalRelicId:number
+    culturalRelicLevel:number
+    districtType:number
+    mapLevelMax:number
+    mapLevelMin:number
+    patrolCount:number
+    patrolDoingCount:number
+    showName:string
+    twoLimitCulturalRelicId:number
+    uniqueTag:string
+}

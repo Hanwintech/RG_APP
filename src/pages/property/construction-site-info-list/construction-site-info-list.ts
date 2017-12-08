@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
+import { ListPage } from './../../../BasePage/list-page';
 import { GetCulturalRelicInfoList } from './../../../apis/property/get-cultural-relic-info-list.api';
 import { CulturalRelicInfo, CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
@@ -13,23 +16,24 @@ import { SystemConst } from './../../../services/system-const.service';
   selector: 'page-construction-site-info-list',
   templateUrl: 'construction-site-info-list.html',
 })
-export class ConstructionSiteInfoListPage {
-  private nextPageIndex: number;
+export class ConstructionSiteInfoListPage extends ListPage {
   private search: CulturalRelicInfoSearch;
   private searchDataSource: CulturalRelicInfoSearchDataSource;
   private datasource: CulturalRelicInfo[];
 
   constructor(
-    private navCtrl: NavController,
-    private navParams: NavParams,
-    private modalCtrl: ModalController,
-    private apiService: ApiService,
-    private pageService: PageService,
-    private systemConst: SystemConst
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public file: File,
+    public fileTransfer: FileTransfer,
+    public apiService: ApiService,
+    public pageService: PageService,
+    public systemConst: SystemConst
   ) {
-    this.pageService.showLoading("数据加载中...");
+    super(navCtrl, modalCtrl, file, fileTransfer, pageService, systemConst);
 
-    this.nextPageIndex = this.systemConst.DEFAULT_PAGE_INDEX;
+    this.pageService.showLoading("数据加载中...");
 
     this.search = new CulturalRelicInfoSearch();
     this.search.isDefaultSearch = false;
@@ -110,27 +114,31 @@ export class ConstructionSiteInfoListPage {
   }
 
   showSimpleSearch() {
-    let searchModal = this.modalCtrl.create('CommonSimpleSearchPage', { "keyWord": this.search.keyword });
-    searchModal.onDidDismiss(data => {
-      if (data.needSearch) {
-        this.search.isDefaultSearch = true;
-        this.search.keyword = data.keyWord;
-        this.doSearch(null, true);
-      }
-    });
-    searchModal.present();
+    super.showKeywordSearchPage(this.search.keyword)
+      .then(data => {
+        if (data.needSearch) {
+          this.search.isDefaultSearch = true;
+          this.search.keyword = data.keyword;
+          this.doSearch(null, true);
+        }
+      })
+      .catch(error => {
+        this.pageService.showErrorMessage(error);
+      });
   }
 
   showSearch() {
-    let searchModal = this.modalCtrl.create('CulturalRelicSearchPage', { "search": this.search, "dataSource": this.searchDataSource });
-    searchModal.onDidDismiss(data => {
-      if (data.needSearch) {
-        this.search.isDefaultSearch = false;
-        this.search = data.search;
-        this.doSearch(null, true);
-      }
-    });
-    searchModal.present();
+    super.showConditionalSearchPage('CulturalRelicSearchPage', { "search": this.search, "dataSource": this.searchDataSource })
+      .then(data => {
+        if (data.needSearch) {
+          this.search.isDefaultSearch = false;
+          this.search = data.search;
+          this.doSearch(null, true);
+        }
+      })
+      .catch(error => {
+        this.pageService.showErrorMessage(error);
+      });
   }
 
   view(constructionSiteID: string) {

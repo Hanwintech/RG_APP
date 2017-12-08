@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showSimpleSearch()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="showSearch()">
+        <ion-icon name="ios-funnel-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let cr of datasource" (click)="view(cr.messageCenter)">
+      <div class="messageTitle">
+        <h2>{{cr.messageCenter.messageTypeName}}</h2>
+        <h3>{{cr.messageCenter.messageTitle}}</h3>
+      </div>
+      <div>{{cr.messageCenter.messageContent}}</div>
+      <h4>{{cr.messageCenter.readStateName}}</h4>
+      <h5>{{cr.messageCenter.readTime | datetime}}</h5>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

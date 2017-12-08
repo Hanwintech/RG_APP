@@ -1,0 +1,50 @@
+page-message-center-info-detail {
+    ion-content {
+        .headImg {
+            text-align: center;
+            img {
+                height: 47vw;
+            }
+        }
+        ion-item.item {
+            padding-left: 0;
+            font-size: 13px;
+            ion-label {
+                margin: 2px 8px 1px 0;
+            }
+            ion-label:first-child {
+                padding-left: 16px;
+                height: 35px;
+                line-height: 37px;
+            }
+            ion-label:last-child {
+                border-left: solid 1px #c7c7c7;
+                margin: 11px 0;
+                padding-left: 16px;
+                color: #000;
+                word-wrap: break-word;
+                word-break: break-all;
+                text-overflow: clip;
+                white-space: normal;
+                .button{
+                    font-size:13px;
+                    height:24px;
+                    float: right;
+                }
+            }
+        }
+    }
+
+    ion-footer {
+        .grid {
+            padding: 0;
+            .col {
+                padding: 0;
+                .button {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

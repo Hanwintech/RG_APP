@@ -21,10 +21,10 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public apiService: ApiService,
-    public pageService: PageService,
     public file: File,
-    public fileTransfer: FileTransfer
+    public fileTransfer: FileTransfer,
+    public apiService: ApiService,
+    public pageService: PageService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
     

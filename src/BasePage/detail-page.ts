@@ -1,6 +1,6 @@
 import { NavController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { BasePage } from "./base-page";
 import { PageService } from './../services/page.service';

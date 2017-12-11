@@ -42,12 +42,6 @@ export class TwoLinePage {
   }
 
   ionViewDidEnter() {
-    let elements = document.querySelectorAll(".tabbar");
-    if (elements != null) {
-      Object.keys(elements).map((key) => {
-        elements[key].style.display = 'none';
-      });
-    }
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
@@ -71,15 +65,6 @@ export class TwoLinePage {
     this.getData(this.map.getZoom());
     this.mapAddEventListener();
     //this.drawTwoLine();
-  }
-  back() {
-    this.navCtrl.setRoot("TabsPage", "aa");
-    // let elements = document.querySelectorAll(".tabbar");
-    // if(elements != null) {
-    //     Object.keys(elements).map((key) => {
-    //         elements[key].style.display ='flex';
-    //     });
-    // }
   }
   getLocation(longitude, latitude) {
     var pointData = new BMap.Point(longitude, latitude);

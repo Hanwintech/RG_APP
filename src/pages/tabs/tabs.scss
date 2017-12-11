@@ -1,13 +1,23 @@
 page-tabs {
-    .tab-button [ng-reflect-name=twoLine]{
-        width: 44px !important;
+    .show-tabbar:after{
+        content: "";
+        width: 48px !important;
         height: 48px !important;
         background-image: url('../assets/icon/tabs_twoLine_normal.png');
         background-repeat:no-repeat;
         background-size: 100%;
+        position:fixed;
+        display: block;
+        left: 26px;
+        z-index:1;
+        bottom:2px;
     }
-    .tab-button.activated [ng-reflect-name=twoLine],
-    .tab-button [ng-reflect-name=twoLine][ng-reflect-is-active=true]{
-        background-image: url('../assets/icon/tabs_twoLine_active.png');
+    .copyTwoLine{
+        width: 48px !important;
+        height: 48px !important;
+        position:fixed;
+        left: 26px;
+        z-index:1;
+        bottom:2px;
     }
 }

@@ -52,4 +52,24 @@ page-two-line {
     .toolCulturalBlue {
         border: 0px;
     }
+    .positionContain {
+        position: relative;
+        background: #03a9f4;
+    }
+    .positionContain:after {
+        position: absolute;
+        display: inline-block !important;
+        border-top: 8px solid transparent;
+        border-right: 20px solid #03a9f4;
+        border-right-color: #03a9f4;
+        border-bottom: 0px solid transparent;
+        content: '';
+        left: -15px;
+        bottom: -3px;
+        transform: rotate(-18deg);
+        -ms-transform: rotate(-18deg);
+        -moz-transform: rotate(-18deg);
+        -webkit-transform: rotate(-18deg);
+        -o-transform: rotate(-18degeg);
+    }
 }

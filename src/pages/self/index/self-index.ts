@@ -54,7 +54,7 @@ export class SelfIndexPage {
   }
 
   notice() {
-    this.navCtrl.push("MessageCenterInfoListPage", { "messageShowType": EnumMessageShowType.通知公告 });
+    this.navCtrl.push("NoticeListPage");
   }
 
   messageCenter() {

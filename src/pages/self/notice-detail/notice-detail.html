@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>通知公告详情</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>{{noticeBasicInfo.title}}</h2>
+  <h5>{{noticeBasicInfo.sendDeptName}}&nbsp;&nbsp;&nbsp;{{noticeBasicInfo.sendDate | datetime:"yyyy-MM-dd"}}</h5>
+  <div [innerHTML]="noticeBasicInfo.noticeText"></div>
+</ion-content>
+
+<ion-footer>
+  <button ion-button block (click)="close()">关闭</button>
+</ion-footer>

@@ -1,0 +1,37 @@
+page-search-index {
+    .toolbar{
+        border-width: 0;   
+    }
+    .segment {
+        border-color: #fff;
+        .segment-button {
+            height: 3rem;
+            border-width: 0 0 2px 0;
+            border-radius: 0 !important;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-color: #fff;
+            color:color($colors, grayText, base);
+        }
+        .segment-button.segment-activated {
+            background-color: #fff;
+            color: color($colors, primary, base);
+            border-color: color($colors, primary, base);
+        }
+    }
+    .list {
+        margin-top: 0;
+    }
+    .grid{
+        padding:20px;
+    }
+    p{
+        margin-top: 1px;
+        color:grayText;
+        font-size: 0.1em;
+    }
+    img{
+        width:60px;
+        height:60px;
+    }
+}

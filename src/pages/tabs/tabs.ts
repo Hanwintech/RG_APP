@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Tabs, Platform,NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, Tabs, Platform, NavParams, AlertController, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 @IonicPage()
@@ -14,12 +14,20 @@ export class TabsPage {
   tab2Root: any;
   tab3Root: any;
   tab4Root: any;
-  constructor( public navParams: NavParams) { 
-    this.tab1Root = 'TwoLinePage';
+  tab5Root: any;
+  constructor(public navParams: NavParams, public navCtrl: NavController, ) {
+    // this.tab1Root = 'TwoLinePage';
     this.tab2Root = 'SelfIndexPage';
     this.tab3Root = 'SelfIndexPage';
     this.tab4Root = 'SelfIndexPage';
+    this.tab5Root = 'SelfIndexPage';
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
+  }
+  twoline() {
+    var navOptions = {
+      animation: 'wp-transition'
+    };
+    this.navCtrl.push("TwoLinePage", null, navOptions);
   }
 }

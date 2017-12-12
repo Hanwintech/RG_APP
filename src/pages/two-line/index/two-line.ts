@@ -23,6 +23,9 @@ declare var Cluster;
 export class TwoLinePage {
   @ViewChild('map') mapElement: ElementRef;
   private pageTitle: string;
+  private currentMapLevelMin: number;
+  private currentMapLevelMax: number;
+  private mapLevel: number;
   private map: any;
   private longitude: any;
   private latitude: any;
@@ -30,7 +33,7 @@ export class TwoLinePage {
   private userInfo: UserEntity;
   private search: CulturalRelicInfoSearch;
   private twoLine = [];
-  private mapDistrictClusterInfo: UTMapDistrictClusterInfo[];
+  private mapDistrictClusterInfoList: UTMapDistrictClusterInfo[];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,17 +45,11 @@ export class TwoLinePage {
   }
 
   ionViewDidEnter() {
-    let elements = document.querySelectorAll(".tabbar");
-    if (elements != null) {
-      Object.keys(elements).map((key) => {
-        elements[key].style.display = 'none';
-      });
-    }
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     var pointData = new BMap.Point(120.78877004348, 31.346248778536);
-    this.map.centerAndZoom(pointData, 16);
+    this.map.centerAndZoom(pointData, 17);
     this.map.addControl(new BMap.MapTypeControl({
       mapTypes: [
         BMAP_NORMAL_MAP,
@@ -68,18 +65,9 @@ export class TwoLinePage {
     // this.getLocation(longT,lati);
     // },1000000);
     this.getLocation(longT, lati);
-    this.getData(this.map.getZoom());
+    this.mapLevel = this.map.getZoom();
+    this.getData(this.mapLevel);
     this.mapAddEventListener();
-    //this.drawTwoLine();
-  }
-  back() {
-    this.navCtrl.setRoot("TabsPage", "aa");
-    // let elements = document.querySelectorAll(".tabbar");
-    // if(elements != null) {
-    //     Object.keys(elements).map((key) => {
-    //         elements[key].style.display ='flex';
-    //     });
-    // }
   }
   getLocation(longitude, latitude) {
     var pointData = new BMap.Point(longitude, latitude);
@@ -110,7 +98,6 @@ export class TwoLinePage {
     this.search.searchType = 1;
     this.search.culturalRelicSearchType = 1;
 
-    //this.search.culturalRelicName = "沙湖科技园";
     this.search.leftTopCoordinateX = this.map.getBounds().Le;
     this.search.leftTopCoordinateY = this.map.getBounds().Fe;
     this.search.rightBottomCoordinateX = this.map.getBounds().Ge;
@@ -120,9 +107,8 @@ export class TwoLinePage {
         if (res.success) {
           console.log(res);
           this.twoLine = res.data.twoLineInfoList;
-          this.mapDistrictClusterInfo = res.data.mapDistrictClusterInfoList;
-          let mapZoom = this.map.getZoom();
-          if (mapZoom > 15) {
+          this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
+          if (this.mapLevel > 15) {
             for (let info of this.twoLine) {
               let color = "#" + info.twoLinePolygon.color;
               let line = [];
@@ -132,7 +118,7 @@ export class TwoLinePage {
               this.drawTwoLine(line, color);
             }
           }
-
+          this.bindMarker();
         }
       }, error => {
       }
@@ -141,31 +127,46 @@ export class TwoLinePage {
 
   private mapAddEventListener() {
     this.map.addEventListener("zoomend", function () {
-      this.map.clearOverlays();
-      let mapZoom = this.map.getZoom();
-      this.getData(mapZoom);
-      if (this.mapDistrictClusterInfo.length>0) {
-        for (let cluster of this.mapDistrictClusterInfo) {
-          this.zoom(cluster.coordinateX, cluster.coordinateY, cluster.showName);
-        }
-      }
+      this.mapLevel = this.map.getZoom();
+      this.getData(this.mapLevel);
 
     }.bind(this))
-    this.map.addEventListener("dragend",function(){
+    this.map.addEventListener("dragend", function () {
 
     }.bind(this));
 
   }
-  private zoom(x, y, name) {
+
+  private addRectangleLabel(x, y, name) {
+    let myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+    let myIconSelected = new BMap.Icon("assets/map/ic_cultural_relic_level1_selected.png", new BMap.Size(34, 35));
+    let maker = new BMap.Marker(new BMap.Point(x, y), {
+      icon: myIcon,
+      enableMassClear: false,
+      enableClicking: true
+    })
+    let lblString = "<div ' class='positionContain'><div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>" + name + "</div><div style='padding:0.2em 0.4em;'>案件</div></div>";
+    var label = new BMap.Label(lblString, { offset: new BMap.Size(38, -40) });
+    label.setStyle({
+      border: "none",
+      fontSize: "1em",
+      color: "#fff",
+      borderRadius: "0.3em",
+      background: "none"
+    });
+    maker.setLabel(label);
+    console.log(maker);
+    this.map.addOverlay(maker);
+  }
+
+  private addCircleLabel(x, y, name) {
     var label;
     var point = new BMap.Point(x, y);
     var option = {
       position: point,
     }
-    for (let i = 0; i < 10; i++) {
-      label = new BMap.Label("<div style='margin:7px auto;'><p style='white-space:normal'>" + name + "</p><p></p></div>", option);
-
-    }
+    label = new BMap.Label("<div style='margin:7px auto;'><p style='white-space:normal'>"
+      + name + "</p><p></p></div>", option);
     label.setStyle({
       color: "white",
       background: "red",
@@ -177,10 +178,46 @@ export class TwoLinePage {
       fontFamily: "微软雅黑",
       textAlign: 'center'
     });
-    label.addEventListener("click",function(){
+    label.addEventListener("click", function () {
       this.map.clearOverlays();
+
     }.bind(this));
     this.map.addOverlay(label);
+  }
+
+
+  private bindMarker() {
+    //如果已经不再原来的缩放范围内，则清除点
+    if (this.mapLevel <= this.currentMapLevelMin || this.mapLevel > this.currentMapLevelMax) {
+      this.clearMarker();
+    }
+    this.run();
+
+  }
+
+  //拿到infoList数据，遍历添加label
+  private run() {
+    if (this.mapDistrictClusterInfoList != null && this.mapDistrictClusterInfoList.length > 0) {
+      for (let cluster of this.mapDistrictClusterInfoList) {
+        this.currentMapLevelMin = cluster.mapLevelMin;
+        this.currentMapLevelMax = cluster.mapLevelMax;
+        //如果在当前缩放范围内，已经存在该点，则不添加
+        switch (cluster.districtType) {
+          case 1:
+          case 2:
+          case 3:
+            this.addCircleLabel(cluster.coordinateX, cluster.coordinateY, cluster.showName);
+            break;
+          case 100:
+            this.addRectangleLabel(cluster.coordinateX, cluster.coordinateY, cluster.showName);
+        }
+
+      }
+    }
+  }
+
+  private clearMarker() {
+    this.map.clearOverlays();
   }
 }
 

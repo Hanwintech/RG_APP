@@ -50,3 +50,10 @@ export enum EnumMessageShowType {
     通知公告 = 4,
     全部消息 = 5
 }
+
+export enum EnumDistrictType {
+    文物点 = 100,
+    省 = 1,
+    市 = 2,
+    县区 = 3,
+}

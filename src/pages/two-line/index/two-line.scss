@@ -54,22 +54,34 @@ page-two-line {
     }
     .positionContain {
         position: relative;
-        background: #03a9f4;
+        background: #1fa0f2;
+        font-size: 12px;
+        border-radius: 2px;
     }
     .positionContain:after {
         position: absolute;
         display: inline-block !important;
-        border-top: 8px solid transparent;
-        border-right: 20px solid #03a9f4;
-        border-right-color: #03a9f4;
-        border-bottom: 0px solid transparent;
+        width: 0;
+        height: 0;
+        border: 7px solid transparent;
+        border-top-color: #1fa0f2;
         content: '';
-        left: -15px;
-        bottom: -3px;
-        transform: rotate(-18deg);
-        -ms-transform: rotate(-18deg);
-        -moz-transform: rotate(-18deg);
-        -webkit-transform: rotate(-18deg);
-        -o-transform: rotate(-18degeg);
+        left: 10px;
+    }
+    @-webkit-keyframes twinkling{	/*透明度由0到1*/
+        0%{
+            opacity:1;				/*透明度为0*/
+        }
+        100%{
+            opacity:0;				/*透明度为1*/
+        }
+    }
+    .positionContain.warning{
+        background: #f05853;
+        // -webkit-animation: twinkling 0.7s infinite ;
+    }
+    .positionContain.warning:after{
+        border-top-color: #f05853;
+       // -webkit-animation: twinkling 0.6s infinite ;
     }
 }

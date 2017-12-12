@@ -27,6 +27,8 @@ export class TwoLinePage {
   private currentMapLevelMax: number;
   private mapLevel: number;
   private map: any;
+  private marker: any;
+  private showTwoLineMapLevel=17;
   private longitude: any;
   private latitude: any;
   private selectedId: any;
@@ -49,7 +51,7 @@ export class TwoLinePage {
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     var pointData = new BMap.Point(120.78877004348, 31.346248778536);
-    this.map.centerAndZoom(pointData, 17);
+    this.map.centerAndZoom(pointData, 16);
     this.map.addControl(new BMap.MapTypeControl({
       mapTypes: [
         BMAP_NORMAL_MAP,
@@ -66,14 +68,14 @@ export class TwoLinePage {
     // },1000000);
     this.getLocation(longT, lati);
     this.mapLevel = this.map.getZoom();
+    console.log(this.mapLevel);
     this.getData(this.mapLevel);
     this.mapAddEventListener();
   }
   getLocation(longitude, latitude) {
     var pointData = new BMap.Point(longitude, latitude);
-    var myLocation = new BMap.Icon("assets/map/ic_map_marker_self_df.png", new BMap.Size(34, 35));
-    let mkr = new BMap.Marker(pointData, { icon: myLocation });
-    // this.map.clearOverlays();
+    var myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
+    let mkr = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false, });
     this.map.addOverlay(mkr);
     this.map.panTo(pointData);
   }
@@ -106,9 +108,15 @@ export class TwoLinePage {
       res => {
         if (res.success) {
           console.log(res);
+          // console.log("************************");
+          // console.log(this.mapLevel)
+          // // console.log(res.data.mapDistrictClusterInfoList[0].mapLevelMax);
+          // // console.log(res.data.mapDistrictClusterInfoList[0].mapLevelMin);
+          // console.log(res.data.mapDistrictClusterInfoList[0]);
+          // console.log("************************");
           this.twoLine = res.data.twoLineInfoList;
           this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
-          if (this.mapLevel > 15) {
+          if (this.mapLevel > 16 && this.mapDistrictClusterInfoList != null && this.mapDistrictClusterInfoList.length > 0) {
             for (let info of this.twoLine) {
               let color = "#" + info.twoLinePolygon.color;
               let line = [];
@@ -137,44 +145,76 @@ export class TwoLinePage {
 
   }
 
-  private addRectangleLabel(x, y, name) {
-    let myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+  //详细文物点信息所用的矩形信息框
+  private addRectangleLabel(cluster) {
+    let myIcon;
+    let lblString;
+    let caseCountTemp;
+    let patrolCountTemp;
+    if (cluster.caseCount == 0) {
+      caseCountTemp = 0;
+    }
+    else {
+      caseCountTemp = cluster.caseDoingCount + "/" + cluster.caseCount;
+    }
+    if (cluster.patrolCount == 0) {
+      patrolCountTemp = 0;
+    }
+    else {
+      patrolCountTemp = cluster.patrolDoingCount + "/" + cluster.patrolCount;
+    }
     let myIconSelected = new BMap.Icon("assets/map/ic_cultural_relic_level1_selected.png", new BMap.Size(34, 35));
-    let maker = new BMap.Marker(new BMap.Point(x, y), {
-      icon: myIcon,
-      enableMassClear: false,
-      enableClicking: true
-    })
-    let lblString = "<div ' class='positionContain'><div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>" + name + "</div><div style='padding:0.2em 0.4em;'>案件</div></div>";
-    var label = new BMap.Label(lblString, { offset: new BMap.Size(38, -40) });
+    //创建点
+    let pt = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
+    if (cluster.caseDoingCount > 0 || cluster.patrolDoingCount > 0) {
+      myIcon = new BMap.Icon("assets/map/country.gif", new BMap.Size(34, 35));
+      lblString = "<div  class='positionContain warning'>";
+    }
+    else {
+      myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_selected.png", new BMap.Size(34, 35));
+      lblString = "<div  class='positionContain'>";
+    }
+    lblString = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
+      + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>案件:" + caseCountTemp +
+      "&nbsp;&nbsp;&nbsp;&nbsp;巡查：" + patrolCountTemp + "</div></div>";
+    this.marker = new BMap.Marker(pt, { icon: myIcon,})
+    var label = new BMap.Label(lblString, { offset: new BMap.Size(8, -60) });
     label.setStyle({
       border: "none",
       fontSize: "1em",
       color: "#fff",
-      borderRadius: "0.3em",
+      borderRadius: '2px;',
       background: "none"
     });
-    maker.setLabel(label);
-    console.log(maker);
-    this.map.addOverlay(maker);
+    this.marker.setLabel(label);
+    this.map.addOverlay(this.marker);
   }
 
-  private addCircleLabel(x, y, name) {
+  //聚合所用的圆圈
+  private addCircleLabel(cluster) {
+    let circleColor;
+    if (cluster.caseDoingCount > 0 || cluster.patrolDoingCount > 0) {
+      circleColor = "#f05853";
+    }
+    else {
+      circleColor = "#1fa0f2";
+    }
     var label;
-    var point = new BMap.Point(x, y);
+    var point = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
     var option = {
       position: point,
     }
-    label = new BMap.Label("<div style='margin:7px auto;'><p style='white-space:normal'>"
-      + name + "</p><p></p></div>", option);
+    label = new BMap.Label("<div style='margin:15px auto;'><div>"
+      + cluster.showName + "</div><div>" + cluster.culturalRelicCount + "</div></div>", option);
     label.setStyle({
       color: "white",
-      background: "red",
-      fontSize: "14px",
+      background: circleColor,
+      fontSize: "12px",
       height: "64px",
       width: "64px",
+      borderWidth: '1px ',
+      borderColor: "white",
       borderRadius: '50%',
-      opacity: 0.9,
       fontFamily: "微软雅黑",
       textAlign: 'center'
     });
@@ -187,9 +227,11 @@ export class TwoLinePage {
 
 
   private bindMarker() {
+    //this.map.clearOverlays(this.marker.getLabel());
     //如果已经不再原来的缩放范围内，则清除点
     if (this.mapLevel <= this.currentMapLevelMin || this.mapLevel > this.currentMapLevelMax) {
-      this.clearMarker();
+      //this.clearMarker(maker);
+      this.map.clearOverlays();
     }
     this.run();
 
@@ -206,10 +248,10 @@ export class TwoLinePage {
           case 1:
           case 2:
           case 3:
-            this.addCircleLabel(cluster.coordinateX, cluster.coordinateY, cluster.showName);
+            this.addCircleLabel(cluster);
             break;
           case 100:
-            this.addRectangleLabel(cluster.coordinateX, cluster.coordinateY, cluster.showName);
+            this.addRectangleLabel(cluster);
         }
 
       }

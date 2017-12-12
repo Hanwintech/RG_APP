@@ -1,7 +1,7 @@
 page-self-index {
     .header {
         height: 45vw;
-        background-image: url('../assets/self/header_bg.png');
+        background-image: url('/assets/self/header_bg.png');
         background-repeat: no-repeat;
         background-size: 100% 100%;
         font-size: 18px;
@@ -13,7 +13,7 @@ page-self-index {
             float: left;
             width: 64px;
             height: 64px;
-            background-image: url('../assets/self/head_portrait.png');
+            background-image: url('/assets/self/head_portrait.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
             margin: 0 10px 0 15px;

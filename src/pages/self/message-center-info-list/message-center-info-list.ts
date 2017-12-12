@@ -74,7 +74,6 @@ export class MessageCenterInfoListPage extends ListPage {
           for (let cr of temp) {
             this.datasource.push(cr);
           }
-          console.log(this.datasource);
 
           //控制瀑布流控件状态
           if (event) {

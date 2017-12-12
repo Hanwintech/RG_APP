@@ -2,7 +2,7 @@
   <div class="title">我的</div>
   <div class="avatar"></div>
   <div class="name">
-    <div>{{area}}</div>
+    <div>{{areaName}}</div>
     <div>系统管理员</div>
   </div>
   <ion-icon name="ios-create-outline" (click)="editInfo()"></ion-icon>
@@ -34,10 +34,10 @@
     <button ion-item (click)="allTodo();">
       <img src="../assets/self/all_todo.png"> 待办事宜
     </button>
-    <button ion-item (click)="alert(1);">
-      <img src="../assets/self/inspector_notice.png"> 督查通知
+    <button ion-item (click)="inspectionNotice();">
+      <img src="../assets/self/inspection_notice.png"> 督查通知
     </button>
-    <button ion-item (click)="alert(1);">
+    <button ion-item (click)="notice();">
       <img src="../assets/self/notice.png"> 通知公告
     </button>
     <button ion-item (click)="messageCenter();">

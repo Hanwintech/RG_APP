@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>督查通知</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showSimpleSearch()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="showSearch()">
+        <ion-icon name="ios-funnel-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment [(ngModel)]="segmentIndex">
+    <ion-segment-button value="0">
+      接收的通知
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      发送的通知
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segmentIndex">
+    <div *ngSwitchCase="'0'">
+      <div *ngIf="datasource0 && datasource0.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let cr of datasource0" (click)="view(cr)">
+            <div class="messageTitle">
+              <h2>{{cr.recordStateName}}</h2>
+              <h3>{{cr.inspectorNotice.fileTitle}}</h3>
+            </div>
+            <div>{{cr.inspectorNotice.situationDescription}}</div>
+            <h5>{{cr.inspectorNotice.fromTime | datetime}}</h5>
+          </ion-item>
+        </ion-list>
+        <ion-infinite-scroll (ionInfinite)="nextPage0($event)">
+          <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+      <div *ngIf="!datasource0 || datasource0.length == 0" class="commonNoResult">
+        无接收的督查通知
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'1'">
+      <div *ngIf="datasource1 && datasource1.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let cr of datasource1" (click)="view(cr)">
+            <div class="messageTitle">
+              <h2>{{cr.recordStateName}}</h2>
+              <h3>{{cr.inspectorNotice.fileTitle}}</h3>
+            </div>
+            <div>{{cr.inspectorNotice.situationDescription}}</div>
+            <h5>{{cr.inspectorNotice.fromTime | datetime}}</h5>
+          </ion-item>
+        </ion-list>
+        <ion-infinite-scroll (ionInfinite)="nextPage1($event)">
+          <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+      <div *ngIf="!datasource1 || datasource1.length == 0" class="commonNoResult">
+        无发送的督查通知
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Platform, App, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ApiService } from './../../../services/api.service';
-import { EnumAreaCode,EnumMessageShowType } from './../../../models/enum'
+import { EnumAreaCode, EnumMessageShowType } from './../../../models/enum'
 
 @IonicPage()
 @Component({
@@ -11,17 +11,14 @@ import { EnumAreaCode,EnumMessageShowType } from './../../../models/enum'
 })
 export class SelfIndexPage {
 
-  private area: string;
+  private areaName: string;
 
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private app: App,
-    private platform: Platform,
-    private actionSheetCtrl: ActionSheetController,
     private apiService: ApiService
   ) {
-    this.area = EnumAreaCode[this.apiService.areaCode];
+    this.areaName = EnumAreaCode[this.apiService.areaCode];
   }
 
   editInfo() {
@@ -52,7 +49,15 @@ export class SelfIndexPage {
     this.navCtrl.push("MessageCenterInfoListPage", { "messageShowType": EnumMessageShowType.待办事宜 });
   }
 
-  messageCenter(){
+  inspectionNotice() {
+    this.navCtrl.push("InspectionNoticeListPage");
+  }
+
+  notice() {
+    this.navCtrl.push("MessageCenterInfoListPage", { "messageShowType": EnumMessageShowType.通知公告 });
+  }
+
+  messageCenter() {
     this.navCtrl.push("MessageCenterInfoListPage", { "messageShowType": EnumMessageShowType.消息中心 });
   }
 }

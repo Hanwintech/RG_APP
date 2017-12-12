@@ -78,3 +78,15 @@ ion-item-options {
         width: 2.6em;
     }
 }
+
+.commonNoResult {
+    text-align: center;
+    color: color($colors, border, base);
+    line-height: 16px;
+    margin-top: 50%;
+    padding-top: 65px;
+    background-image: url('/assets/icon/common_no_result.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 12%;
+}

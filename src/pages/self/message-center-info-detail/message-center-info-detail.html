@@ -1,47 +1,47 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>消息详情</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content>  
-    <ion-list>
-      <ion-item>
-        <ion-label fixed>发送单位</ion-label>
-        <ion-label>{{messageCenterEntity.addManageUnitName}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>发送人员</ion-label>
-        <ion-label>{{messageCenterEntity.adder}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>发送时间</ion-label>
-        <ion-label>{{messageCenterEntity.addDate | datetime}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>消息类型</ion-label>
-        <ion-label>{{messageCenterEntity.messageTypeName}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>消息主题</ion-label>
-        <ion-label>{{messageCenterEntity.messageTitle}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>消息内容</ion-label>
-        <ion-label>{{messageCenterEntity.messageContent}}</ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-  
-  <ion-footer>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button block (click)="detail()">查看详情</button>
-        </ion-col>
-        <ion-col style="border-left: solid 1px #fff;">
-          <button ion-button block (click)="close()">关闭</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-footer>
+  <ion-navbar>
+    <ion-title>消息详情</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>发送单位</ion-label>
+      <ion-label>{{messageCenterEntity.addManageUnitName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>发送人员</ion-label>
+      <ion-label>{{messageCenterEntity.adder}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>发送时间</ion-label>
+      <ion-label>{{messageCenterEntity.addDate | datetime}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>消息类型</ion-label>
+      <ion-label>{{messageCenterEntity.messageTypeName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>消息主题</ion-label>
+      <ion-label>{{messageCenterEntity.messageTitle}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>消息内容</ion-label>
+      <ion-label>{{messageCenterEntity.messageContent}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="detail()">查看详情</button>
+      </ion-col>
+      <ion-col style="border-left: solid 1px #fff;">
+        <button ion-button block (click)="close()">关闭</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

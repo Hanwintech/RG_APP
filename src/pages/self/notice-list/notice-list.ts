@@ -6,22 +6,21 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { ListPage } from './../../../BasePage/list-page';
-import { GetMessageCenterInfoList } from './../../../apis/self/get-message-center-info-list.api';
-import { MessageCenterInfo, MessageCenterEntity, MessageCenterInfoSearch, MessageCenterInfoSearchDataSource } from './../../../models/self/message-center-info.model';
+import { GetNoticeInfoList } from './../../../apis/self/get-notice-info-list.api';
+import { UVNoticeBasicInfo,  NoticeInfoSearch, NoticeInfoSearchDataSource } from './../../../models/self/notice-info.model';
 import { EnumSearchType, EnumMessageShowType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
+
 @IonicPage()
 @Component({
-  selector: 'page-message-center-info-list',
-  templateUrl: 'message-center-info-list.html',
+  selector: 'page-notice-list',
+  templateUrl: 'notice-list.html',
 })
-export class MessageCenterInfoListPage extends ListPage {
-  private pageTitle: string;
-  private messageShowType: EnumMessageShowType;
-  private search: MessageCenterInfoSearch;
-  private searchDataSource: MessageCenterInfoSearchDataSource;
-  private datasource: MessageCenterInfo[];
+export class NoticeListPage extends ListPage {
+  private search: NoticeInfoSearch;
+  private searchDataSource: NoticeInfoSearchDataSource;
+  private datasource: UVNoticeBasicInfo[];
 
   constructor(
     public navCtrl: NavController,
@@ -37,10 +36,7 @@ export class MessageCenterInfoListPage extends ListPage {
 
     this.pageService.showLoading("数据加载中...");
 
-    this.messageShowType = this.navParams.data.messageShowType;
-    this.pageTitle = EnumMessageShowType[this.messageShowType];
-
-    this.search = new MessageCenterInfoSearch();
+    this.search = new NoticeInfoSearch();
     this.search.isDefaultSearch = true;
     this.search.isNeedPaging = true;
     this.search.searchType = EnumSearchType.All;
@@ -48,7 +44,6 @@ export class MessageCenterInfoListPage extends ListPage {
     this.search.userId = localStorage.getItem("userId");
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
-    this.search.messageShowType = <number>this.messageShowType;
 
     this.datasource = [];
 
@@ -61,16 +56,16 @@ export class MessageCenterInfoListPage extends ListPage {
   }
 
   doSearch(event, isNewSearch) {
-    this.apiService.sendApi(new GetMessageCenterInfoList(this.search)).subscribe(
+    this.apiService.sendApi(new GetNoticeInfoList(this.search)).subscribe(
       res => {
         if (res.success) {
           if (isNewSearch) {
             this.datasource = [];
             this.nextPageIndex = 0;
           }
-          this.searchDataSource = res.data.messageCenterInfoSearchDataSource;
+          this.searchDataSource = res.data.noticeInfoSearchDataSource;
           //获取新一页的数据
-          let temp: MessageCenterInfo[] = res.data.messageCenterInfoList ? res.data.messageCenterInfoList : [];
+          let temp: UVNoticeBasicInfo[] = res.data.noticeInfoList ? res.data.noticeInfoList : [];
           for (let cr of temp) {
             this.datasource.push(cr);
           }
@@ -113,7 +108,7 @@ export class MessageCenterInfoListPage extends ListPage {
   }
 
   showSearch() {
-    super.showConditionalSearchPage('MessageCenterSearchPage', { "search": this.search, "dataSource": this.searchDataSource })
+    super.showConditionalSearchPage('NoticeSearchPage', { "search": this.search, "dataSource": this.searchDataSource })
       .then(data => {
         if (data.needSearch) {
           this.search.isDefaultSearch = false;
@@ -126,7 +121,7 @@ export class MessageCenterInfoListPage extends ListPage {
       });
   }
 
-  view(messageCenterEntity: MessageCenterEntity) {
-    this.navCtrl.push('MessageCenterInfoDetailPage', messageCenterEntity);
+  view(messageCenterEntity: UVNoticeBasicInfo) {
+    this.navCtrl.push('NoticeDetailPage', messageCenterEntity);
   }
 }

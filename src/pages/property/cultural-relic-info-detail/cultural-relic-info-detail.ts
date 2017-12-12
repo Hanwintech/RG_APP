@@ -27,7 +27,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     public fileTransfer: FileTransfer
   ) {
     super(navCtrl, file, fileTransfer, pageService);
-    
+
     this.culturalRelicInfo = new CulturalRelicInfo();
 
     let culturalRelicID = this.navParams.data
@@ -49,11 +49,11 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
       });
   }
 
-  showPicture(fileUrl: string, attachmentList: Attachment[]) {    
+  showPicture(fileUrl: string, attachmentList: Attachment[]) {
     super.showSlidesPage(attachmentList, fileUrl);
   }
 
-  download(fileUrl: string, fileName:string) {
+  download(fileUrl: string, fileName: string) {
     super.downloadFile(fileUrl, fileName);
   }
 

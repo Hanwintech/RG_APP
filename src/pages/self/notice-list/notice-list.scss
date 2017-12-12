@@ -1,4 +1,4 @@
-page-message-center-info-list {
+page-notice-list {
     .item-block {
         padding-left: 0;
         .label {
@@ -13,6 +13,7 @@ page-message-center-info-list {
             .messageTitle {
                 width: 100%;
                 height:25px;
+                white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 h2 {

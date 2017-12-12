@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-navbar>
+      <ion-buttons left>
+        <button ion-button (click)="close()">关闭</button>
+      </ion-buttons>
+      <ion-title>搜索消息</ion-title>
+      <ion-buttons right>
+        <button ion-button (click)="clear()">清空</button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>状态</ion-label>
+        <ion-select [(ngModel)]="search.recordState" cancelText="取消" interface="popover">
+          <ion-option *ngFor="let kvp of searchDataSource.recordStateList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>发送单位</ion-label>
+        <ion-input type="text" [(ngModel)]="search.fromManageUnitName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>文物名称</ion-label>
+        <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>主题</ion-label>
+        <ion-input type="text" [(ngModel)]="search.fileTitle"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed class="wrap">发送开始时间</ion-label>
+        <ion-datetime placeholder="点击选择发送开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed class="wrap">发送结束时间</ion-label>
+        <ion-datetime placeholder="点击选择发送结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+  <ion-footer>
+    <button ion-button block (click)="doSearch()">确定</button>
+  </ion-footer>

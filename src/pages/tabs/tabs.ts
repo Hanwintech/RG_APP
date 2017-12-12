@@ -19,7 +19,7 @@ export class TabsPage {
     // this.tab1Root = 'TwoLinePage';
     this.tab2Root = 'SelfIndexPage';
     this.tab3Root = 'SelfIndexPage';
-    this.tab4Root = 'SelfIndexPage';
+    this.tab4Root = 'SearchIndexPage';
     this.tab5Root = 'SelfIndexPage';
   }
   ionViewDidEnter() {

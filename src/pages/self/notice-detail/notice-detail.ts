@@ -6,30 +6,29 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../BasePage/detail-page';
-import { MessageCenterEntity } from './../../../models/self/message-center-info.model';
+import { UVNoticeBasicInfo } from './../../../models/self/notice-info.model';
 
 @IonicPage()
 @Component({
-  selector: 'page-message-center-info-detail',
-  templateUrl: 'message-center-info-detail.html',
+  selector: 'page-notice-detail',
+  templateUrl: 'notice-detail.html',
 })
-export class MessageCenterInfoDetailPage extends DetailPage {
-  private messageCenterEntity: MessageCenterEntity;
+export class NoticeDetailPage extends DetailPage {
+  private noticeBasicInfo: UVNoticeBasicInfo;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public apiService: ApiService,
     public file: File,
     public fileTransfer: FileTransfer,
     public pageService: PageService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
 
-    this.messageCenterEntity = this.navParams.data;
+    this.noticeBasicInfo = this.navParams.data;
   }
 
-  detail() { }
-
-  close() { }
+  close() {
+    this.navCtrl.pop();
+  }
 }

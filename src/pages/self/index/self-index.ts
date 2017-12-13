@@ -60,4 +60,8 @@ export class SelfIndexPage {
   messageCenter() {
     this.navCtrl.push("MessageCenterInfoListPage", { "messageShowType": EnumMessageShowType.消息中心 });
   }
+
+  publicOpinion() {
+    this.navCtrl.push("PublicOpinionInfoPage");
+  }
 }

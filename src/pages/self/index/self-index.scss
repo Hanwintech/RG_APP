@@ -34,22 +34,21 @@ page-self-index {
         }
     }
     .mainBar {
-        padding: 15px 0;
-        .iconButton {
-            display: inline-block;
-            width: 24%;
-            font-size: 12px;
+        padding: 10px 0;
+        .col {
             text-align: center;
             border-right: solid 1px #c7c7c7;
-            img {
-                width: 4em;
+            padding: 5px 0;
+            .iconButton {
+                font-size: 12px;
+                text-align: center;
+                img {
+                    width: 4em;
+                }
             }
         }
-        .iconButton:last-child {
-            border-right: 0;
-        }
-        .iconButton:active {
-            background-color: #eeeeee;
+        .col:last-child {
+            border-right: 0px;
         }
     }
     ion-list {

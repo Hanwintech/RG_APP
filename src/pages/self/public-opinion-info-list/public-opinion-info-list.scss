@@ -1,0 +1,34 @@
+page-public-opinion-info-list {
+    .item-block {
+        padding-left: 0;
+        .label {
+            margin: 0.4em;
+            .messageTitle {
+                h3 {
+                    font-size: 13px;
+                    color: #000;
+                    white-space: normal;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                }
+            }
+            div {
+                font-size: 12px;
+                color: #999;
+                width: 100%;
+                margin: 7px 0;
+            }
+            h4,
+            h5 {
+                font-size: 12px;
+                color: #ff8a0f;
+            }
+            h4 {
+                float: left;
+            }
+            h5 {
+                float: right;
+            }
+        }
+    }
+}

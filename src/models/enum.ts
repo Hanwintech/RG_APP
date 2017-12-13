@@ -51,6 +51,12 @@ export enum EnumMessageShowType {
     全部消息 = 5
 }
 
+export enum EnumPublicOpinionShowType {
+    全国文物舆情信息 = 1,
+    省内文物舆情信息 = 2,
+    省内文博大事 = 3
+}
+
 export enum EnumDistrictType {
     文物点 = 100,
     省 = 1,

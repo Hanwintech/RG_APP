@@ -1,0 +1,15 @@
+page-public-opinion-info {
+    ion-content {
+        .col {
+            text-align: center;
+            .iconButton {
+                display: inline-block;
+                font-size: 12px;
+                text-align: center;
+                img {
+                    width: 4em;
+                }
+            }
+        }
+    }
+}

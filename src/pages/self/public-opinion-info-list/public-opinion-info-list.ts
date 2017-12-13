@@ -74,8 +74,6 @@ export class PublicOpinionInfoListPage extends ListPage {
           for (let cr of temp) {
             this.datasource.push(cr);
           }
-          console.log(this.searchDataSource);
-          console.log(this.datasource);
 
           //控制瀑布流控件状态
           if (event) {
@@ -115,7 +113,7 @@ export class PublicOpinionInfoListPage extends ListPage {
   }
 
   showSearch() {
-    super.showConditionalSearchPage('PublicOpinionSearchPage', { "search": this.search, "dataSource": this.searchDataSource })
+    super.showConditionalSearchPage('PublicOpinionInfoSearchPage', { "search": this.search, "dataSource": this.searchDataSource })
       .then(data => {
         if (data.needSearch) {
           this.search.isDefaultSearch = false;
@@ -129,6 +127,6 @@ export class PublicOpinionInfoListPage extends ListPage {
   }
 
   view(entity: UVPublicOpinion) {
-    this.navCtrl.push('PublicOpinionInfoDetailPage', entity);
+    this.navCtrl.push('PublicOpinionInfoDetailPage', { "pageTitle": this.pageTitle, "url": entity.originalLink });
   }
 }

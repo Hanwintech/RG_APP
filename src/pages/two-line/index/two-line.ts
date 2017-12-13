@@ -27,8 +27,7 @@ export class TwoLinePage {
   private currentMapLevelMax: number;
   private mapLevel: number;
   private map: any;
-  private marker: any;
-  private showTwoLineMapLevel=17;
+  private showTwoLineMapLevel = 17;
   private longitude: any;
   private latitude: any;
   private selectedId: any;
@@ -36,6 +35,8 @@ export class TwoLinePage {
   private search: CulturalRelicInfoSearch;
   private twoLine = [];
   private mapDistrictClusterInfoList: UTMapDistrictClusterInfo[];
+  private shine;
+  private shineArray = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -50,7 +51,7 @@ export class TwoLinePage {
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
-    var pointData = new BMap.Point(120.78877004348, 31.346248778536);
+    var pointData = new BMap.Point(120.619688, 31.31715);
     this.map.centerAndZoom(pointData, 16);
     this.map.addControl(new BMap.MapTypeControl({
       mapTypes: [
@@ -58,8 +59,8 @@ export class TwoLinePage {
         BMAP_HYBRID_MAP
       ]
     }));
-    let longT = '120.78877004348';
-    let lati = '31.346248778536';
+    let longT = '120.619688';
+    let lati = '31.31715';
     //  setInterval(()=>{
     //   //this.getLocation();
     // longT=longT+0.000001;
@@ -108,24 +109,8 @@ export class TwoLinePage {
       res => {
         if (res.success) {
           console.log(res);
-          // console.log("************************");
-          // console.log(this.mapLevel)
-          // // console.log(res.data.mapDistrictClusterInfoList[0].mapLevelMax);
-          // // console.log(res.data.mapDistrictClusterInfoList[0].mapLevelMin);
-          // console.log(res.data.mapDistrictClusterInfoList[0]);
-          // console.log("************************");
           this.twoLine = res.data.twoLineInfoList;
           this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
-          if (this.mapLevel > 16 && this.mapDistrictClusterInfoList != null && this.mapDistrictClusterInfoList.length > 0) {
-            for (let info of this.twoLine) {
-              let color = "#" + info.twoLinePolygon.color;
-              let line = [];
-              for (let twoLinePoint of info.twoLinePointList) {
-                line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
-              }
-              this.drawTwoLine(line, color);
-            }
-          }
           this.bindMarker();
         }
       }, error => {
@@ -140,44 +125,59 @@ export class TwoLinePage {
 
     }.bind(this))
     this.map.addEventListener("dragend", function () {
-
+      this.mapLevel = this.map.getZoom();
+      this.getData(this.mapLevel);
     }.bind(this));
 
   }
 
   //详细文物点信息所用的矩形信息框
   private addRectangleLabel(cluster) {
-    let myIcon;
-    let lblString;
-    let caseCountTemp;
-    let patrolCountTemp;
-    if (cluster.caseCount == 0) {
-      caseCountTemp = 0;
+    if (cluster) {
+      let myIcon;
+      let lblString;
+      let caseCountTemp;
+      let patrolCountTemp;
+      let pt = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
+      let marker;
+      caseCountTemp = cluster.caseCount == 0 ? 0 : cluster.caseDoingCount + "/" + cluster.caseCount;
+      patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
+
+      //需要闪烁的文保点
+      if (cluster.caseDoingCount > 0 || cluster.patrolDoingCount > 0) {
+        myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+        lblString = "<div class='positionContain'>";
+        let status = 0;
+        this.shine = setInterval(() => {
+          this.map.removeOverlay(marker);
+          if (status == 0) {
+            myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_warning.png", new BMap.Size(34, 35));
+            lblString = "<div class='positionContain warning'>";
+            status = 1;
+          }
+          else {
+            myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+            lblString = "<div class='positionContain'>";
+            status = 0;
+          }
+          marker = new BMap.Marker(pt, { icon: myIcon, })
+          this.addMarker(myIcon, lblString, caseCountTemp, patrolCountTemp, pt, cluster, marker);
+        }, 500);
+        this.shineArray.push(this.shine);
+      }
+      else {
+
+        myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+        lblString = "<div class='positionContain'>";
+      }
+      marker = new BMap.Marker(pt, { icon: myIcon, })
+      this.addMarker(myIcon, lblString, caseCountTemp, patrolCountTemp, pt, cluster, marker);
     }
-    else {
-      caseCountTemp = cluster.caseDoingCount + "/" + cluster.caseCount;
-    }
-    if (cluster.patrolCount == 0) {
-      patrolCountTemp = 0;
-    }
-    else {
-      patrolCountTemp = cluster.patrolDoingCount + "/" + cluster.patrolCount;
-    }
-    let myIconSelected = new BMap.Icon("assets/map/ic_cultural_relic_level1_selected.png", new BMap.Size(34, 35));
-    //创建点
-    let pt = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
-    if (cluster.caseDoingCount > 0 || cluster.patrolDoingCount > 0) {
-      myIcon = new BMap.Icon("assets/map/country.gif", new BMap.Size(34, 35));
-      lblString = "<div  class='positionContain warning'>";
-    }
-    else {
-      myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_selected.png", new BMap.Size(34, 35));
-      lblString = "<div  class='positionContain'>";
-    }
+  }
+  private addMarker(myIcon, lblString, caseCountTemp, patrolCountTemp, pt, cluster, marker) {
     lblString = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
       + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>案件:" + caseCountTemp +
       "&nbsp;&nbsp;&nbsp;&nbsp;巡查：" + patrolCountTemp + "</div></div>";
-    this.marker = new BMap.Marker(pt, { icon: myIcon,})
     var label = new BMap.Label(lblString, { offset: new BMap.Size(8, -60) });
     label.setStyle({
       border: "none",
@@ -186,10 +186,9 @@ export class TwoLinePage {
       borderRadius: '2px;',
       background: "none"
     });
-    this.marker.setLabel(label);
-    this.map.addOverlay(this.marker);
+    marker.setLabel(label);
+    this.map.addOverlay(marker);
   }
-
   //聚合所用的圆圈
   private addCircleLabel(cluster) {
     let circleColor;
@@ -225,16 +224,19 @@ export class TwoLinePage {
     this.map.addOverlay(label);
   }
 
-
   private bindMarker() {
     //this.map.clearOverlays(this.marker.getLabel());
     //如果已经不再原来的缩放范围内，则清除点
-    if (this.mapLevel <= this.currentMapLevelMin || this.mapLevel > this.currentMapLevelMax) {
-      //this.clearMarker(maker);
-      this.map.clearOverlays();
+    // if (this.mapLevel <= this.currentMapLevelMin || this.mapLevel > this.currentMapLevelMax) {
+    //   //this.clearMarker(maker);
+    //   this.map.clearOverlays();
+    // }
+    //清除所有闪动点
+    for (let shineItem of this.shineArray) {
+      clearInterval(shineItem);
     }
+    this.map.clearOverlays();
     this.run();
-
   }
 
   //拿到infoList数据，遍历添加label
@@ -249,11 +251,22 @@ export class TwoLinePage {
           case 2:
           case 3:
             this.addCircleLabel(cluster);
+            //clearInterval(this.shine);
             break;
           case 100:
+            //添加闪烁     
             this.addRectangleLabel(cluster);
         }
-
+      }
+      if (this.twoLine) {
+        for (let info of this.twoLine) {
+          let color = "#" + info.twoLinePolygon.color;
+          let line = [];
+          for (let twoLinePoint of info.twoLinePointList) {
+            line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
+          }
+          this.drawTwoLine(line, color);
+        }
       }
     }
   }

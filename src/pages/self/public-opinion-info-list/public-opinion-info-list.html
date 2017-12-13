@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>{{pageTitle}}</ion-title>
+      <ion-buttons right>
+        <button ion-button icon-only (click)="showSimpleSearch()">
+          <ion-icon name="ios-search-outline"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="showSearch()">
+          <ion-icon name="ios-funnel-outline"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <div *ngIf="datasource && datasource.length > 0">
+      <ion-list>
+        <ion-item *ngFor="let cr of datasource" (click)="view(cr)">
+          <div class="messageTitle">
+            <h3>{{cr.subject}}</h3>
+          </div>
+          <div>{{cr.sourceOfInformation}} ({{cr.addDate | datetime:"yyyy-MM-dd"}})</div>
+          <h4>{{cr.area | keyToValue:searchDataSource.areaList}}</h4>
+          <h5>{{cr.publicOpinionTypeName}}</h5>
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+        <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+    <div *ngIf="!datasource || datasource.length == 0" class="commonNoResult">
+      无消息
+    </div>
+  </ion-content>

@@ -9,24 +9,34 @@
 </ion-header>
 
 <ion-content>
-  <div class="mainBar">
-    <div class="iconButton" (click)="culturalRelicInfoList()">
-      <img src="../assets/self/cultural_relic.png">
-      <br> 文物中心
-    </div>
-    <div class="iconButton" (click)="museumInfoList()">
-      <img src="../assets/self/museum.png">
-      <br> 博物馆
-    </div>
-    <div class="iconButton" (click)="constructionSiteList()">
-      <img src="../assets/self/construction_site.png">
-      <br> 工地
-    </div>
-    <div class="iconButton" (click)="culturalRelicMap()">
-      <img src="../assets/self/cultural_relic_map.png">
-      <br> 文物地图
-    </div>
-  </div>
+  <ion-grid class="mainBar">
+    <ion-row>
+      <ion-col>
+        <div class="iconButton" (click)="culturalRelicInfoList()">
+          <img src="../assets/self/cultural_relic.png">
+          <br> 文物中心
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="iconButton" (click)="museumInfoList()">
+          <img src="../assets/self/museum.png">
+          <br> 博物馆
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="iconButton" (click)="constructionSiteList()">
+          <img src="../assets/self/construction_site.png">
+          <br> 工地
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="iconButton" (click)="culturalRelicMap()">
+          <img src="../assets/self/cultural_relic_map.png">
+          <br> 文物地图
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <button ion-item (click)="culturalRelicTwoLine();">
       <img src="../assets/self/two_line.png"> 国保单位两线监控

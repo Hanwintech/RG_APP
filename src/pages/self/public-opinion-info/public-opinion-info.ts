@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the PublicOpinionInfoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { EnumPublicOpinionShowType } from './../../../models/enum';
 
 @IonicPage()
 @Component({
@@ -14,12 +9,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'public-opinion-info.html',
 })
 export class PublicOpinionInfoPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PublicOpinionInfoPage');
+  publicOpinionCountry() {
+    this.navCtrl.push('PublicOpinionInfoListPage', EnumPublicOpinionShowType.全国文物舆情信息);
   }
 
+  publicOpinionProvinceBad() {
+    this.navCtrl.push('PublicOpinionInfoListPage', EnumPublicOpinionShowType.省内文物舆情信息);
+  }
+
+  publicOpinionProvinceGood() {
+    this.navCtrl.push('PublicOpinionInfoListPage', EnumPublicOpinionShowType.省内文博大事);
+  }
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+
+import { SearchPage } from './../../../base-pages/search-page';
 import { InspectionNoticeInfoSearch, InspectionNoticeInfoSearchDataSource } from './../../../models/self/inspection-notice-info.model';
 
 @IonicPage()
@@ -7,17 +9,9 @@ import { InspectionNoticeInfoSearch, InspectionNoticeInfoSearchDataSource } from
   selector: 'page-inspection-notice-search',
   templateUrl: 'inspection-notice-search.html',
 })
-export class InspectionNoticeSearchPage {
-  private search: InspectionNoticeInfoSearch;
-  private searchDataSource: InspectionNoticeInfoSearchDataSource;
-
-  constructor(private params: NavParams, private viewCtrl: ViewController) {
-    this.search = params.data.search;
-    this.searchDataSource = params.data.dataSource;
-  }
-
-  close() {
-    this.viewCtrl.dismiss({ "needSearch": false });
+export class InspectionNoticeSearchPage extends SearchPage<InspectionNoticeInfoSearch, InspectionNoticeInfoSearchDataSource> {
+  constructor(public params: NavParams, public viewCtrl: ViewController) {
+    super(params, viewCtrl);
   }
 
   clear() {
@@ -27,9 +21,5 @@ export class InspectionNoticeSearchPage {
     this.search.fileTitle = "";
     this.search.fromManageUnitName = "";
     this.search.clearNumbers();
-  }
-
-  doSearch() {
-    this.viewCtrl.dismiss({ "needSearch": true, "search": this.search });
   }
 }

@@ -5,7 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
-import { PagingListPage } from './../../../BasePage/list-page';
+import { PagingListPage } from './../../../base-pages/list-page';
 import { GetPublicOpinionInfoList } from './../../../apis/self/get-public-opinion-info-list.api';
 import { UVPublicOpinion, PublicOpinionInfoSearch, PublicOpinionInfoSearchDataSource } from './../../../models/self/public-opinion-info.model';
 import { EnumSearchType, EnumPublicOpinionShowType } from './../../../models/enum';

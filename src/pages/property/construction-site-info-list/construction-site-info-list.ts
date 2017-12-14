@@ -5,7 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
-import { PagingListPage } from './../../../BasePage/list-page';
+import { PagingListPage } from './../../../base-pages/list-page';
 import { GetCulturalRelicInfoList } from './../../../apis/property/get-cultural-relic-info-list.api';
 import { CulturalRelicInfo, CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';

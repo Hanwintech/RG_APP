@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+
+import { SearchPage } from './../../../base-pages/search-page';
 import { MuseumInfoSearch, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 
@@ -8,15 +10,11 @@ import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
   selector: 'page-museum-search',
   templateUrl: 'museum-search.html',
 })
-export class MuseumSearchPage {
-  private search: MuseumInfoSearch;
-  private searchDataSource: MuseumInfoSearchDataSource;
+export class MuseumSearchPage extends SearchPage<MuseumInfoSearch, MuseumInfoSearchDataSource> {
   private districtList: IntegerKeyValue[];
 
-  constructor(private params: NavParams, private viewCtrl: ViewController) {
-    console.log(params.data);
-    this.search = params.data.search;
-    this.searchDataSource = params.data.dataSource;
+  constructor(public params: NavParams, public viewCtrl: ViewController) {
+    super(params, viewCtrl);
     this.districtList = [];
     this.areaChanged();
   }
@@ -43,10 +41,6 @@ export class MuseumSearchPage {
       }
     }
   }
-  
-  close() {
-    this.viewCtrl.dismiss({ "needSearch": false });
-  }
 
   clear() {
     this.search.museumName = "";
@@ -55,9 +49,5 @@ export class MuseumSearchPage {
     this.search.clearNumbers();
     this.districtList = [];
     this.areaChanged();
-  }
-
-  doSearch() {
-    this.viewCtrl.dismiss({ "needSearch": true, "search": this.search });
   }
 }

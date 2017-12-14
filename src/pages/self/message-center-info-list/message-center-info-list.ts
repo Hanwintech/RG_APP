@@ -5,7 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
-import { PagingListPage } from './../../../BasePage/list-page';
+import { PagingListPage } from './../../../base-pages/list-page';
 import { GetMessageCenterInfoList } from './../../../apis/self/get-message-center-info-list.api';
 import { MessageCenterEntity, MessageCenterInfoSearch, MessageCenterInfoSearchDataSource } from './../../../models/self/message-center-info.model';
 import { EnumSearchType, EnumMessageShowType } from './../../../models/enum';

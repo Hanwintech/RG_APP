@@ -5,7 +5,7 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
-import { DetailPage } from './../../../BasePage/detail-page';
+import { DetailPage } from './../../../base-pages/detail-page';
 import { GetCulturalRelicInfo } from './../../../apis/property/get-cultural-relic-info.api';
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
 import { Attachment } from "./../../../models/attachment.model";

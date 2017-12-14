@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+
+import { SearchPage } from './../../../base-pages/search-page';
 import { NoticeInfoSearch, NoticeInfoSearchDataSource } from './../../../models/self/notice-info.model';
 
 @IonicPage()
@@ -7,17 +9,9 @@ import { NoticeInfoSearch, NoticeInfoSearchDataSource } from './../../../models/
   selector: 'page-notice-search',
   templateUrl: 'notice-search.html',
 })
-export class NoticeSearchPage {
-  private search: NoticeInfoSearch;
-  private searchDataSource: NoticeInfoSearchDataSource;
-
-  constructor(private params: NavParams, private viewCtrl: ViewController) {
-    this.search = params.data.search;
-    this.searchDataSource = params.data.dataSource;
-  }
-
-  close() {
-    this.viewCtrl.dismiss({ "needSearch": false });
+export class NoticeSearchPage extends SearchPage<NoticeInfoSearch, NoticeInfoSearchDataSource> {
+  constructor(public params: NavParams, public viewCtrl: ViewController) {
+    super(params, viewCtrl);
   }
 
   clear() {
@@ -28,9 +22,5 @@ export class NoticeSearchPage {
     this.search.sendDateStart = "";
     this.search.sendDateEnd = "";
     this.search.clearNumbers();
-  }
-
-  doSearch() {
-    this.viewCtrl.dismiss({ "needSearch": true, "search": this.search });
   }
 }

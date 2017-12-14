@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+
+import { SearchPage } from './../../../base-pages/search-page';
 import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 
@@ -8,15 +10,12 @@ import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
   selector: 'page-cultural-relic-search',
   templateUrl: 'cultural-relic-search.html',
 })
-export class CulturalRelicSearchPage {
-  private search: CulturalRelicInfoSearch;
-  private searchDataSource: CulturalRelicInfoSearchDataSource;
+export class CulturalRelicSearchPage extends SearchPage<CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource> {
   private districtList: IntegerKeyValue[];
   private twoStageTypeList: IntegerKeyValue[];
 
-  constructor(private params: NavParams, private viewCtrl: ViewController) {
-    this.search = params.data.search;
-    this.searchDataSource = params.data.dataSource;
+  constructor(public params: NavParams, public viewCtrl: ViewController) {
+    super(params, viewCtrl);
     this.districtList = [];
     this.twoStageTypeList = [];
     this.areaChanged();
@@ -67,10 +66,6 @@ export class CulturalRelicSearchPage {
     }
   }
 
-  close() {
-    this.viewCtrl.dismiss({ "needSearch": false });
-  }
-
   clear() {
     this.search.culturalRelicName = "";
     this.search.culturalRelicCode = "";
@@ -83,9 +78,5 @@ export class CulturalRelicSearchPage {
     this.twoStageTypeList = [];
     this.areaChanged();
     this.typeChanged();
-  }
-
-  doSearch() {
-    this.viewCtrl.dismiss({ "needSearch": true, "search": this.search });
   }
 }

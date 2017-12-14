@@ -16,6 +16,9 @@ page-tabs {
     .tab-button [ng-reflect-name=twoLine][ng-reflect-is-active=true]{
         background-image: url('../assets/icon/tabs_twoLine_active.png');
     }
+    #tab-t0-0 .ion-ios-eye-outline:before{
+        content: "";
+    }
     .copyTwoLine{
         width: 48px !important;
         height: 48px !important;

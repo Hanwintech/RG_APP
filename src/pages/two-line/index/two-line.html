@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>{{pageTitle}}</ion-title>
-        <ion-buttons right>
-          <button ion-button icon-only (click)="inspectHistory()">
-            <ion-icon name="md-bookmarks"></ion-icon>
-          </button>
-        </ion-buttons>
-      </ion-navbar>
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="inspectHistory()">
+        <ion-icon name="md-bookmarks"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
 
@@ -14,6 +14,37 @@
   <div id="map-content">
     <div id="map" #map></div>
   </div>
-  <ion-icon name="locate" class="locate" (click)="getLocation()"></ion-icon>
-  <ion-icon name="add-circle" class="add-circle" (click)="addInspect()"></ion-icon>
+  <div class="bottom" >
+    
+      <ion-icon name="locate" class="locate" (click)="getLocation()"></ion-icon>
+      <!-- <ion-icon name="add-circle" class="add-circle" (click)="addInspect()"></ion-icon> -->
+      <div class="detail"  [ngClass]="{'hideBottom':hideContrl}">
+        <div class="titleContain" *ngIf="selectedMarkItem">
+            <div class="title">{{selectedMarkItem.showName}}</div>
+            <div class="subTitle">案件:{{caseCountTemp}}&nbsp;&nbsp;巡查:{{patrolCountTemp}}</div>
+        </div>
+        <ion-icon name="ios-arrow-down" class="ios-arrow-down" (click)="controlBottom()"></ion-icon>
+        <div class="clear"></div>
+        <div class="detailItem">
+          <div>
+            <img src="assets/map/ic_operation_detail.png"/>
+            查看详情
+          </div>
+          <div>
+              <img src="assets/map/ic_operation_case.png"/>
+            查看案件
+          </div>
+          <div>
+              <img src="assets/map/ic_operation_patrol.png"/>
+            查看巡查
+          </div>
+          <div>
+              <img src="assets/map/ic_operation_image.png"/>
+            查看图片
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+  </div>
+
 </ion-content>

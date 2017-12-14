@@ -14,23 +14,73 @@ page-two-line {
         width: 100%;
         height: 100%;
     }
-    .locate {
-        float: left;
-        z-index: 10000;
+    .bottom {
         position: fixed;
+        bottom: 0;
+        height: auto;
+        width: 100%;
+        .titleContain{
+            float: left;
+        }
+        .ios-arrow-down {
+            float: right;
+            font-size: 3rem;
+            color: $toolbar-background;
+            position: relative;
+            top: -0.3rem;
+        }
+        .title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            // font-weight: bold;
+        }
+        .subTitle {
+            color: #bfbfbf;
+            margin-bottom: 0.1rem;
+        }
+        img {
+            width: 1.5rem;
+            float: left;
+            margin-right: 0.2rem;
+        }
+        .detail {
+            padding: 1.2rem 1rem;
+            background: #fff;
+            border-top: 1px solid #e5e5e5;
+            .detailItem {
+                div {
+                    float: left;
+                    color: $toolbar-background;
+                    padding: 0.5rem;
+                    border-right: 1px solid #ddd;
+                }
+                text-align: center;
+            }
+            .detailItem div:last-child{
+                border-right: none;
+            }
+            .detailItem div:first-child{
+               padding-left:0;
+            }
+        }
+    }
+    .hideBottom{
+        display: none;
+    }
+    .clear {
+        clear: both;
+    }
+    .locate {
         left: 20px;
-        bottom: 70px;
         font-size: 3.5em;
-        color:  $toolbar-background;
+        margin-bottom: 0.6rem;
+        color: $toolbar-background;
     }
     .add-circle {
         float: right;
         z-index: 10000;
-        position: fixed;
-        right: 20px;
-        bottom: 70px;
         font-size: 3.5em;
-        color:  $toolbar-background;
+        color: $toolbar-background;
     }
     .anchorBL {
         display: none;
@@ -42,7 +92,7 @@ page-two-line {
         position: relative;
         width: auto;
         height: auto;
-        background:  $toolbar-background;
+        background: $toolbar-background;
         border: 1px solid #A5C4EC;
         border-radius: 4px;
         line-height: 18px;
@@ -68,20 +118,21 @@ page-two-line {
         content: '';
         left: 10px;
     }
-    @-webkit-keyframes twinkling{	/*透明度由0到1*/
-        0%{
-            opacity:1;				/*透明度为0*/
+    @-webkit-keyframes twinkling {
+        /*透明度由0到1*/
+        0% {
+            opacity: 1;
+            /*透明度为0*/
         }
-        100%{
-            opacity:0;				/*透明度为1*/
+        100% {
+            opacity: 0;
+            /*透明度为1*/
         }
     }
-    .positionContain.warning{
-        background: #f05853;
-        // -webkit-animation: twinkling 0.7s infinite ;
+    .positionContain.warning {
+        background: #f05853; // -webkit-animation: twinkling 0.7s infinite ;
     }
-    .positionContain.warning:after{
-        border-top-color: #f05853;
-       // -webkit-animation: twinkling 0.6s infinite ;
+    .positionContain.warning:after {
+        border-top-color: #f05853; // -webkit-animation: twinkling 0.6s infinite ;
     }
 }

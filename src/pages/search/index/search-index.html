@@ -12,7 +12,7 @@
 
 <ion-content>
   <ion-segment [(ngModel)]="statistics">
-    <ion-segment-button value="case">
+    <ion-segment-button value="cases">
       案件统计
     </ion-segment-button>
     <ion-segment-button value="inspect">
@@ -24,46 +24,46 @@
   </ion-segment>
 
   <div [ngSwitch]="statistics">
-    <ion-list *ngSwitchCase="'case'">
+    <ion-list *ngSwitchCase="'cases'">
       <ion-grid>
         <ion-row>
-          <ion-col (click)='statisticsChart(1)' text-center>
+          <ion-col (click)='Statistics(1)' text-center>
             <img src="assets/icon/ic_search_level.png">
             <p>按类别统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(2)' text-center>
+          <ion-col (click)='Statistics(2)' text-center>
             <img src="assets/icon/ic_search_rectification.png">
             <p>按整改情况统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(3)' text-center>
+          <ion-col (click)='Statistics(3)' text-center>
             <img src="assets/icon/ic_search_fine.png">
             <p>按罚款统计</p>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(4)' text-center>
             <img src="assets/icon/ic_search_month.png">
             <p>按月度统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(5)' text-center>
             <img src="assets/icon/ic_search_quarter.png">
             <p>按季度统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(6)' text-center>
             <img src="assets/icon/ic_search_half_year.png">
             <p>按半年度统计</p>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(7)' text-center>
             <img src="assets/icon/ic_search_year.png">
             <p>按年度统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(8)' text-center>
             <img src="assets/icon/ic_search_source.png">
             <p>按来源统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(9)' text-center>
             <img src="assets/icon/ic_search_area.png">
             <p>按地区统计</p>
           </ion-col>
@@ -74,29 +74,29 @@
     <ion-list *ngSwitchCase="'inspect'">
       <ion-grid>
         <ion-row>
-          <ion-col (click)='statisticsChart(1)' text-center>
+          <ion-col (click)='Statistics(1)' text-center>
             <img src="assets/icon/ic_search_level.png">
             <p>按类别统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(4)' text-center>
             <img src="assets/icon/ic_search_month.png">
             <p>按月度统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(5)' text-center>
             <img src="assets/icon/ic_search_quarter.png">
             <p>按季度统计</p>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(6)' text-center>
             <img src="assets/icon/ic_search_half_year.png">
             <p>按半年度统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(7)' text-center>
             <img src="assets/icon/ic_search_year.png">
             <p>按年度统计</p>
           </ion-col>
-          <ion-col (click)='statisticsChart(4)' text-center>
+          <ion-col (click)='Statistics(9)' text-center>
             <img src="assets/icon/ic_search_area.png">
             <p>按地区统计</p>
           </ion-col>

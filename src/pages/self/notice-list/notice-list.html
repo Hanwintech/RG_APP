@@ -1,36 +1,36 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>通知公告</ion-title>
-      <ion-buttons right>
-        <button ion-button icon-only (click)="showSimpleSearch()">
-          <ion-icon name="ios-search-outline"></ion-icon>
-        </button>
-        <button ion-button icon-only (click)="showSearch()">
-          <ion-icon name="ios-funnel-outline"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content>
-    <div *ngIf="datasource && datasource.length > 0">
-      <ion-list>
-        <ion-item *ngFor="let cr of datasource" (click)="view(cr)">
-          <div class="messageTitle">
-            <h2>{{cr.infoCategoryName}}</h2>
-            <h3>{{cr.title}}</h3>
-          </div>
-          <div>{{cr.briefIntroduction}}</div>
-          <h4>{{cr.sendDeptName}}</h4>
-          <h5>{{cr.sendDate | datetime:"yyyy-MM-dd"}}</h5>
-        </ion-item>
-      </ion-list>
-      <ion-infinite-scroll (ionInfinite)="nextPage($event)">
-        <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </div>
-    <div *ngIf="!datasource || datasource.length == 0" class="commonNoResult">
-      无消息
-    </div>
-  </ion-content>
+  <ion-navbar>
+    <ion-title>通知公告</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showSimpleSearch()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="showSearch('NoticeSearchPage')">
+        <ion-icon name="ios-funnel-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="dataList && dataList.length > 0">
+    <ion-list>
+      <ion-item *ngFor="let data of dataList" (click)="view(data)">
+        <div class="messageTitle">
+          <h2>{{data.infoCategoryName}}</h2>
+          <h3>{{data.title}}</h3>
+        </div>
+        <div>{{data.briefIntroduction}}</div>
+        <h4>{{data.sendDeptName}}</h4>
+        <h5>{{data.sendDate | datetime:"yyyy-MM-dd"}}</h5>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+      <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
+    无消息
+  </div>
+</ion-content>

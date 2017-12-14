@@ -5,7 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
-import { DetailPage } from './../../../BasePage/detail-page';
+import { DetailPage } from './../../../base-pages/detail-page';
 import { UVNoticeBasicInfo } from './../../../models/self/notice-info.model';
 
 @IonicPage()

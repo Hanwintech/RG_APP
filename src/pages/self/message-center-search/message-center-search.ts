@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+
+import { SearchPage } from './../../../base-pages/search-page';
 import { MessageCenterInfoSearch, MessageCenterInfoSearchDataSource } from './../../../models/self/message-center-info.model';
 
 @IonicPage()
@@ -7,17 +9,9 @@ import { MessageCenterInfoSearch, MessageCenterInfoSearchDataSource } from './..
   selector: 'page-message-center-search',
   templateUrl: 'message-center-search.html',
 })
-export class MessageCenterSearchPage {
-  private search: MessageCenterInfoSearch;
-  private searchDataSource: MessageCenterInfoSearchDataSource;
-
-  constructor(private params: NavParams, private viewCtrl: ViewController) {
-    this.search = params.data.search;
-    this.searchDataSource = params.data.dataSource;
-  }
-
-  close() {
-    this.viewCtrl.dismiss({ "needSearch": false });
+export class MessageCenterSearchPage extends SearchPage<MessageCenterInfoSearch, MessageCenterInfoSearchDataSource> {
+  constructor(public params: NavParams, public viewCtrl: ViewController) {
+    super(params, viewCtrl);
   }
 
   clear() {
@@ -28,9 +22,5 @@ export class MessageCenterSearchPage {
     this.search.addManageUnitName = "";
     this.search.adderName = "";
     this.search.clearNumbers();
-  }
-
-  doSearch() {
-    this.viewCtrl.dismiss({ "needSearch": true, "search": this.search });
   }
 }

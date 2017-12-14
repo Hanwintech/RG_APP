@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+
+import { SearchPage } from './../../../base-pages/search-page';
 import { PublicOpinionInfoSearch, PublicOpinionInfoSearchDataSource } from './../../../models/self/public-opinion-info.model';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 
@@ -8,18 +10,13 @@ import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
   selector: 'page-public-opinion-info-search',
   templateUrl: 'public-opinion-info-search.html',
 })
-export class PublicOpinionInfoSearchPage {
-  private search: PublicOpinionInfoSearch;
-  private searchDataSource: PublicOpinionInfoSearchDataSource;
+export class PublicOpinionInfoSearchPage extends SearchPage<PublicOpinionInfoSearch, PublicOpinionInfoSearchDataSource> {
   private districtList: IntegerKeyValue[];
 
-  constructor(private params: NavParams, private viewCtrl: ViewController) {
-    this.search = params.data.search;
-    this.searchDataSource = params.data.dataSource;
+  constructor(public params: NavParams, public viewCtrl: ViewController) {
+    super(params, viewCtrl);
     this.districtList = [];
     this.areaChanged();
-    console.log(this.search);
-    console.log(this.searchDataSource);
   }
 
   areaChanged() {
@@ -44,18 +41,10 @@ export class PublicOpinionInfoSearchPage {
     }
   }
 
-  close() {
-    this.viewCtrl.dismiss({ "needSearch": false });
-  }
-
   clear() {
     this.search.subject = "";
     this.search.clearNumbers();
     this.districtList = [];
     this.areaChanged();
-  }
-
-  doSearch() {
-    this.viewCtrl.dismiss({ "needSearch": true, "search": this.search });
   }
 }

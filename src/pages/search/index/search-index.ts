@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
-/**
- * Generated class for the SearchIndexPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -14,7 +8,7 @@ import { Platform } from 'ionic-angular';
   templateUrl: 'search-index.html',
 })
 export class SearchIndexPage {
-  statistics: string = "case";
+  statistics: string = "cases";
   isAndroid: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,platform: Platform) {
@@ -24,5 +18,7 @@ export class SearchIndexPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchIndexPage');
   }
-
+  Statistics(chartType: number){
+    this.navCtrl.push("SearchStatisticsPage", chartType);
+  }
 }

@@ -1,0 +1,56 @@
+<!--
+  Generated template for the SearchStatisticsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="chart()">
+        <ion-icon name="stats"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="search()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="Total">
+    <div class="total">
+      <div>案件总数(起)</div>
+      <div style="color:orange;">{{totalCaseCount}}</div>
+    </div>
+    <div class="total">
+      <div>总罚款金额(元)</div>
+      <div style="color:orange;">{{totalSumFineAmount}}</div>
+    </div>
+  </div>
+  <div *ngIf="dataSource && dataSource.length > 0">
+  <ion-list>
+    <ion-item *ngFor="let data of dataSource">
+      <div class="category">
+        <h3 style="font-size:12px;">{{category}}</h3>
+        <p style="font-size:12px;">{{data.reportQueryCaseByRelicLevel.levelName}}</p>
+      </div>
+      <div class="cases">
+        <h3 style="font-size:12px;">案件数(起)</h3>
+        <p style="font-size:12px;">{{data.reportQueryCaseByRelicLevel.caseCount}}</p>
+      </div>
+      <div class="fine">
+        <h3 style="font-size:12px;">罚款金额(元)</h3>
+        <p style="font-size:12px;">{{data.reportQueryCaseByRelicLevel.sumFineAmount}}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+</div>
+<div *ngIf="!dataSource || dataSource.length == 0" class="commonNoResult">
+    无消息
+  </div>
+</ion-content>

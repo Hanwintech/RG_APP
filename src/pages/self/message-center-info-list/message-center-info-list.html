@@ -5,7 +5,7 @@
       <button ion-button icon-only (click)="showSimpleSearch()">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="showSearch()">
+      <button ion-button icon-only (click)="showSearch('MessageCenterSearchPage')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -13,16 +13,16 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="datasource && datasource.length > 0">
+  <div *ngIf="dataList && dataList.length > 0">
     <ion-list>
-      <ion-item *ngFor="let cr of datasource" (click)="view(cr.messageCenter)">
+      <ion-item *ngFor="let data of dataList" (click)="view(data.messageCenter)">
         <div class="messageTitle">
-          <h2>{{cr.messageCenter.messageTypeName}}</h2>
-          <h3>{{cr.messageCenter.messageTitle}}</h3>
+          <h2>{{data.messageCenter.messageTypeName}}</h2>
+          <h3>{{data.messageCenter.messageTitle}}</h3>
         </div>
-        <div>{{cr.messageCenter.messageContent}}</div>
-        <h4>{{cr.messageCenter.readStateName}}</h4>
-        <h5>{{cr.messageCenter.readTime | datetime}}</h5>
+        <div>{{data.messageCenter.messageContent}}</div>
+        <h4>{{data.messageCenter.readStateName}}</h4>
+        <h5>{{data.messageCenter.readTime | datetime}}</h5>
       </ion-item>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="nextPage($event)">
@@ -30,7 +30,7 @@
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>
-  <div *ngIf="!datasource || datasource.length == 0" class="commonNoResult">
+  <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
     无消息
   </div>
 </ion-content>

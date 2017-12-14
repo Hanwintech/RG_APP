@@ -14,6 +14,7 @@ export class MuseumSearchPage {
   private districtList: IntegerKeyValue[];
 
   constructor(private params: NavParams, private viewCtrl: ViewController) {
+    console.log(params.data);
     this.search = params.data.search;
     this.searchDataSource = params.data.dataSource;
     this.districtList = [];
@@ -23,6 +24,7 @@ export class MuseumSearchPage {
   areaChanged() {
     this.districtList = [];
     let temp: IntegerKeyValue[] = [];
+    console.log(this.searchDataSource);
     for (let d of this.searchDataSource.districtList) {
       if (d.parentId == this.search.area.toString()) {
         let kvp: IntegerKeyValue = new IntegerKeyValue();

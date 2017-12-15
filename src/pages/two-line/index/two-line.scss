@@ -1,8 +1,9 @@
 page-two-line {
-    #header {
-        height: 60px;
-        background-color: $toolbar-background;
-    }
+    $protect: #FF080C; //保护范围
+    $controlPlace: #FF080C; //本体
+    $origionMarker:#1fa0f2;//原始的marker颜色
+    $selectedMarker:#f57e1e;//被选中的marker颜色
+    $warningMarker: #f05853;//预警的marker颜色
     #map-content {
         position: fixed;
         top: 44px;
@@ -14,12 +15,70 @@ page-two-line {
         width: 100%;
         height: 100%;
     }
+    .topHeader {
+        position: fixed;
+        top: 44px;
+        padding: 0.6rem;
+        background-color: $toolbar-background;
+        z-index: 1;
+        width: 100%;
+        height: 45px;
+        color: #fff;
+        font-size: 12px;
+        table tr td {
+            padding-right: 1.2rem;
+        }
+        table tr th {
+            padding-right: 0.6rem;
+        }
+    }
+    .card {
+        position: fixed;
+        top: 98px;
+        margin-left: 0.6rem;
+        border-radius: 5px;
+        border: 1px solid #e5e5e5;
+        z-index: 1;
+        background: #fff;
+        font-size: 12px;
+        padding: 2px 3px 0 2px;
+    }
+    .card .selfThing {
+        position: relative;
+        top: -1px;
+    }
+    .card .protect {
+        position: relative;
+        top: -5px;
+    }
+    .card .controlPlace {
+        position: relative;
+        top: -8px;
+    }
+    .card .selfThing span {
+        font-size: 20px;
+        color: $toolbar-background;
+        font-weight: bold;
+        padding-right: 3px;
+    }
+    .card .protect span {
+        font-size: 20px;
+        color: $protect;
+        font-weight: bold;
+        padding-right: 2px;
+    }
+    .card .controlPlace span {
+        font-size: 20px;
+        color: $controlPlace;
+        font-weight: bold;
+        padding-right: 2px;
+    }
     .bottom {
         position: fixed;
         bottom: 0;
         height: auto;
         width: 100%;
-        .titleContain{
+        .titleContain {
             float: left;
         }
         .ios-arrow-down {
@@ -31,8 +90,7 @@ page-two-line {
         }
         .title {
             font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            // font-weight: bold;
+            margin-bottom: 0.5rem; // font-weight: bold;
         }
         .subTitle {
             color: #bfbfbf;
@@ -56,15 +114,18 @@ page-two-line {
                 }
                 text-align: center;
             }
-            .detailItem div:last-child{
+            .detailItem div:last-child {
                 border-right: none;
             }
-            .detailItem div:first-child{
-               padding-left:0;
+            .detailItem div:first-child {
+                padding-left: 0;
             }
         }
     }
-    .hideBottom{
+    .hideCard{
+        display: none;
+    }
+    .hideBottom {
         display: none;
     }
     .clear {
@@ -104,7 +165,7 @@ page-two-line {
     }
     .positionContain {
         position: relative;
-        background: #1fa0f2;
+        background: $origionMarker;
         font-size: 12px;
         border-radius: 2px;
     }
@@ -114,25 +175,27 @@ page-two-line {
         width: 0;
         height: 0;
         border: 7px solid transparent;
-        border-top-color: #1fa0f2;
+        border-top-color:$origionMarker;
         content: '';
         left: 10px;
     }
-    @-webkit-keyframes twinkling {
-        /*透明度由0到1*/
-        0% {
-            opacity: 1;
-            /*透明度为0*/
-        }
-        100% {
-            opacity: 0;
-            /*透明度为1*/
-        }
+    .positionContain[name=selected]{
+        background: $selectedMarker;
+        border-top-color:$selectedMarker;
     }
-    .positionContain.warning {
-        background: #f05853; // -webkit-animation: twinkling 0.7s infinite ;
+    .positionContain[name=selected]:after{
+        border-top-color:$selectedMarker;
     }
-    .positionContain.warning:after {
-        border-top-color: #f05853; // -webkit-animation: twinkling 0.6s infinite ;
+    .warning {
+        background:$warningMarker; 
+    }
+    .warning:after {
+        border-top-color:$warningMarker; 
+    }
+    .positionContain.warning[name=selected] {
+        background:$warningMarker; 
+    }
+    .positionContain.warning[name=selected]:after {
+        border-top-color:$warningMarker; 
     }
 }

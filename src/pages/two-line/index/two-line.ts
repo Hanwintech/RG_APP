@@ -40,7 +40,9 @@ export class TwoLinePage {
   private shineArray = [];
   private uniqueTagList = [];
   private selectedMarkItem;
-  private hideContrl:boolean;
+  private selectedMarkerTag;
+  private hideContrl: boolean;//底部信息栏的控制
+  private CardContrl: boolean;//左上角两线图信息栏的控制
   private caseCountTemp;
   private patrolCountTemp;
   constructor(
@@ -51,8 +53,8 @@ export class TwoLinePage {
     public apiService: ApiService,
     public geolocation: Geolocation) {
     this.pageTitle = (this.navParams.data && this.navParams.data.title) ? this.navParams.data.title : "国保两线监控";
-    this.hideContrl=true;
-
+    this.hideContrl = true;
+    this.CardContrl = false;
   }
 
   ionViewDidEnter() {
@@ -81,8 +83,8 @@ export class TwoLinePage {
     this.mapAddEventListener();
   }
   //底部查看详情面板
-  controlBottom(){
-  this.hideContrl=this.hideContrl?false:true;
+  controlBottom() {
+    this.hideContrl = this.hideContrl ? false : true;
   }
 
   private initSearchData() {
@@ -139,12 +141,13 @@ export class TwoLinePage {
       }
       this.uniqueTagList = [];
       this.mapLevel = this.map.getZoom();
-        this.getData(this.mapLevel);
+      this.getData(this.mapLevel);
+      //控制左上角的两线信息栏
+      this.CardContrl = this.mapLevel >= this.showTwoLineMapLevel ? false : true;
     }.bind(this))
     this.map.addEventListener("dragend", function () {
       this.getData(this.mapLevel);
     }.bind(this));
-
   }
 
   //详细文物点信息所用的矩形信息框
@@ -154,24 +157,31 @@ export class TwoLinePage {
       let lblString;
       let pt = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
       let marker;
+
       this.caseCountTemp = cluster.caseCount == 0 ? 0 : cluster.caseDoingCount + "/" + cluster.caseCount;
       this.patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
 
       //需要闪烁的文保点
       if (cluster.caseDoingCount > 0 || cluster.patrolDoingCount > 0) {
         myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
-        lblString = "<div class='positionContain'>";
         let status = 0;
+        lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'>";
         this.shine = setInterval(() => {
           this.map.removeOverlay(marker);
           if (status == 0) {
             myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_warning.png", new BMap.Size(34, 35));
-            lblString = "<div class='positionContain warning'>";
+            lblString = "<div id=" + cluster.uniqueTag + " class='positionContain warning'>";
             status = 1;
           }
           else {
-            myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
-            lblString = "<div class='positionContain'>";
+            if (this.selectedMarkerTag == cluster.uniqueTag) {
+              myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_selected.png", new BMap.Size(34, 35));
+              lblString = "<div id=" + cluster.uniqueTag + " class='positionContain' name='selected'>";
+            }
+            else {
+              myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+              lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'>";
+            }
             status = 0;
           }
           marker = new BMap.Marker(pt, { icon: myIcon, })
@@ -180,18 +190,24 @@ export class TwoLinePage {
         this.shineArray.push(this.shine);
       }
       else {
-        myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
-        lblString = "<div class='positionContain'>";
+        if (this.selectedMarkerTag == cluster.uniqueTag){
+          myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+          lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'  name='selected'>";
+        }
+        else{
+          myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
+          lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'>";
+        }
       }
       marker = new BMap.Marker(pt, { icon: myIcon, })
       this.mapAddOverlay(myIcon, lblString, this.caseCountTemp, this.patrolCountTemp, pt, cluster, marker);
     }
   }
   private mapAddOverlay(myIcon, lblString, caseCountTemp, patrolCountTemp, pt, cluster, marker) {
-    lblString = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
+    let lblStringNew = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
       + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>案件:" + caseCountTemp +
       "&nbsp;&nbsp;&nbsp;&nbsp;巡查：" + patrolCountTemp + "</div></div>";
-    let label = new BMap.Label(lblString, { offset: new BMap.Size(8, -60) });
+    let label = new BMap.Label(lblStringNew, { offset: new BMap.Size(8, -60) });
     label.setStyle({
       border: "none",
       fontSize: "1em",
@@ -199,14 +215,23 @@ export class TwoLinePage {
       borderRadius: '2px;',
       background: "none"
     });
+
+    label.addEventListener("click", function (event) {
+      this.hideContrl = false;
+      this.selectedMarkItem = cluster;
+      let list, index;
+      list = document.getElementsByClassName("positionContain");
+      for (index = 0; index < list.length; ++index) {
+        list[index].removeAttribute("name");
+      }
+      document.getElementById(cluster.uniqueTag).setAttribute("name", "selected");
+      this.selectedMarkerTag = cluster.uniqueTag;
+
+
+    }.bind(this));
     if (this.mapLevel >= this.showTwoLineMapLevel) {
       marker.setLabel(label);
     }
-    label.addEventListener("click",function(){
-      this.hideContrl=false;
-      this.selectedMarkItem=cluster;
-      console.log(this.selectedMarkItem);
-    }.bind(this))
     this.map.addOverlay(marker);
   }
   //聚合所用的圆圈

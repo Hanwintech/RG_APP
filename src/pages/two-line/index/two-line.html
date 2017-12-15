@@ -11,11 +11,27 @@
 
 
 <ion-content>
+  <div class="topHeader">
+    <table>
+      <tr>
+        <th>名称&nbsp;:</th><td>不限</td>
+        <th>时间&nbsp;:</th><td>2016-12-15至2017-12-15</td>
+      </tr>
+      <tr>
+          <th>类别&nbsp;:</th><td>全国重点文物保护单位</td>
+          <th>地区&nbsp;:</th><td>不限</td>
+        </tr>
+    </table>
+  </div>
+  <div class="card"  [ngClass]="{'hideCard':CardContrl}">
+    <div class="selfThing"><span>—</span>本体</div>
+    <div class="protect"><span>—</span>保护范围</div>
+    <div class="controlPlace"><span>—</span>建设控制地带</div>
+  </div>
   <div id="map-content">
     <div id="map" #map></div>
   </div>
   <div class="bottom" >
-    
       <ion-icon name="locate" class="locate" (click)="getLocation()"></ion-icon>
       <!-- <ion-icon name="add-circle" class="add-circle" (click)="addInspect()"></ion-icon> -->
       <div class="detail"  [ngClass]="{'hideBottom':hideContrl}">

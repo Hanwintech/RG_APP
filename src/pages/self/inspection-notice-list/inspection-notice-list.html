@@ -10,17 +10,20 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segmentIndex" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="0">
+        接收的通知
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        发送的通知
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-  <ion-segment [(ngModel)]="segmentIndex" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="0">
-      接收的通知
-    </ion-segment-button>
-    <ion-segment-button value="1">
-      发送的通知
-    </ion-segment-button>
-  </ion-segment>
 
   <div [ngSwitch]="segmentIndex">
     <div *ngSwitchCase="'0'">

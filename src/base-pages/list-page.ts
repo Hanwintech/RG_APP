@@ -64,6 +64,10 @@ export class PagingListPage extends ListBasePage {
     public get nextPageIndex(): number { return this._nextPageIndex; }
     public set nextPageIndex(value) { this._nextPageIndex = value; }
 
+    private _isLastPage: boolean;
+    public get isLastPage(): boolean { return this._isLastPage; }
+    public set isLastPage(value) { this._isLastPage = value; }
+
     constructor(
         public navCtrl: NavController,
         public modalCtrl: ModalController,
@@ -78,11 +82,16 @@ export class PagingListPage extends ListBasePage {
         super(navCtrl, modalCtrl, file, fileTransfer, pageService, systemConst, conditionDataSourceName, dataListName);
 
         this._nextPageIndex = this.systemConst.DEFAULT_PAGE_INDEX;
+        this._isLastPage = false;
     }
 
     nextPage(ionInfiniteScrollEvent) {
-        this.condition.pageIndex = this._nextPageIndex++;
-        this.getData(ionInfiniteScrollEvent, false);
+        if (!this._isLastPage) {
+            this.condition.pageIndex = this._nextPageIndex++;
+            this.getData(ionInfiniteScrollEvent, false);
+        } else if (ionInfiniteScrollEvent) {
+            ionInfiniteScrollEvent.enable(false);
+        }
     }
 
     getData(ionInfiniteScrollEvent, isNewSearch) {
@@ -94,6 +103,7 @@ export class PagingListPage extends ListBasePage {
                         this.dataList = [];
                         this._nextPageIndex = 0;
                     }
+
                     this.conditionDataSource = res.data[this.conditionDataSourceName];
                     //获取新一页的数据
                     let temp = res.data[this.dataListName] ? res.data[this.dataListName] : [];
@@ -101,15 +111,13 @@ export class PagingListPage extends ListBasePage {
                         this.dataList.push(cr);
                     }
 
-                    //控制瀑布流控件状态
+                    this._isLastPage = res.data.isLastPage
+
                     if (ionInfiniteScrollEvent) {
-                        if (res.data.isLastPage) {
-                            ionInfiniteScrollEvent.enable(false);
-                        } else {
-                            ionInfiniteScrollEvent.complete();
-                        }
+                        ionInfiniteScrollEvent.complete();
                     }
                 } else {
+                    //控制瀑布流控件状态
                     if (ionInfiniteScrollEvent) {
                         ionInfiniteScrollEvent.enable(false);
                     }

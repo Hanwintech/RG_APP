@@ -58,6 +58,7 @@ export class InspectionNoticeListPage extends PagingListPage {
   segmentChanged(segmentEvent) {
     this.condition.isSend = (this.segmentIndex == "1");
     this.nextPageIndex = 0;
+    this.isLastPage = false;
     this.dataList = [];
     this.nextPage(null);
   }

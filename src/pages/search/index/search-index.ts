@@ -21,4 +21,7 @@ export class SearchIndexPage {
   Statistics(chartType: number){
     this.navCtrl.push("SearchStatisticsPage", chartType);
   }
+  inspectStatistics(chartType: number){
+    this.navCtrl.push("InspectStatisticsPage", chartType);
+  }
 }

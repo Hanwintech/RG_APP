@@ -26,7 +26,7 @@
     <div *ngSwitchCase="'0'">
       <div *ngIf="dataList && dataList.length > 0">
         <ion-list>
-          <ion-item *ngFor="let data of dataList" (click)="view(cr)">
+          <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
               <h2>{{data.recordStateName}}</h2>
               <h3>{{data.inspectorNotice.fileTitle}}</h3>
@@ -48,7 +48,7 @@
     <div *ngSwitchCase="'1'">
       <div *ngIf="dataList && dataList.length > 0">
         <ion-list>
-          <ion-item *ngFor="let data of dataList" (click)="view(cr)">
+          <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
               <h2>{{data.recordStateName}}</h2>
               <h3>{{data.inspectorNotice.fileTitle}}</h3>

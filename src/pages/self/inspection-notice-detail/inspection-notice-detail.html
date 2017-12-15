@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
     <ion-title>督查通知详情</ion-title>
   </ion-navbar>
 </ion-header>
@@ -22,7 +25,7 @@
       <ion-label fixed>文物名称</ion-label>
       <ion-label class="navi">
         <div>{{inspectionNotice.inspectorNotice.culturalRelicName}}</div>
-        <button ion-button outline (click)="showculturalRelic(inspectionNotice.inspectorNotice.fK_CulturalRelicID)">查看</button>
+        <button ion-button outline (click)="showCulturalRelic(inspectionNotice.inspectorNotice.fK_CulturalRelicID)">查看</button>
       </ion-label>
     </ion-item>
     <ion-item>
@@ -57,3 +60,7 @@
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-footer *ngIf="segmentIndex == '0' && inspectionNotice.inspectorNotice.recordState == 2">
+  <button ion-button block (click)="reply()">回复</button>
+</ion-footer>

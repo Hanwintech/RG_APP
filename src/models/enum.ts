@@ -63,3 +63,9 @@ export enum EnumDistrictType {
     市 = 2,
     县区 = 3,
 }
+
+export enum EnumInspectorNoticeState {
+    草稿 = 1,
+    未回复 = 2,
+    已回复 = 3
+}

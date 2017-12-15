@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
+    <ion-title>督查通知回复</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>回复人</ion-label>
+      <ion-label>{{inspectionNotice.inspectorNotice.replyUserName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed style="height:116px;">回复内容</ion-label>
+      <ion-label>
+        <textarea placeholder="请输入回复内容" rows="5" [(ngModel)]="inspectionNotice.inspectorNotice.replyContent"></textarea>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="submit()">提交</button>
+      </ion-col>
+      <ion-col style="border-left: solid 1px #fff;">
+        <button ion-button block (click)="close()">关闭</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

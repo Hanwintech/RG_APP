@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -15,10 +15,13 @@ import { InspectionNoticeInfo } from './../../../models/self/inspection-notice-i
 })
 export class InspectionNoticeDetailPage extends DetailPage {
   private inspectionNotice: InspectionNoticeInfo;
+  private segmentIndex: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController,
     public apiService: ApiService,
     public file: File,
     public fileTransfer: FileTransfer,
@@ -26,12 +29,13 @@ export class InspectionNoticeDetailPage extends DetailPage {
   ) {
     super(navCtrl, file, fileTransfer, pageService);
 
-    this.inspectionNotice = this.navParams.data;
+    this.inspectionNotice = this.navParams.data.data;
+    this.segmentIndex = this.navParams.data.segmentIndex;
 
     super.changeAttachmentFileType(this.inspectionNotice.attachmentList)
   }
 
-  download(fileUrl: string, fileName:string) {
+  download(fileUrl: string, fileName: string) {
     super.downloadFile(fileUrl, fileName);
   }
 
@@ -39,7 +43,20 @@ export class InspectionNoticeDetailPage extends DetailPage {
     super.showSlidesPage(this.inspectionNotice.attachmentList, fileUrl);
   }
 
-  showculturalRelic(fK_CulturalRelicID: string){
+  showCulturalRelic(fK_CulturalRelicID: string) {
     this.navCtrl.push('CulturalRelicInfoDetailPage', fK_CulturalRelicID);
+  }
+
+  close() {
+    this.viewCtrl.dismiss(this.inspectionNotice);
+  }
+
+  reply() {
+    let searchModal = this.modalCtrl.create('InspectionNoticeReplyPage', this.inspectionNotice);
+    searchModal.onDidDismiss(data => {
+      this.inspectionNotice = data;
+      this.viewCtrl.dismiss(this.inspectionNotice);
+    });
+    searchModal.present();
   }
 }

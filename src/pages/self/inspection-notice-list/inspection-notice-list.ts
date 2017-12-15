@@ -57,11 +57,20 @@ export class InspectionNoticeListPage extends PagingListPage {
 
   segmentChanged(segmentEvent) {
     this.condition.isSend = (this.segmentIndex == "1");
+    this.nextPageIndex = 0;
     this.dataList = [];
     this.nextPage(null);
   }
 
   view(inspectorNotice: InspectionNoticeInfo) {
-    this.navCtrl.push('InspectionNoticeDetailPage', inspectorNotice);
+    let searchModal = this.modalCtrl.create('InspectionNoticeDetailPage', { "data": inspectorNotice, "segmentIndex": this.segmentIndex });
+    searchModal.onDidDismiss(data => {
+      for (let originData in this.dataList) {
+        if (this.dataList[originData].inspectorNotice.keyID == data.inspectorNotice.keyID) {
+          this.dataList[originData] = data;
+        }
+      }
+    });
+    searchModal.present();
   }
 }

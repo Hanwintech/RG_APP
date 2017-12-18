@@ -6,6 +6,6 @@ export class PostInspectorNoticeReply extends BaseRequest {
         super();
         this.method = "POST";
         this.requestUrl = "/api/system/post_inspector_notice_reply";
-        this.requestBody = reply
+        this.requestBody = this.reply
     }
 }

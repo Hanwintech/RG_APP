@@ -1,4 +1,3 @@
-import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { BaseApiSearch } from "./../base-api-search.model";
 import { TreeDataInfo } from "./../tree-data-info.model";

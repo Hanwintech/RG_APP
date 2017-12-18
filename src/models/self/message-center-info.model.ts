@@ -1,19 +1,5 @@
-import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { BaseApiSearch } from "./../base-api-search.model";
-import { TreeDataInfo } from "./../tree-data-info.model";
-
-// export class MessageCenterInfos {
-
-//     public search: MessageCenterInfoSearch;
-//     public messageCenterInfoSearchDataSource: MessageCenterInfoSearchDataSource;
-//     public totalCount: number;
-//     public isLastPage: boolean;
-//     public code: number;
-//     public message: string;
-//     public tag: string;
-//     public messageCenterInfoList: MessageCenterInfo[];
-// }
 
 export class MessageCenterInfo {
     public messageCenter: MessageCenterEntity;

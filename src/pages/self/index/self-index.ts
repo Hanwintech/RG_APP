@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { ApiService } from './../../../services/api.service';
 import { EnumAreaCode, EnumMessageShowType } from './../../../models/enum'
@@ -15,7 +15,6 @@ export class SelfIndexPage {
 
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams,
     private apiService: ApiService
   ) {
     this.areaName = EnumAreaCode[this.apiService.areaCode];

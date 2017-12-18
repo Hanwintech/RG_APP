@@ -10,7 +10,7 @@ export class CommonSimpleSearchPage {
   private keyword: String;
 
   constructor(private params: NavParams, private viewCtrl: ViewController) {
-    this.keyword = params.data.keyword;
+    this.keyword = this.params.data.keyword;
   }
 
   close() {

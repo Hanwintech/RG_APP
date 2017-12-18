@@ -7,7 +7,7 @@ import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetMuseumInfoList } from './../../../apis/property/get-museum-info-list.api';
-import { MuseumInfo, MuseumInfoSearch, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
+import { MuseumInfoSearch, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
 import { EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 

@@ -7,6 +7,6 @@ export class GetListAPI extends BaseRequest {
     constructor(private apiUrl: string) {
         super();
         this.method = "POST";
-        this.requestUrl = apiUrl;
+        this.requestUrl = this.apiUrl;
     }
 }

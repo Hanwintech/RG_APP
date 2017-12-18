@@ -1,0 +1,51 @@
+page-inspect-statistics {
+    ion-toolbar {
+        .toolbar-background {
+            background: #fff;
+        }
+    }
+    ion-list {
+        .item-block {
+            padding-left: 0;
+            .item-inner {
+                padding-left: 16px;
+            }
+        }
+    }
+    .Total {
+        padding: 15px 0;
+        .total {
+            display: inline-block;
+            width: 48.5%;
+            font-size: 12px; // text-align: center;
+            padding: 5px 0 5px 16px;
+            height: 52px;
+            border-right: solid 1px #c7c7c7;
+            div:last-child {
+                padding-top: 5px;
+                font-size: 18px;
+            }
+        }
+        .total:last-child {
+            border-right: 0;
+        }
+    }
+    .category {
+        float: left;
+        h3 {
+            float: left;
+            margin-right: 12px;
+        }
+    }
+    .inspectTimes {
+        float: right;
+        margin-right: 50px;
+        h3 {
+            float: left;
+            margin-right: 12px;
+        }
+        p {
+            line-height: 1.5;
+        }
+    }
+}

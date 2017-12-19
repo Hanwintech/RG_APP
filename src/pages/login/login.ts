@@ -38,6 +38,7 @@ export class LoginPage {
       localStorage.removeItem('userId');
       localStorage.removeItem('manageUnitId');
       localStorage.removeItem('userType');
+      localStorage.removeItem('appRole');
       localStorage.removeItem('mobile');
       localStorage.removeItem('phone');
       localStorage.removeItem('email');
@@ -48,7 +49,7 @@ export class LoginPage {
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       return;
     }
-    //this.pageService.showLoading("正在登录...");
+
     this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
       res => {
         this.pageService.dismissLoading();
@@ -58,6 +59,7 @@ export class LoginPage {
         localStorage.setItem('userId', res.userID);
         localStorage.setItem('manageUnitId', res.manageUnitID);
         localStorage.setItem('userType', res.userType);
+        localStorage.setItem('appRole', "[" + res.appRole + "]");
         localStorage.setItem('mobile', res.mobilePhone);
         localStorage.setItem('phone', res.officePhone);
         localStorage.setItem('email', res.email);
@@ -65,20 +67,13 @@ export class LoginPage {
         this.navCtrl.setRoot("TabsPage");
       },
       error => {
-       // this.pageService.dismissLoading();
-        console.log(1);
-        console.log(error)
-
         var message = '登录失败！';
         if (error.status == 401) {
           message = "用户名或密码错误！"
+        } else {
+          console.log(error)
         }
         this.pageService.showErrorMessage(message);
-      }),error=>{
-        //this.pageService.dismissLoading();
-        console.log(1);
-        console.log(error);
-
-      };
+      });
   }
 }

@@ -1,0 +1,33 @@
+page-patrol-info-detail-process {
+    ion-content {
+        .grid {
+            border-bottom: 1px solid color($colors, border, base);
+            padding: 15px 0;
+            .row {
+                .col {
+                    font-size: 13px;
+                }
+                .col:first-child {
+                    color: color($colors, primary, base);
+                }
+                .col:last-child {
+                    border-left: solid 1px #c7c7c7;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                    text-overflow: clip;
+                    white-space: normal;
+                    .button {
+                        font-size: 12px;
+                        height: 18px;
+                        float: right;
+                        margin: 0 0.2rem;
+                    }
+                }
+                .phoneNo {
+                    text-decoration: underline;
+                    color: color($colors, primary, base);
+                }
+            }
+        }
+    }
+}

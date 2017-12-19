@@ -1,0 +1,26 @@
+page-case-problem-list {
+    .navi {
+        word-wrap: break-word;
+        word-break: break-all;
+        text-overflow: clip;
+        white-space: normal;
+        opacity: 1 !important;
+        .text {
+            color: #000;
+            font-size: 12px;
+            width: 100%;
+            padding-right: 30px;
+            float: left;
+            word-break: break-all;
+            overflow: hidden;
+        }
+    }
+    .item.item-ios .checkbox-ios {
+        opacity: 1 !important;
+        float: left;
+        position: absolute;
+        display: initial;
+        top: 50%;
+        margin: -12px 0 0 -18px;
+    }
+}

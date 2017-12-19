@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>巡查在线</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showSimpleSearch()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="showSearch('PatrolInfoSearchPage')">
+        <ion-icon name="ios-funnel-outline"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="add()">
+        <ion-icon name="ios-add-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="dataList && dataList.length > 0">
+    <ion-list>
+      <ion-item *ngFor="let data of dataList" (click)="view(data)">
+        <div class="img">
+          <img src="{{data.patrolImageUrl ? data.patrolImageUrl : './../../../assets/icon/empty_small.png'}}">
+        </div>
+        <div class="description">
+          <h3>{{data.patrolInfo.culturalRelicName}}</h3>
+          <div>{{data.patrolInfo.patrolDescription}}</div>
+          <h4 class="color_{{data.patrolInfo.patrolState}}">{{data.patrolStateName}}</h4>
+          <h5>{{data.patrolInfo.patroDate | datetime:'yyyy-MM-dd'}}</h5>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+      <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
+    无数据
+  </div>
+</ion-content>

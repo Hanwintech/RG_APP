@@ -7,15 +7,13 @@ import { IonicPage, Tabs, NavParams, NavController } from 'ionic-angular';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  @ViewChild('myTabs') tabRef: Tabs;
-
   tab1Root: any;
   tab2Root: any;
   tab3Root: any;
   tab4Root: any;
 
   constructor(public navParams: NavParams, public navCtrl: NavController) {
-    this.tab2Root = 'SelfIndexPage';
+    this.tab2Root = 'PatrolMapPage';
     this.tab3Root = 'SearchIndexPage';
     this.tab4Root = 'SelfIndexPage';
   }

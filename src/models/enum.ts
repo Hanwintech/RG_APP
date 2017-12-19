@@ -69,3 +69,36 @@ export enum EnumInspectorNoticeState {
     未回复 = 2,
     已回复 = 3
 }
+
+export enum EnumPatrolStatus {
+    巡查正常 = 1,
+    存在问题未处理 = 2,
+    存在问题已处理 = 3,
+    误判 = 4
+}
+
+/**
+ * 巡查处理结果
+ */
+export enum EnumProcessResult {
+    巡查问题提交 = 1,
+    转送处理 = 2,
+    提交执法队 = 3,
+    存在问题已处理 = 4,
+    误判 = 5,
+    转为案件 = 6,
+    无需立案 = 7,
+    转他人处理 = 8,
+}
+
+/**
+ * 巡查处理运行状态
+ */
+export enum EnumRunState {
+    未阅 = 1,
+    未处理 = 2,
+    已处理 = 3,
+    已撤销 = 4,
+    他人已处理 = 5,
+}
+

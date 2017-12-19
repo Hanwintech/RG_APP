@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>处理详情</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>处理结果</ion-label>
+      <ion-label>{{processInfo.patrolCaseProcess.processResult ? getProcessResultName(processInfo.patrolCaseProcess.processResult) : '-'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>处理人</ion-label>
+      <ion-label>{{processInfo.patrolCaseProcess.transactUser ? processInfo.patrolCaseProcess.transactUser : '-'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>处理人单位</ion-label>
+      <ion-label>{{processInfo.patrolCaseProcess.transactUserManageUnitName ? processInfo.patrolCaseProcess.transactUserManageUnitName : '-'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>处理人电话</ion-label>
+      <ion-label *ngIf="processInfo.patrolCaseProcess.mobilePhone" class="phoneNo">{{processInfo.patrolCaseProcess.mobilePhone}}
+        <button ion-button outline (click)="optPhone($event, processInfo.patrolCaseProcess.mobilePhone)">操作</button>
+      </ion-label>
+      <ion-label col-9 *ngIf="!processInfo.patrolCaseProcess.mobilePhone">-</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>到达时间</ion-label>
+      <ion-label>{{processInfo.patrolCaseProcess.arriveDate ? (processInfo.patrolCaseProcess.arriveDate | datetime) : '-'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>处理状态</ion-label>
+      <ion-label>{{processInfo.patrolCaseProcess.runState ? getRunStateName(processInfo.patrolCaseProcess.runState) : '-'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>处理时间</ion-label>
+      <ion-label>{{processInfo.patrolCaseProcess.processDate ? (processInfo.patrolCaseProcess.processDate | datetime) : '-'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>处理说明</ion-label>
+      <ion-label>{{processInfo.patrolCaseProcess.processDescription ? processInfo.patrolCaseProcess.processDescription : '-'}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="processInfo.attachmentList && processInfo.attachmentList.length > 0" class="littleTitle">
+      附件
+    </ion-item>
+    <ion-item *ngIf="processInfo.attachmentList && processInfo.attachmentList.length > 0" class="attachment">
+      <div *ngFor="let att of processInfo.attachmentList" class="attachmentContent">
+        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <div class="description">
+          <div class="fileShowName">{{att.fileShowName}}</div>
+          <div class="fileName">{{att.fileName}}</div>
+        </div>
+        <button ion-button outline (click)="showPicture(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
+        <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

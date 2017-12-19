@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>巡查处理日志</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngFor="let p of patrolProcess" (click)="showProcessDetail(p)">
+    <ion-row>
+      <ion-col col-3>处理结果</ion-col>
+      <ion-col col-9>{{p.processResult ? getProcessResultName(p.processResult) : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理人</ion-col>
+      <ion-col col-9>{{p.transactUser ? p.transactUser : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理人单位</ion-col>
+      <ion-col col-9>{{p.transactUserManageUnitName ? p.transactUserManageUnitName : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理人电话</ion-col>
+      <ion-col col-9 *ngIf="p.mobilePhone" class="phoneNo">{{p.mobilePhone}}
+        <button ion-button outline (click)="optPhone($event, p.mobilePhone)">操作</button>
+      </ion-col>
+      <ion-col col-9 *ngIf="!p.mobilePhone">-</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>到达时间</ion-col>
+      <ion-col col-9>{{p.arriveDate ? (p.arriveDate | datetime) : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理状态</ion-col>
+      <ion-col col-9>{{p.runState ? getRunStateName(p.runState) : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理时间</ion-col>
+      <ion-col col-9>{{p.processDate ? (p.processDate | datetime) : '-'}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <button ion-button block (click)="close()">关闭</button>
+</ion-footer>

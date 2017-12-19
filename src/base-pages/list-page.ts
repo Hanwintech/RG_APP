@@ -110,6 +110,7 @@ export class PagingListPage extends ListBasePage {
                     for (let cr of temp) {
                         this.dataList.push(cr);
                     }
+                    console.log(this.dataList);
 
                     this._isLastPage = res.data.isLastPage
 

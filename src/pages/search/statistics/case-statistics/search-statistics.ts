@@ -28,11 +28,12 @@ import { ReportQueryCaseByAreaInfo } from './../../../../models/search/report-qu
     templateUrl: 'search-statistics.html',
 })
 export class SearchStatisticsPage {
+    private chartType:number;
     private search: ReportQueryCaseSearch;
-    title: string;
-    category: string;
-    totalCaseCount: number;
-    totalSumFineAmount: number;
+    private title: string;
+    private category: string;
+    private totalCaseCount: number;
+    private totalSumFineAmount: number;
     private dataSource: string[][];
 
     constructor(
@@ -41,6 +42,8 @@ export class SearchStatisticsPage {
         public apiService: ApiService,
         public pageService: PageService
     ) {
+        this.chartType=this.navParams.data;
+
         //初始化查询字段
         this.search = new ReportQueryCaseSearch();
         this.search.isDefaultSearch = true;
@@ -51,7 +54,7 @@ export class SearchStatisticsPage {
     }
 
     ionViewDidLoad() {
-        switch (this.navParams.data) {
+        switch (this.chartType) {
             case (1):
                 this.title = "按类别统计";
                 this.category = "类别";
@@ -290,4 +293,9 @@ export class SearchStatisticsPage {
                 break;
         }
     }
+    chart(){
+        this.navCtrl.push("SearchStatisticsChartPage",{
+            "编号":this.chartType,"案件总数":this.totalCaseCount,"总罚款金额":this.totalSumFineAmount,"数据源":this.dataSource
+        });
+      }
 }

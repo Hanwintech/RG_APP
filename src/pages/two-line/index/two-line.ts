@@ -46,6 +46,7 @@ export class TwoLinePage {
   private selectedMarkerTag;
   private hideContrl: boolean;//底部信息栏的控制
   private CardContrl: boolean;//左上角两线图信息栏的控制
+  private zoomendControle: boolean;//解决setZoom 会出发zoomend事件的问题
   private caseCountTemp;
   private patrolCountTemp;
   constructor(
@@ -59,6 +60,7 @@ export class TwoLinePage {
     this.pageTitle = (this.navParams.data && this.navParams.data.title) ? this.navParams.data.title : "国保两线监控";
     this.hideContrl = true;
     this.CardContrl = false;
+    this.zoomendControle = true;
   }
 
   ionViewDidEnter() {
@@ -147,17 +149,21 @@ export class TwoLinePage {
   }
 
   private mapAddEventListener() {
-    this.map.addEventListener("zoomend", function () {
-      this.map.clearOverlays();
-      this.initSearchData();
-      for (let shineItem of this.shineArray) {
-        clearInterval(shineItem);
+    this.map.addEventListener("zoomend", function (type) {
+      console.log("zoomend里的" + this.zoomendControle);
+      if (this.zoomendControle) {
+        console.log("zoomend事件产生");
+        this.map.clearOverlays();
+        this.initSearchData();
+        for (let shineItem of this.shineArray) {
+          clearInterval(shineItem);
+        }
+        this.uniqueTagList = [];
+        this.mapLevel = this.map.getZoom();
+        this.getData(this.mapLevel);
+        //控制左上角的两线信息栏
+        this.CardContrl = this.mapLevel >= this.showTwoLineMapLevel ? false : true;
       }
-      this.uniqueTagList = [];
-      this.mapLevel = this.map.getZoom();
-      this.getData(this.mapLevel);
-      //控制左上角的两线信息栏
-      this.CardContrl = this.mapLevel >= this.showTwoLineMapLevel ? false : true;
     }.bind(this))
     this.map.addEventListener("dragend", function () {
       this.getData(this.mapLevel);
@@ -345,9 +351,10 @@ export class TwoLinePage {
     this.initSearchData();
     let searchModal = this.modalCtrl.create("TwoLineSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-       this.map.clearOverlays();
-      this.search = data.search;
+      console.log(data.search);
       if (data.needSearch) {
+        this.map.clearOverlays();
+        this.search = data.search;
         // this.search = new CulturalRelicInfoSearch();
         // this.search.isDefaultSearch = false;
         let district, tempDistrictType;
@@ -375,20 +382,26 @@ export class TwoLinePage {
               tempDistrictType = item.districtType;
             }
           }
-
-          if (tempDistrictType == EnumDistrictType["江苏省"]) {
+          if (tempDistrictType == 1 && !this.search.culturalRelicName) {
+            this.zoomendControle = false;
             this.map.setZoom(8);
+            this.map.setMinZoom(8);
             this.mapLevel = 8;
           }
-          else if (tempDistrictType == EnumDistrictType["市"]) {
+          else if (tempDistrictType <= EnumDistrictType["市"] && !this.search.culturalRelicName) {
+            this.zoomendControle = false;
             this.map.setZoom(12);
+            this.map.setMinZoom(12);
             this.mapLevel = 12;
           }
-          else if (tempDistrictType == EnumDistrictType["县区"]) {
+          else if (tempDistrictType == EnumDistrictType["县区"] && !this.search.culturalRelicName) {
+            this.zoomendControle = false;
             this.map.setZoom(15);
+            this.map.setMinZoom(15);
             this.mapLevel = 15;
           }
           else {
+            this.zoomendControle = false;
             this.map.setZoom(17);
             this.mapLevel = 17;
             this.isNeedMoveToFirstIcon = true;
@@ -398,12 +411,12 @@ export class TwoLinePage {
           let movePoint = new BMap.Point(this.search.districtCoordinateX.toString(), this.search.districtCoordinateY.toString());
           this.map.setCenter(movePoint);
         }
-        this.search.isDefaultSearch = false;
-        this.search.searchType = 3;
         for (let shineItem of this.shineArray) {
           clearInterval(shineItem);
         }
-        this.getData(17);
+        this.getData(this.mapLevel);
+        this.zoomendControle = true;
+        this.uniqueTagList = [];
       }
     });
     searchModal.present();

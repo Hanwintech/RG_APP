@@ -5,12 +5,14 @@ import { SearchPage } from './../../../base-pages/search-page';
 import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 
+
+
 @IonicPage()
 @Component({
-  selector: 'page-two-line-search',
-  templateUrl: 'two-line-search.html',
+  selector: 'page-map-search',
+  templateUrl: 'map-search.html',
 })
-export class TwoLineSearchPage extends SearchPage<CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource> {
+export class MapSearchPage extends SearchPage<CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource> {
   private districtList: IntegerKeyValue[];
 
   constructor(public params: NavParams, public viewCtrl: ViewController) {

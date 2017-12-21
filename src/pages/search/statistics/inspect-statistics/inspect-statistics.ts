@@ -24,6 +24,7 @@ import { ReportQueryPatrolByAreaInfo } from './../../../../models/search/report-
   templateUrl: 'inspect-statistics.html',
 })
 export class InspectStatisticsPage {
+  private chartType:number;
   private search: ReportQueryPatrolSearch;
   title: string;
   category: string;
@@ -36,6 +37,7 @@ export class InspectStatisticsPage {
     public apiService: ApiService,
     public pageService: PageService
   ) {
+    this.chartType=this.navParams.data;
     //初始化查询字段
     this.search = new ReportQueryPatrolSearch();
     this.search.isDefaultSearch = true;
@@ -46,7 +48,7 @@ export class InspectStatisticsPage {
   }
 
   ionViewDidLoad() {
-    switch (this.navParams.data) {
+    switch (this.chartType) {
       case (1):
         this.title = "按类别统计";
         this.category = "类别";
@@ -190,6 +192,11 @@ export class InspectStatisticsPage {
       default:
         break;
     }
+  }
+  chart(){
+    this.navCtrl.push("InspectChartPage",{
+        "编号":this.chartType,"总巡查次数":this.totalPatrolCount,"数据源":this.dataSource
+    });
   }
 }
 

@@ -1,5 +1,5 @@
 import { BaseApiSearch } from "./../base-api-search.model";
-
+import { IntegerKeyValue } from "./../integer-key-value.model";
 export class ReportQueryPatrolSearch extends BaseApiSearch {
     public userId: string;
     public manageUnitId: string;
@@ -16,8 +16,14 @@ export class ReportQueryPatrolSearch extends BaseApiSearch {
     public startHalfYear: number;
     public endHalfYear: number;
 }
+export class ReportQueryCaseSearchDataSource {
+    public CaseStateList: IntegerKeyValue[] ;
+
+    public CaseSourceList: IntegerKeyValue[];
+
+    public InvestigationProcedureList: IntegerKeyValue[];
+}
 
 
- 
 
- 
+

@@ -1,0 +1,34 @@
+<!--
+  Generated template for the InvestigateProceduresPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>选择执法人员</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-item>
+    <ion-label>无需立案</ion-label>
+    <ion-checkbox checked="true"></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>简易程序</ion-label>
+    <ion-checkbox checked="true"></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>一般程序</ion-label>
+    <ion-checkbox checked="true"></ion-checkbox>
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <button ion-button (click)="doSelectAll()">全选</button>
+  <button ion-button (click)="doEmptied()">清空</button>
+  <button ion-button (click)="doSearch()">确定</button>
+</ion-footer>

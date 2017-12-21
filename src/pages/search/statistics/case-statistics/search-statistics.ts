@@ -28,7 +28,7 @@ import { ReportQueryCaseByAreaInfo } from './../../../../models/search/report-qu
     templateUrl: 'search-statistics.html',
 })
 export class SearchStatisticsPage {
-    private chartType:number;
+    private chartType: number;
     private search: ReportQueryCaseSearch;
     private title: string;
     private category: string;
@@ -42,7 +42,7 @@ export class SearchStatisticsPage {
         public apiService: ApiService,
         public pageService: PageService
     ) {
-        this.chartType=this.navParams.data;
+        this.chartType = this.navParams.data;
 
         //初始化查询字段
         this.search = new ReportQueryCaseSearch();
@@ -293,9 +293,12 @@ export class SearchStatisticsPage {
                 break;
         }
     }
-    chart(){
-        this.navCtrl.push("SearchStatisticsChartPage",{
-            "编号":this.chartType,"案件总数":this.totalCaseCount,"总罚款金额":this.totalSumFineAmount,"数据源":this.dataSource
+    chart() {
+        this.navCtrl.push("SearchStatisticsChartPage", {
+            "编号": this.chartType, "案件总数": this.totalCaseCount, "总罚款金额": this.totalSumFineAmount, "数据源": this.dataSource
         });
-      }
+    }
+    Search() {
+        this.navCtrl.push("CaseConditionInquiryPage");
+    }
 }

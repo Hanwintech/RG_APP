@@ -290,6 +290,8 @@ export class TwoLinePage {
       textAlign: 'center'
     });
     label.addEventListener("click", function () {
+      this.hideContrl = false;
+      this.selectedMarkItem = cluster;
       this.mapLevel = this.currentMapLevelMax + 1;
       this.isNeedMoveToFirstIcon = true;
       this.map.clearOverlays();
@@ -348,7 +350,6 @@ export class TwoLinePage {
   }
 
   showSearch() {
-    this.initSearchData();
     let searchModal = this.modalCtrl.create("TwoLineSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
       console.log(data.search);

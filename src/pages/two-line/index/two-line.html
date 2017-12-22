@@ -11,18 +11,19 @@
 
 
 <ion-content>
-  <div class="topHeader">
-    <table>
-      <tr>
-        <td>名称&nbsp;:</td><td>不限</td>
-        <td>时间&nbsp;:</td><td>2016-12-15至2017-12-15</td>
-      </tr>
-      <tr>
-          <td>类别&nbsp;:</td><td>全国重点文物保护单位</td>
-          <td>地区&nbsp;:</td><td>不限</td>
-        </tr>
-    </table>
-  </div>
+    <div class="topHeader" *ngIf="search">
+        <div style="float:left;margin-right:1.2em;">
+          <div *ngIf="search.culturalRelicName">名称:{{search.culturalRelicName}}</div>
+          <div *ngIf="!search.culturalRelicName">名称:不限</div>
+          <div>类别:{{search.culturalRelicLevelName}}</div>
+        </div>
+        <div>
+          <div style="white-space:nowrap">时间:{{search.startDate}}至{{search.endDate}}</div>
+          <div *ngIf="search.districtName&&search.areaName">地区:{{search.areaName}}—{{search.districtName}}</div>
+          <div *ngIf="!search.districtName&&search.areaName">地区:{{search.areaName}}</div>
+          <div *ngIf="!search.areaName">地区:不限</div>
+        </div>
+      </div>
   <div class="card"  [ngClass]="{'hideCard':CardContrl}">
     <div class="selfThing"><span></span>本体</div>
     <div class="protect"><span></span>保护范围</div>

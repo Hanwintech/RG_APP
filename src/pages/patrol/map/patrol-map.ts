@@ -44,8 +44,8 @@ export class PatrolMapPage {
   private selectedMarkerTag;
   private hideContrl: boolean;//底部信息栏的控制
   private CardContrl: boolean;//左上角两线图信息栏的控制
+  private hideDetailContrl:boolean;//底部信息栏中按钮的控制
   private zoomendControle: boolean;//解决setZoom 会出发zoomend事件的问题
-  private caseCountTemp;
   private patrolCountTemp;
   private
   constructor(
@@ -58,6 +58,7 @@ export class PatrolMapPage {
     public geolocation: Geolocation) {
     this.pageTitle = (this.navParams.data && this.navParams.data.title) ? this.navParams.data.title : "国保两线监控";
     this.hideContrl = true;
+    this.hideDetailContrl=false;
     this.CardContrl = false;
     this.zoomendControle = true;
   }
@@ -95,6 +96,7 @@ export class PatrolMapPage {
   //底部查看详情面板
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
+    this.hideDetailContrl=false;
   }
   //获取当前所在位置
   selfLocation() {
@@ -142,7 +144,8 @@ export class PatrolMapPage {
           console.log(res);
           this.twoLine = res.data.twoLineInfoList;
           this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
-          this.searchDataSource = res.data.culturalRelicInfoSearchDataSource
+          this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
+          this.search=res.data.search;//采用服务器端的默认查询条件
           this.bindMarker();
         }
       }, error => {
@@ -178,7 +181,6 @@ export class PatrolMapPage {
       let marker;
       let picName = this.setMarkerByCRlevel();
 
-      this.caseCountTemp = cluster.caseCount == 0 ? 0 : cluster.caseDoingCount + "/" + cluster.caseCount;
       this.patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
       //需要闪烁的文保点
       if (cluster.caseDoingCount > 0 || cluster.patrolDoingCount > 0) {
@@ -204,7 +206,7 @@ export class PatrolMapPage {
             status = 0;
           }
           marker = new BMap.Marker(pt, { icon: myIcon, })
-          this.mapAddOverlay(myIcon, lblString, this.caseCountTemp, this.patrolCountTemp, pt, cluster, marker, picName);
+          this.mapAddOverlay(myIcon, lblString,  this.patrolCountTemp, pt, cluster, marker, picName);
         }, 500);
         this.shineArray.push(this.shine);
       }
@@ -218,14 +220,13 @@ export class PatrolMapPage {
           lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'>";
         }
         marker = new BMap.Marker(pt, { icon: myIcon, })
-        this.mapAddOverlay(myIcon, lblString, this.caseCountTemp, this.patrolCountTemp, pt, cluster, marker, picName);
+        this.mapAddOverlay(myIcon, lblString,this.patrolCountTemp, pt, cluster, marker, picName);
       }
     }
   }
-  private mapAddOverlay(myIcon, lblString, caseCountTemp, patrolCountTemp, pt, cluster, marker, picName) {
+  private mapAddOverlay(myIcon, lblString,  patrolCountTemp, pt, cluster, marker, picName) {
     let lblStringNew = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
-      + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>案件:" + caseCountTemp +
-      "&nbsp;&nbsp;&nbsp;&nbsp;巡查：" + patrolCountTemp + "</div></div>";
+      + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>巡查：" + patrolCountTemp + "</div></div>";
     let label = new BMap.Label(lblStringNew, { offset: new BMap.Size(8, -60) });
     label.setStyle({
       border: "none",
@@ -240,6 +241,7 @@ export class PatrolMapPage {
     this.map.addOverlay(marker);
     label.addEventListener("click", function (event) {
       this.hideContrl = false;
+      this.hideDetailContrl=false;
       this.selectedMarkItem = cluster;
       let list, index;
       list = document.getElementsByClassName("positionContain");
@@ -308,6 +310,7 @@ export class PatrolMapPage {
     let option = {
       position: point,
     }
+    this.patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
     label = new BMap.Label("<div style='margin:2.8rem auto;'><div>"
       + cluster.showName + "</div><div>" + cluster.culturalRelicCount + "</div></div>", option);
     label.setStyle({
@@ -323,6 +326,9 @@ export class PatrolMapPage {
       textAlign: 'center'
     });
     label.addEventListener("click", function () {
+      this.hideDetailContrl=true;
+      this.hideContrl=false;
+      this.selectedMarkItem = cluster;
       this.mapLevel = this.currentMapLevelMax + 1;
       this.isNeedMoveToFirstIcon = true;
       this.map.clearOverlays();
@@ -382,11 +388,9 @@ export class PatrolMapPage {
   }
 
   showSearch() {
-    this.initSearchData();
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("MapSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      console.log(data.search);
       if (data.needSearch) {
         this.map.clearOverlays();
         this.search = data.search;

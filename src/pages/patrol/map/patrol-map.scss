@@ -5,8 +5,8 @@ page-patrol-map {
     $selectedMarker: #f57e1e; //被选中的marker颜色
     $warningMarker: #f05853; //预警的marker颜色
     #map-content {
-        position: fixed;
-        top: 44px;
+        position: absolute;
+        top:0;
         bottom: 0;
         left: 0;
         right: 0;
@@ -16,8 +16,8 @@ page-patrol-map {
         height: 100%;
     }
     .topHeader {
-        position: fixed;
-        top: 44px;
+        position: absolute;
+        top:0;
         padding: 0.6rem;
         background-color: $toolbar-background;
         z-index: 1;
@@ -33,8 +33,8 @@ page-patrol-map {
         }
     }
     .card {
-        position: fixed;
-        top: 98px;
+        position: absolute;
+        top: 53px;
         margin-left: 0.6rem;
         border-radius: 5px;
         border: 1px solid #e5e5e5;
@@ -61,7 +61,7 @@ page-patrol-map {
         border-top: 3px solid $controlPlace;
     }
     .bottom {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         height: auto;
         width: 100%;
@@ -107,6 +107,9 @@ page-patrol-map {
             .detailItem div:first-child {
                 padding-left: 0;
             }
+        }
+        .hideDetailItem{
+            display: none;
         }
     }
     .hideCard {

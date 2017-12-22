@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>条件查询</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="clear()">清空</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed class="wrap">案发开始日期</ion-label>
+      <ion-datetime placeholder="点击选择案发开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="depositDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed class="wrap">案发结束日期</ion-label>
+      <ion-datetime placeholder="点击选择案发结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="myDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>查处程序</ion-label>
+      <ion-input type="text" (click)="investigateProcedures()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>案件状态</ion-label>
+      <ion-input type="text" (click)="caseStatus()"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <button ion-button block (click)="doSearch()">确定</button>
+</ion-footer>

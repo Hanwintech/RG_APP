@@ -1,0 +1,21 @@
+page-search-statistics-chart {
+    .Total {
+        padding: 15px 0;
+        .total {
+            display: inline-block;
+            width: 48.5%;
+            font-size: 10px; // text-align: center;
+            padding: 5px 0 5px 16px;
+            height: 52px;
+            border-right: solid 1px #c7c7c7;
+            div:last-child {
+                padding-top: 5px;
+                font-size: 14px;
+            }
+        }
+        .total:last-child {
+            border-right: 0;
+        }
+    }
+
+}

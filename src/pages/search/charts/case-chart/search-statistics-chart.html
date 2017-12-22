@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="Total">
+    <div class="total">
+      <div>案件总数(起)</div>
+      <div style="color:#EDAA45;">{{totalCaseCount}}</div>
+    </div>
+    <div class="total">
+      <div>总罚款金额(元)</div>
+      <div style="color:#EDAA45;">{{totalSumFineAmount | money}}</div>
+    </div>
+  </div>
+  <echarts-ng2 [option]="option1" [style]="{'height': '27%'}"></echarts-ng2>
+  <echarts-ng2 [option]="option2" [style]="{'height': '27%'}"></echarts-ng2>
+  <echarts-ng2 [option]="option3" [style]="{'height': '27%'}"></echarts-ng2>
+</ion-content>

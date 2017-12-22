@@ -5,7 +5,7 @@
       <button ion-button icon-only (click)="chart()">
         <ion-icon name="stats"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="search()">
+      <button ion-button icon-only (click)="Search()">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
@@ -14,11 +14,11 @@
   <div class="Total">
     <div class="total">
       <div>案件总数(起)</div>
-      <div style="color:orange;">{{totalCaseCount}}</div>
+      <div style="color:#EDAA45;">{{totalCaseCount}}</div>
     </div>
     <div class="total">
       <div>总罚款金额(元)</div>
-      <div style="color:orange;">{{totalSumFineAmount | money}}</div>
+      <div style="color:#EDAA45;">{{totalSumFineAmount | money}}</div>
     </div>
   </div>
   </ion-toolbar>

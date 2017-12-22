@@ -1,9 +1,9 @@
 page-two-line {
     $protect: #FF080C; //保护范围
-    $controlPlace: #FF080C; //本体
-    $origionMarker:#1fa0f2;//原始的marker颜色
-    $selectedMarker:#f57e1e;//被选中的marker颜色
-    $warningMarker: #f05853;//预警的marker颜色
+    $controlPlace: #FF080C; //建设控制地带
+    $origionMarker: #1fa0f2; //原始的marker颜色
+    $selectedMarker: #f57e1e; //被选中的marker颜色
+    $warningMarker: #f05853; //预警的marker颜色
     #map-content {
         position: fixed;
         top: 44px;
@@ -26,7 +26,7 @@ page-two-line {
         color: #fff;
         font-size: 12px;
         table tr td {
-            padding-right: 1.2rem;
+            padding-right: 0.5rem;
         }
         table tr th {
             padding-right: 0.6rem;
@@ -41,37 +41,24 @@ page-two-line {
         z-index: 1;
         background: #fff;
         font-size: 12px;
-        padding: 2px 3px 0 2px;
+        padding: 3px;
     }
-    .card .selfThing {
+    .card div span {
+        width: 1rem;
+        height: 0;
+        display: inline-block;
+        margin-right: 3px;
         position: relative;
-        top: -1px;
-    }
-    .card .protect {
-        position: relative;
-        top: -5px;
-    }
-    .card .controlPlace {
-        position: relative;
-        top: -8px;
+        top: -3px;
     }
     .card .selfThing span {
-        font-size: 20px;
-        color: $toolbar-background;
-        font-weight: bold;
-        padding-right: 3px;
+        border-top: 3px solid $toolbar-background;
     }
     .card .protect span {
-        font-size: 20px;
-        color: $protect;
-        font-weight: bold;
-        padding-right: 2px;
+        border-top: 3px solid $protect;
     }
     .card .controlPlace span {
-        font-size: 20px;
-        color: $controlPlace;
-        font-weight: bold;
-        padding-right: 2px;
+        border-top: 3px solid $controlPlace;
     }
     .bottom {
         position: fixed;
@@ -121,8 +108,11 @@ page-two-line {
                 padding-left: 0;
             }
         }
+        .hideDetailItem{
+            display: none;
+        }
     }
-    .hideCard{
+    .hideCard {
         display: none;
     }
     .hideBottom {
@@ -131,11 +121,18 @@ page-two-line {
     .clear {
         clear: both;
     }
-    .locate {
+    .locateContainer {
+        color: $toolbar-background;
+        width: 3.5em;
+        height: 4em;
+    }
+    .locateContainer.button-ios{
+        background: none;
+    }
+    .locate{
         left: 20px;
         font-size: 3.5em;
         margin-bottom: 0.6rem;
-        color: $toolbar-background;
     }
     .add-circle {
         float: right;
@@ -175,27 +172,33 @@ page-two-line {
         width: 0;
         height: 0;
         border: 7px solid transparent;
-        border-top-color:$origionMarker;
+        border-top-color: $origionMarker;
         content: '';
         left: 10px;
     }
-    .positionContain[name=selected]{
+    .positionContain[name=selected] {
         background: $selectedMarker;
-        border-top-color:$selectedMarker;
+        border-top-color: $selectedMarker;
     }
-    .positionContain[name=selected]:after{
-        border-top-color:$selectedMarker;
+    .positionContain[name=selected]:after {
+        border-top-color: $selectedMarker;
     }
     .warning {
-        background:$warningMarker; 
+        background: $warningMarker;
     }
     .warning:after {
-        border-top-color:$warningMarker; 
+        border-top-color: $warningMarker;
     }
     .positionContain.warning[name=selected] {
-        background:$warningMarker; 
+        background: $warningMarker;
     }
     .positionContain.warning[name=selected]:after {
-        border-top-color:$warningMarker; 
+        border-top-color: $warningMarker;
+    }
+    .viewDetail a:active{
+        background: gray;
+    }
+    .viewDetail a:focus{
+        background: gray;
     }
 }

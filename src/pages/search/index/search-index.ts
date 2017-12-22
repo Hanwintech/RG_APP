@@ -18,10 +18,10 @@ export class SearchIndexPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchIndexPage');
   }
-  Statistics(chartType: number){
-    this.navCtrl.push("SearchStatisticsPage", chartType);
+  Statistics(listType: number){
+    this.navCtrl.push("SearchStatisticsPage", listType);
   }
-  inspectStatistics(chartType: number){
-    this.navCtrl.push("InspectStatisticsPage", chartType);
+  inspectStatistics(listType: number){
+    this.navCtrl.push("InspectStatisticsPage", listType);
   }
 }

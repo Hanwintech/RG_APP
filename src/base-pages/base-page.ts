@@ -9,7 +9,7 @@ export class BasePage {
     private fileTransferObj: FileTransferObject;
 
     constructor(
-        public navCtrl: NavController, 
+        public navCtrl: NavController,
         public file: File,
         public fileTransfer: FileTransfer,
         public pageService: PageService
@@ -20,22 +20,24 @@ export class BasePage {
     public changeAttachmentFileType(attachmentList: Attachment[]) {
         if (attachmentList && attachmentList.length > 0) {
             for (let att of attachmentList) {
-                if (att.fileType == 'xls' || att.fileType == 'xlsx') {
-                    att.fileType = "excel";
-                } else if (att.fileType == 'html' || att.fileType == 'htm') {
-                    att.fileType = "html";
-                } else if (att.fileType == 'jpg' || att.fileType == 'jpeg' || att.fileType == 'png' || att.fileType == 'gif') {
-                    att.fileType = "img";
-                } else if (att.fileType == 'pdf') {
-                    att.fileType = "pdf";
-                } else if (att.fileType == 'ppt' || att.fileType == 'pptx') {
-                    att.fileType = "ppt";
-                } else if (att.fileType == 'txt') {
-                    att.fileType = "txt";
-                } else if (att.fileType == 'doc' || att.fileType == 'docx') {
-                    att.fileType = "word";
-                } else {
-                    att.fileType = "other_file";
+                if (att) {
+                    if (att.fileType == 'xls' || att.fileType == 'xlsx') {
+                        att.fileType = "excel";
+                    } else if (att.fileType == 'html' || att.fileType == 'htm') {
+                        att.fileType = "html";
+                    } else if (att.fileType == 'jpg' || att.fileType == 'jpeg' || att.fileType == 'png' || att.fileType == 'gif') {
+                        att.fileType = "img";
+                    } else if (att.fileType == 'pdf') {
+                        att.fileType = "pdf";
+                    } else if (att.fileType == 'ppt' || att.fileType == 'pptx') {
+                        att.fileType = "ppt";
+                    } else if (att.fileType == 'txt') {
+                        att.fileType = "txt";
+                    } else if (att.fileType == 'doc' || att.fileType == 'docx') {
+                        att.fileType = "word";
+                    } else {
+                        att.fileType = "other_file";
+                    }
                 }
             }
         }

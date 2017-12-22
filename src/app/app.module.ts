@@ -8,12 +8,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 import { MyApp } from './app.component';
 
 import { ApiService } from './../services/api.service';
 import { PageService } from './../services/page.service';
 import { ValidateService } from './../services/validate.service';
+import { nativeImgService } from "./../services/nativeImg.service";
+import { FileUploadService } from "./../services/file-upload.service";
+import { ImagePickerService } from "./../services/image-picker.service";
 import { SystemConst } from './../services/system-const.service';
 
 @NgModule({
@@ -49,6 +54,11 @@ import { SystemConst } from './../services/system-const.service';
     PageService,
     ValidateService,
     SystemConst,
+    nativeImgService,
+    FileUploadService,
+    ImagePickerService,
+    Camera,
+    ImagePicker,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

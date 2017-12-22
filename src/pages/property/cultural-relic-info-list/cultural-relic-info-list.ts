@@ -7,7 +7,7 @@ import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetCulturalRelicInfoList } from './../../../apis/property/get-cultural-relic-info-list.api';
-import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
+import { CulturalRelicInfo, CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
@@ -68,12 +68,20 @@ export class CulturalRelicInfoListPage extends PagingListPage {
   }
 
   add() {
-    this.navCtrl.push('CulturalRelicInfoEditPage');
+    let modal = this.modalCtrl.create('CulturalRelicInfoEditPage', { "selectDataSource": this.conditionDataSource });
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
   }
 
-  edit(culturalRelicID: string) {
-    this.navCtrl.push('CulturalRelicInfoEditPage', culturalRelicID);
+  edit(culturalRelicInfo: CulturalRelicInfo) {
+    let modal = this.modalCtrl.create('CulturalRelicInfoEditPage', { "culturalRelicInfo": culturalRelicInfo, "selectDataSource": this.conditionDataSource });
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
   }
 
-  delete(culturalRelicID: string) { }
+  delete(culturalRelic: CulturalRelicInfo) { }
 }

@@ -1,12 +1,12 @@
 page-patrol-map {
     $protect: #FF080C; //保护范围
-    $controlPlace: #FF080C; //建设控制地带
+    $controlPlace: #507daf; //建设控制地带
     $origionMarker: #1fa0f2; //原始的marker颜色
     $selectedMarker: #f57e1e; //被选中的marker颜色
     $warningMarker: #f05853; //预警的marker颜色
     #map-content {
         position: absolute;
-        top:0;
+        top: 0;
         bottom: 0;
         left: 0;
         right: 0;
@@ -17,7 +17,7 @@ page-patrol-map {
     }
     .topHeader {
         position: absolute;
-        top:0;
+        top: 0;
         padding: 0.6rem;
         background-color: $toolbar-background;
         z-index: 1;
@@ -42,6 +42,7 @@ page-patrol-map {
         background: #fff;
         font-size: 12px;
         padding: 3px;
+        color: #383838;
     }
     .card div span {
         width: 1rem;
@@ -50,6 +51,11 @@ page-patrol-map {
         margin-right: 3px;
         position: relative;
         top: -3px;
+        margin:0.1em 0.2em;
+    }
+    .card .selfThing,
+    .card .protect{
+        margin-bottom: 0.2em;
     }
     .card .selfThing span {
         border-top: 3px solid $toolbar-background;
@@ -65,15 +71,49 @@ page-patrol-map {
         bottom: 0;
         height: auto;
         width: 100%;
+        .locateContainer a div,
+        .editInfo a div,
+         {
+            width: 3.4em;
+            height: 3.4em;
+            background-size: 3.4em;
+        }
+        .editInfo a div {
+            width:  3.5em;
+            height:3.6em;
+            background-size: 3.5em;
+        }
+        .upArrow a div,
+        .ios-arrow-down a div{ 
+            width:  3em;
+            height:2.5em;
+            background-size: 3em;
+            float: right;
+           margin-top: -0.6em;
+        }
+        .upArrow a div{
+            margin-right: 0.7em;
+            margin-bottom: 0.7em;
+            background-image: url('../assets/map/ic_title_bar_arrow_up.png');
+        }
+        .ios-arrow-down a div{
+            margin-right: -0.2em;
+            background-image: url('../assets/map/ic_title_bar_arrow_down.png');
+        }
+        .locateContainer a div {
+            background-image: url('../assets/map/ic_map_location_to_self_normal.png');
+        }
+        .locateContainer a:active div {
+            background-image: url('../assets/map/ic_map_location_to_self_press.png');
+        }
+        .editInfo a div {
+            background-image: url('../assets/map/ic_patrol_info_add_normal.png');
+        }
+        .editInfo a:active div {
+            background-image: url('../assets/map/ic_patrol_info_add_press.png');
+        }
         .titleContain {
             float: left;
-        }
-        .ios-arrow-down {
-            float: right;
-            font-size: 3rem;
-            color: $toolbar-background;
-            position: relative;
-            top: -0.3rem;
         }
         .title {
             font-size: 1.8rem;
@@ -108,37 +148,29 @@ page-patrol-map {
                 padding-left: 0;
             }
         }
-        .hideDetailItem{
+        .hideDetailItem {
             display: none;
         }
     }
-    .hideCard {
+    .hideCard,.hideBottom,
+    .upArrow{
         display: none;
     }
-    .hideBottom {
-        display: none;
+    .showUpArrow{
+        display: block;
     }
     .clear {
         clear: both;
     }
     .locateContainer {
-        color: $toolbar-background;
-        width: 3.5em;
-        height: 4em;
+        float: left;
+        margin-left: 0.6em;
+        margin-bottom: 0.6em;
     }
-    .locateContainer.button-ios {
-        background: none;
-    }
-    .locate {
-        left: 20px;
-        font-size: 3.5em;
-        margin-bottom: 0.6rem;
-    }
-    .add-circle {
+    .editInfo {
         float: right;
-        z-index: 10000;
-        font-size: 3.5em;
-        color: $toolbar-background;
+        margin-right: 0.6em;
+        margin-bottom: 0.6em;
     }
     .anchorBL {
         display: none;

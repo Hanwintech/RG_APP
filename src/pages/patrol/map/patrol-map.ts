@@ -9,6 +9,13 @@ import { UserInfo, UserEntity } from './../../../models/user-info.model';
 import { TwoLineInfo } from './../../../models/two-line/two-line-info.model';
 import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
 import { EnumAreaCode, EnumDistrictType, EnumCulturalRelicLevel } from './../../../models/enum';
+import { GetCulturalRelicInfo } from './../../../apis/property/get-cultural-relic-info.api';
+import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
+import { PageService } from './../../../services/page.service';
+import { Attachment } from "./../../../models/attachment.model";
+import { DetailPage } from './../../../base-pages/detail-page';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 declare var BMap;
 declare var BMapLib;
@@ -20,8 +27,9 @@ declare var Cluster;
   selector: 'page-patrol-map',
   templateUrl: 'patrol-map.html',
 })
-export class PatrolMapPage {
+export class PatrolMapPage extends DetailPage {
   @ViewChild('map') mapElement: ElementRef;
+  private culturalRelicInfo: CulturalRelicInfo;
   private pageTitle: string;
   private currentMapLevelMin: number;
   private currentMapLevelMax: number;
@@ -44,21 +52,25 @@ export class PatrolMapPage {
   private selectedMarkerTag;
   private hideContrl: boolean;//底部信息栏的控制
   private CardContrl: boolean;//左上角两线图信息栏的控制
-  private hideDetailContrl:boolean;//底部信息栏中按钮的控制
+  private hideDetailContrl: boolean;//底部信息栏中按钮的控制
   private zoomendControle: boolean;//解决setZoom 会出发zoomend事件的问题
   private patrolCountTemp;
-  private
+  private upArrowContrl;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public platform: Platform,
+    public pageService: PageService,
     public http: Http,
     public modalCtrl: ModalController,
     public apiService: ApiService,
+    public file: File,
+    public fileTransfer: FileTransfer,
     public geolocation: Geolocation) {
+    super(navCtrl, file, fileTransfer, pageService);
     this.pageTitle = (this.navParams.data && this.navParams.data.title) ? this.navParams.data.title : "国保两线监控";
     this.hideContrl = true;
-    this.hideDetailContrl=false;
+    this.hideDetailContrl = false;
     this.CardContrl = false;
     this.zoomendControle = true;
   }
@@ -96,7 +108,13 @@ export class PatrolMapPage {
   //底部查看详情面板
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
-    this.hideDetailContrl=false;
+    this.hideDetailContrl = false;
+    this.upArrowContrl = this.hideContrl;
+  }
+
+  showBottomInfo(){
+    this.hideContrl=false;
+    this.upArrowContrl=false;
   }
   //获取当前所在位置
   selfLocation() {
@@ -104,6 +122,36 @@ export class PatrolMapPage {
     let lati = '31.345924';
     let movePoint = new BMap.Point(longT, lati);
     this.map.setCenter(movePoint);
+  }
+
+  viewDetail() {
+    this.navCtrl.push('CulturalRelicInfoDetailPage', this.selectedMarkItem.culturalRelicId);
+  }
+
+  viewPatrol() {
+    this.navCtrl.push('PatrolInfoListPage', this.selectedMarkItem.culturalRelicId);
+  }
+
+  viewPic() {
+    this.apiService.sendApi(new GetCulturalRelicInfo(this.selectedMarkItem.culturalRelicId)).subscribe(
+      res => {
+        if (res.success) {
+          this.culturalRelicInfo = res.data;
+          super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
+          this.showPicture("", this.culturalRelicInfo.twoLimitImageList);
+          console.log(this.culturalRelicInfo.twoLimitImageList);
+        } else {
+          this.pageService.showErrorMessage(res.reason);
+        }
+      },
+      error => {
+        this.pageService.showErrorMessage(error);
+      });
+
+  }
+
+  showPicture(fileUrl: string, attachmentList: Attachment[]) {
+    super.showSlidesPage(attachmentList, fileUrl);
   }
 
   private initSearchData() {
@@ -145,7 +193,7 @@ export class PatrolMapPage {
           this.twoLine = res.data.twoLineInfoList;
           this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
           this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
-          this.search=res.data.search;//采用服务器端的默认查询条件
+          this.search = res.data.search;//采用服务器端的默认查询条件
           this.bindMarker();
         }
       }, error => {
@@ -206,7 +254,7 @@ export class PatrolMapPage {
             status = 0;
           }
           marker = new BMap.Marker(pt, { icon: myIcon, })
-          this.mapAddOverlay(myIcon, lblString,  this.patrolCountTemp, pt, cluster, marker, picName);
+          this.mapAddOverlay(myIcon, lblString, this.patrolCountTemp, pt, cluster, marker, picName);
         }, 500);
         this.shineArray.push(this.shine);
       }
@@ -220,11 +268,11 @@ export class PatrolMapPage {
           lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'>";
         }
         marker = new BMap.Marker(pt, { icon: myIcon, })
-        this.mapAddOverlay(myIcon, lblString,this.patrolCountTemp, pt, cluster, marker, picName);
+        this.mapAddOverlay(myIcon, lblString, this.patrolCountTemp, pt, cluster, marker, picName);
       }
     }
   }
-  private mapAddOverlay(myIcon, lblString,  patrolCountTemp, pt, cluster, marker, picName) {
+  private mapAddOverlay(myIcon, lblString, patrolCountTemp, pt, cluster, marker, picName) {
     let lblStringNew = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
       + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>巡查：" + patrolCountTemp + "</div></div>";
     let label = new BMap.Label(lblStringNew, { offset: new BMap.Size(8, -60) });
@@ -241,7 +289,8 @@ export class PatrolMapPage {
     this.map.addOverlay(marker);
     label.addEventListener("click", function (event) {
       this.hideContrl = false;
-      this.hideDetailContrl=false;
+      this.upArrowContrl=false;
+      this.hideDetailContrl = false;
       this.selectedMarkItem = cluster;
       let list, index;
       list = document.getElementsByClassName("positionContain");
@@ -326,8 +375,8 @@ export class PatrolMapPage {
       textAlign: 'center'
     });
     label.addEventListener("click", function () {
-      this.hideDetailContrl=true;
-      this.hideContrl=false;
+      this.hideDetailContrl = true;
+      this.hideContrl = false;
       this.selectedMarkItem = cluster;
       this.mapLevel = this.currentMapLevelMax + 1;
       this.isNeedMoveToFirstIcon = true;
@@ -366,6 +415,9 @@ export class PatrolMapPage {
                 if (this.twoLine) {
                   for (let info of this.twoLine) {
                     let color = "#" + info.twoLinePolygon.color;
+                    if (info.twoLinePolygon.polygonType == 2) {
+                      color = "#507daf";
+                    }
                     let line = [];
                     for (let twoLinePoint of info.twoLinePointList) {
                       line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
@@ -394,7 +446,7 @@ export class PatrolMapPage {
       if (data.needSearch) {
         this.map.clearOverlays();
         this.search = data.search;
-        this.search.culturalRelicLevel=parseInt(data.search.culturalRelicLevel);
+        this.search.culturalRelicLevel = parseInt(data.search.culturalRelicLevel);
         // this.search.area=parseInt(data.search.area);
         // this.search = new CulturalRelicInfoSearch();
         // this.search.isDefaultSearch = false;

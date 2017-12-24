@@ -257,7 +257,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
       res => {
         if (res.success) {
           this.pageService.showMessage("保存成功！");
-          this.viewCtrl.dismiss({ "needSearch": true });
+          this.viewCtrl.dismiss(this.culturalRelicPostInfo);
         } else {
           this.pageService.showErrorMessage(res.data);
         }

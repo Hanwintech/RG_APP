@@ -7,6 +7,8 @@ import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetCulturalRelicInfoList } from './../../../apis/property/get-cultural-relic-info-list.api';
+import { GetCulturalRelicInfo } from './../../../apis/property/get-cultural-relic-info.api';
+import { DeleteCulturalRelicInfo } from './../../../apis/property/delete-cultural-relic-info.api';
 import { CulturalRelicInfo, CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
@@ -70,7 +72,19 @@ export class CulturalRelicInfoListPage extends PagingListPage {
   add() {
     let modal = this.modalCtrl.create('CulturalRelicInfoEditPage', { "selectDataSource": this.conditionDataSource });
     modal.onDidDismiss(data => {
-      console.log(data);
+      if (data) {
+        this.apiService.sendApi(new GetCulturalRelicInfo(data.culturalRelic.keyID)).subscribe(
+          res => {
+            if (res.success) {
+              this.dataList.unshift(res.data);
+            } else {
+              this.pageService.showErrorMessage(res.reason);
+            }
+          },
+          error => {
+            this.pageService.showErrorMessage(error);
+          });
+      }
     });
     modal.present();
   }
@@ -78,10 +92,49 @@ export class CulturalRelicInfoListPage extends PagingListPage {
   edit(culturalRelicInfo: CulturalRelicInfo) {
     let modal = this.modalCtrl.create('CulturalRelicInfoEditPage', { "culturalRelicInfo": culturalRelicInfo, "selectDataSource": this.conditionDataSource });
     modal.onDidDismiss(data => {
-      console.log(data);
+      if (data) {
+        this.apiService.sendApi(new GetCulturalRelicInfo(data.culturalRelic.keyID)).subscribe(
+          res => {
+            if (res.success) {
+              for (let item of this.dataList) {
+                if (item.culturalRelic.keyID == res.data.culturalRelic.keyID) {
+                  item = data;
+                  break;
+                }
+              }
+            } else {
+              this.pageService.showErrorMessage(res.reason);
+            }
+          },
+          error => {
+            this.pageService.showErrorMessage(error);
+          });
+      }
     });
     modal.present();
   }
 
-  delete(culturalRelic: CulturalRelicInfo) { }
+  delete(culturalRelic: CulturalRelicInfo) {
+    this.pageService.showComfirmMessage("确定要删除吗？", () => {
+      this.apiService.sendApi(new DeleteCulturalRelicInfo(culturalRelic.upCulturalRelic.culturalRelicID, localStorage.getItem("userId"))).subscribe(
+        res => {
+          if (res.success) {
+            this.pageService.showMessage("删除成功！");
+
+            let tempArray = [];
+            for (let data of this.dataList) {
+              if (data.upCulturalRelic.attachmentId != culturalRelic.upCulturalRelic.culturalRelicID) {
+                tempArray.push(data);
+              }
+            }
+            this.dataList = tempArray;
+          } else {
+            this.pageService.showErrorMessage("删除失败！");
+          }
+        },
+        error => {
+          this.pageService.showErrorMessage(error);
+        });
+    }, () => { });
+  }
 }

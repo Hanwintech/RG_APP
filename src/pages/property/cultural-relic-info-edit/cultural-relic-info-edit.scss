@@ -154,4 +154,16 @@ page-cultural-relic-info-edit {
             border-bottom: 0;
         }
     }
+    ion-footer {
+        .grid {
+            padding: 0;
+            .col {
+                padding: 0;
+                .button {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
 }

@@ -46,7 +46,6 @@ export class PageService {
     }
 
     showComfirmMessage(message, yesHandler, noHandler) {
-
         let actionSheet = this.actionSheetCtrl.create({
             title: message,
             cssClass: 'action-sheets-basic-page',

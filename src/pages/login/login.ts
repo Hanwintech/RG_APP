@@ -45,33 +45,7 @@ export class LoginPage {
     }
   }
 
-  private count =3;
-  private attachments: string[];
-
   private login() {
-    let aa = ["1", "2", "3"];
-    let note
-    this.attachments = new Array(3);
-    console.log(this.attachments[0]);
-    console.log(this.attachments[1]);
-    console.log(this.attachments[2]);
-    
-    for (let i = 0; i < this.count; i++) {
-      // let a = new Attachment();
-       let a = aa[i];
-       this.attachments[i] = a;
-
-    console.log(this.attachments[0]);
-    console.log(this.attachments[1]);
-    console.log(this.attachments[2]);
-    }
-
-    // if (this.onUploadCompleted) {
-    //   this.onUploadCompleted(this.attachments);
-    // }
-
-
-
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       return;
     }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, ActionSheetController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -11,7 +11,6 @@ import { ImagePickerService } from './../../../services/image-picker.service';
 import { EditCulturalRelicInfo, PostCulturalRelicInfo } from './../../../apis/property/edit-cultural-relic-info.api';
 import { CulturalRelicInfo, CulturalRelicPostInfo, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
-import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 import { BasePage } from "./../../../base-pages/base-page";
@@ -28,13 +27,6 @@ export class CulturalRelicInfoEditPage extends BasePage {
   private twoStageTypeList: IntegerKeyValue[];
   private pageTitle: string;
   private culturalRelicPostInfo: CulturalRelicPostInfo;
-
-  //巡查图片缩略图
-  private fileObjList;
-  private fileObjBigList;
-  //处理图片缩略图
-  private fileObjHandleList;
-  private fileObjBigHandleList;
 
   constructor(
     public navCtrl: NavController,
@@ -65,14 +57,17 @@ export class CulturalRelicInfoEditPage extends BasePage {
 
       this.apiService.sendApi(new EditCulturalRelicInfo(this.culturalRelicInfo.upCulturalRelic.culturalRelicID, localStorage.getItem("userId"))).subscribe(
         res => {
-          console.log(res.data);
-          this.culturalRelicPostInfo = res.data;
-          this.areaChanged();
-          this.typeChanged();
+          if (res.success) {
+            this.culturalRelicPostInfo = res.data;
+            this.areaChanged();
+            this.typeChanged();
 
-          super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
-          super.changeAttachmentFileType(this.culturalRelicPostInfo.attachmentList);
-          super.changeAttachmentFileType(this.culturalRelicPostInfo.twoLimitImageList);
+            super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
+            super.changeAttachmentFileType(this.culturalRelicPostInfo.attachmentList);
+            super.changeAttachmentFileType(this.culturalRelicPostInfo.twoLimitImageList);
+          } else {
+            this.pageService.showErrorMessage("获取数据失败！");
+          }
         },
         error => {
           this.pageService.showErrorMessage(error);
@@ -142,7 +137,10 @@ export class CulturalRelicInfoEditPage extends BasePage {
           handler: () => {
             this.nativeImgService.getPictureByCamera().subscribe(img => {
               this.fileUploadService.upload(img).then(
-                data => { this.culturalRelicPostInfo.miniImage = data; },
+                data => {
+                  this.culturalRelicPostInfo.miniImage = data;
+                  super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
+                },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
               );
             });
@@ -152,7 +150,10 @@ export class CulturalRelicInfoEditPage extends BasePage {
           handler: () => {
             this.nativeImgService.getPictureByPhotoLibrary().subscribe(img => {
               this.fileUploadService.upload(img).then(
-                data => { this.culturalRelicPostInfo.miniImage = data; },
+                data => {
+                  this.culturalRelicPostInfo.miniImage = data;
+                  super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
+                },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
             });
           }
@@ -161,17 +162,109 @@ export class CulturalRelicInfoEditPage extends BasePage {
     actionSheet.present();
   }
 
+  showMiniImage() {
+    super.showSlidesPage([this.culturalRelicPostInfo.miniImage], this.culturalRelicPostInfo.miniImage.fileUrl);
+  }
+
+  delMiniImage() {
+    this.pageService.showComfirmMessage("确定要删除吗？", () => { this.culturalRelicPostInfo.miniImage = null; }, () => { });
+  }
+
   selectAttachmentList() {
-    this.imagePickerService.getPictures().then((attachments) => {
-      for (var i = 0; i < attachments.length; i++) {
-          console.log('Image URI: ' + attachments[i]);
-      }
-    },
-     (err) => { });
+    this.imagePickerService.getPictures().then(
+      attachments => {
+        console.log(attachments);
+        if (attachments) {
+          console.log(this.culturalRelicPostInfo.attachmentList);
+          super.changeAttachmentFileType(attachments);
+          this.culturalRelicPostInfo.attachmentList = this.culturalRelicPostInfo.attachmentList.concat(attachments);
+          console.log(this.culturalRelicPostInfo.attachmentList);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      },
+      error => {
+        if (typeof error === 'string') {
+          this.pageService.showErrorMessage(error);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      });
+  }
+
+  showAttachmentList(attachment) {
+    super.showSlidesPage(this.culturalRelicPostInfo.attachmentList, attachment.fileUrl);
+  }
+
+  delAttachmentList(attachment) {
+    this.pageService.showComfirmMessage("确定要删除吗？",
+      () => {
+        let tempArray = [];
+        for (let atta of this.culturalRelicPostInfo.attachmentList) {
+          if (attachment.attachmentId != atta.attachmentId) {
+            tempArray.push(atta);
+          }
+        }
+        this.culturalRelicPostInfo.attachmentList = tempArray;
+      },
+      () => { });
+  }
+
+  selectTwoLimitAttachmentList() {
+    this.imagePickerService.getPictures().then(
+      attachments => {
+        if (attachments) {
+          super.changeAttachmentFileType(attachments);
+          this.culturalRelicPostInfo.twoLimitAttachmentList = this.culturalRelicPostInfo.twoLimitAttachmentList.concat(attachments);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      },
+      error => {
+        if (typeof error === 'string') {
+          this.pageService.showErrorMessage(error);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      });
+  }
+
+  showTwoLimitAttachmentList(attachment) {
+    super.showSlidesPage(this.culturalRelicPostInfo.twoLimitAttachmentList, attachment.fileUrl);
+  }
+
+  delTwoLimitAttachmentList(attachment) {
+    this.pageService.showComfirmMessage("确定要删除吗？",
+      () => {
+        let tempArray = [];
+        for (let atta of this.culturalRelicPostInfo.twoLimitAttachmentList) {
+          if (attachment.attachmentId != atta.attachmentId) {
+            tempArray.push(atta);
+          }
+        }
+        this.culturalRelicPostInfo.twoLimitAttachmentList = tempArray;
+      },
+      () => { });
   }
 
   submit() {
-    this.viewCtrl.dismiss({ "needSearch": true });
+    if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicName) {
+      this.pageService.showErrorMessage('请填写文物名称！');
+      return;
+    }
+
+    this.apiService.sendApi(new PostCulturalRelicInfo(this.culturalRelicPostInfo)).subscribe(
+      res => {
+        if (res.success) {
+          this.pageService.showMessage("保存成功！");
+          this.viewCtrl.dismiss({ "needSearch": true });
+        } else {
+          this.pageService.showErrorMessage(res.data);
+        }
+      },
+      error => {
+        this.pageService.showErrorMessage(error);
+      });
   }
 
   close() {

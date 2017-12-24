@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestMethod, Request } from '@angular/http';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileUploadOptions } from '@ionic-native/file-transfer';
 
 import 'rxjs/add/operator/map';
 
@@ -20,9 +19,8 @@ export class FileUploadService {
                 fileExt = fileExt.substring(0, fileExt.indexOf("?"));
                 fileName = fileName.substring(0, fileName.lastIndexOf(".")) + "." + fileExt;
             }
-            let options: FileUploadOptions = { fileName: fileName };
-
-            this.fileTransfer.create().upload(filePath, encodeURI(this.apiService.baseUrl + '/api/Upload/SaveTempFile'), options, true).then(
+            let options: FileUploadOptions = { fileName: fileName, headers: { "Authorization": 'bearer ' + this.apiService.token } };
+            this.fileTransfer.create().upload(filePath, this.apiService.baseUrl + '/api/upload/save_temp_file', options, true).then(
                 res => {
                     resolve(JSON.parse(res.response).data);
                 },

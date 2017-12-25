@@ -20,7 +20,9 @@
     <ion-list>
       <ion-item-sliding #item *ngFor="let data of dataList">
         <ion-item (click)="view(data.museumDetailInfo.id)">
-          <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+          <div class="img">
+            <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+          </div>
           <div class="description">
             <h3>{{data.museumDetailInfo.museumName}}</h3>
             <div>{{data.museumDetailInfo.remark}}</div>

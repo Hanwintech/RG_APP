@@ -10,6 +10,7 @@ import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
 import { EditCulturalRelicInfo, PostCulturalRelicInfo } from './../../../apis/property/edit-cultural-relic-info.api';
 import { CulturalRelicInfo, CulturalRelicPostInfo, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
+import { EnumAttachmentType } from './../../../models/enum';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
 
@@ -64,7 +65,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
 
             super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
             super.changeAttachmentFileType(this.culturalRelicPostInfo.attachmentList);
-            super.changeAttachmentFileType(this.culturalRelicPostInfo.twoLimitImageList);
+            super.changeAttachmentFileType(this.culturalRelicPostInfo.twoLimitAttachmentList);
           } else {
             this.pageService.showErrorMessage("获取数据失败！");
           }
@@ -74,6 +75,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
         });
     } else {
       this.pageTitle = "新增文物";
+      this.culturalRelicPostInfo.userId = localStorage.getItem("userId");
     }
   }
 
@@ -139,6 +141,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
               this.fileUploadService.upload(img).then(
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
+                  this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
@@ -152,6 +155,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
               this.fileUploadService.upload(img).then(
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
+                  this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
@@ -173,12 +177,15 @@ export class CulturalRelicInfoEditPage extends BasePage {
   selectAttachmentList() {
     this.imagePickerService.getPictures().then(
       attachments => {
-        console.log(attachments);
         if (attachments) {
-          console.log(this.culturalRelicPostInfo.attachmentList);
           super.changeAttachmentFileType(attachments);
+          for (let att of attachments) {
+            att.category = EnumAttachmentType.不可移动文物附件;
+          }
+          if (!this.culturalRelicPostInfo.attachmentList) {
+            this.culturalRelicPostInfo.attachmentList = [];
+          }
           this.culturalRelicPostInfo.attachmentList = this.culturalRelicPostInfo.attachmentList.concat(attachments);
-          console.log(this.culturalRelicPostInfo.attachmentList);
         } else {
           this.pageService.showErrorMessage("上传图片失败！");
         }
@@ -215,6 +222,12 @@ export class CulturalRelicInfoEditPage extends BasePage {
       attachments => {
         if (attachments) {
           super.changeAttachmentFileType(attachments);
+          for (let att of attachments) {
+            att.category = EnumAttachmentType.不可移动文物两线附件;
+          }
+          if (!this.culturalRelicPostInfo.twoLimitAttachmentList) {
+            this.culturalRelicPostInfo.twoLimitAttachmentList = [];
+          }
           this.culturalRelicPostInfo.twoLimitAttachmentList = this.culturalRelicPostInfo.twoLimitAttachmentList.concat(attachments);
         } else {
           this.pageService.showErrorMessage("上传图片失败！");
@@ -253,13 +266,48 @@ export class CulturalRelicInfoEditPage extends BasePage {
       return;
     }
 
+    if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicCode) {
+      this.pageService.showErrorMessage('请填写文物编码！');
+      return;
+    }
+
+    if (this.culturalRelicPostInfo.culturalRelic.enumArea == -1) {
+      this.pageService.showErrorMessage('请选择地区！');
+      return;
+    }
+
+    if (this.culturalRelicPostInfo.culturalRelic.culturalRelicLevel == -1) {
+      this.pageService.showErrorMessage('请选择类别！');
+      return;
+    }
+
+    if (!this.culturalRelicPostInfo.culturalRelic.location) {
+      this.pageService.showErrorMessage('请填写地址！');
+      return;
+    }
+
+    if (this.culturalRelicPostInfo.culturalRelic.coordinateAccurate == -1) {
+      this.pageService.showErrorMessage('请选择标注精确度！');
+      return;
+    }
+
+    if (this.culturalRelicPostInfo.culturalRelic.culturalRelicType == -1) {
+      this.pageService.showErrorMessage('请选择类型！');
+      return;
+    }
+
+    if (this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType == -1) {
+      this.pageService.showErrorMessage('请选择二级分类！');
+      return;
+    }
+
     this.apiService.sendApi(new PostCulturalRelicInfo(this.culturalRelicPostInfo)).subscribe(
       res => {
         if (res.success) {
           this.pageService.showMessage("保存成功！");
-          this.viewCtrl.dismiss(this.culturalRelicPostInfo);
+          this.viewCtrl.dismiss(res.data);
         } else {
-          this.pageService.showErrorMessage(res.data);
+          this.pageService.showErrorMessage(res.reason);
         }
       },
       error => {

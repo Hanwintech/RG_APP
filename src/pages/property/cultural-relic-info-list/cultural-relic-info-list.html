@@ -18,25 +18,17 @@
 <ion-content>
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list>
-      <ion-item-sliding #item *ngFor="let data of dataList">
-        <ion-item (click)="view(data.upCulturalRelic.culturalRelicID)">
+      <ion-item *ngFor="let data of dataList" (click)="view(data.upCulturalRelic.culturalRelicID)" (press)="hold(data)">
+        <div class="img">
           <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
-          <div class="description">
-            <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
-            <div>{{data.upCulturalRelic.remark}}</div>
-            <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
-            <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>
-          </div>
-        </ion-item>
-        <ion-item-options side="left">
-          <button ion-button icon-only color="primary" (click)="edit(data)">
-            <ion-icon name="ios-create-outline"></ion-icon>
-          </button>
-          <button ion-button icon-only color="danger" (click)="delete(data)">
-            <ion-icon name="ios-close-outline"></ion-icon>
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+        </div>
+        <div class="description">
+          <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
+          <div>{{data.upCulturalRelic.remark}}</div>
+          <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
+          <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>
+        </div>
+      </ion-item>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="nextPage($event)">
       <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
@@ -44,6 +36,6 @@
     </ion-infinite-scroll>
   </div>
   <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
-      无数据
+    无数据
   </div>
 </ion-content>

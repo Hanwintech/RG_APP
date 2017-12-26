@@ -20,7 +20,9 @@
     <ion-list>
       <ion-item-sliding #item *ngFor="let data of dataList">
         <ion-item (click)="view(data.upCulturalRelic.culturalRelicID)">
-          <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+          <div class="img">
+            <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+          </div>
           <div class="description">
             <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
             <div>{{data.upCulturalRelic.remark}}</div>

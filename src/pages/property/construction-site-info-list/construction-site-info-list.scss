@@ -3,12 +3,21 @@ page-construction-site-info-list {
         padding-left: 0;
         .label {
             margin: 0.4em;
-            img {
+            .img {
                 margin: 0.3em;
                 float: left;
-                max-width: 4em;
-                max-height: 4em;
+                width: 68px;
+                height: 68px;
+                line-height: 62px;
+                text-align: center;
+                border: 1px solid #ccc;
+                vertical-align:middle;
                 position: absolute;
+                img {
+                    vertical-align:middle;
+                    max-width: 66px;
+                    max-height: 66px;
+                }
             }
             .description {
                 width: 100%;

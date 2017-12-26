@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IonicPage, NavParams, AlertController, NavController, Platform, ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ImageViewerController } from 'ionic-img-viewer';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file'
 import { Observable } from "rxjs";

@@ -51,10 +51,10 @@ page-patrol-map {
         margin-right: 3px;
         position: relative;
         top: -3px;
-        margin:0.1em 0.2em;
+        margin: 0.1em 0.2em;
     }
     .card .selfThing,
-    .card .protect{
+    .card .protect {
         margin-bottom: 0.2em;
     }
     .card .selfThing span {
@@ -71,45 +71,45 @@ page-patrol-map {
         bottom: 0;
         height: auto;
         width: 100%;
-        .locateContainer a div,
-        .editInfo a div,
-         {
+        .locateContainer div,
+        .editInfo div,
+        {
             width: 3.4em;
             height: 3.4em;
             background-size: 3.4em;
         }
-        .editInfo a div {
-            width:  3.5em;
-            height:3.6em;
+        .editInfo div {
+            width: 3.5em;
+            height: 3.6em;
             background-size: 3.5em;
         }
-        .upArrow a div,
-        .ios-arrow-down a div{ 
-            width:  3em;
-            height:2.5em;
-            background-size: 3em;
+        .upArrow div,
+        .ios-arrow-down div {
+            width: 2.3em;
+            height: 2.5em;
+            background-size: 2em;
             float: right;
-           margin-top: -0.6em;
+            margin-top: -0.6em;
         }
-        .upArrow a div{
-            margin-right: 0.7em;
-            margin-bottom: 0.7em;
+        .upArrow div {
+            margin-right: 0.9em;
+            margin-bottom: 0.9em;
             background-image: url('../assets/map/ic_title_bar_arrow_up.png');
         }
-        .ios-arrow-down a div{
-            margin-right: -0.2em;
+        .ios-arrow-down div {
+            // margin-right: -0.2em;
             background-image: url('../assets/map/ic_title_bar_arrow_down.png');
         }
-        .locateContainer a div {
+        .locateContainer div {
             background-image: url('../assets/map/ic_map_location_to_self_normal.png');
         }
-        .locateContainer a:active div {
+        .locateContainer div:active {
             background-image: url('../assets/map/ic_map_location_to_self_press.png');
         }
-        .editInfo a div {
+        .editInfo div {
             background-image: url('../assets/map/ic_patrol_info_add_normal.png');
         }
-        .editInfo a:active div {
+        .editInfo div:active {
             background-image: url('../assets/map/ic_patrol_info_add_press.png');
         }
         .titleContain {
@@ -129,20 +129,24 @@ page-patrol-map {
             margin-right: 0.2rem;
         }
         .detail {
-            padding: 1.2rem 1rem;
+            padding: 1.2rem 1rem 0.8rem 1rem;
             background: #fff;
-            border-top: 1px solid #e5e5e5;
+            border-top: 1px solid #e4e4e4;
             .detailItem {
                 div {
-                    float: left;
+                    display: inline-block;
                     color: $toolbar-background;
-                    padding: 0.5rem;
+                    padding: 0.5rem 1.8em 0.5rem 1.5em;
                     border-right: 1px solid #ddd;
+                }
+                div:active{
+                    background:#e0e0e0;
                 }
                 text-align: center;
             }
             .detailItem div:last-child {
                 border-right: none;
+                padding-right: 0;
             }
             .detailItem div:first-child {
                 padding-left: 0;
@@ -152,11 +156,12 @@ page-patrol-map {
             display: none;
         }
     }
-    .hideCard,.hideBottom,
-    .upArrow{
+    .hideCard,
+    .hideBottom,
+    .upArrow {
         display: none;
     }
-    .showUpArrow{
+    .showUpArrow {
         display: block;
     }
     .clear {
@@ -226,11 +231,5 @@ page-patrol-map {
     }
     .positionContain.warning[name=selected]:after {
         border-top-color: $warningMarker;
-    }
-    .viewDetail a:active {
-        background: gray;
-    }
-    .viewDetail a:focus {
-        background: gray;
     }
 }

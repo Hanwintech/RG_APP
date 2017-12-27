@@ -1,4 +1,4 @@
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -71,6 +71,7 @@ export class PagingListPage extends ListBasePage {
     constructor(
         public navCtrl: NavController,
         public modalCtrl: ModalController,
+        public actionSheetCtrl: ActionSheetController,
         public file: File,
         public fileTransfer: FileTransfer,
         public apiService: ApiService,
@@ -161,5 +162,26 @@ export class PagingListPage extends ListBasePage {
             .catch(error => {
                 this.pageService.showErrorMessage(error);
             });
+    }
+
+    defaultView(page:string,data:any) {
+        this.navCtrl.push(page, data);
+      }
+
+    defaultAdd;
+
+    defaultModify;
+
+    defaultDelete;
+
+    pressDataItem(dataItem) {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: '操作',
+            buttons: [
+                { text: '编辑', handler: () => { if (this.defaultModify) { this.defaultModify(dataItem); } } },
+                { text: '删除', handler: () => { if (this.defaultModify) { this.defaultDelete(dataItem); } } }
+            ]
+        });
+        actionSheet.present();
     }
 }

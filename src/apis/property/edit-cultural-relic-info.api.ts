@@ -20,6 +20,6 @@ export class PostCulturalRelicInfo extends BaseRequest {
         super();
         this.method = "POST";
         this.requestUrl = "/api/system/post_cultural_relic_info";
-        this.requestBody = culturalRelicPostInfo;
+        this.requestBody = this.culturalRelicPostInfo;
     }
 }

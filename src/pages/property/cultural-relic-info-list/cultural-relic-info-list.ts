@@ -30,7 +30,7 @@ export class CulturalRelicInfoListPage extends PagingListPage {
     public pageService: PageService,
     public systemConst: SystemConst
   ) {
-    super(navCtrl, modalCtrl, file, fileTransfer, apiService, pageService, systemConst, "culturalRelicInfoSearchDataSource", "culturalRelicInfoList");
+    super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "culturalRelicInfoSearchDataSource", "culturalRelicInfoList");
 
     this.pageService.showLoading("数据加载中...");
 
@@ -66,41 +66,25 @@ export class CulturalRelicInfoListPage extends PagingListPage {
     return EnumCulturalRelicLevel[culturalRelicLevel];
   }
 
-  view(culturalRelicID: string) {
-    this.navCtrl.push('CulturalRelicInfoDetailPage', culturalRelicID);
-  }
-
-  hold(culturalRelicInfo: CulturalRelicInfo) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: '操作',
-      buttons: [
-        { text: '编辑', handler: () => { this.edit(culturalRelicInfo); } },
-        { text: '删除', handler: () => { this.delete(culturalRelicInfo); } },
-        { text: '取消', role: 'cancel', handler: () => { } }
-      ]
-    });
-    actionSheet.present();
-  }
-
-  add() {
+  defaultAdd = () => {
     let modal = this.modalCtrl.create('CulturalRelicInfoEditPage', { "selectDataSource": this.conditionDataSource });
     modal.onDidDismiss(culturalRelicId => {
       if (culturalRelicId) {
         this.apiService.sendApi(new GetCulturalRelicInfo(culturalRelicId)).subscribe(
           res => {
             if (res.success) {
-              let culturalRelicInfo: CulturalRelicInfo = res.data;
-              culturalRelicInfo.upCulturalRelic = new UPGetCulturalRelicInfos();
-              culturalRelicInfo.upCulturalRelic.culturalRelicID = res.data.culturalRelic.keyID;
-              culturalRelicInfo.upCulturalRelic.culturalRelicLevel = res.data.culturalRelic.culturalRelicLevel;
-              culturalRelicInfo.upCulturalRelic.culturalRelicName = res.data.culturalRelic.culturalRelicName;
-              culturalRelicInfo.upCulturalRelic.culturalRelicType = res.data.culturalRelic.culturalRelicType;
-              culturalRelicInfo.upCulturalRelic.culturalRelicTwoStageType = res.data.culturalRelic.culturalRelicTwoStageType;
-              culturalRelicInfo.upCulturalRelic.district = res.data.culturalRelic.district;
-              culturalRelicInfo.upCulturalRelic.districtName = res.data.culturalRelic.districtName;
-              culturalRelicInfo.upCulturalRelic.enumArea = res.data.culturalRelic.enumArea;
-              culturalRelicInfo.upCulturalRelic.remark = res.data.culturalRelic.remark;
-              this.dataList.unshift(culturalRelicInfo);
+              let newItem: CulturalRelicInfo = res.data;
+              newItem.upCulturalRelic = new UPGetCulturalRelicInfos();
+              newItem.upCulturalRelic.culturalRelicID = res.data.culturalRelic.keyID;
+              newItem.upCulturalRelic.culturalRelicLevel = res.data.culturalRelic.culturalRelicLevel;
+              newItem.upCulturalRelic.culturalRelicName = res.data.culturalRelic.culturalRelicName;
+              newItem.upCulturalRelic.culturalRelicType = res.data.culturalRelic.culturalRelicType;
+              newItem.upCulturalRelic.culturalRelicTwoStageType = res.data.culturalRelic.culturalRelicTwoStageType;
+              newItem.upCulturalRelic.district = res.data.culturalRelic.district;
+              newItem.upCulturalRelic.districtName = res.data.culturalRelic.districtName;
+              newItem.upCulturalRelic.enumArea = res.data.culturalRelic.enumArea;
+              newItem.upCulturalRelic.remark = res.data.culturalRelic.remark;
+              this.dataList.unshift(newItem);
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -113,8 +97,8 @@ export class CulturalRelicInfoListPage extends PagingListPage {
     modal.present();
   }
 
-  edit(culturalRelicInfo: CulturalRelicInfo) {
-    let modal = this.modalCtrl.create('CulturalRelicInfoEditPage', { "culturalRelicInfo": culturalRelicInfo, "selectDataSource": this.conditionDataSource });
+  defaultModify = (dataItem: CulturalRelicInfo) => {
+    let modal = this.modalCtrl.create('CulturalRelicInfoEditPage', { "culturalRelicInfo": dataItem, "selectDataSource": this.conditionDataSource });
     modal.onDidDismiss(culturalRelicId => {
       if (culturalRelicId) {
         this.apiService.sendApi(new GetCulturalRelicInfo(culturalRelicId)).subscribe(
@@ -148,16 +132,16 @@ export class CulturalRelicInfoListPage extends PagingListPage {
     modal.present();
   }
 
-  delete(culturalRelic: CulturalRelicInfo) {
+  defaultDelete = (dataItem: CulturalRelicInfo) => {
     this.pageService.showComfirmMessage("确定要删除吗？", () => {
-      this.apiService.sendApi(new DeleteCulturalRelicInfo(culturalRelic.upCulturalRelic.culturalRelicID, localStorage.getItem("userId"))).subscribe(
+      this.apiService.sendApi(new DeleteCulturalRelicInfo(dataItem.upCulturalRelic.culturalRelicID, localStorage.getItem("userId"))).subscribe(
         res => {
           if (res.success) {
             this.pageService.showMessage("删除成功！");
 
             let tempArray = [];
             for (let data of this.dataList) {
-              if (data.upCulturalRelic.culturalRelicID != culturalRelic.upCulturalRelic.culturalRelicID) {
+              if (data.upCulturalRelic.culturalRelicID != dataItem.upCulturalRelic.culturalRelicID) {
                 tempArray.push(data);
               }
             }

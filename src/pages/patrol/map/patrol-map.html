@@ -38,10 +38,10 @@
     <div id="map" #map></div>
   </div>
   <div class="bottom">
-    <div class="locateContainer" (click)="selfLocation()"><a><div></div></a></div>
-    <div class="editInfo"><a><div></div></a></div>
+    <div class="locateContainer" (click)="selfLocation()"><div></div></div>
+    <div class="editInfo"><div></div></div>
     <div class="clear"></div>
-    <div class="upArrow" [ngClass]="{'showUpArrow':upArrowContrl}" (click)="showBottomInfo()"><a><div></div></a></div>
+    <div class="upArrow" [ngClass]="{'showUpArrow':upArrowContrl}" (click)="showBottomInfo()"><div></div></div>
     <div class="clear"></div>
     <div class="detail" [ngClass]="{'hideBottom':hideContrl}">
       <div class="titleContain" *ngIf="selectedMarkItem">
@@ -49,11 +49,11 @@
         <div class="subTitle">巡查:{{patrolCountTemp}}</div>
       </div>
       <div class="ios-arrow-down" (click)="controlBottom()">
-          <a><div></div></a>
+          <div></div>
       </div>
       <div class="clear"></div>
       <div class="detailItem" [ngClass]="{'hideDetailItem':hideDetailContrl}">
-        <div class="viewDetail" (click)="viewDetail()">
+        <div (click)="viewDetail()">
           <img src="assets/map/ic_operation_detail.png" /> 查看详情
         </div>
         <div (click)="viewPatrol()">

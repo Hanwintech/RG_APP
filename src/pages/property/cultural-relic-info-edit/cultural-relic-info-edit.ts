@@ -8,7 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { nativeImgService } from './../../../services/nativeImg.service';
 import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
-import { EditCulturalRelicInfo, PostCulturalRelicInfo } from './../../../apis/property/edit-cultural-relic-info.api';
+import { EditCulturalRelicInfo, PostCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo, CulturalRelicPostInfo, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { EnumAttachmentType } from './../../../models/enum';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";

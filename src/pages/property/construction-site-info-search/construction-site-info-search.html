@@ -3,7 +3,7 @@
     <ion-buttons left>
       <button ion-button (click)="close()">关闭</button>
     </ion-buttons>
-    <ion-title>搜索文物</ion-title>
+    <ion-title>搜索工地</ion-title>
     <ion-buttons right>
       <button ion-button (click)="clear()">清空</button>
     </ion-buttons>
@@ -13,20 +13,16 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label fixed>文物名称</ion-label>
+      <ion-label fixed>工地名称</ion-label>
       <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed>文物代码</ion-label>
+      <ion-label fixed>工地代码</ion-label>
       <ion-input type="text" [(ngModel)]="search.culturalRelicCode"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed>文物地址</ion-label>
+      <ion-label fixed>地址</ion-label>
       <ion-input type="text" [(ngModel)]="search.location"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>统计年代</ion-label>
-      <ion-input type="text" [(ngModel)]="search.statisticsTime"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>管理单位</ion-label>
@@ -35,12 +31,6 @@
     <ion-item>
       <ion-label fixed>简介</ion-label>
       <ion-input type="text" [(ngModel)]="search.remark"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>类别</ion-label>
-      <ion-select [(ngModel)]="search.culturalRelicLevel" cancelText="取消" interface="popover">
-        <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
@@ -52,18 +42,6 @@
       <ion-label fixed>县区</ion-label>
       <ion-select [(ngModel)]="search.district" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>类型</ion-label>
-      <ion-select [(ngModel)]="search.culturalRelicType" cancelText="取消" interface="popover" (ngModelChange)="typeChanged()">
-        <ion-option *ngFor="let kvp of searchDataSource.culturalRelicTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>二级分类</ion-label>
-      <ion-select [(ngModel)]="search.culturalRelicTwoStageType" cancelText="取消" interface="popover">
-        <ion-option *ngFor="let kvp of twoStageTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>

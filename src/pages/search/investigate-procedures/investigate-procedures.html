@@ -1,12 +1,8 @@
-<!--
-  Generated template for the InvestigateProceduresPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
+  <ion-buttons left>
+    <button ion-button (click)="close()">关闭</button>
+  </ion-buttons>
     <ion-title>选择执法人员</ion-title>
   </ion-navbar>
 
@@ -14,17 +10,9 @@
 
 
 <ion-content>
-  <ion-item>
-    <ion-label>无需立案</ion-label>
-    <ion-checkbox checked="true"></ion-checkbox>
-  </ion-item>
-  <ion-item>
-    <ion-label>简易程序</ion-label>
-    <ion-checkbox checked="true"></ion-checkbox>
-  </ion-item>
-  <ion-item>
-    <ion-label>一般程序</ion-label>
-    <ion-checkbox checked="true"></ion-checkbox>
+  <ion-item *ngFor="let data of investigationProcedureList; let i = index;">
+    <ion-label>{{data.value}}</ion-label>
+    <ion-checkbox [(ngModel)]="checked[i]"></ion-checkbox>
   </ion-item>
 </ion-content>
 <ion-footer>

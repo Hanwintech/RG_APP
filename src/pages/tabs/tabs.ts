@@ -11,13 +11,11 @@ export class TabsPage {
   tab2Root: string;
   tab3Root: string;
   tab4Root: string;
-  tab5Root: string;
 
   constructor(public navParams: NavParams, public navCtrl: NavController) {
     this.tab2Root = 'PatrolMapPage';
-    this.tab3Root = 'SelfIndexPage';
-    this.tab4Root = 'SearchIndexPage';
-    this.tab5Root = 'SelfIndexPage';
+    this.tab3Root = 'SearchIndexPage';
+    this.tab4Root = 'SelfIndexPage';
   }
 
   twoline() {

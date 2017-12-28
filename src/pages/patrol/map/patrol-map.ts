@@ -96,7 +96,7 @@ export class PatrolMapPage extends DetailPage {
     let longT = '120.788713';
     let lati = '31.345924';
     this.getLocation(longT, lati);
-   this.mapLevel = this.map.getZoom() + 1;
+    this.mapLevel = this.map.getZoom() + 1;
     this.getData(this.mapLevel);
     this.mapAddEventListener();
   }
@@ -107,9 +107,9 @@ export class PatrolMapPage extends DetailPage {
     this.upArrowContrl = this.hideContrl;
   }
 
-  showBottomInfo(){
-    this.hideContrl=false;
-    this.upArrowContrl=false;
+  showBottomInfo() {
+    this.hideContrl = false;
+    this.upArrowContrl = false;
   }
   //获取当前所在位置
   selfLocation() {
@@ -124,7 +124,7 @@ export class PatrolMapPage extends DetailPage {
   }
 
   viewPatrol() {
-    this.navCtrl.push('PatrolInfoListPage', this.selectedMarkItem.culturalRelicId);
+    this.navCtrl.push('PatrolInfoListPage', { "culturalRelicID": this.selectedMarkItem.culturalRelicId });
   }
 
   viewPic() {
@@ -165,7 +165,7 @@ export class PatrolMapPage extends DetailPage {
   private getLocation(longitude, latitude) {
     var pointData = new BMap.Point(longitude, latitude);
     var myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
-    let mkr = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false});
+    let mkr = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false });
     this.map.addOverlay(mkr);
     this.map.panTo(pointData);
   }
@@ -205,7 +205,7 @@ export class PatrolMapPage extends DetailPage {
         }
         this.uniqueTagList = [];
         this.mapLevel = this.map.getZoom();
-        console.log( this.mapLevel);
+        console.log(this.mapLevel);
         this.getData(this.mapLevel);
         //控制左上角的两线信息栏
         this.CardContrl = this.mapLevel >= this.showTwoLineMapLevel ? false : true;
@@ -286,7 +286,7 @@ export class PatrolMapPage extends DetailPage {
     this.map.addOverlay(marker);
     label.addEventListener("click", function (event) {
       this.hideContrl = false;
-      this.upArrowContrl=false;
+      this.upArrowContrl = false;
       this.hideDetailContrl = false;
       this.selectedMarkItem = cluster;
       let list, index;
@@ -356,7 +356,7 @@ export class PatrolMapPage extends DetailPage {
     let point = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
     let option = {
       position: point,
-      offset:new BMap.Size(-45,-45), 
+      offset: new BMap.Size(-45, -45),
     }
     this.patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
     label = new BMap.Label("<div style='margin:30px auto;'><div>"
@@ -374,7 +374,7 @@ export class PatrolMapPage extends DetailPage {
       textAlign: 'center'
     });
     label.addEventListener("click", function () {
-      this.upArrowContrl=false;
+      this.upArrowContrl = false;
       this.hideDetailContrl = true;
       this.hideContrl = false;
       this.selectedMarkItem = cluster;
@@ -382,13 +382,13 @@ export class PatrolMapPage extends DetailPage {
       this.isNeedMoveToFirstIcon = true;
       this.map.clearOverlays();
       if (this.isNeedMoveToFirstIcon) {
-        let movePoint = new BMap.Point(cluster.coordinateX, cluster.coordinateY); 
+        let movePoint = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
         this.map.setCenter(movePoint);
         this.zoomendControle = false;
         this.map.setZoom(this.mapLevel);
         this.isNeedMoveToFirstIcon = false;
       }
-     this.getData(this.mapLevel);
+      this.getData(this.mapLevel);
     }.bind(this));
     this.map.addOverlay(label);
   }

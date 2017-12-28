@@ -1,6 +1,5 @@
 import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
-import { TwoLineInfo, UTMapDistrictCluster } from "./../two-line/two-line-info.model";
 import { TreeDataInfo } from "./../tree-data-info.model";
 
 export class PatrolInfoDetails {

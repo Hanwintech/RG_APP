@@ -14,14 +14,25 @@ import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 })
 export class MapSearchPage extends SearchPage<CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource> {
   private districtList: IntegerKeyValue[];
-
+  private tempArea: any;
+  private tempLevel: any;
+  private tempDistrict: any;
   constructor(public params: NavParams, public viewCtrl: ViewController) {
     super(params, viewCtrl);
     this.districtList = [];
     this.areaChanged();
+    this.tempArea = this.search.area + "_" + this.search.areaName;
+    this.tempDistrict = this.search.district + "_" + this.search.districtName;
+    this.tempLevel = this.search.culturalRelicLevel + "_" + this.search.culturalRelicLevelName;
   }
-
+  levelChanged() {
+    if (this.tempLevel) { this.search.culturalRelicLevel = this.tempLevel.split("_").shift(); this.search.culturalRelicLevelName = this.tempLevel.split("_").pop(); }
+  }
+  districtChanged() {
+    if (this.tempDistrict) { this.search.district = this.tempDistrict.split("_").shift(); this.search.districtName = this.tempDistrict.split("_").pop(); }
+  }
   areaChanged() {
+    if (this.tempArea) { this.search.area = this.tempArea.split("_").shift(); this.search.areaName = this.tempArea.split("_").pop(); }
     this.districtList = [];
     let temp: IntegerKeyValue[] = [];
     for (let d of this.searchDataSource.districtList) {
@@ -45,8 +56,17 @@ export class MapSearchPage extends SearchPage<CulturalRelicInfoSearch, CulturalR
 
   clear() {
     this.search.culturalRelicName = "";
-    this.search.clearNumbers();
+    this.clearData();
     this.districtList = [];
     this.areaChanged();
+  }
+  
+  private clearData() {
+    this.search.culturalRelicName = "";
+    this.tempArea = "";
+    this.tempLevel = "";
+    this.tempDistrict = "";
+    this.search.startDate = "";
+    this.search.endDate = "";
   }
 }

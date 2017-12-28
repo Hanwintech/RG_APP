@@ -77,6 +77,64 @@ export class MuseumInfoDetail {
     public caseCountProcessing: number;
 }
 
+export class MuseumPostInfo {
+    public museumInfo: MuseumInfoEntity;
+    //执行新增/编辑的用户Id
+    public userId: string;
+    public miniImage: Attachment;
+    public attachmentList: Attachment[];
+    public areaList: IntegerKeyValue[];
+    public districtList: TreeDataInfo[];
+    public qualityGradeList: IntegerKeyValue[];
+    public coordinateAccurateList: IntegerKeyValue[];
+
+    public patrolCount: number;
+    public patrolCountProcessing: number;
+    public caseCount: number;
+    public caseCountProcessing: number;
+
+    constructor() {
+        this.museumInfo = new MuseumInfoEntity();
+    }
+}
+export class MuseumInfoEntity {
+    public id: string;
+    public museumName: string;
+    public qualityGrade: number;
+    public enumArea: number;
+    public district: number;
+    public location: string;
+    public miniImage: string;
+    public coordinateX: number;
+    public coordinateY: number;
+    public coordinateAccurate: number;
+    public telephone: string;
+    public fax: string;
+    public websiteURL: string;
+    public officialBlogName: string;
+    public weiXinAccount: string;
+    public collectionQuantity: number;
+    public basicDisplayName: string;
+    public remark: string;
+    public sortIndex: number;
+    public addDate: string;
+    public adderID: string;
+    public updateDate: string;
+    public updaterID: string;
+    public isDeleted: boolean;
+    public fK_CulturalRelicID: string;
+
+    constructor() {
+       this.clearNumbers();
+    }
+    public clearNumbers() {
+        this.qualityGrade = -1;
+        this.enumArea = -1;
+        this.district = -1;
+        this.coordinateAccurate = -1;
+    }
+}
+
 export class MuseumInfoSearch extends BaseApiSearch {
     public userId: string;
     public manageUnitId: string;

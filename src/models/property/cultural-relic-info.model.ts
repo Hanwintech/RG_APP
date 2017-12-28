@@ -84,6 +84,88 @@ export class UPGetCulturalRelicInfos {
     public coordinateY: number;
 }
 
+export class CulturalRelicPostInfo {
+    //不可移动文物实体类
+    public culturalRelic: CulturalRelicInfoEntity;
+    //执行新增/编辑的用户Id
+    public userId: string;
+    //缩略图
+    public miniImage: Attachment;
+    //附件集合
+    public attachmentList: Attachment[];
+
+    public twoLimitAttachmentList: Attachment[];
+    public twoLineInfoList: TwoLineInfo[];
+    public twoLimitTabTypeList: IntegerKeyValue[];
+    public twoLimitTabTypeName: string;
+
+    public patrolCount: number;
+    public caseCount: number;
+    public patrolCountProcessing: number;
+    public caseCountProcessing: number;
+
+    //级别
+    public culturalRelicLevelList: IntegerKeyValue[];
+    //所属区域
+    public areaList: IntegerKeyValue[];
+    //所属子区域
+    public districtList: TreeDataInfo[];
+    //分类
+    public culturalRelicTypeList: IntegerKeyValue[];
+    //二级分类
+    public culturalRelicTwoStageTypeList: TreeDataInfo[];
+    //标注精确度
+    public coordinateAccurateLis: IntegerKeyValue[];
+    public twoLimitImageList: Attachment[];
+
+    constructor() {
+        this.culturalRelic = new CulturalRelicInfoEntity();
+    }
+}
+
+export class CulturalRelicInfoEntity {
+    public id: string;
+    public culturalRelicName: string;
+    public culturalRelicLevel: number;
+    public culturalRelicCode: string;
+    public enumArea: number;
+    public district: number;
+    public location: string;
+    public statisticsTime: string;
+    public manageUnitName: string;
+    public culturalRelicType: number;
+    public culturalRelicTwoStageType: number;
+    public miniImage: string;
+    public coordinateX: number;
+    public coordinateY: number;
+    public coordinateAccurate: number;
+    public remark: string;
+    public sortIndex: number;
+    public addDate: string;
+    public adderID: string;
+    public updateDate: string;
+    public updaterID: string;
+    public isDeleted: boolean;
+    public twoLimitTabType: number;
+    public protectionRange: string;
+    public constructionControl: string;
+    public iconAttachmentID: string;
+    public twoLimitIconAttachmentID: string;
+    public twoLimitCulturalRelicID: string;
+
+    constructor(){
+        this.clearNumbers();
+    }
+    public clearNumbers() {
+        this.culturalRelicLevel = -1;
+        this.enumArea = -1;
+        this.district = -1;
+        this.coordinateAccurate = -1;
+        this.culturalRelicType = -1;
+        this.culturalRelicTwoStageType = -1;
+    }
+}
+
 export class CulturalRelicInfoSearch {
     public pageSize: number;
     public pageIndex: number;

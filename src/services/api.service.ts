@@ -26,6 +26,7 @@ export class ApiService {
 
     public get baseUrl(): string {
         return "http://10.10.10.219:9090"; //江苏省 = 1,
+        //return "http://hmerc.hanwintech.com:29090"; //江苏省 = 1,
         // return ""; //南京市 = 2,
         // return ""; //无锡市 = 3,
         // return ""; //徐州市 = 4,

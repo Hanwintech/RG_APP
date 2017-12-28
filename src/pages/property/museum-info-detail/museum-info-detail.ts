@@ -6,7 +6,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
-import { GetMuseumInfo } from './../../../apis/property/get-museum-info.api';
+import * as MuseumAPI  from './../../../apis/property/museum.api';
 import { MuseumInfo } from './../../../models/property/museum-info.model';
 import { Attachment } from "./../../../models/attachment.model";
 
@@ -32,7 +32,7 @@ export class MuseumInfoDetailPage extends DetailPage {
 
     let museumID = this.navParams.data
 
-    this.apiService.sendApi(new GetMuseumInfo(museumID)).subscribe(
+    this.apiService.sendApi(new MuseumAPI.GetMuseumInfo(museumID)).subscribe(
       res => {
         if (res.success) {
           this.museumInfo = res.data;

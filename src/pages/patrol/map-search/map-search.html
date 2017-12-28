@@ -1,50 +1,50 @@
 <ion-header>
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button (click)="close()">关闭</button>
-    </ion-buttons>
-    <ion-title>搜索国保两线</ion-title>
-    <ion-buttons right>
-      <button ion-button (click)="clear()">清空</button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
-
-<ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label fixed>名称</ion-label>
-      <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>类别</ion-label>
-      <ion-select [(ngModel)]="search.culturalRelicLevel" cancelText="取消" interface="popover">
-        <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>地区</ion-label>
-      <ion-select [(ngModel)]="search.area" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
-        <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>县区</ion-label>
-      <ion-select [(ngModel)]="search.district" cancelText="取消" interface="popover">
-        <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>开始时间</ion-label>
-      <ion-datetime placeholder="点击选择开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>结束时间</ion-label>
-      <ion-datetime placeholder="点击选择结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
-    </ion-item>
-  </ion-list>
-</ion-content>
-
-<ion-footer>
-  <button ion-button block (click)="doSearch()">确定</button>
-</ion-footer>
+    <ion-navbar>
+      <ion-buttons left>
+        <button ion-button (click)="close()">关闭</button>
+      </ion-buttons>
+      <ion-title>搜索国保两线</ion-title>
+      <ion-buttons right>
+        <button ion-button (click)="clear()">清空</button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>名称</ion-label>
+        <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>类别</ion-label>
+        <ion-select [(ngModel)]="tempLevel" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="levelChanged()">
+          <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList"  value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>地区</ion-label>
+        <ion-select [(ngModel)]="tempArea" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+          <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>县区</ion-label>
+        <ion-select [(ngModel)]="tempDistrict" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="districtChanged()">
+          <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>开始时间</ion-label>
+        <ion-datetime  placeholder="点击选择开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDate"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>结束时间</ion-label>
+        <ion-datetime placeholder="点击选择结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDate"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+  <ion-footer>
+    <button ion-button block (click)="doSearch()">确定</button>
+  </ion-footer>

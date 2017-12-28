@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
+    <ion-title>{{pageTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>博物馆名称</ion-label>
+      <ion-input type="text" placeholder="请输入文物名称" [(ngModel)]="museumPostInfo.museumInfo.museumName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>地区</ion-label>
+      <ion-select [(ngModel)]="museumPostInfo.museumInfo.enumArea" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+        <ion-option *ngFor="let kvp of selectDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>县区</ion-label>
+      <ion-select [(ngModel)]="museumPostInfo.museumInfo.district" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>质量等级</ion-label>
+      <ion-select [(ngModel)]="museumPostInfo.museumInfo.qualityGrade" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of selectDataSource.qualityGradeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed style="height:45px;">地址</ion-label>
+      <ion-label class="textareaLable">
+        <textarea placeholder="请输入地址" rows="3" [(ngModel)]="museumPostInfo.museumInfo.location"></textarea>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>坐标</ion-label>
+      <ion-label class="navi" style="padding-right: 75px;">
+        <div *ngIf="!museumPostInfo.museumInfo.coordinateX && !museumPostInfo.museumInfo.coordinateY">-</div>
+        <div *ngIf="museumPostInfo.museumInfo.coordinateX || museumPostInfo.museumInfo.coordinateY">
+          {{museumPostInfo.museumInfo.coordinateX}},{{museumPostInfo.museumInfo.coordinateY}}
+        </div>
+        <button ion-button outline (click)="getCoordinate()">请从地图标注坐标</button>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>标注精确度</ion-label>
+      <ion-select [(ngModel)]="museumPostInfo.museumInfo.coordinateAccurate" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of selectDataSource.coordinateAccurateList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>电话</ion-label>
+      <ion-input type="text" placeholder="请输入电话 (区号)-(座机号)" [(ngModel)]="museumPostInfo.museumInfo.telephone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>传真</ion-label>
+      <ion-input type="text" placeholder="请输入传真 (区号)-(座机号)" [(ngModel)]="museumPostInfo.museumInfo.fax"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>网站</ion-label>
+      <ion-input type="text" placeholder="请输入网站" [(ngModel)]="museumPostInfo.museumInfo.websiteURL"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>官方微博</ion-label>
+      <ion-input type="text" placeholder="请输入官方微博" [(ngModel)]="museumPostInfo.museumInfo.officialBlogName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>微信</ion-label>
+      <ion-input type="text" placeholder="请输入微信" [(ngModel)]="museumPostInfo.museumInfo.weiXinAccount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>藏品数量</ion-label>
+      <ion-input type="text" placeholder="请输入藏品数量" [(ngModel)]="museumPostInfo.museumInfo.collectionQuantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed style="height:75px;">简介</ion-label>
+      <ion-label class="textareaLable">
+        <textarea placeholder="请输入简介" rows="5" [(ngModel)]="museumPostInfo.museumInfo.remark"></textarea>
+      </ion-label>
+    </ion-item>
+    <ion-item class="littleTitle">
+      <ion-label class="navi">
+        <div>缩略图</div>
+        <ion-icon name="ios-add-circle-outline" (click)="selectMiniImage()"></ion-icon>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="museumPostInfo.miniImage" class="attachment">
+      <div class="attachmentContent">
+        <img src="./../../../assets/icon/file_{{museumPostInfo.miniImage.fileType}}.png">
+        <div class="description">
+          <div class="fileShowName">{{museumPostInfo.miniImage.fileShowName}}</div>
+          <div class="fileName">{{museumPostInfo.miniImage.fileName}}</div>
+        </div>
+        <button ion-button outline (click)="showMiniImage()" style="margin-left:-90px;">查看</button>
+        <button ion-button outline (click)="delMiniImage()">删除</button>
+      </div>
+    </ion-item>
+    <ion-item class="littleTitle">
+      <ion-label class="navi">
+        <div>附件</div>
+        <ion-icon name="ios-add-circle-outline" (click)="selectAttachmentList()"></ion-icon>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="museumPostInfo.attachmentList && museumPostInfo.attachmentList.length > 0" class="attachment">
+      <div *ngFor="let att of museumPostInfo.attachmentList" class="attachmentContent">
+        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <div class="description">
+          <div class="fileShowName">{{att.fileShowName}}</div>
+          <div class="fileName">{{att.fileName}}</div>
+        </div>
+        <button ion-button outline (click)="showAttachmentList(att)" style="margin-left:-90px;">查看</button>
+        <button ion-button outline (click)="delAttachmentList(att)">删除</button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="submit()">提交</button>
+      </ion-col>
+      <ion-col style="border-left: solid 1px #fff;">
+        <button ion-button block (click)="close()">关闭</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

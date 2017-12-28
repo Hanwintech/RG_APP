@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -23,13 +23,14 @@ export class PatrolInfoListPage extends PagingListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController,
     public file: File,
     public fileTransfer: FileTransfer,
     public apiService: ApiService,
     public pageService: PageService,
     public systemConst: SystemConst
   ) {
-    super(navCtrl, modalCtrl, file, fileTransfer, apiService, pageService, systemConst, "patrolSearchDataSource", "patrolInfoList");
+    super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "patrolSearchDataSource", "patrolInfoList");
 
     this.pageService.showLoading("数据加载中...");
 

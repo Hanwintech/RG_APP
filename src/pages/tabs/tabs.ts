@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Tabs, NavParams, NavController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavParams, NavController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -7,21 +7,21 @@ import { IonicPage, Tabs, NavParams, NavController } from 'ionic-angular';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  tab1Root: any;
-  tab2Root: any;
-  tab3Root: any;
-  tab4Root: any;
+  tab1Root: string;
+  tab2Root: string;
+  tab3Root: string;
+  tab4Root: string;
+  tab5Root: string;
 
   constructor(public navParams: NavParams, public navCtrl: NavController) {
     this.tab2Root = 'PatrolMapPage';
-    this.tab3Root = 'SearchIndexPage';
-    this.tab4Root = 'SelfIndexPage';
+    this.tab3Root = 'SelfIndexPage';
+    this.tab4Root = 'SearchIndexPage';
+    this.tab5Root = 'SelfIndexPage';
   }
 
   twoline() {
-    var navOptions = {
-      animation: 'wp-transition'
-    };
+    var navOptions = { animation: 'wp-transition' };
     this.navCtrl.push("TwoLinePage", null, navOptions);
   }
 }

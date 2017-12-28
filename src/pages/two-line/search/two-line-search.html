@@ -17,17 +17,17 @@
         <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>地区</ion-label>
-        <ion-select [(ngModel)]="search.area" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
-          <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>县区</ion-label>
-        <ion-select [(ngModel)]="search.district" cancelText="取消" interface="popover">
-          <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
-        </ion-select>
-      </ion-item>
+          <ion-label fixed>地区</ion-label>
+          <ion-select [(ngModel)]="tempArea" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+            <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>县区</ion-label>
+          <ion-select [(ngModel)]="tempDistrict" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="districtChanged()">
+            <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
+          </ion-select>
+        </ion-item>
       <ion-item>
         <ion-label fixed>开始时间</ion-label>
         <ion-datetime placeholder="点击选择开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>

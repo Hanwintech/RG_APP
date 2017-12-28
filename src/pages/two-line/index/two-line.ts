@@ -1,29 +1,32 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-import { Http, Headers, RequestMethod, Request } from '@angular/http';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Http } from '@angular/http';
 import { ApiService } from './../../../services/api.service';
 import { GetCulturalRelicMapInfosUrl } from './../../../apis/two-line/two-line.api';
 import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
-import { UserInfo, UserEntity } from './../../../models/user-info.model';
-import { TwoLineInfo } from './../../../models/two-line/two-line-info.model';
+import {UserEntity } from './../../../models/user-info.model';
 import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
 import { EnumAreaCode, EnumDistrictType } from './../../../models/enum';
-import { Console } from '@angular/core/src/console';
-import { importType } from '@angular/compiler/src/output/output_ast';
+import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
+import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
+import { PageService } from './../../../services/page.service';
+import { Attachment } from "./../../../models/attachment.model";
+import { DetailPage } from './../../../base-pages/detail-page';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 declare var BMap;
-declare var BMapLib;
 declare var BMAP_NORMAL_MAP;
 declare var BMAP_HYBRID_MAP;
-declare var Cluster;
 @IonicPage()
 @Component({
   selector: 'page-two-line',
   templateUrl: 'two-line.html',
 })
-export class TwoLinePage {
+export class TwoLinePage extends DetailPage {
   @ViewChild('map') mapElement: ElementRef;
+  private culturalRelicInfo: CulturalRelicInfo;
   private pageTitle: string;
   private currentMapLevelMin: number;
   private currentMapLevelMax: number;
@@ -31,9 +34,6 @@ export class TwoLinePage {
   private isNeedMoveToFirstIcon = false;
   private map: any;
   private showTwoLineMapLevel = 17;
-  private longitude: any;
-  private latitude: any;
-  private selectedId: any;
   private userInfo: UserEntity;
   private search: CulturalRelicInfoSearch;
   private searchDataSource: CulturalRelicInfoSearchDataSource;
@@ -53,10 +53,14 @@ export class TwoLinePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public platform: Platform,
+    public pageService: PageService,
     public http: Http,
     public modalCtrl: ModalController,
     public apiService: ApiService,
+    public file: File,
+    public fileTransfer: FileTransfer,
     public geolocation: Geolocation) {
+    super(navCtrl, file, fileTransfer, pageService);
     this.pageTitle = (this.navParams.data && this.navParams.data.title) ? this.navParams.data.title : "国保两线监控";
     this.hideContrl = true;
     this.CardContrl = false;
@@ -102,6 +106,35 @@ export class TwoLinePage {
     this.map.setCenter(movePoint);
   }
 
+  viewDetail() {
+    this.navCtrl.push('CulturalRelicInfoDetailPage', this.selectedMarkItem.culturalRelicId);
+  }
+
+  viewPatrol() {
+    this.navCtrl.push('PatrolInfoListPage', this.selectedMarkItem.culturalRelicId);
+  }
+
+  viewPic() {
+    this.apiService.sendApi(new GetCulturalRelicInfo(this.selectedMarkItem.culturalRelicId)).subscribe(
+      res => {
+        if (res.success) {
+          this.culturalRelicInfo = res.data;
+          super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
+          this.showPicture("", this.culturalRelicInfo.twoLimitImageList);
+        } else {
+          this.pageService.showErrorMessage(res.reason);
+        }
+      },
+      error => {
+        this.pageService.showErrorMessage(error);
+      });
+
+  }
+
+  showPicture(fileUrl: string, attachmentList: Attachment[]) {
+    super.showSlidesPage(attachmentList, fileUrl);
+  }
+
   private initSearchData() {
     this.search = new CulturalRelicInfoSearch();
     this.userInfo = new UserEntity(localStorage.getItem('account'), localStorage.getItem('name'));
@@ -115,6 +148,7 @@ export class TwoLinePage {
     this.search.searchType = 1;
     this.search.culturalRelicSearchType = 1;
   }
+
   private getLocation(longitude, latitude) {
     var pointData = new BMap.Point(longitude, latitude);
     var myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
@@ -127,8 +161,8 @@ export class TwoLinePage {
     var Polygon = new BMap.Polygon(linePoint, { strokeColor: color, fillColor: "", fillOpacity: 0, strokeWeight: 2, strokeOpacity: 1 });   //创建折线
     this.map.addOverlay(Polygon);
   }
+
   private getData(mapLevel) {
-    let that = this;
     this.search.leftTopCoordinateX = this.map.getBounds().Le;
     this.search.leftTopCoordinateY = this.map.getBounds().Fe;
     this.search.rightBottomCoordinateX = this.map.getBounds().Ge;
@@ -140,7 +174,8 @@ export class TwoLinePage {
           console.log(res);
           this.twoLine = res.data.twoLineInfoList;
           this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
-          this.searchDataSource = res.data.culturalRelicInfoSearchDataSource
+          this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
+          this.search = res.data.search;//采用服务器端的默认查询条件
           this.bindMarker();
         }
       }, error => {
@@ -150,11 +185,8 @@ export class TwoLinePage {
 
   private mapAddEventListener() {
     this.map.addEventListener("zoomend", function (type) {
-      console.log("zoomend里的" + this.zoomendControle);
       if (this.zoomendControle) {
-        console.log("zoomend事件产生");
         this.map.clearOverlays();
-        this.initSearchData();
         for (let shineItem of this.shineArray) {
           clearInterval(shineItem);
         }
@@ -223,6 +255,7 @@ export class TwoLinePage {
       }
     }
   }
+
   private mapAddOverlay(myIcon, lblString, caseCountTemp, patrolCountTemp, pt, cluster, marker) {
     let lblStringNew = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
       + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>案件:" + caseCountTemp +
@@ -290,16 +323,21 @@ export class TwoLinePage {
       textAlign: 'center'
     });
     label.addEventListener("click", function () {
+      this.upArrowContrl=false;
+      this.hideDetailContrl = true;
+      this.hideContrl = false;
+      this.selectedMarkItem = cluster;
       this.mapLevel = this.currentMapLevelMax + 1;
       this.isNeedMoveToFirstIcon = true;
       this.map.clearOverlays();
       if (this.isNeedMoveToFirstIcon) {
-        let movePoint = new BMap.Point(this.mapDistrictClusterInfoList[0].coordinateX, this.mapDistrictClusterInfoList[0].coordinateY);
-        this.map.setZoom(this.mapLevel);
+        let movePoint = new BMap.Point(cluster.coordinateX, cluster.coordinateY); 
         this.map.setCenter(movePoint);
+        this.zoomendControle = false;
+        this.map.setZoom(this.mapLevel);
         this.isNeedMoveToFirstIcon = false;
       }
-      this.getData(this.mapLevel);
+     this.getData(this.mapLevel);
     }.bind(this));
     this.map.addOverlay(label);
   }
@@ -327,6 +365,9 @@ export class TwoLinePage {
                 if (this.twoLine) {
                   for (let info of this.twoLine) {
                     let color = "#" + info.twoLinePolygon.color;
+                    if (info.twoLinePolygon.polygonType == 2) {
+                      color = "#507daf";
+                    }
                     let line = [];
                     for (let twoLinePoint of info.twoLinePointList) {
                       line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
@@ -348,24 +389,19 @@ export class TwoLinePage {
   }
 
   showSearch() {
-    this.initSearchData();
+    this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("TwoLineSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      console.log(data.search);
       if (data.needSearch) {
         this.map.clearOverlays();
         this.search = data.search;
-        // this.search = new CulturalRelicInfoSearch();
-        // this.search.isDefaultSearch = false;
+        this.search.culturalRelicLevel = parseInt(data.search.culturalRelicLevel);
         let district, tempDistrictType;
         if (this.search.area > 0) {
           district = this.search.area;
         }
         if (this.search.district > 0) {
           district = this.search.district;
-        }
-        else {
-
         }
         //如果有对应区域的坐标，则取该坐标，如果没有，则取最后一个坐标
         if (this.searchDataSource != null && this.searchDataSource.mapDistrictClusterList != null && this.searchDataSource.mapDistrictClusterList.length > 0) {
@@ -415,7 +451,6 @@ export class TwoLinePage {
           clearInterval(shineItem);
         }
         this.getData(this.mapLevel);
-        this.zoomendControle = true;
         this.uniqueTagList = [];
       }
     });

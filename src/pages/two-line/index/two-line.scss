@@ -6,7 +6,7 @@ page-two-line {
     $warningMarker: #f05853; //预警的marker颜色
     #map-content {
         position: absolute;
-        top: 0;
+        top: 45px;
         bottom: 0;
         left: 0;
         right: 0;
@@ -122,6 +122,9 @@ page-two-line {
         .subTitle {
             color: #bfbfbf;
             margin-bottom: 0.1rem;
+            span {
+                margin-right: 0.8em;
+            }
         }
         img {
             width: 1.5rem;
@@ -139,8 +142,8 @@ page-two-line {
                     padding: 0.5rem 1.8em 0.5rem 1.5em;
                     border-right: 1px solid #ddd;
                 }
-                div:active{
-                    background:#e0e0e0;
+                div:active {
+                    background: #e0e0e0;
                 }
                 text-align: center;
             }
@@ -168,7 +171,6 @@ page-two-line {
         clear: both;
     }
     .locateContainer {
-        float: left;
         margin-left: 0.6em;
         margin-bottom: 0.6em;
     }
@@ -231,5 +233,33 @@ page-two-line {
     }
     .positionContain.warning[name=selected]:after {
         border-top-color: $warningMarker;
+    }
+    .circleRedLabel,
+    .circleBlueLabel {
+        color: #fff;
+        position: relative;
+        font-size: 14px;
+        height: 90px;
+        width: 90px;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        text-align: center;
+        .contentContainer {
+            display: inline-block;
+            margin-top: 30px;
+        }
+    }
+    .circleRedLabel {
+        background: $warningMarker;
+    }
+    .circleBlueLabel {
+        background: $origionMarker;
+    }
+    .circleRedLabel[name=selected],
+    .circleBlueLabel[name=selected] {
+        background: $selectedMarker;
+    }
+    .caseCountShow{
+        display: inline-block;
     }
 }

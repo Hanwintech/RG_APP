@@ -38,18 +38,27 @@
     <div id="map" #map></div>
   </div>
   <div class="bottom">
-    <div class="locateContainer" (click)="selfLocation()"><div></div></div>
-    <div class="editInfo"><div></div></div>
+    <div class="locateContainer" (click)="selfLocation()">
+      <div></div>
+    </div>
+    <div class="editInfo">
+      <div></div>
+    </div>
     <div class="clear"></div>
-    <div class="upArrow" [ngClass]="{'showUpArrow':upArrowContrl}" (click)="showBottomInfo()"><div></div></div>
+    <div class="upArrow" [ngClass]="{'showUpArrow':upArrowContrl}" (click)="showBottomInfo()">
+      <div></div>
+    </div>
     <div class="clear"></div>
     <div class="detail" [ngClass]="{'hideBottom':hideContrl}">
       <div class="titleContain" *ngIf="selectedMarkItem">
         <div class="title">{{selectedMarkItem.showName}}</div>
-        <div class="subTitle">巡查:{{patrolCountTemp}}</div>
+        <div class="subTitle">
+          <span [ngClass]="{'hideDetailItem':!hideDetailContrl}">文物:{{selectedMarkItem.culturalRelicCount}}</span>
+          <span>巡查:{{patrolCountTemp}}</span>
+        </div>
       </div>
       <div class="ios-arrow-down" (click)="controlBottom()">
-          <div></div>
+        <div></div>
       </div>
       <div class="clear"></div>
       <div class="detailItem" [ngClass]="{'hideDetailItem':hideDetailContrl}">

@@ -4,9 +4,12 @@ page-patrol-map {
     $origionMarker: #1fa0f2; //原始的marker颜色
     $selectedMarker: #f57e1e; //被选中的marker颜色
     $warningMarker: #f05853; //预警的marker颜色
+    ion-header .toolbar-ios ion-title {
+        padding-left: 1rem;
+    }
     #map-content {
         position: absolute;
-        top: 0;
+        top: 45px;
         bottom: 0;
         left: 0;
         right: 0;
@@ -19,12 +22,14 @@ page-patrol-map {
         position: absolute;
         top: 0;
         padding: 0.6rem;
+        padding-left: 1rem;
         background-color: $toolbar-background;
         z-index: 1;
         width: 100%;
         height: 45px;
         color: #fff;
         font-size: 12px;
+        display: block;
         table tr td {
             padding-right: 0.5rem;
         }
@@ -35,7 +40,7 @@ page-patrol-map {
     .card {
         position: absolute;
         top: 53px;
-        margin-left: 0.6rem;
+        margin-left: 1rem;
         border-radius: 5px;
         border: 1px solid #e5e5e5;
         z-index: 1;
@@ -122,6 +127,9 @@ page-patrol-map {
         .subTitle {
             color: #bfbfbf;
             margin-bottom: 0.1rem;
+            span {
+                margin-right: 0.8em;
+            }
         }
         img {
             width: 1.5rem;
@@ -139,8 +147,8 @@ page-patrol-map {
                     padding: 0.5rem 1.8em 0.5rem 1.5em;
                     border-right: 1px solid #ddd;
                 }
-                div:active{
-                    background:#e0e0e0;
+                div:active {
+                    background: #e0e0e0;
                 }
                 text-align: center;
             }
@@ -231,5 +239,33 @@ page-patrol-map {
     }
     .positionContain.warning[name=selected]:after {
         border-top-color: $warningMarker;
+    }
+    .circleRedLabel,
+    .circleBlueLabel {
+        color: #fff;
+        position: relative;
+        font-size: 14px;
+        height: 90px;
+        width: 90px;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        text-align: center;
+        .contentContainer {
+            display: inline-block;
+            margin-top: 30px;
+        }
+    }
+    .circleRedLabel {
+        background: $warningMarker;
+    }
+    .circleBlueLabel {
+        background: $origionMarker;
+    }
+    .circleRedLabel[name=selected],
+    .circleBlueLabel[name=selected] {
+        background: $selectedMarker;
+    }
+    .caseCountShow{
+        display: none;
     }
 }

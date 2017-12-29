@@ -8,7 +8,7 @@ import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './..
 import { UserEntity } from './../../../models/user-info.model';
 import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
 import { EnumAreaCode, EnumDistrictType } from './../../../models/enum';
-import { GetCulturalRelicInfo } from './../../../apis/property/get-cultural-relic-info.api';
+import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
 import { PageService } from './../../../services/page.service';
 import { Attachment } from "./../../../models/attachment.model";

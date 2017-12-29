@@ -23,3 +23,12 @@ export class UserEntity {
 
     constructor(public account: String, public name: String) { }
 }
+
+export class CommonUserInfo  {
+    public userId: string;
+    public userName: string;
+    public manageUnitID: string;
+    public manageUnitName: string;
+    public mobilePhone: string;
+    public officePhone: string;
+}

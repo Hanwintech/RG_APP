@@ -5,10 +5,10 @@
       <button ion-button icon-only (click)="showSimpleSearch()">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="showSearch('CulturalRelicSearchPage')">
+      <button ion-button icon-only (click)="showSearch('ConstructionSiteInfoSearchPage')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="add()">
+      <button ion-button icon-only (click)="defaultAdd()">
         <ion-icon name="ios-add-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -18,27 +18,17 @@
 <ion-content>
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list>
-      <ion-item-sliding #item *ngFor="let data of dataList">
-        <ion-item (click)="view(data.upCulturalRelic.culturalRelicID)">
-          <div class="img">
-            <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
-          </div>
-          <div class="description">
-            <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
-            <div>{{data.upCulturalRelic.remark}}</div>
-            <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
-            <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>
-          </div>
-        </ion-item>
-        <ion-item-options side="left">
-          <button ion-button icon-only color="primary" (click)="edit(data.upCulturalRelic.culturalRelicID)">
-            <ion-icon name="ios-create-outline"></ion-icon>
-          </button>
-          <button ion-button icon-only color="danger" (click)="delete(data.upCulturalRelic.culturalRelicID)">
-            <ion-icon name="ios-close-outline"></ion-icon>
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+      <ion-item *ngFor="let data of dataList" (click)="defaultView('ConstructionSiteInfoDetailPage', data.upCulturalRelic.culturalRelicID)" (press)="pressDataItem(data)">
+        <div class="img">
+          <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+        </div>
+        <div class="description">
+          <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
+          <div>{{data.upCulturalRelic.remark}}</div>
+          <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
+          <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>
+        </div>
+      </ion-item>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="nextPage($event)">
       <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { ApiService } from './../../../../services/api.service';
 import { PageService } from './../../../../services/page.service';
@@ -13,6 +13,7 @@ import { GetReportQueryCaseByYearInfos } from './../../../../apis/search/get-rep
 import { GetReportQueryCaseBySourceInfos } from './../../../../apis/search/get-report-query-case-by-source-infos.api';
 import { GetReportQueryCaseByAreaInfos } from './../../../../apis/search/get-report-query-case-by-area-infos.api';
 import { ReportQueryCaseSearch } from './../../../../models/search/report-query-case-search.model';
+import { ReportQueryCaseSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
 import { ReportQueryCaseByRelicLevelInfo } from './../../../../models/search/report-query-case-by-relic-level-info';
 import { ReportQueryCaseByRectificationInfo } from './../../../../models/search/report-query-case-by-rectification-info';
 import { ReportQueryCaseByFineAmountInfo } from './../../../../models/search/report-query-case-by-fine-amount-info';
@@ -22,6 +23,8 @@ import { ReportQueryCaseByHalfYearInfo } from './../../../../models/search/repor
 import { ReportQueryCaseByYearInfo } from './../../../../models/search/report-query-case-by-year-info';
 import { ReportQueryCaseBySourceInfo } from './../../../../models/search/report-query-case-by-source-info';
 import { ReportQueryCaseByAreaInfo } from './../../../../models/search/report-query-case-by-area-info';
+
+
 @IonicPage()
 @Component({
     selector: 'page-search-statistics',
@@ -30,6 +33,7 @@ import { ReportQueryCaseByAreaInfo } from './../../../../models/search/report-qu
 export class SearchStatisticsPage {
     private chartType: number;
     private search: ReportQueryCaseSearch;
+    private searchDataSource: ReportQueryCaseSearchDataSource;
     private title: string;
     private category: string;
     private totalCaseCount: number;
@@ -39,6 +43,7 @@ export class SearchStatisticsPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
+        public modalCtrl: ModalController,
         public apiService: ApiService,
         public pageService: PageService
     ) {
@@ -51,9 +56,11 @@ export class SearchStatisticsPage {
         this.search.manageUnitId = localStorage.getItem("manageUnitId");
         this.search.userType = Number(localStorage.getItem("userType"));
         this.dataSource = [];
+
+        this.doSearch();
     }
 
-    ionViewDidLoad() {
+    doSearch() {
         switch (this.chartType) {
             case (1):
                 this.title = "按类别统计";
@@ -61,6 +68,8 @@ export class SearchStatisticsPage {
                 this.apiService.sendApi(new GetReportQueryCaseByRelicLevelInfos(this.search)).subscribe(
                     res => {
                         if (res.success) {
+                            //console.log(1);
+                            console.log(res.data.search);
                             this.totalCaseCount = 0;
                             this.totalSumFineAmount = 0;
                             for (let data of res.data.reportQueryCaseByRelicLevelInfoList) {
@@ -72,6 +81,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByRelicLevel.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -98,6 +109,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByRectification.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -124,6 +137,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByFineAmount.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -150,6 +165,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByMonthly.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -176,6 +193,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByQuarter.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -204,6 +223,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByHalfYear.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -230,6 +251,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByYear.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -256,6 +279,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseBySource.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -281,6 +306,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByArea.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -293,12 +320,26 @@ export class SearchStatisticsPage {
                 break;
         }
     }
+
     chart() {
         this.navCtrl.push("SearchStatisticsChartPage", {
             "编号": this.chartType, "案件总数": this.totalCaseCount, "总罚款金额": this.totalSumFineAmount, "数据源": this.dataSource
         });
     }
-    Search() {
-        this.navCtrl.push("CaseConditionInquiryPage");
+
+
+
+    conditionSearch() {
+        let searchModal = this.modalCtrl.create("CaseConditionInquiryPage", { "search": this.search, "dataSource": this.searchDataSource });
+        searchModal.onDidDismiss(data => {
+            if (data.needSearch) {
+                this.search = data.search;
+                this.search.isDefaultSearch = false;
+                this.dataSource = [];
+                this.doSearch();
+            }
+            console.log(this.search);
+        });
+        searchModal.present();
     }
 }

@@ -9,7 +9,7 @@ export class SearchPage<TSearch, TSearchDataSource> {
     public get searchDataSource(): TSearchDataSource { return this._searchDataSource }
 
     constructor(public params: NavParams, public viewCtrl: ViewController) {
-        this._search = params.data.search;
+        this._search = JSON.parse(JSON.stringify(params.data.search));
         this._searchDataSource = params.data.dataSource;
     }
 
@@ -17,7 +17,10 @@ export class SearchPage<TSearch, TSearchDataSource> {
         this.viewCtrl.dismiss({ "needSearch": false });
     }
 
+    beforeSearch;
+
     doSearch() {
+        if (this.beforeSearch && !this.beforeSearch()) { return; }
         this.viewCtrl.dismiss({ "needSearch": true, "search": this.search });
     }
 }

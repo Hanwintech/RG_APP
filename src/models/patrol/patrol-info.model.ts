@@ -1,6 +1,7 @@
 import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { TreeDataInfo } from "./../tree-data-info.model";
+import { CommonUserInfo } from "./../user-info.model";
 
 export class PatrolInfoDetails {
     //巡查信息视图
@@ -112,6 +113,56 @@ export class UVPatrolCaseProcess {
 export class PatrolProcessInfoDetails {
     public patrolCaseProcess: UVPatrolCaseProcess;
     public attachmentList: Attachment[];
+}
+
+export class PatrolInfo {
+    public patrol: PatrolEntity;
+    public attachmentList: Attachment[];
+    public selectedCaseProblemList: number[];
+    public selectedUserInfoList: CommonUserInfo[];
+
+    constructor() {
+        this.patrol = new PatrolEntity();
+        this.attachmentList = [];
+        this.selectedCaseProblemList = [];
+        this.selectedUserInfoList = [];
+    }
+}
+
+export class PatrolEntity {
+    public id: string;
+    public fK_ManageUnitID: string;
+    public fK_CulturalRelicID: string;
+    public patrolUserID: string;
+    public patroDate: string;
+    public othersPeople: string;
+    public patrolDescription: string;
+    public patrolState: number;
+    public problemDescription: string;
+    public isImmediately: number;
+    public processingResults: string;
+    public coordinateX: number;
+    public coordinateY: number;
+    public remark: string;
+    public adderID: string;
+    public addDate: string;
+    public updaterID: string;
+    public updateDate: string;
+    public isDeleted: boolean;
+    public permission: boolean;
+    public approvalNumber: string;
+}
+
+export class PatrolEditDataSource {
+
+    public code: number;
+    public message: string;
+    public tag: string;
+    public patrolCaseProblemList: UTPatrolCaseProblem[];
+    public patrolStatusList: IntegerKeyValue[];
+    public disposeTypeList: IntegerKeyValue[];
+    public permissionList: IntegerKeyValue[];
+    public canSelectUserInfoList: CommonUserInfo[];
 }
 
 export class PatrolInfoSearch {

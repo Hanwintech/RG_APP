@@ -17,11 +17,12 @@ export class ReportQueryPatrolSearch extends BaseApiSearch {
     public endHalfYear: number;
 }
 export class ReportQueryCaseSearchDataSource {
-    public CaseStateList: IntegerKeyValue[] ;
-
-    public CaseSourceList: IntegerKeyValue[];
-
-    public InvestigationProcedureList: IntegerKeyValue[];
+    public caseStateList: IntegerKeyValue[];
+    public caseSourceList: IntegerKeyValue[];
+    public investigationProcedureList: IntegerKeyValue[];
+}
+export class ReportQueryPatrolSearchDataSource{
+    public patrolStatusList: IntegerKeyValue[] ;
 }
 
 

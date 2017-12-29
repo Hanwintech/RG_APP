@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
-import { GetPatrolProcessInfoList } from './../../../apis/patrol/get-patrol-process-info-list.api';
+import { GetPatrolProcessInfoList } from './../../../apis/patrol/patrol-info.api';
 import { PatrolInfoDetails, UVPatrolCaseProcess } from './../../../models/patrol/patrol-info.model';
 import { EnumProcessResult, EnumRunState } from './../../../models/enum';
 

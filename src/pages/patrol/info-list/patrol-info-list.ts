@@ -52,27 +52,42 @@ export class PatrolInfoListPage extends PagingListPage {
     this.condition.manageUnitId = localStorage.getItem("manageUnitId");
     this.condition.userType = Number(localStorage.getItem("userType"));
     this.condition.appRole = eval(localStorage.getItem("appRole"));
-    console.log(this.condition);
     if (this.culturalRelicID) {
       this.condition.culturalRelicID = this.culturalRelicID;
     }
-    console.log(this.condition);
 
     //查询首页数据
     this.nextPage(null);
   }
 
-  view(culturalRelicID: string) {
-    this.navCtrl.push('PatrolInfoDetailPage', culturalRelicID);
+  defaultAdd = () => {
+    let modal = this.modalCtrl.create('PatrolInfoEditPage', { "selectDataSource": this.conditionDataSource });
+    modal.onDidDismiss(culturalRelicId => {
+      // if (culturalRelicId) {
+      //   this.apiService.sendApi(new GetCulturalRelicInfo(culturalRelicId)).subscribe(
+      //     res => {
+      //       if (res.success) {
+      //         let newItem: CulturalRelicInfo = res.data;
+      //         newItem.upCulturalRelic = new UPGetCulturalRelicInfos();
+      //         newItem.upCulturalRelic.culturalRelicID = res.data.culturalRelic.keyID;
+      //         newItem.upCulturalRelic.culturalRelicLevel = res.data.culturalRelic.culturalRelicLevel;
+      //         newItem.upCulturalRelic.culturalRelicName = res.data.culturalRelic.culturalRelicName;
+      //         newItem.upCulturalRelic.culturalRelicType = res.data.culturalRelic.culturalRelicType;
+      //         newItem.upCulturalRelic.culturalRelicTwoStageType = res.data.culturalRelic.culturalRelicTwoStageType;
+      //         newItem.upCulturalRelic.district = res.data.culturalRelic.district;
+      //         newItem.upCulturalRelic.districtName = res.data.culturalRelic.districtName;
+      //         newItem.upCulturalRelic.enumArea = res.data.culturalRelic.enumArea;
+      //         newItem.upCulturalRelic.remark = res.data.culturalRelic.remark;
+      //         this.dataList.unshift(newItem);
+      //       } else {
+      //         this.pageService.showErrorMessage(res.reason);
+      //       }
+      //     },
+      //     error => {
+      //       this.pageService.showErrorMessage(error);
+      //     });
+      // }
+    });
+    modal.present();
   }
-
-  add() {
-    this.navCtrl.push('PatrolInfoEditPage');
-  }
-
-  edit(culturalRelicID: string) {
-    this.navCtrl.push('PatrolInfoEditPage', culturalRelicID);
-  }
-
-  delete(culturalRelicID: string) { }
 }

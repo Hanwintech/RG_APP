@@ -8,7 +8,7 @@
       <button ion-button icon-only (click)="showSearch('PatrolInfoSearchPage')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="add()">
+      <button ion-button icon-only (click)="defaultAdd()">
         <ion-icon name="ios-add-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -18,7 +18,7 @@
 <ion-content>
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list>
-      <ion-item *ngFor="let data of dataList" (click)="view(data)">
+      <ion-item *ngFor="let data of dataList" (click)="defaultView('PatrolInfoDetailPage', data)">
         <div class="img">
           <img src="{{data.patrolImageUrl ? data.patrolImageUrl : './../../../assets/icon/empty_small.png'}}">
         </div>

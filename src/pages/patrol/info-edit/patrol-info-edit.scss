@@ -1,13 +1,33 @@
-page-construction-site-info-edit {
+page-patrol-info-edit {
     .toolbar-title {
         padding-left: 30px;
         line-height: 30px;
     }
     ion-content {
-        .headImg {
-            text-align: center;
-            img {
-                height: 47vw;
+        .imagePicker {
+            background-color: color($colors, border, base);
+            padding: 5px;
+            .img {
+                display: inline-block;
+                position: relative;
+                background-color: #fff;
+                width: 80px;
+                height: 80px;
+                margin: 4px;
+                img {
+                    width: 80px;
+                    height: 80px;
+                }
+                .close {
+                    background-image: url(/assets/icon/ic_delete_photo.png);
+                    background-size: 100%;
+                    float: right;
+                    right: 0;
+                    top: 0;
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                }
             }
         }
         ion-item.item {
@@ -73,7 +93,7 @@ page-construction-site-info-edit {
                 color: color($colors, primary, base);
                 height: 16px;
                 line-height: 16px;
-                padding-right:30px;
+                padding-right: 30px;
             }
         }
         ion-item.attachment {
@@ -121,8 +141,8 @@ page-construction-site-info-edit {
                 }
             }
         }
-        .navi{
-            div{
+        .navi {
+            div {
                 width: 100%;
                 height: 35px;
                 line-height: 35px;
@@ -138,8 +158,8 @@ page-construction-site-info-edit {
                 margin-left: -55px;
             }
         }
-        .littleTitle .navi{
-            div{
+        .littleTitle .navi {
+            div {
                 line-height: 16px;
                 padding-right: 0;
             }
@@ -150,7 +170,7 @@ page-construction-site-info-edit {
                 margin-left: 12px;
             }
         }
-        .list-ios > .item-block:last-child{
+        .list-ios>.item-block:last-child {
             border-bottom: 0;
         }
     }

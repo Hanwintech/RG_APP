@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
+    <ion-title>新增巡查记录</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showLocation()">
+        <ion-icon name="ios-pin-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div class="imagePicker">
+      <div *ngFor="let att of patrolInfo.attachmentList" class="img" (click)="showAttachmentList(att)">
+        <img src="{{att.fileUrl}}">
+        <div class="close" (click)="delAttachmentList($event, att)"></div>
+      </div>
+      <div class="img" (click)="selectAttachmentList()">
+        <img src="./../../../assets/icon/common_publish_image_empty.png">
+      </div>
+    </div>
+    <ion-item>
+      <ion-label fixed>文物名称</ion-label>
+      <ion-label class="navi" style="padding-right: 75px;">
+        <div>
+          {{culturalRelicName}}
+        </div>
+        <button ion-button outline (click)="getCulturalRelic()">请选择文物</button>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>类别</ion-label>
+      <ion-label class="navi" style="padding-right: 75px;">
+        <div>
+          {{culturalRelicLevelName}}
+        </div>
+      </ion-label>
+    </ion-item>
+    <!--  <ion-item>
+      <ion-label fixed>巡查人员</ion-label>
+      <ion-label>{{culturalRelicPostInfo.culturalRelic.culturalRelicName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>巡查单位</ion-label>
+      <ion-label>{{culturalRelicPostInfo.culturalRelic.culturalRelicName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>巡查日期</ion-label>
+      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed style="height:45px;">同行人员</ion-label>
+      <ion-label class="textareaLable">
+        <textarea placeholder="请输入地址" rows="3" [(ngModel)]="culturalRelicPostInfo.culturalRelic.location"></textarea>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed style="height:75px;">情况描述</ion-label>
+      <ion-label class="textareaLable">
+        <textarea placeholder="请输入简介" rows="5" [(ngModel)]="culturalRelicPostInfo.culturalRelic.remark"></textarea>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>巡查状态</ion-label>
+      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.coordinateAccurate" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of selectDataSource.coordinateAccurateList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item> -->
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="submit()">提交</button>
+      </ion-col>
+      <ion-col style="border-left: solid 1px #fff;">
+        <button ion-button block (click)="close()">关闭</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

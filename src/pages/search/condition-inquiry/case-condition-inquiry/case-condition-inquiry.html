@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
     <ion-title>条件查询</ion-title>
     <ion-buttons right>
       <button ion-button (click)="clear()">清空</button>
@@ -12,19 +15,19 @@
   <ion-list>
     <ion-item>
       <ion-label fixed class="wrap">案发开始日期</ion-label>
-      <ion-datetime placeholder="点击选择案发开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="depositDate"></ion-datetime>
+      <ion-datetime placeholder="点击选择案发开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="this.search.startDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label fixed class="wrap">案发结束日期</ion-label>
-      <ion-datetime placeholder="点击选择案发结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="myDate"></ion-datetime>
+      <ion-datetime placeholder="点击选择案发结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="this.search.endDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label fixed>查处程序</ion-label>
-      <ion-input type="text" (click)="investigateProcedures()"></ion-input>
+      <ion-input readonly="true" placeholder="请选择查处程序" (click)="investigateProcedures()" [(ngModel)]="this.investigationProcedureName">{{investigationProcedureName}}</ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>案件状态</ion-label>
-      <ion-input type="text" (click)="caseStatus()"></ion-input>
+      <ion-input readonly="true" placeholder="请选择案件状态" (click)="caseStates()" [(ngModel)]="this.caseStateName">{{caseStateName}}</ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

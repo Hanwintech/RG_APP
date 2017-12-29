@@ -109,6 +109,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByRectification.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -135,6 +137,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByFineAmount.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -161,6 +165,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByMonthly.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -187,6 +193,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByQuarter.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -215,6 +223,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByHalfYear.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -241,6 +251,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByYear.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -267,6 +279,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseBySource.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }
@@ -292,6 +306,8 @@ export class SearchStatisticsPage {
                                     data.reportQueryCaseByArea.sumFineAmount.toString()
                                 ]);
                             }
+                            this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+                            this.search = res.data.search;
                         } else {
                             this.pageService.showErrorMessage(res.reason);
                         }

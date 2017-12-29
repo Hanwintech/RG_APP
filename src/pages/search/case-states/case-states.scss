@@ -1,3 +1,20 @@
 page-case-states {
-
+    .toolbar-title {
+        padding-left: 30px;
+        line-height: 30px;
+    }
+    margin-bottom: 54px;
+    .button-ios{
+        border-radius:0;
+    }
+    ion-footer {
+        button {
+            display: inline-block;
+            width: 31.6%;
+            border-right: solid 1px white;
+        }
+        button:last-child {
+            border-right: 0;
+        }
+    }
 }

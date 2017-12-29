@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+      <ion-buttons left>
+          <button ion-button (click)="close()">关闭</button>
+        </ion-buttons>
     <ion-title>选择案件状态</ion-title>
   </ion-navbar>
 
@@ -14,5 +17,13 @@
 
 
 <ion-content>
-
-</ion-content>
+    <ion-item *ngFor="let data of caseStateList; let i = index;">
+      <ion-label>{{data.value}}</ion-label>
+      <ion-checkbox [(ngModel)]="checked[i]"></ion-checkbox>
+    </ion-item>
+  </ion-content>
+  <ion-footer>
+    <button ion-button (click)="doSelectAll()">全选</button>
+    <button ion-button (click)="doEmptied()">清空</button>
+    <button ion-button (click)="doSearch()">确定</button>
+  </ion-footer>

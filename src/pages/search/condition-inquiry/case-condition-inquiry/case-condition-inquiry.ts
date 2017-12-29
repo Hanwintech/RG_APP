@@ -34,16 +34,7 @@ export class CaseConditionInquiryPage extends SearchPage<ReportQueryCaseSearch, 
     this.doCheckbox1();
 
     this.caseState = eval("[" + this.search.caseState + "]");
-    this.caseStateName = "";
-    for (let item of this.searchDataSource.caseStateList) {
-      if (this.caseState.indexOf(item.key) > -1) {
-        this.caseStateName += "," + item.value;
-      }
-    }
-    this.caseStateName = this.caseStateName.substring(1);
-    //console.log(this.caseStateName);
-    // this.startDateTime = this.search.startDateTime;
-    // this.endDateTime = this.search.startDateTime;
+    this.doCheckbox2();
   }
 
   doCheckbox1() {
@@ -55,6 +46,16 @@ export class CaseConditionInquiryPage extends SearchPage<ReportQueryCaseSearch, 
     }
     this.investigationProcedureName = this.investigationProcedureName.substring(1);
     //console.log(this.investigationProcedureName);
+  }
+  doCheckbox2() {
+    this.caseStateName = "";
+    for (let item of this.searchDataSource.caseStateList) {
+      if (this.caseState.indexOf(item.key) > -1) {
+        this.caseStateName += "," + item.value;
+      }
+    }
+    this.caseStateName = this.caseStateName.substring(1);
+    //console.log(this.caseStateName);
   }
 
 
@@ -71,19 +72,37 @@ export class CaseConditionInquiryPage extends SearchPage<ReportQueryCaseSearch, 
         }
         this.search.investigationProcedure = this.search.investigationProcedure.substring(1);
         console.log(this.search.investigationProcedure);
-
-
       }
     });
     searchModal.present();
   }
   caseStates() {
-    this.navCtrl.push("CaseStatesPage", this.searchDataSource.caseStateList);
+    let searchModal = this.modalCtrl.create("CaseStatesPage", { "caseStateList": this.searchDataSource.caseStateList, "caseState": this.caseState });
+    searchModal.onDidDismiss(data => {
+      if (data) {
+        this.caseState = data;
+        //console.log(this.caseState);
+        this.doCheckbox2();
+        this.search.caseState = "";
+        for (let item of this.caseState) {
+          this.search.caseState += "," + item;
+        }
+        this.search.caseState = this.search.caseState.substring(1);
+        console.log(this.search.caseState);
+      }
+    });
+    searchModal.present();
   }
 
   beforeSearch = () => {
-    if (!this.investigationProcedureName) {
+    if (!this.investigationProcedureName&&!this.caseStateName) {
+      this.pageService.showErrorMessage("请选择查处程序！请选择案件状态！");
+      return false;
+    }else if(!this.investigationProcedureName){
       this.pageService.showErrorMessage("请选择查处程序！");
+      return false;
+    }else if(!this.caseStateName){
+      this.pageService.showErrorMessage("请选择案件状态！");
       return false;
     }
     return true;
@@ -97,5 +116,6 @@ export class CaseConditionInquiryPage extends SearchPage<ReportQueryCaseSearch, 
     this.investigationProcedure=[];
     this.caseStateName = "";
     //this.search.caseState = "";
+    this.caseState=[];
   }
 } 

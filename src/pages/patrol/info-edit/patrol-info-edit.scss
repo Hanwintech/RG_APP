@@ -1,7 +1,9 @@
 page-patrol-info-edit {
-    .toolbar-title {
-        padding-left: 30px;
-        line-height: 30px;
+    ion-header {
+        .toolbar-title {
+            padding-left: 30px;
+            line-height: 30px;
+        }
     }
     ion-content {
         .imagePicker {
@@ -40,7 +42,7 @@ page-patrol-info-edit {
                 padding-left: 16px;
                 height: 35px;
                 line-height: 37px;
-                border-right: solid 1px #c7c7c7;
+                border-right: solid 1px color($colors, border, base);
             }
             ion-label:last-child {
                 margin: 11px 0;
@@ -56,9 +58,8 @@ page-patrol-info-edit {
                     float: right;
                 }
             }
-            .select-ios {
-                width: 100%;
-                max-width: 100%;
+            ion-label.placeholder {
+                color: color($colors, border, base);
             }
             ion-label:last-child.textareaLable {
                 padding-left: 14px;
@@ -68,77 +69,9 @@ page-patrol-info-edit {
                     padding: 0;
                 }
             }
-        }
-        ion-item.subTitle {
-            ion-label:last-child {
-                font-size: 16px;
-                font-weight: bold;
-                border-right: 0px;
-                color: color($colors, primary, base);
-            }
-        }
-        ion-item.littleTitle {
-            min-height: 0;
-            .item-inner {
-                border-bottom-color: transparent !important;
-                min-height: 0;
-            }
-            .input-wrapper {
-                height: 30px;
-                padding-top: 11px;
-            }
-            ion-label:last-child {
-                font-weight: bold;
-                border-right: 0px;
-                color: color($colors, primary, base);
-                height: 16px;
-                line-height: 16px;
-                padding-right: 30px;
-            }
-        }
-        ion-item.attachment {
-            margin: 0.4em 0;
-            ion-label:last-child {
-                border-right: 0px;
-                height: auto;
-                margin: 0;
-            }
-            .attachmentContent {
+            .select {
                 width: 100%;
-                height: 35px;
-                margin: 10px 0;
-                img {
-                    float: left;
-                    max-width: 2.5em;
-                    max-height: 2.5em;
-                    position: absolute;
-                }
-                .description {
-                    width: 100%;
-                    padding-left: 3em;
-                    padding-right: 95px;
-                    float: left;
-                    .fileShowName,
-                    .fileName {
-                        font-size: 12px;
-                        line-height: 17px;
-                        width: 100%;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                    }
-                    .fileShowName {
-                        margin: 0 0 1px;
-                        color: #000;
-                    }
-                    .fileName {
-                        color: #999;
-                    }
-                }
-                .button {
-                    position: absolute;
-                    margin-left: -43px;
-                }
+                max-width: 100%;
             }
         }
         .navi {
@@ -146,7 +79,7 @@ page-patrol-info-edit {
                 width: 100%;
                 height: 35px;
                 line-height: 35px;
-                padding-right: 60px;
+                padding-right: 35px;
                 float: left;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -155,23 +88,8 @@ page-patrol-info-edit {
             .button {
                 float: left;
                 position: absolute;
-                margin-left: -55px;
+                margin-left: -30px;
             }
-        }
-        .littleTitle .navi {
-            div {
-                line-height: 16px;
-                padding-right: 0;
-            }
-            .icon {
-                font-size: 19px;
-                float: left;
-                position: absolute;
-                margin-left: 12px;
-            }
-        }
-        .list-ios>.item-block:last-child {
-            border-bottom: 0;
         }
     }
     ion-footer {

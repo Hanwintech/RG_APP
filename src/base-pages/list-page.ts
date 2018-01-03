@@ -92,6 +92,7 @@ export class PagingListPage extends ListBasePage {
             this.getData(ionInfiniteScrollEvent, false);
         } else if (ionInfiniteScrollEvent) {
             ionInfiniteScrollEvent.enable(false);
+            this.pageService.dismissLoading();
         }
     }
 
@@ -125,11 +126,13 @@ export class PagingListPage extends ListBasePage {
                     }
                     this.pageService.showErrorMessage(res.reason);
                 }
+                this.pageService.dismissLoading();
             },
             error => {
                 if (ionInfiniteScrollEvent) {
                     ionInfiniteScrollEvent.enable(false);
                 }
+                this.pageService.dismissLoading();
                 this.pageService.showErrorMessage(error);
             });
     }

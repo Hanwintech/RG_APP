@@ -6,7 +6,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
-import { GetPatrolProcessDetailInfo } from './../../../apis/patrol/get-patrol-process-detail-info.api';
+import { GetPatrolProcessDetailInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolProcessInfoDetails } from './../../../models/patrol/patrol-info.model';
 import { EnumProcessResult, EnumRunState } from './../../../models/enum';
 

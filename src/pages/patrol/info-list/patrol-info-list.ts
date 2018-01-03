@@ -6,8 +6,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
-import { GetPatrolInfoList } from './../../../apis/patrol/get-patrol-info-list.api';
-import { PatrolInfoSearch, PatrolInfoSearchDataSource } from './../../../models/patrol/patrol-info.model';
+import { GetPatrolInfoList, GetPatrolInfo } from './../../../apis/patrol/patrol-info.api';
+import { PatrolInfoDetails, PatrolInfoSearch, PatrolInfoSearchDataSource } from './../../../models/patrol/patrol-info.model';
 import { EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
@@ -62,31 +62,21 @@ export class PatrolInfoListPage extends PagingListPage {
 
   defaultAdd = () => {
     let modal = this.modalCtrl.create('PatrolInfoEditPage', { "selectDataSource": this.conditionDataSource });
-    modal.onDidDismiss(culturalRelicId => {
-      // if (culturalRelicId) {
-      //   this.apiService.sendApi(new GetCulturalRelicInfo(culturalRelicId)).subscribe(
-      //     res => {
-      //       if (res.success) {
-      //         let newItem: CulturalRelicInfo = res.data;
-      //         newItem.upCulturalRelic = new UPGetCulturalRelicInfos();
-      //         newItem.upCulturalRelic.culturalRelicID = res.data.culturalRelic.keyID;
-      //         newItem.upCulturalRelic.culturalRelicLevel = res.data.culturalRelic.culturalRelicLevel;
-      //         newItem.upCulturalRelic.culturalRelicName = res.data.culturalRelic.culturalRelicName;
-      //         newItem.upCulturalRelic.culturalRelicType = res.data.culturalRelic.culturalRelicType;
-      //         newItem.upCulturalRelic.culturalRelicTwoStageType = res.data.culturalRelic.culturalRelicTwoStageType;
-      //         newItem.upCulturalRelic.district = res.data.culturalRelic.district;
-      //         newItem.upCulturalRelic.districtName = res.data.culturalRelic.districtName;
-      //         newItem.upCulturalRelic.enumArea = res.data.culturalRelic.enumArea;
-      //         newItem.upCulturalRelic.remark = res.data.culturalRelic.remark;
-      //         this.dataList.unshift(newItem);
-      //       } else {
-      //         this.pageService.showErrorMessage(res.reason);
-      //       }
-      //     },
-      //     error => {
-      //       this.pageService.showErrorMessage(error);
-      //     });
-      // }
+    modal.onDidDismiss(patrolInfoId => {
+      if (patrolInfoId) {
+        this.apiService.sendApi(new GetPatrolInfo(patrolInfoId, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
+          res => {
+            if (res.success) {
+              let newItem: PatrolInfoDetails = res.data;
+              this.dataList.unshift(newItem);
+            } else {
+              this.pageService.showErrorMessage(res.reason);
+            }
+          },
+          error => {
+            this.pageService.showErrorMessage(error);
+          });
+      }
     });
     modal.present();
   }

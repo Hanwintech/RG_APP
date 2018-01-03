@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>巡查人员位置</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="locateCutural()">
+        定位到文物
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="topHeader">
+    <div>
+      <div >名称:</div>
+      <div>名称:不限</div>
+    </div>
+  </div>
+  <div class="card" >
+    <div class="selfThing">
+      <span></span>本体</div>
+    <div class="protect">
+      <span></span>保护范围</div>
+    <div class="controlPlace">
+      <span></span>建设控制地带</div>
+  </div>
+  <div id="map-content">
+    <div id="map" #map></div>
+  </div>
+</ion-content>

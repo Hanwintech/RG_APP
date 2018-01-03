@@ -74,7 +74,7 @@ export class TwoLinePage extends MapPage {
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
-    var pointData = new BMap.Point(120.788713, 31.345924);
+    let pointData = new BMap.Point(120.788713, 31.345924);
     this.map.centerAndZoom(pointData, 16);
     this.map.addControl(new BMap.MapTypeControl({
       mapTypes: [

@@ -8,12 +8,11 @@ import { PageService } from './../../../services/page.service';
 import { nativeImgService } from './../../../services/nativeImg.service';
 import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
-import { GetPatrolEditDataSource } from './../../../apis/patrol/patrol-info.api';
+import { GetPatrolEditDataSource, PostPatrolInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolInfo, PatrolEditDataSource } from './../../../models/patrol/patrol-info.model';
-import { EnumAttachmentType } from './../../../models/enum';
-import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
+import { EnumAttachmentType, EnumCulturalRelicLevel, EnumAreaCode } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
-
+import { DateTime } from './../../../pipes/datetime.pipe';
 import { BasePage } from "./../../../base-pages/base-page";
 
 @IonicPage()
@@ -22,9 +21,10 @@ import { BasePage } from "./../../../base-pages/base-page";
   templateUrl: 'patrol-info-edit.html',
 })
 export class PatrolInfoEditPage extends BasePage {
-  private culturalRelicID: string;
   private culturalRelicName: string;
   private culturalRelicLevelName: string;
+  private patroller: string;
+  private areaName: string;
   private patrolInfo: PatrolInfo;
   private selectDataSource: PatrolEditDataSource;
 
@@ -41,17 +41,24 @@ export class PatrolInfoEditPage extends BasePage {
     public pageService: PageService,
     public nativeImgService: nativeImgService,
     public fileUploadService: FileUploadService,
-    public systemConst: SystemConst
+    public systemConst: SystemConst,
+    public dateTimePipe: DateTime
   ) {
     super(navCtrl, file, fileTransfer, pageService);
 
     this.patrolInfo = new PatrolInfo();
+    this.selectDataSource = new PatrolEditDataSource();
 
     this.apiService.sendApi(new GetPatrolEditDataSource(localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
         if (res.success) {
-          console.log(res);
           this.selectDataSource = res.data;
+          this.patrolInfo.patrol.patrolUserID = localStorage.getItem("userId");
+          this.patrolInfo.patrol.adderID = localStorage.getItem("userId");
+          this.patrolInfo.patrol.updaterID = localStorage.getItem("userId");
+          this.patroller = localStorage.getItem("name");
+          this.areaName = EnumAreaCode[this.apiService.areaCode];
+          this.patrolInfo.patrol.patroDate = dateTimePipe.transform(new Date(), "yyyy-MM-dd");
         } else {
           this.pageService.showErrorMessage("获取数据失败！");
         }
@@ -62,6 +69,20 @@ export class PatrolInfoEditPage extends BasePage {
   }
 
   showLocation() { }
+
+  getCulturalRelic() {
+    return new Promise((resolve, reject) => {
+      let searchModal = this.modalCtrl.create('CulturalRelicSelectPage');
+      searchModal.onDidDismiss(data => {
+        if (data) {
+          this.patrolInfo.patrol.fK_CulturalRelicID = data.upCulturalRelic.culturalRelicID;
+          this.culturalRelicName = data.upCulturalRelic.culturalRelicName;
+          this.culturalRelicLevelName = EnumCulturalRelicLevel[data.upCulturalRelic.culturalRelicLevel];
+        }
+      });
+      searchModal.present();
+    });
+  }
 
   selectAttachmentList() {
     this.imagePickerService.getPictures().then(
@@ -108,58 +129,33 @@ export class PatrolInfoEditPage extends BasePage {
   }
 
   submit() {
-    // if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicName) {
-    //   this.pageService.showErrorMessage('请填写文物名称！');
-    //   return;
-    // }
+    if (!this.patrolInfo.patrol.fK_CulturalRelicID) {
+      this.pageService.showErrorMessage('请选择文物！');
+      return;
+    }
 
-    // if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicCode) {
-    //   this.pageService.showErrorMessage('请填写文物编码！');
-    //   return;
-    // }
+    if (!this.patrolInfo.patrol.patrolDescription) {
+      this.pageService.showErrorMessage('请填写情况描述！');
+      return;
+    }
 
-    // if (this.culturalRelicPostInfo.culturalRelic.enumArea == -1) {
-    //   this.pageService.showErrorMessage('请选择地区！');
-    //   return;
-    // }
+    if (this.patrolInfo.patrol.patrolState == -1) {
+      this.pageService.showErrorMessage('请选择巡查状态！');
+      return;
+    }
 
-    // if (this.culturalRelicPostInfo.culturalRelic.culturalRelicLevel == -1) {
-    //   this.pageService.showErrorMessage('请选择类别！');
-    //   return;
-    // }
-
-    // if (!this.culturalRelicPostInfo.culturalRelic.location) {
-    //   this.pageService.showErrorMessage('请填写地址！');
-    //   return;
-    // }
-
-    // if (this.culturalRelicPostInfo.culturalRelic.coordinateAccurate == -1) {
-    //   this.pageService.showErrorMessage('请选择标注精确度！');
-    //   return;
-    // }
-
-    // if (this.culturalRelicPostInfo.culturalRelic.culturalRelicType == -1) {
-    //   this.pageService.showErrorMessage('请选择类型！');
-    //   return;
-    // }
-
-    // if (this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType == -1) {
-    //   this.pageService.showErrorMessage('请选择二级分类！');
-    //   return;
-    // }
-
-    // this.apiService.sendApi(new PostCulturalRelicInfo(this.culturalRelicPostInfo)).subscribe(
-    //   res => {
-    //     if (res.success) {
-    //       this.pageService.showMessage("保存成功！");
-    //       this.viewCtrl.dismiss(res.data);
-    //     } else {
-    //       this.pageService.showErrorMessage(res.reason);
-    //     }
-    //   },
-    //   error => {
-    //     this.pageService.showErrorMessage(error);
-    //   });
+    this.apiService.sendApi(new PostPatrolInfo(this.patrolInfo)).subscribe(
+      res => {
+        if (res.success) {
+          this.pageService.showMessage("保存成功！");
+          this.viewCtrl.dismiss(res.data);
+        } else {
+          this.pageService.showErrorMessage(res.reason);
+        }
+      },
+      error => {
+        this.pageService.showErrorMessage(error);
+      });
   }
 
   close() {

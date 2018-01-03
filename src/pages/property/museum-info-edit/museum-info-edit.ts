@@ -9,7 +9,7 @@ import { nativeImgService } from './../../../services/nativeImg.service';
 import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
 import * as MuseumAPI from './../../../apis/property/museum.api';
-import { MuseumInfo, MuseumInfoDetail, MuseumPostInfo, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
+import { MuseumInfo, MuseumPostInfo, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
 import { EnumAttachmentType } from './../../../models/enum';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { ValidateService } from './../../../services/validate.service';

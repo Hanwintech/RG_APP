@@ -6,7 +6,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
-import { GetPatrolInfo } from './../../../apis/patrol/get-patrol-info.api';
+import { GetPatrolInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolInfoDetails } from './../../../models/patrol/patrol-info.model';
 
 @IonicPage()

@@ -12,7 +12,7 @@ export class DateTime {
     return this.format(new Date(value), format);
   }
 
-  format(date: Date, fmt: string) { //author: meizz 
+  format(date: Date, fmt: string) {
     var o = {
       "M+": date.getMonth() + 1, //月份 
       "d+": date.getDate(), //日 

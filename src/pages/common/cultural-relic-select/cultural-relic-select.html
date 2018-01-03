@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
+    <ion-buttons center>
+      <div class="searchBox">
+        <ion-icon name="ios-search-outline"></ion-icon>
+        <ion-icon name="ios-close-outline" (click)="clear()"></ion-icon>
+        <ion-input type="text" placeholder="请输入关键字" [(ngModel)]="condition.keyword"></ion-input>
+      </div>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button (click)="getData(null, true)">搜索</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="dataList && dataList.length > 0">
+    <ion-list>
+      <ion-item *ngFor="let data of dataList" (click)="select(data)">
+        <div class="img">
+          <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+        </div>
+        <div class="description">
+          <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
+          <div>{{data.upCulturalRelic.remark}}</div>
+          <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
+          <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+      <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
+    无数据
+  </div>
+</ion-content>

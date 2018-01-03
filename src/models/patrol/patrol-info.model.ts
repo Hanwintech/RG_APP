@@ -151,10 +151,16 @@ export class PatrolEntity {
     public isDeleted: boolean;
     public permission: boolean;
     public approvalNumber: string;
+
+    constructor() {
+        this.clearNumbers();
+    }
+    clearNumbers() {
+        this.patrolState = -1;
+    }
 }
 
 export class PatrolEditDataSource {
-
     public code: number;
     public message: string;
     public tag: string;
@@ -163,6 +169,14 @@ export class PatrolEditDataSource {
     public disposeTypeList: IntegerKeyValue[];
     public permissionList: IntegerKeyValue[];
     public canSelectUserInfoList: CommonUserInfo[];
+
+    constructor() {
+        this.patrolCaseProblemList = [];
+        this.patrolStatusList = [];
+        this.disposeTypeList = [];
+        this.permissionList = [];
+        this.canSelectUserInfoList = [];
+    }
 }
 
 export class PatrolInfoSearch {

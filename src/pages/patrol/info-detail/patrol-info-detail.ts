@@ -9,6 +9,9 @@ import { DetailPage } from './../../../base-pages/detail-page';
 import { GetPatrolInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolInfoDetails } from './../../../models/patrol/patrol-info.model';
 
+import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
+import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
+
 @IonicPage()
 @Component({
   selector: 'page-patrol-info-detail',
@@ -55,6 +58,21 @@ export class PatrolInfoDetailPage extends DetailPage {
       });
   }
 
+  showLocation() {
+    this.apiService.sendApi(new GetCulturalRelicInfo(this.patrolInfo.patrolInfo.fK_CulturalRelicID)).subscribe(
+      res => {
+        if (res.success) {
+          let culturalRelicInfo: CulturalRelicInfo = res.data;
+          this.navCtrl.push('MapLocatePage', culturalRelicInfo);
+        } else {
+          this.pageService.showErrorMessage(res.reason);
+        }
+      },
+      error => {
+        this.pageService.showErrorMessage(error);
+      });
+  }
+
   showCulturalRelic(fK_CulturalRelicID: string) {
     this.navCtrl.push('CulturalRelicInfoDetailPage', fK_CulturalRelicID);
   }
@@ -69,9 +87,5 @@ export class PatrolInfoDetailPage extends DetailPage {
 
   close() {
     this.navCtrl.pop();
-  }
-
-  showLocation() {
-    console.log(this.patrolInfo);
   }
 }

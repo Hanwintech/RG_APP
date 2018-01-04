@@ -144,6 +144,15 @@ export class PatrolInfoEditPage extends BasePage {
       return;
     }
 
+    let longitude = localStorage.getItem('longitude');
+    if (longitude) {
+      this.patrolInfo.patrol.coordinateX = Number(longitude);
+    }
+    let latitude = localStorage.getItem('latitude');
+    if (latitude) {
+      this.patrolInfo.patrol.coordinateY  = Number(latitude);
+    }
+
     this.apiService.sendApi(new PostPatrolInfo(this.patrolInfo)).subscribe(
       res => {
         if (res.success) {

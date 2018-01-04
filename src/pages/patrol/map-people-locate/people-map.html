@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>巡查人员位置</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="locateCutural()">
+      <button ion-button icon-only (click)="locateCultural()">
         定位到文物
       </button>
     </ion-buttons>
@@ -11,11 +11,11 @@
 <ion-content>
   <div class="topHeader">
     <div>
-      <div >名称:</div>
-      <div>名称:不限</div>
+      <div style="font-size:13px;">{{culturalRelicName}}</div>
+      <div>{{location}}</div>
     </div>
   </div>
-  <div class="card" >
+  <div class="card">
     <div class="selfThing">
       <span></span>本体</div>
     <div class="protect">

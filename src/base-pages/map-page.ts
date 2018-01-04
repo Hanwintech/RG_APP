@@ -6,6 +6,8 @@ import { GetCulturalRelicMapInfosUrl } from './../apis/two-line/two-line.api';
 import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../models/property/cultural-relic-info.model';
 import { UserEntity } from './../models/user-info.model';
 import { UTMapDistrictClusterInfo } from './../models/two-line/two-line-info.model';
+import { GetCulturalRelicInfo } from './../apis/property/cultural-relic-info.api';
+import { CulturalRelicInfo } from './../models/property/cultural-relic-info.model';
 import { EnumAreaCode, EnumDistrictType, EnumCulturalRelicLevel } from './../models/enum';
 import { PageService } from './../services/page.service';
 import { Attachment } from "./../models/attachment.model";
@@ -30,6 +32,16 @@ export class MapPage extends DetailPage {
     selectedMarkItem: any;
     selectedMarkerTag: any;//选中的marker、label
     selectedCircleTag: any;//选中的圆形label
+    culturalRelicInfo: CulturalRelicInfo;
+    search: CulturalRelicInfoSearch;
+    userInfo: UserEntity;
+    private twoLine = [];
+    searchDataSource: CulturalRelicInfoSearchDataSource;
+    private mapDistrictClusterInfoList: UTMapDistrictClusterInfo[];
+    private currentMapLevelMax: number;
+    uniqueTagList = [];
+    isNeedMoveToFirstIcon: boolean;
+    zoomendControle: boolean;//解决setZoom 会触发zoomend事件的问题
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -41,6 +53,112 @@ export class MapPage extends DetailPage {
         public fileTransfer: FileTransfer,
         public geolocation: Geolocation) {
         super(navCtrl, file, fileTransfer, pageService);
+    }
+
+    viewDetail() {
+        this.navCtrl.push('CulturalRelicInfoDetailPage', this.selectedMarkItem.culturalRelicId);
+    }
+
+    viewPatrol() {
+        this.navCtrl.push('PatrolInfoListPage', { "culturalRelicID": this.selectedMarkItem.culturalRelicId });
+    }
+
+    viewPic() {
+        this.apiService.sendApi(new GetCulturalRelicInfo(this.selectedMarkItem.culturalRelicId)).subscribe(
+            res => {
+                if (res.success) {
+                    this.culturalRelicInfo = res.data;
+                    super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
+                    this.showPicture("", this.culturalRelicInfo.twoLimitImageList);
+                } else {
+                    this.pageService.showErrorMessage(res.reason);
+                }
+            },
+            error => {
+                this.pageService.showErrorMessage(error);
+            });
+    }
+
+    //初始化查询数据
+    initSearchData() {
+        this.search = new CulturalRelicInfoSearch();
+        this.userInfo = new UserEntity(localStorage.getItem('account'), localStorage.getItem('name'));
+        this.search.userId = localStorage.getItem("userId");
+        this.search.manageUnitId = localStorage.getItem("manageUnitId");
+        this.search.userType = Number(localStorage.getItem("userType"));
+        this.search.isDefaultSearch = true;
+        this.search.isAll = true;
+        this.search.isNeedPaging = false;
+        this.search.isNeedSearchDataSource = true;
+        this.search.searchType = 1;
+        this.search.culturalRelicSearchType = 1;
+    }
+
+    getData(mapLevel) {
+        this.search.leftTopCoordinateX = this.map.getBounds().Le;
+        this.search.leftTopCoordinateY = this.map.getBounds().Fe;
+        this.search.rightBottomCoordinateX = this.map.getBounds().Ge;
+        this.search.rightBottomCoordinateY = this.map.getBounds().Ke;
+        this.search.mapLevel = mapLevel;
+        this.apiService.sendApi(new GetCulturalRelicMapInfosUrl(this.search)).subscribe(
+            res => {
+                if (res.success) {
+                    console.log(res);
+                    this.twoLine = res.data.twoLineInfoList;
+                    this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
+                    this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
+                    this.search = res.data.search;//采用服务器端的默认查询条件
+                    this.bindMarker();
+                }
+            }, error => {
+            }
+        );
+    }
+
+    //拿到infoList数据，遍历添加label
+    bindMarker() {
+        if (this.mapDistrictClusterInfoList != null && this.mapDistrictClusterInfoList.length > 0) {
+            for (let cluster of this.mapDistrictClusterInfoList) {
+                this.currentMapLevelMax = cluster.mapLevelMax;
+                //如果在当前缩放范围内，已经存在该点，则不添加
+                if (this.uniqueTagList.indexOf(cluster.uniqueTag) == -1) {
+                    this.uniqueTagList.push(cluster.uniqueTag);
+                    switch (cluster.districtType) {
+                        case EnumDistrictType["省"]:
+                        case EnumDistrictType["市"]:
+                        case EnumDistrictType["县区"]:
+                            this.addCircleLabel(cluster);
+                            // this.mapLevel = cluster.mapLevelMax;
+                            break;
+                        case EnumDistrictType["文物点"]:
+                            //添加闪烁    
+                            this.addRectangleLabel(cluster);
+                            if (this.mapLevel >= this.showTwoLineMapLevel) {
+                                if (this.twoLine) {
+                                    for (let info of this.twoLine) {
+                                        let color = "#" + info.twoLinePolygon.color;
+                                        if (info.twoLinePolygon.polygonType == 2) {
+                                            color = "#507daf";
+                                        }
+                                        let line = [];
+                                        for (let twoLinePoint of info.twoLinePointList) {
+                                            line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
+                                        }
+                                        this.drawTwoLine(line, color);
+                                    }
+                                }
+                            }
+                    }
+                }
+                if (this.isNeedMoveToFirstIcon) {
+                    let movePoint = new BMap.Point(this.mapDistrictClusterInfoList[0].coordinateX, this.mapDistrictClusterInfoList[0].coordinateY);
+                    this.map.setZoom(this.mapLevel);
+                    this.map.setCenter(movePoint);
+                    this.isNeedMoveToFirstIcon = false;
+                }
+            }
+        }
+        this.zoomendControle = true;
     }
 
     //查看图片
@@ -259,5 +377,71 @@ export class MapPage extends DetailPage {
     private setIcon(id) {
         let pImg = document.getElementById(id).parentNode.previousSibling.firstChild as HTMLElement;
         pImg.setAttribute("src", "assets/map/ic_cultural_relic_level1_selected.png");
+    }
+
+    //为地图绑定zoom、drag事件
+    mapAddEventListener() {
+        this.map.addEventListener("zoomend", function (type) {
+            if (this.zoomendControle) {
+                this.map.clearOverlays();
+                for (let shineItem of this.shineArray) {
+                    clearInterval(shineItem);
+                }
+                this.uniqueTagList = [];
+                this.mapLevel = this.map.getZoom();
+                this.getData(this.mapLevel);
+                //控制左上角的两线信息栏
+                this.CardContrl = this.mapLevel >= this.showTwoLineMapLevel ? false : true;
+            }
+        }.bind(this))
+        this.map.addEventListener("dragend", function () {
+            this.getData(this.mapLevel);
+        }.bind(this));
+    }
+
+    //获取搜索数据
+    getSearchData(searchData) {
+        this.map.clearOverlays();
+        console.log(searchData);
+        this.search = searchData;
+        this.search.culturalRelicLevel = parseInt(searchData.culturalRelicLevel);
+        let district, tempDistrictType;
+        if (this.search.area > 0) {
+            district = this.search.area;
+        }
+        if (this.search.district > 0) {
+            district = this.search.district;
+        }
+        //如果有对应区域的坐标，则取该坐标，如果没有，则取最后一个坐标
+        if (this.searchDataSource != null && this.searchDataSource.mapDistrictClusterList != null && this.searchDataSource.mapDistrictClusterList.length > 0) {
+            for (let item of this.searchDataSource.mapDistrictClusterList) {
+                if (item.district == district) {
+                    this.search.districtCoordinateX = item.coordinateX;
+                    this.search.districtCoordinateY = item.coordinateY;
+                    tempDistrictType = item.districtType;
+                    break;
+                }
+                else if (item.district == EnumAreaCode["江苏省"]) {//如果没有选择区域，则移动到江苏省
+                    this.search.districtCoordinateX = item.coordinateX;
+                    this.search.districtCoordinateY = item.coordinateY;
+                    tempDistrictType = item.districtType;
+                }
+            }
+        }
+        if (this.search.culturalRelicName) {
+            this.zoomendControle = false;
+            this.map.setZoom(17);
+            this.mapLevel = 17;
+            this.isNeedMoveToFirstIcon = true;
+        }
+        if (this.search.districtCoordinateX && this.search.districtCoordinateY && !this.search.culturalRelicName) {
+            let movePoint = new BMap.Point(this.search.districtCoordinateX.toString(), this.search.districtCoordinateY.toString());
+            this.map.setCenter(movePoint);
+        }
+        for (let shineItem of this.shineArray) {
+            clearInterval(shineItem);
+        }
+        this.getData(this.mapLevel);
+        this.uniqueTagList = [];
     }
 }

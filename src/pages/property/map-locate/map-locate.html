@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+      <ion-buttons left>
+          <button ion-button icon-only (click)="back()">
+              <ion-icon name="ios-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title>标注位置</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="locateCultural()">
+        定位到文物
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div id="map-content">
+    <div id="map" #map></div>
+  </div>
+</ion-content>

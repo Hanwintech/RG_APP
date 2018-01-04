@@ -123,7 +123,13 @@ export class CulturalRelicInfoEditPage extends BasePage {
     }
   }
 
-  getCoordinate() { }
+  getCoordinate() {
+    let locate = this.modalCtrl.create("MapLocatePage", this.culturalRelicInfo);
+    locate.onDidDismiss(data => {
+   
+    });
+    locate.present();
+   }
 
   selectMiniImage() {
     let actionSheet = this.actionSheetCtrl.create({

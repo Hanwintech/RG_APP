@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, ModalController,ToastController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ModalController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import { ApiService } from './../../../services/api.service';
@@ -26,6 +26,8 @@ declare var BMAP_HYBRID_MAP;
 })
 export class PeopleMapPage extends MapPage {
   @ViewChild('map') mapElement: ElementRef;
+  culturalRelicName:string;
+  location:string;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -42,29 +44,47 @@ export class PeopleMapPage extends MapPage {
   }
 
   ionViewDidEnter() {
+    this.culturalRelicName=this.navParams.data.culturalRelicName;
+    this.location=this.navParams.data.location;
+    this.initSearchData();
+    this.search.isDefaultSearch = false;
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
-    if(!this.navParams.data.coordinateX){
-      let toast = this.toastCtrl.create({
-        message: '没有巡查人员位置信息！',
-        duration: 30000,
-        position: 'bottom',
-      });
-      toast.present();
-    }
-    else{
-      let pointData = new BMap.Point(this.navParams.data.coordinateX,this.navParams.data.coordinateY);
+    if (this.navParams.data.coordinateX) {
+      let pointData = new BMap.Point(this.navParams.data.coordinateX, this.navParams.data.coordinateY);
       let myLocation = new BMap.Icon("assets/map/ic_map_marker_people.png", new BMap.Size(34, 45));
       let mkr = new BMap.Marker(pointData, { icon: myLocation });
       this.map.addOverlay(mkr);
-
+      this.map.centerAndZoom(pointData, 16);
     }
-    let pointData = new BMap.Point(this.navParams.data.coordinateX,this.navParams.data.coordinateY);
-    this.map.centerAndZoom(pointData, 16);
+    //巡查人员的定位信息
+    else {
+      let toast = this.toastCtrl.create({
+        message: '没有巡查人员位置信息！',
+        duration: 2000,
+        position: 'bottom',
+      });
+      toast.present();
+      if (this.navParams.data.culturalRelicX) {
+        this.locateCultural();
+      }
+      else {
+        let longT = '120.788713';
+        let lati = '31.345924';
+        super.getLocation(longT, lati);
+        this.map.centerAndZoom(new BMap.Point(longT, lati), 16);
+      }
+    }
   }
-  
-  locateCutural(){
 
+  //定位到文物
+  locateCultural() {
+    this.search.culturalRelicName = this.navParams.data.culturalRelicName;
+    let culturalPointData = new BMap.Point(this.navParams.data.culturalRelicX, this.navParams.data.culturalRelicY);
+    this.mapLevel=this.showTwoLineMapLevel;
+    this.getData(this.mapLevel);
+    this.map.centerAndZoom(culturalPointData, 16);
   }
+
 }

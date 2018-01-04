@@ -25,11 +25,13 @@ export class InspectConditionInquiryPage extends SearchPage<ReportQueryPatrolSea
     public pageService: PageService
   ) {
     super(params, viewCtrl);
+    //this.search.patrolStatus=-1;
   }
 
   clear() {
     this.search.startDateTime = "";
     this.search.endDateTime = "";
+    this.search.patrolStatus=-1;
   }
 
 }

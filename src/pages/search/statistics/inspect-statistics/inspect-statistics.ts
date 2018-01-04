@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { ApiService } from './../../../../services/api.service';
 import { PageService } from './../../../../services/page.service';
@@ -17,7 +17,7 @@ import { ReportQueryPatrolByHalfYearInfo } from './../../../../models/search/rep
 import { ReportQueryPatrolByYearInfo } from './../../../../models/search/report-query-patrol-by-year-info';
 import { ReportQueryPatrolByAreaInfo } from './../../../../models/search/report-query-patrol-by-area-info';
 
-import{ReportQueryPatrolSearchDataSource}from './../../../../models/search/report-query-patrol-search.model';
+import { ReportQueryPatrolSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
 
 @IonicPage()
 @Component({
@@ -25,7 +25,7 @@ import{ReportQueryPatrolSearchDataSource}from './../../../../models/search/repor
   templateUrl: 'inspect-statistics.html',
 })
 export class InspectStatisticsPage {
-  private chartType:number;
+  private chartType: number;
   private search: ReportQueryPatrolSearch;
   private searchDataSource: ReportQueryPatrolSearchDataSource;
   private title: string;
@@ -41,7 +41,7 @@ export class InspectStatisticsPage {
     public apiService: ApiService,
     public pageService: PageService
   ) {
-    this.chartType=this.navParams.data;
+    this.chartType = this.navParams.data;
     //初始化查询字段
     this.search = new ReportQueryPatrolSearch();
     this.search.isDefaultSearch = true;
@@ -70,8 +70,10 @@ export class InspectStatisticsPage {
                 ]);
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
-              console.log( this.searchDataSource);
               this.search = res.data.search;
+              if (this.search.patrolStatus == 0) {
+                this.search.patrolStatus = -1;
+              }
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -97,6 +99,9 @@ export class InspectStatisticsPage {
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
               this.search = res.data.search;
+              if (this.search.patrolStatus == 0) {
+                this.search.patrolStatus = -1;
+              }
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -122,6 +127,9 @@ export class InspectStatisticsPage {
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
               this.search = res.data.search;
+              if (this.search.patrolStatus == 0) {
+                this.search.patrolStatus = -1;
+              }
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -149,6 +157,9 @@ export class InspectStatisticsPage {
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
               this.search = res.data.search;
+              if (this.search.patrolStatus == 0) {
+                this.search.patrolStatus = -1;
+              }
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -174,6 +185,9 @@ export class InspectStatisticsPage {
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
               this.search = res.data.search;
+              if (this.search.patrolStatus == 0) {
+                this.search.patrolStatus = -1;
+              }
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -199,6 +213,9 @@ export class InspectStatisticsPage {
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
               this.search = res.data.search;
+              if (this.search.patrolStatus == 0) {
+                this.search.patrolStatus = -1;
+              }
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -211,24 +228,24 @@ export class InspectStatisticsPage {
         break;
     }
   }
-  chart(){
-    this.navCtrl.push("InspectChartPage",{
-        "编号":this.chartType,"总巡查次数":this.totalPatrolCount,"数据源":this.dataSource
+  chart() {
+    this.navCtrl.push("InspectChartPage", {
+      "编号": this.chartType, "总巡查次数": this.totalPatrolCount, "数据源": this.dataSource
     });
   }
   conditionSearch() {
     let searchModal = this.modalCtrl.create("InspectConditionInquiryPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-        if (data.needSearch) {
-            this.search = data.search;
-            this.search.isDefaultSearch = false;
-            this.dataSource = [];
-            this.doSearch();
-        }
-        console.log(this.search);
+      if (data.needSearch) {
+        this.search = data.search;
+        this.search.isDefaultSearch = false;
+        this.dataSource = [];
+        this.doSearch();
+      }
+      console.log(this.search);
     });
     searchModal.present();
-}
+  }
 }
 
 

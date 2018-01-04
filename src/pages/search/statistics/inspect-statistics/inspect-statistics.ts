@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController  } from 'ionic-angular';
 
 import { ApiService } from './../../../../services/api.service';
 import { PageService } from './../../../../services/page.service';
@@ -17,6 +17,7 @@ import { ReportQueryPatrolByHalfYearInfo } from './../../../../models/search/rep
 import { ReportQueryPatrolByYearInfo } from './../../../../models/search/report-query-patrol-by-year-info';
 import { ReportQueryPatrolByAreaInfo } from './../../../../models/search/report-query-patrol-by-area-info';
 
+import{ReportQueryPatrolSearchDataSource}from './../../../../models/search/report-query-patrol-search.model';
 
 @IonicPage()
 @Component({
@@ -26,14 +27,17 @@ import { ReportQueryPatrolByAreaInfo } from './../../../../models/search/report-
 export class InspectStatisticsPage {
   private chartType:number;
   private search: ReportQueryPatrolSearch;
-  title: string;
-  category: string;
-  totalPatrolCount: number;
+  private searchDataSource: ReportQueryPatrolSearchDataSource;
+  private title: string;
+  private category: string;
+  private totalPatrolCount: number;
   private dataSource: string[][];
+
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalCtrl: ModalController,
     public apiService: ApiService,
     public pageService: PageService
   ) {
@@ -45,9 +49,10 @@ export class InspectStatisticsPage {
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
     this.dataSource = [];
+    this.doSearch();
   }
 
-  ionViewDidLoad() {
+  doSearch() {
     switch (this.chartType) {
       case (1):
         this.title = "按类别统计";
@@ -64,6 +69,9 @@ export class InspectStatisticsPage {
                   data.reportQueryPatrolByRelicLevel.patrolCount.toString()
                 ]);
               }
+              this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+              console.log( this.searchDataSource);
+              this.search = res.data.search;
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -87,6 +95,8 @@ export class InspectStatisticsPage {
                   data.reportQueryPatrolByMonthly.patrolCount.toString()
                 ]);
               }
+              this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+              this.search = res.data.search;
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -110,6 +120,8 @@ export class InspectStatisticsPage {
                   data.reportQueryPatrolByQuarter.patrolCount.toString()
                 ]);
               }
+              this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+              this.search = res.data.search;
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -135,6 +147,8 @@ export class InspectStatisticsPage {
                   data.reportQueryPatrolByHalfYear.patrolCount.toString()
                 ]);
               }
+              this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+              this.search = res.data.search;
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -158,6 +172,8 @@ export class InspectStatisticsPage {
                   data.reportQueryPatrolByYear.patrolCount.toString()
                 ]);
               }
+              this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+              this.search = res.data.search;
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -181,6 +197,8 @@ export class InspectStatisticsPage {
                   data.reportQueryPatrolByArea.patrolCount.toString()
                 ]);
               }
+              this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+              this.search = res.data.search;
             } else {
               this.pageService.showErrorMessage(res.reason);
             }
@@ -198,6 +216,19 @@ export class InspectStatisticsPage {
         "编号":this.chartType,"总巡查次数":this.totalPatrolCount,"数据源":this.dataSource
     });
   }
+  conditionSearch() {
+    let searchModal = this.modalCtrl.create("InspectConditionInquiryPage", { "search": this.search, "dataSource": this.searchDataSource });
+    searchModal.onDidDismiss(data => {
+        if (data.needSearch) {
+            this.search = data.search;
+            this.search.isDefaultSearch = false;
+            this.dataSource = [];
+            this.doSearch();
+        }
+        console.log(this.search);
+    });
+    searchModal.present();
+}
 }
 
 

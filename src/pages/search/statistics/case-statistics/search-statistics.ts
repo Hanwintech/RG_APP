@@ -67,8 +67,8 @@ export class SearchStatisticsPage {
                 this.category = "类别";
                 this.apiService.sendApi(new GetReportQueryCaseByRelicLevelInfos(this.search)).subscribe(
                     res => {
+                        console.log(res);
                         if (res.success) {
-                            //console.log(1);
                             console.log(res.data.search);
                             this.totalCaseCount = 0;
                             this.totalSumFineAmount = 0;

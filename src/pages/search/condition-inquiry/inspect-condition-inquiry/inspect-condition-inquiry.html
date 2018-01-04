@@ -6,35 +6,37 @@
 -->
 <ion-header>
 
-    <ion-navbar>
-        <ion-buttons left>
-          <button ion-button (click)="close()">关闭</button>
-        </ion-buttons>
-        <ion-title>条件查询</ion-title>
-        <ion-buttons right>
-          <button ion-button (click)="clear()">清空</button>
-        </ion-buttons>
-      </ion-navbar>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
+    <ion-title>条件查询</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="clear()">清空</button>
+    </ion-buttons>
+  </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-    <ion-list>
-      <ion-item>
-        <ion-label fixed class="wrap">巡查开始日期</ion-label>
-        <ion-datetime placeholder="点击选择巡查开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="this.search.startDateTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed class="wrap">巡查结束日期</ion-label>
-        <ion-datetime placeholder="点击选择巡查结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="this.search.endDateTime"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>巡查状态</ion-label>
-        <ion-input readonly="true" placeholder="请选择" (click)="investigateProcedures()" [(ngModel)]="this.investigationProcedureName">{{investigationProcedureName}}</ion-input>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-  <ion-footer>
-    <button ion-button block (click)="doSearch()">确定</button>
-  </ion-footer>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed class="wrap">巡查开始日期</ion-label>
+      <ion-datetime placeholder="点击选择巡查开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed class="wrap">巡查结束日期</ion-label>
+      <ion-datetime placeholder="点击选择巡查结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>巡查状态</ion-label>
+      <ion-select [(ngModel)]="search.patrolStatus" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of searchDataSource.patrolStatusList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <button ion-button block (click)="doSearch()">确定</button>
+</ion-footer>

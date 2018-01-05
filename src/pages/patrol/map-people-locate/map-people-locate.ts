@@ -44,21 +44,22 @@ export class MapPeopleLocatePage extends MapPage {
   }
 
   ionViewDidEnter() {
-    this.culturalRelicName=this.navParams.data.culturalRelicName;
-    this.location=this.navParams.data.location;
+    console.log(this.navParams.data);
+    this.culturalRelicName=this.navParams.data.culturalRelic.culturalRelicName;
+    this.location=this.navParams.data.culturalRelic.location;
     this.initSearchData();
     this.search.isDefaultSearch = false;
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
+    //巡查人员的定位信息
     if (this.navParams.data.coordinateX) {
-      let pointData = new BMap.Point(this.navParams.data.coordinateX, this.navParams.data.coordinateY);
+      let pointData = new BMap.Point(this.navParams.data.culturalRelic.coordinateX, this.navParams.data.culturalRelic.coordinateY);
       let myLocation = new BMap.Icon("assets/map/ic_map_marker_people.png", new BMap.Size(34, 45));
       let mkr = new BMap.Marker(pointData, { icon: myLocation });
       this.map.addOverlay(mkr);
       this.map.centerAndZoom(pointData, 16);
     }
-    //巡查人员的定位信息
     else {
       let toast = this.toastCtrl.create({
         message: '没有巡查人员位置信息！',
@@ -66,10 +67,11 @@ export class MapPeopleLocatePage extends MapPage {
         position: 'bottom',
       });
       toast.present();
-      if (this.navParams.data.culturalRelicX) {
+      if (this.navParams.data.culturalRelic.culturalRelicX) {
         this.locateCultural();
       }
       else {
+        //显示人员的定位信息
         let longT = '120.788713';
         let lati = '31.345924';
         super.getLocation(longT, lati);
@@ -80,8 +82,8 @@ export class MapPeopleLocatePage extends MapPage {
 
   //定位到文物
   locateCultural() {
-    this.search.culturalRelicName = this.navParams.data.culturalRelicName;
-    let culturalPointData = new BMap.Point(this.navParams.data.culturalRelicX, this.navParams.data.culturalRelicY);
+    //this.search.culturalRelicName = this.navParams.data.culturalRelic.culturalRelicName;
+    let culturalPointData = new BMap.Point(this.navParams.data.culturalRelic.culturalRelicX, this.navParams.data.culturalRelic.culturalRelicY);
     this.mapLevel=this.showTwoLineMapLevel;
     this.getData(this.mapLevel);
     this.map.centerAndZoom(culturalPointData, 16);

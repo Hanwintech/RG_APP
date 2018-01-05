@@ -2,12 +2,40 @@ import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { BaseApiSearch } from "./../base-api-search.model";
 import { TreeDataInfo } from "./../tree-data-info.model";
+import { MapMark } from "./map-mark";
+import { EnumCulturalRelicLevel } from "./../enum";
 
-export class MuseumInfo {
+export class MuseumInfo implements MapMark {
     public museumDetailInfo: MuseumInfoDetail;
     public miniImageUrl: string;
     public attachmentList: Attachment[];
-
+    public get id() {
+        return this.museumDetailInfo.id;
+    }
+    public get name() {
+        return this.museumDetailInfo.museumName;
+    }
+    public get location() {
+        return this.museumDetailInfo.location;
+    }
+    public get personLocateX() {
+        return false;
+    }
+    public get personLocateY() {
+        return false;
+    }
+    public get culturalRelicX() {
+        return this.museumDetailInfo.coordinateX;
+    }
+    public get culturalRelicY() {
+        return this.museumDetailInfo.coordinateY;
+    }
+    public get culturalRelicLevel() {
+        return EnumCulturalRelicLevel["博物馆"];
+    }
+    public get twolineInfo() {
+        return false;
+    }
     constructor() {
         this.museumDetailInfo = new MuseumInfoDetail();
     }
@@ -125,7 +153,7 @@ export class MuseumInfoEntity {
     public fK_CulturalRelicID: string;
 
     constructor() {
-       this.clearNumbers();
+        this.clearNumbers();
     }
     public clearNumbers() {
         this.qualityGrade = -1;

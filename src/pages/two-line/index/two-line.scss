@@ -120,6 +120,7 @@ page-two-line {
             margin-bottom: 0.5rem; // font-weight: bold;
         }
         .subTitle {
+            font-size: 0.9em;
             color: #bfbfbf;
             margin-bottom: 0.1rem;
             span {
@@ -136,10 +137,11 @@ page-two-line {
             background: #fff;
             border-top: 1px solid #e4e4e4;
             .detailItem {
+                font-size: 14px;
                 div {
                     display: inline-block;
                     color: $toolbar-background;
-                    padding: 0.5em 0.4em 0.5em 0.1em;
+                    padding: 0.5em 0.2em 0.5em 0em;
                     border-right: 1px solid #ddd;
                 }
                 div:active {

@@ -2,10 +2,13 @@ import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { TwoLineInfo, UTMapDistrictCluster } from "./../two-line/two-line-info.model";
 import { TreeDataInfo } from "./../tree-data-info.model";
+import { MapMark } from "./map-mark";
+import { EnumCulturalRelicLevel } from "./../enum";
 
-export class CulturalRelicInfo {
+export class CulturalRelicInfo implements MapMark {
     public culturalRelic: CulturalRelicInfoDetail;
     public upCulturalRelic: UPGetCulturalRelicInfos;
+    public culturalRelicPostInfo: CulturalRelicPostInfo;
     public enumAreaName: string;
     public miniImage: Attachment;
     public miniImageUrl: string;
@@ -15,10 +18,37 @@ export class CulturalRelicInfo {
     public twoLineInfoList: TwoLineInfo[];
     public coordinateAccurateList: IntegerKeyValue[];
     public twoLimitImageList: Attachment[];
-
+    public get id() {
+        return this.culturalRelic.keyID;
+    }
+    public get name() {
+        return this.culturalRelic.culturalRelicName;
+    }
+    public get location() {
+        return this.culturalRelic.location;
+    }
+    public get personLocateX() {
+        return false;
+    }
+    public get personLocateY() {
+        return false;
+    }
+    public get culturalRelicX() {
+        return this.culturalRelic.coordinateX;
+    }
+    public get culturalRelicY() {
+        return this.culturalRelic.coordinateY;
+    }
+    public get culturalRelicLevel() {
+        return this.culturalRelic.culturalRelicLevel;
+    }
+    public get twolineInfo() {
+        return this.culturalRelicPostInfo.twoLinetwoLineInfoList;
+    }
     constructor() {
         this.culturalRelic = new CulturalRelicInfoDetail();
         this.upCulturalRelic = new UPGetCulturalRelicInfos();
+        this.culturalRelicPostInfo = new CulturalRelicPostInfo();
     }
 }
 
@@ -95,7 +125,7 @@ export class CulturalRelicPostInfo {
     public attachmentList: Attachment[];
 
     public twoLimitAttachmentList: Attachment[];
-    public twoLineInfoList: TwoLineInfo[];
+    public twoLinetwoLineInfoList: TwoLineInfo[];
     public twoLimitTabTypeList: IntegerKeyValue[];
     public twoLimitTabTypeName: string;
 
@@ -153,7 +183,7 @@ export class CulturalRelicInfoEntity {
     public twoLimitIconAttachmentID: string;
     public twoLimitCulturalRelicID: string;
 
-    constructor(){
+    constructor() {
         this.clearNumbers();
     }
     public clearNumbers() {

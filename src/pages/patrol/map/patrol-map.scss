@@ -125,6 +125,7 @@ page-patrol-map {
             margin-bottom: 0.5rem; // font-weight: bold;
         }
         .subTitle {
+            font-size: 0.9em;
             color: #bfbfbf;
             margin-bottom: 0.1rem;
             span {
@@ -141,10 +142,11 @@ page-patrol-map {
             background: #fff;
             border-top: 1px solid #e4e4e4;
             .detailItem {
+                font-size: 14px;
                 div {
                     display: inline-block;
                     color: $toolbar-background;
-                    padding: 0.5rem 1.8em 0.5rem 1.5em;
+                    padding: 0.5rem 1.2em 0.5rem 1em;
                     border-right: 1px solid #ddd;
                 }
                 div:active {

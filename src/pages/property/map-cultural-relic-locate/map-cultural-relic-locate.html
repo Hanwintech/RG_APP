@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>文物位置信息</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="back()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="operation()">
+        操作
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="topHeader">
+    <div>
+      <div style="font-size:13px;">{{culturalRelicName}}</div>
+      <div>{{location}}</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="selfThing">
+      <span></span>本体</div>
+    <div class="protect">
+      <span></span>保护范围</div>
+    <div class="controlPlace">
+      <span></span>建设控制地带</div>
+  </div>
+  <div id="map-content">
+    <div id="map" #map></div>
+  </div>
+  <div style="position:absolute;bottom:0;width:100%;">
+      <ion-item>
+        <ion-label>标注精确度</ion-label>
+        <ion-select placeholder="请选择" interface="popover" cancelText="取消" [(ngModel)]="gaming">
+          <ion-option value="nes">明确</ion-option>
+          <ion-option value="n64">稍有偏差</ion-option>
+        </ion-select>
+      </ion-item>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="showLog()">取消</button>
+      </ion-col>
+      <ion-col style="border-left: solid 1px #fff;">
+        <button ion-button block (click)="close()">确定标注点位</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

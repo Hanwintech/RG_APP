@@ -63,7 +63,7 @@ export class PatrolInfoDetailPage extends DetailPage {
       res => {
         if (res.success) {
           let culturalRelicInfo: CulturalRelicInfo = res.data;
-          this.navCtrl.push('MapLocatePage', culturalRelicInfo);
+          this.navCtrl.push('MapPeopleLocatePage', culturalRelicInfo);
         } else {
           this.pageService.showErrorMessage(res.reason);
         }

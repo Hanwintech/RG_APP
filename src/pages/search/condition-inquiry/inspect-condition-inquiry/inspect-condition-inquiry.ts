@@ -1,25 +1,37 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
-/**
- * Generated class for the InspectConditionInquiryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SearchPage } from './../../../../base-pages/search-page';
+import { ReportQueryPatrolSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
+import { ReportQueryPatrolSearch } from './../../../../models/search/report-query-patrol-search.model';
+import { IntegerKeyValue } from "./../../../../models/integer-key-value.model";
+//import { AlertController } from 'ionic-angular';
+import { PageService } from './../../../../services/page.service';
+
 
 @IonicPage()
 @Component({
   selector: 'page-inspect-condition-inquiry',
   templateUrl: 'inspect-condition-inquiry.html',
 })
-export class InspectConditionInquiryPage {
+export class InspectConditionInquiryPage extends SearchPage<ReportQueryPatrolSearch, ReportQueryPatrolSearchDataSource>  {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public params: NavParams,
+    public viewCtrl: ViewController,
+    //public modalCtrl: ModalController,
+    //public alertCtrl: AlertController,
+    public pageService: PageService
+  ) {
+    super(params, viewCtrl);
+    //this.search.patrolStatus=-1;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InspectConditionInquiryPage');
+  clear() {
+    this.search.startDateTime = "";
+    this.search.endDateTime = "";
+    this.search.patrolStatus=-1;
   }
 
 }

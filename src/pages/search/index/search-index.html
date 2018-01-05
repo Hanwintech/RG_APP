@@ -110,7 +110,25 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'laws'">
-   
+      <div>
+        <ion-list>
+          <ion-item (click)="view(data)">
+            <div class="messageTitle">
+              <h2>XXXX</h2>
+              <h3>XXXXX</h3>
+            </div>
+            <div>XXXXX</div>
+            <h5>XXXXXX</h5>
+          </ion-item>
+        </ion-list>
+        <!-- <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+          <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll> -->
+      </div>
+      <!-- <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
+        无相关的法律法规
+      </div> -->
     </ion-list>
   </div>
 </ion-content>

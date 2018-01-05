@@ -72,6 +72,6 @@ export class PatrolInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
-    this.navCtrl.push("PeopleMapPage",this.patrolInfo.patrolInfo);
+    this.navCtrl.push("MapPeopleLocatePage",this.patrolInfo.patrolInfo);
   }
 }

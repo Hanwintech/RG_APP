@@ -21,10 +21,10 @@ declare var BMAP_NORMAL_MAP;
 declare var BMAP_HYBRID_MAP;
 @IonicPage()
 @Component({
-  selector: 'page-people-map',
-  templateUrl: 'people-map.html',
+  selector: 'page-map-people-locate',
+  templateUrl: 'map-people-locate.html',
 })
-export class PeopleMapPage extends MapPage {
+export class MapPeopleLocatePage extends MapPage {
   @ViewChild('map') mapElement: ElementRef;
   culturalRelicName:string;
   location:string;
@@ -86,5 +86,4 @@ export class PeopleMapPage extends MapPage {
     this.getData(this.mapLevel);
     this.map.centerAndZoom(culturalPointData, 16);
   }
-
 }

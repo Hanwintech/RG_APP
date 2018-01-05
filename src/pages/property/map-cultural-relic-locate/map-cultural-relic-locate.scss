@@ -1,4 +1,4 @@
-page-people-map {
+page-map-cultural-relic-locate {
     $protect: #FF080C; //保护范围
     $controlPlace: #507daf; //建设控制地带
     $origionMarker: #1fa0f2; //原始的marker颜色
@@ -87,5 +87,17 @@ page-people-map {
     }
     .anchorBL {
         display: none;
+    }
+    ion-footer {
+        .grid {
+            padding: 0;
+            .col {
+                padding: 0;
+                .button {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
     }
 }

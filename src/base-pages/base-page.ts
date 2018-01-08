@@ -67,7 +67,7 @@ export class BasePage {
     }
 
     public hasRole(role: number): boolean {
-        let appRoles: number[] = eval("[" + localStorage.getItem('appRole') + "]");
+        let appRoles: number[] = eval(localStorage.getItem('appRole'));
         return appRoles && appRoles.indexOf(role) > -1
     }
 }

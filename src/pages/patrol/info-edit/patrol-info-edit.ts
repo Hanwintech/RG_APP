@@ -68,7 +68,9 @@ export class PatrolInfoEditPage extends BasePage {
       });
   }
 
-  showLocation() { }
+  showLocation() {
+    this.navCtrl.push("TwoLinePage",{"title":"文物地图"});
+   }
 
   getCulturalRelic() {
     return new Promise((resolve, reject) => {

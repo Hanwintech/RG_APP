@@ -41,7 +41,7 @@
     <div class="locateContainer" (click)="selfLocation()">
       <div></div>
     </div>
-    <div class="editInfo">
+    <div class="editInfo" *ngIf="canAdd" (click)="addPatrol()">
       <div></div>
     </div>
     <div class="clear"></div>

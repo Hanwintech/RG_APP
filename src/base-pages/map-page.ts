@@ -103,7 +103,7 @@ export class MapPage extends DetailPage {
         this.apiService.sendApi(new GetCulturalRelicMapInfosUrl(this.search)).subscribe(
             res => {
                 if (res.success) {
-                    console.log(res);
+                    console.log(res.data);
                     this.twoLine = res.data.twoLineInfoList;
                     this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
                     this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
@@ -304,7 +304,7 @@ export class MapPage extends DetailPage {
             }
             else {
                 if (this.selectedMarkerTag == cluster.uniqueTag) {
-                    myIcon = new BMap.Icon("assets/map/" + picName + "normal.png", new BMap.Size(34, 35));
+                    myIcon = new BMap.Icon("assets/map/" + picName + "selected.png", new BMap.Size(34, 35));
                     lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'  name='selected'>";
                 }
                 else {
@@ -338,7 +338,6 @@ export class MapPage extends DetailPage {
                 let movePoint = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
                 this.map.setCenter(movePoint);
                 this.map.setZoom(this.showTwoLineMapLevel);
-                // if(this.searchDataSource.)
                 setTimeout(() => {
                     this.selectedItem(cluster, picName);
                 }, 800);
@@ -346,6 +345,7 @@ export class MapPage extends DetailPage {
         }.bind(this))
         label.addEventListener("click", function (event) {
             this.selectedItem(cluster, picName);
+          
         }.bind(this));
     }
 
@@ -368,7 +368,6 @@ export class MapPage extends DetailPage {
         if (document.getElementById(cluster.uniqueTag)) {
             document.getElementById(cluster.uniqueTag).setAttribute("name", "selected");
             this.selectedMarkerTag = cluster.uniqueTag;
-            console.log(this.selectedMarkerTag);
             this.setIcon(this.selectedMarkerTag);
         }
     }
@@ -402,7 +401,6 @@ export class MapPage extends DetailPage {
     //获取搜索数据
     getSearchData(searchData) {
         this.map.clearOverlays();
-        console.log(searchData);
         this.search = searchData;
         this.search.culturalRelicLevel = parseInt(searchData.culturalRelicLevel);
         let district, tempDistrictType;

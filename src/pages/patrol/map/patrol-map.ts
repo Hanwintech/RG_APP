@@ -7,7 +7,7 @@ import { GetCulturalRelicMapInfosUrl } from './../../../apis/two-line/two-line.a
 import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
 import { UserEntity } from './../../../models/user-info.model';
 import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
-import { EnumAreaCode, EnumDistrictType, EnumCulturalRelicLevel } from './../../../models/enum';
+import { EnumAreaCode, EnumDistrictType, EnumCulturalRelicLevel,EnumAppRole ,EnumSearchType} from './../../../models/enum';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { PageService } from './../../../services/page.service';
 import { Attachment } from "./../../../models/attachment.model";
@@ -27,6 +27,7 @@ declare var BMAP_HYBRID_MAP;
 export class PatrolMapPage extends MapPage {
   @ViewChild('map') mapElement: ElementRef;
   private CardContrl: boolean;//左上角两线图信息栏的控制
+  private canAdd: boolean;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -44,6 +45,7 @@ export class PatrolMapPage extends MapPage {
     this.hideDetailContrl = false;
     this.CardContrl = false;
     this.zoomendControle = true;
+    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Volunteer);
   }
 
   list() {
@@ -106,5 +108,11 @@ export class PatrolMapPage extends MapPage {
       }
     });
     searchModal.present();
+  }
+  addPatrol(){
+    let patrolModal = this.modalCtrl.create('PatrolInfoEditPage');
+    patrolModal.onDidDismiss(data => {
+    });
+    patrolModal.present();
   }
 }

@@ -8,7 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetPatrolInfoList, GetPatrolInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolInfoDetails, PatrolInfoSearch, PatrolInfoSearchDataSource } from './../../../models/patrol/patrol-info.model';
-import { EnumSearchType } from './../../../models/enum';
+import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
@@ -17,6 +17,7 @@ import { SystemConst } from './../../../services/system-const.service';
   templateUrl: 'patrol-info-list.html',
 })
 export class PatrolInfoListPage extends PagingListPage {
+  private canAdd: boolean;
   private culturalRelicID: string;
 
   constructor(
@@ -32,6 +33,7 @@ export class PatrolInfoListPage extends PagingListPage {
   ) {
     super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "patrolSearchDataSource", "patrolInfoList");
 
+    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Volunteer);
     this.pageService.showLoading("数据加载中...");
 
     //初始化父类参数

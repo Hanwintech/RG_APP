@@ -19,6 +19,14 @@ export enum EnumAreaCode {
     大丰 = 18,
 }
 
+export enum EnumAppRole {
+    Patrol = 1,
+    Law = 2,
+    SearchPatrol = 3,
+    SearchLaw = 4,
+    Volunteer = 5
+}
+
 export enum EnumCulturalRelicLevel {
     全国重点文物保护单位 = 1,
     省级文物保护单位 = 2,

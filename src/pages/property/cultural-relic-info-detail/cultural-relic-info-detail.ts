@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -8,6 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
+import { EnumAppRole } from "./../../../models/enum";
 import { Attachment } from "./../../../models/attachment.model";
 
 @IonicPage()
@@ -16,6 +17,7 @@ import { Attachment } from "./../../../models/attachment.model";
   templateUrl: 'cultural-relic-info-detail.html',
 })
 export class CulturalRelicInfoDetailPage extends DetailPage {
+  private canShowLocation: boolean;
   private culturalRelicInfo: CulturalRelicInfo;
 
   constructor(
@@ -29,6 +31,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
   ) {
     super(navCtrl, file, fileTransfer, pageService);
 
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
     this.culturalRelicInfo = new CulturalRelicInfo();
 
     let culturalRelicID = this.navParams.data
@@ -67,10 +70,10 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
-   // console.log(this.culturalRelicInfo.upCulturalRelic.culturalRelicID);
+    // console.log(this.culturalRelicInfo.upCulturalRelic.culturalRelicID);
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage");
     locate.onDidDismiss(data => {
-   
+
     });
     locate.present();
   }

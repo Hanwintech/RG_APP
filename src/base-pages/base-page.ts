@@ -52,8 +52,6 @@ export class BasePage {
         });
     }
 
-
-
     public showSlidesPage(attachmentList: Attachment[], fileUrl: string) {
         let picUrls: string[] = [];
         let currentIndex: number = 0;
@@ -66,5 +64,10 @@ export class BasePage {
             }
         }
         this.navCtrl.push("ShowPicturePage", { "picUrls": picUrls, "currentIndex": currentIndex });
+    }
+
+    public hasRole(role: number): boolean {
+        let appRoles: number[] = eval("[" + localStorage.getItem('appRole') + "]");
+        return appRoles && appRoles.indexOf(role) > -1
     }
 }

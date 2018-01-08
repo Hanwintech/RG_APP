@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>文物详情</ion-title>
-    <ion-buttons right>
+    <ion-buttons *ngIf="canShowLocation" right>
       <button ion-button icon-only (click)="showLocation()">
         <ion-icon name="ios-pin-outline"></ion-icon>
       </button>

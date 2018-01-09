@@ -10,7 +10,7 @@ import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
 import { EditCulturalRelicInfo, PostCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo, CulturalRelicPostInfo, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
-import { EnumAttachmentType } from './../../../models/enum';
+import { EnumAttachmentType, EnumCulturalRelicLevel } from './../../../models/enum';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
 
@@ -73,6 +73,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
     } else {
       this.pageTitle = "新增工地";
       this.culturalRelicPostInfo.userId = localStorage.getItem("userId");
+      this.culturalRelicPostInfo.culturalRelic.culturalRelicLevel = EnumCulturalRelicLevel.工地;
     }
   }
 

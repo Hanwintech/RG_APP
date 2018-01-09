@@ -38,40 +38,31 @@
     </ion-row>
   </ion-grid>
   <ion-list>
-    <button ion-item (click)="culturalRelicTwoLine();">
+    <button ion-item *ngIf="hasCulturalRelicTwoLine" (click)="culturalRelicTwoLine();">
       <img src="../assets/self/two_line.png"> 国保单位两线监控
     </button>
-    <button ion-item (click)="allTodo();">
+    <button ion-item *ngIf="hasAllTodo" (click)="allTodo();">
       <img src="../assets/self/all_todo.png"> 待办事宜
     </button>
-    <button ion-item (click)="inspectionNotice();">
+    <button ion-item *ngIf="hasInspectionNotice" (click)="inspectionNotice();">
       <img src="../assets/self/inspection_notice.png"> 督查通知
     </button>
-    <button ion-item (click)="notice();">
+    <button ion-item *ngIf="hasNotice" (click)="notice();">
       <img src="../assets/self/notice.png"> 通知公告
     </button>
-    <button ion-item (click)="messageCenter();">
+    <button ion-item *ngIf="hasMessageCenter" (click)="messageCenter();">
       <img src="../assets/self/message_center.png"> 消息中心
     </button>
-    <button ion-item (click)="alert(1);">
-      <img src="../assets/self/case_add.png"> 案件录入
-    </button>
-    <button ion-item (click)="alert(1);">
+    <button ion-item *ngIf="hasPatrolAdd" (click)="patrolAdd();">
       <img src="../assets/self/patrol_add.png"> 巡查录入
     </button>
-    <button ion-item (click)="alert(1);">
+    <button ion-item *ngIf="hasPatrolOnline" (click)="patrolOnline();">
       <img src="../assets/self/patrol_online.png"> 巡查在线
     </button>
-    <button ion-item (click)="alert(1);">
-      <img src="../assets/self/law_online.png"> 执法在线
-    </button>
-    <button ion-item (click)="alert(1);">
-      <img src="../assets/self/case_statistic.png"> 案件统计
-    </button>
-    <button ion-item (click)="alert(1);">
+    <button ion-item *ngIf="hasPatrolStatistic" (click)="patrolStatistic();">
       <img src="../assets/self/patrol_statistic.png"> 巡查统计
     </button>
-    <button ion-item (click)="publicOpinion();">
+    <button ion-item *ngIf="hasPublicOpinion" (click)="publicOpinion();">
       <img src="../assets/self/public_opinion.png"> 舆情信息
     </button>
   </ion-list>

@@ -14,6 +14,7 @@ import { EnumAppRole } from "./../../models/enum";
 })
 export class TabsPage extends BasePage {
   private showPatrol: boolean;
+  private searchDefaultPage: number;
 
   private tab1Root: string;
   private tab2Root: string;
@@ -39,5 +40,18 @@ export class TabsPage extends BasePage {
   twoline() {
     var navOptions = { animation: 'wp-transition' };
     this.navCtrl.push("TwoLinePage", null, navOptions);
+  }
+
+  public showPatrolOnline() {
+    this.navCtrl.getAllChildNavs()[0].select(1);
+  }
+
+  public showPatrolStatistic() {
+    this.searchDefaultPage = 1;
+    this.navCtrl.getAllChildNavs()[0].select(2);
+  }
+
+  public searchSelected() {
+    this.searchDefaultPage = 0;
   }
 }

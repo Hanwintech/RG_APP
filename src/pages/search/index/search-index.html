@@ -1,9 +1,3 @@
-<!--
-  Generated template for the SearchIndexPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>查询</ion-title>
@@ -17,11 +11,14 @@
 
 <ion-content>
   <ion-segment [(ngModel)]="statistics">
-    <ion-segment-button value="cases">
+    <ion-segment-button value="cases" *ngIf="hasCase">
       案件统计
     </ion-segment-button>
-    <ion-segment-button value="inspect">
+    <ion-segment-button value="inspect" *ngIf="hasPatrol">
       巡查统计
+    </ion-segment-button>
+    <ion-segment-button value="culturalRelic">
+      可移动文物统计
     </ion-segment-button>
     <ion-segment-button value="laws">
       法律法规

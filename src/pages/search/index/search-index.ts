@@ -8,17 +8,19 @@ import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetCaseInputInfos } from './../../../apis/search/get-case-input-infos.api';
-import { CaseInfoSearch, CaseInfoSearchDataSource} from './../../../models/search/case-info-search.model';
+import { CaseInfoSearch, CaseInfoSearchDataSource } from './../../../models/search/case-info-search.model';
 import { CaseInputInfo } from './../../../models/search/case-input-info';
-import {EnumSearchType } from './../../../models/enum';
+import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 @IonicPage()
 @Component({
   selector: 'page-search-index',
   templateUrl: 'search-index.html',
 })
-export class SearchIndexPage  extends PagingListPage  {
+export class SearchIndexPage extends PagingListPage {
   private statistics: string;
+  private hasCase: boolean;
+  private hasPatrol: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -31,10 +33,11 @@ export class SearchIndexPage  extends PagingListPage  {
     public apiService: ApiService,
     public pageService: PageService,
     public systemConst: SystemConst
-  ) {    
-    super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst,   "CaseInfoSearchDataSource", "CaseInfoSearch");
- 
-    this. statistics= "cases";
+  ) {
+    super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "CaseInfoSearchDataSource", "CaseInfoSearch");
+
+    this.hasCase = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.SearchLaw);
+    this.hasPatrol = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.SearchPatrol);
 
     this.pageService.showLoading("数据加载中...");
 
@@ -47,21 +50,28 @@ export class SearchIndexPage  extends PagingListPage  {
     //初始化查询字段
     this.condition = new CaseInfoSearch();
     this.condition.isDefaultSearch = true;
-    this.condition.isNeedPaging = true; 
+    this.condition.isNeedPaging = true;
     this.condition.searchType = EnumSearchType.All;
     this.condition.pageSize = this.systemConst.DEFAULT_PAGE_SIZE;
 
     this.condition.userId = localStorage.getItem("userId");
     this.condition.manageUnitId = localStorage.getItem("manageUnitId");
     this.condition.userType = Number(localStorage.getItem("userType"));
-    this.condition.culturalRelicID=localStorage.getItem("culturalRelicID");
+    this.condition.culturalRelicID = localStorage.getItem("culturalRelicID");
 
-     //查询首页数据
-     this.nextPage(null);
+    //查询首页数据
+    this.nextPage(null);
   }
-  
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchIndexPage');
+
+  ionViewDidEnter() {
+    let searchDefaultPage = this.navCtrl.parent.viewCtrl.instance.searchDefaultPage;
+    if (searchDefaultPage == 1 && this.hasPatrol) {
+      this.statistics = "inspect";
+    } else if (this.hasCase) {
+      this.statistics = "cases";
+    } else {
+      this.statistics = "culturalRelic";
+    }
   }
   Statistics(listType: number) {
     this.navCtrl.push("SearchStatisticsPage", listType);

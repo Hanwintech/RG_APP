@@ -17,4 +17,10 @@ export class ReportQueryCaseSearch extends BaseApiSearch {
     public endQuarter: number;
     public startHalfYear: number;
     public endHalfYear: number;
+
+    constructor() {
+        super();
+        this.clearNumbers();
+    }
+    public clearNumbers() { }
 }

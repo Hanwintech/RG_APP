@@ -8,6 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
+import { EnumAppRole } from "./../../../models/enum";
 import { Attachment } from "./../../../models/attachment.model";
 
 @IonicPage()
@@ -16,6 +17,7 @@ import { Attachment } from "./../../../models/attachment.model";
   templateUrl: 'construction-site-info-detail.html',
 })
 export class ConstructionSiteInfoDetailPage extends DetailPage {
+  private canShowLocation: boolean;
   private culturalRelicInfo: CulturalRelicInfo;
 
   constructor(
@@ -27,7 +29,8 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
     public pageService: PageService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
-    
+
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
     this.culturalRelicInfo = new CulturalRelicInfo();
 
     let culturalRelicID = this.navParams.data

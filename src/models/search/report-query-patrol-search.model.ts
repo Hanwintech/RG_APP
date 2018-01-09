@@ -15,14 +15,21 @@ export class ReportQueryPatrolSearch extends BaseApiSearch {
     public endQuarter: number;
     public startHalfYear: number;
     public endHalfYear: number;
+
+    constructor() {
+        super();
+        this.clearNumbers();
+    }
+    public clearNumbers() { }
 }
+
 export class ReportQueryCaseSearchDataSource {
     public caseStateList: IntegerKeyValue[];
     public caseSourceList: IntegerKeyValue[];
     public investigationProcedureList: IntegerKeyValue[];
 }
-export class ReportQueryPatrolSearchDataSource{
-    public patrolStatusList: IntegerKeyValue[] ;
+export class ReportQueryPatrolSearchDataSource {
+    public patrolStatusList: IntegerKeyValue[];
 }
 
 

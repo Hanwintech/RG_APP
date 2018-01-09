@@ -8,7 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import * as MuseumAPI  from './../../../apis/property/museum.api';
 import { MuseumInfo, MuseumInfoSearch, MuseumInfoSearchDataSource } from './../../../models/property/museum-info.model';
-import { EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
+import { EnumAppRole, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
@@ -17,6 +17,8 @@ import { SystemConst } from './../../../services/system-const.service';
   templateUrl: 'museum-info-list.html',
 })
 export class MuseumInfoListPage extends PagingListPage {
+  private canAdd: boolean;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -29,6 +31,8 @@ export class MuseumInfoListPage extends PagingListPage {
     public systemConst: SystemConst
   ) {
     super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "museumInfoSearchDataSource", "museumInfoList");
+
+    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol);
 
     this.pageService.showLoading("数据加载中...");
 

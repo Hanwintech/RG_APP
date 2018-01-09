@@ -1,7 +1,7 @@
-<ion-tabs selectedIndex="1">
+<ion-tabs selectedIndex="3">
   <div (click)="twoline()" class="copyTwoLine"></div>
   <ion-tab [root]="tab1Root" tabIcon="eye"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="巡查" tabIcon="eye" *ngIf="showPatrol"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="查询" tabIcon="search"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="巡查" tabIcon="eye" [show]="showPatrol"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="查询" tabIcon="search" (ionSelect)="searchSelected()"></ion-tab>
   <ion-tab [root]="tab4Root" tabTitle="我的" tabIcon="contact"></ion-tab>
 </ion-tabs>

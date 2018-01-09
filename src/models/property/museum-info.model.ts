@@ -2,7 +2,7 @@ import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { BaseApiSearch } from "./../base-api-search.model";
 import { TreeDataInfo } from "./../tree-data-info.model";
-import { MapMark } from "./map-mark";
+import { MapMark } from "./../interface/map-mark.interface";
 import { EnumCulturalRelicLevel } from "./../enum";
 
 export class MuseumInfo implements MapMark {

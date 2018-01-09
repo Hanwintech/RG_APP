@@ -2,7 +2,7 @@ import { Attachment } from "./../attachment.model";
 import { IntegerKeyValue } from "./../integer-key-value.model";
 import { TwoLineInfo, UTMapDistrictCluster } from "./../two-line/two-line-info.model";
 import { TreeDataInfo } from "./../tree-data-info.model";
-import { MapMark } from "./map-mark";
+import { MapMark } from "./../interface/map-mark.interface";
 import { EnumCulturalRelicLevel } from "./../enum";
 
 export class CulturalRelicInfo implements MapMark {

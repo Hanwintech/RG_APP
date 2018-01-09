@@ -8,6 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import * as MuseumAPI  from './../../../apis/property/museum.api';
 import { MuseumInfo } from './../../../models/property/museum-info.model';
+import { EnumAppRole } from "./../../../models/enum";
 import { Attachment } from "./../../../models/attachment.model";
 
 @IonicPage()
@@ -16,6 +17,7 @@ import { Attachment } from "./../../../models/attachment.model";
   templateUrl: 'museum-info-detail.html',
 })
 export class MuseumInfoDetailPage extends DetailPage {
+  private canShowLocation: boolean;
   private museumInfo: MuseumInfo;
 
   constructor(
@@ -28,6 +30,7 @@ export class MuseumInfoDetailPage extends DetailPage {
   ) {
     super(navCtrl, file, fileTransfer, pageService);
 
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
     this.museumInfo = new MuseumInfo();
 
     let museumID = this.navParams.data

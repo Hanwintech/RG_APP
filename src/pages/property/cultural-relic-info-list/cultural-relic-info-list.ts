@@ -8,7 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetCulturalRelicInfoList, GetCulturalRelicInfo, DeleteCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo, UPGetCulturalRelicInfos, CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
-import { EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
+import { EnumAppRole, EnumCulturalRelicLevel, EnumSearchType, EnumCulturalRelicSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
@@ -17,6 +17,8 @@ import { SystemConst } from './../../../services/system-const.service';
   templateUrl: 'cultural-relic-info-list.html',
 })
 export class CulturalRelicInfoListPage extends PagingListPage {
+  private canAdd: boolean;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -29,6 +31,8 @@ export class CulturalRelicInfoListPage extends PagingListPage {
     public systemConst: SystemConst
   ) {
     super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "culturalRelicInfoSearchDataSource", "culturalRelicInfoList");
+
+    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol);
 
     this.pageService.showLoading("数据加载中...");
 

@@ -18,8 +18,6 @@ export class CaseConditionInquiryPage extends SearchPage<ReportQueryCaseSearch, 
   public investigationProcedureName: string;
   public caseState: number[];
   public caseStateName: string;
-  // public startDateTime: string;
-  // public endDateTime: string;
 
   constructor(
     public navCtrl: NavController,

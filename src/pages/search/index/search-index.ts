@@ -1,27 +1,72 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { Platform } from 'ionic-angular';
 
+import { ApiService } from './../../../services/api.service';
+import { PageService } from './../../../services/page.service';
+import { PagingListPage } from './../../../base-pages/list-page';
+import { GetCaseInputInfos } from './../../../apis/search/get-case-input-infos.api';
+import { CaseInfoSearch, CaseInfoSearchDataSource} from './../../../models/search/case-info-search.model';
+import { CaseInputInfo } from './../../../models/search/case-input-info';
+import {EnumSearchType } from './../../../models/enum';
+import { SystemConst } from './../../../services/system-const.service';
 @IonicPage()
 @Component({
   selector: 'page-search-index',
   templateUrl: 'search-index.html',
 })
-export class SearchIndexPage {
-  statistics: string = "cases";
-  isAndroid: boolean = false;
+export class SearchIndexPage  extends PagingListPage  {
+  private statistics: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,platform: Platform) {
-    this.isAndroid = platform.is('android');
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public platform: Platform,
+    public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController,
+    public file: File,
+    public fileTransfer: FileTransfer,
+    public apiService: ApiService,
+    public pageService: PageService,
+    public systemConst: SystemConst
+  ) {    
+    super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst,   "CaseInfoSearchDataSource", "CaseInfoSearch");
+ 
+    this. statistics= "cases";
+
+    this.pageService.showLoading("数据加载中...");
+
+    //初始化父类参数
+    this.api = new GetCaseInputInfos();
+    this.condition = new CaseInfoSearch();
+    this.conditionDataSource = new CaseInfoSearchDataSource();
+    this.dataList = [];
+
+    //初始化查询字段
+    this.condition = new CaseInfoSearch();
+    this.condition.isDefaultSearch = true;
+    this.condition.isNeedPaging = true; 
+    this.condition.searchType = EnumSearchType.All;
+    this.condition.pageSize = this.systemConst.DEFAULT_PAGE_SIZE;
+
+    this.condition.userId = localStorage.getItem("userId");
+    this.condition.manageUnitId = localStorage.getItem("manageUnitId");
+    this.condition.userType = Number(localStorage.getItem("userType"));
+    this.condition.culturalRelicID=localStorage.getItem("culturalRelicID");
+
+     //查询首页数据
+     this.nextPage(null);
   }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchIndexPage');
   }
-  Statistics(listType: number){
+  Statistics(listType: number) {
     this.navCtrl.push("SearchStatisticsPage", listType);
   }
-  inspectStatistics(listType: number){
+  inspectStatistics(listType: number) {
     this.navCtrl.push("InspectStatisticsPage", listType);
   }
 }

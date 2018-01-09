@@ -20,12 +20,9 @@ export class InspectConditionInquiryPage extends SearchPage<ReportQueryPatrolSea
     public navCtrl: NavController,
     public params: NavParams,
     public viewCtrl: ViewController,
-    //public modalCtrl: ModalController,
-    //public alertCtrl: AlertController,
     public pageService: PageService
   ) {
     super(params, viewCtrl);
-    //this.search.patrolStatus=-1;
   }
 
   clear() {

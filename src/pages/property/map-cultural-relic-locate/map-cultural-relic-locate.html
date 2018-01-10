@@ -15,9 +15,9 @@
 </ion-header>
 <ion-content>
   <div class="topHeader">
-    <div>
-      <div style="font-size:13px;">{{culturalRelicName}}</div>
-      <div>{{location}}</div>
+    <div *ngIf="culturalRelicMapInfo">
+      <div style="font-size:14px;">{{culturalRelicMapInfo.name}}</div>
+      <div style="font-size:0.6em;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">{{culturalRelicMapInfo.location}}</div>
     </div>
   </div>
   <div class="card">
@@ -31,16 +31,16 @@
   <div id="map-content">
     <div id="map" #map></div>
   </div>
-  <div style="position:absolute;bottom:0;width:100%;">
-      <ion-item>
-        <ion-label>标注精确度</ion-label>
-        <ion-select [(ngModel)]="coordinateAccurate" interface="popover">
-          <ion-option *ngFor="let item of coordinateAccurateList" value="{{item.key}}">{{item.value}}</ion-option>
-        </ion-select>
-      </ion-item>
+  <div *ngIf="culturalRelicMapInfo&&canShowFooter" style="position:absolute;bottom:45px;width:100%;">
+    <ion-item>
+      <ion-label>标注精确度</ion-label>
+      <ion-select [(ngModel)]="culturalRelicMapInfo.coordinateAccurate" interface="popover">
+        <ion-option *ngFor="let item of coordinateAccurateList" value="{{item.key}}">{{item.value}}</ion-option>
+      </ion-select>
+    </ion-item>
   </div>
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="canShowFooter">
   <ion-grid>
     <ion-row>
       <ion-col>

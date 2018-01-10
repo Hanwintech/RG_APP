@@ -9,6 +9,7 @@ export class MuseumInfo implements MapMark {
     public museumDetailInfo: MuseumInfoDetail;
     public miniImageUrl: string;
     public attachmentList: Attachment[];
+    public coordinateAccurateList: IntegerKeyValue[];
     public get id() {
         return this.museumDetailInfo.id;
     }
@@ -27,8 +28,14 @@ export class MuseumInfo implements MapMark {
     public get culturalRelicX() {
         return this.museumDetailInfo.coordinateX;
     }
+    public set culturalRelicX(value) { 
+        this.museumDetailInfo.coordinateX= value;
+     }
     public get culturalRelicY() {
         return this.museumDetailInfo.coordinateY;
+    }
+    public set culturalRelicY(value) {
+        this.museumDetailInfo.coordinateY= value;
     }
     public get culturalRelicLevel() {
         return EnumCulturalRelicLevel["博物馆"];

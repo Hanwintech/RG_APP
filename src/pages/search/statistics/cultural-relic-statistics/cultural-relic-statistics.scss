@@ -1,0 +1,64 @@
+page-cultural-relic-statistics {
+    ion-toolbar {
+        .toolbar-background {
+            background: #fff;
+        }
+    }
+    ion-list {
+        .item-block {
+            padding-left: 0;
+            .item-inner {
+                padding-left: 16px;
+            }
+        }
+    }
+    .Total {
+        padding: 15px 0;
+        .total {
+            display: inline-block;
+            width: 48.5%;
+            font-size: 12px; // text-align: center;
+            padding: 5px 0 5px 16px;
+            height: 52px;
+            border-right: solid 1px #c7c7c7;
+            div:last-child {
+                padding-top: 5px;
+                font-size: 18px;
+            }
+        }
+        .total:last-child {
+            border-right: 0;
+        }
+    }
+    .category {
+        float: left;
+        width: 68%;
+        h3 {
+            float: left;
+            width: 80px;
+        }
+    }
+    .cases {
+        float: right;
+        width: 32%;
+        h3 {
+            float: left;
+            width: 65px;
+        }
+        p {
+            float: left;
+            line-height: 1.5;
+        }
+    }
+    .fine {
+        width: 100%;
+        h3 {
+            float: left;
+            width: 80px;
+        }
+        p {
+            float: left;
+            line-height: 1.5;
+        }
+    }
+}

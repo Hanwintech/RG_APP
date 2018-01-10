@@ -7,9 +7,9 @@ import { Platform } from 'ionic-angular';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
-import { GetCaseInputInfos } from './../../../apis/search/get-case-input-infos.api';
-import { CaseInfoSearch, CaseInfoSearchDataSource } from './../../../models/search/case-info-search.model';
-import { CaseInputInfo } from './../../../models/search/case-input-info';
+import { GetLawFileInfos } from './../../../apis/search/get-law-file-infos.api';
+import { LawFileInfoSearch} from './../../../models/search/law-file-info-search.model';
+import { LawFileInfos } from './../../../models/search/law-file-infos.model';
 import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 @IonicPage()
@@ -34,7 +34,7 @@ export class SearchIndexPage extends PagingListPage {
     public pageService: PageService,
     public systemConst: SystemConst
   ) {
-    super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "CaseInfoSearchDataSource", "CaseInfoSearch");
+    super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "", "lawFileInfoList");
 
     this.hasCase = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.SearchLaw);
     this.hasPatrol = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.SearchPatrol);
@@ -42,13 +42,13 @@ export class SearchIndexPage extends PagingListPage {
     this.pageService.showLoading("数据加载中...");
 
     //初始化父类参数
-    this.api = new GetCaseInputInfos();
-    this.condition = new CaseInfoSearch();
-    this.conditionDataSource = new CaseInfoSearchDataSource();
+    this.api = new GetLawFileInfos();
+    this.condition = new LawFileInfoSearch();
+    //this.conditionDataSource = new CaseInfoSearchDataSource();
     this.dataList = [];
 
     //初始化查询字段
-    this.condition = new CaseInfoSearch();
+    this.condition = new LawFileInfoSearch();
     this.condition.isDefaultSearch = true;
     this.condition.isNeedPaging = true;
     this.condition.searchType = EnumSearchType.All;
@@ -57,7 +57,6 @@ export class SearchIndexPage extends PagingListPage {
     this.condition.userId = localStorage.getItem("userId");
     this.condition.manageUnitId = localStorage.getItem("manageUnitId");
     this.condition.userType = Number(localStorage.getItem("userType"));
-    this.condition.culturalRelicID = localStorage.getItem("culturalRelicID");
 
     //查询首页数据
     this.nextPage(null);
@@ -78,5 +77,8 @@ export class SearchIndexPage extends PagingListPage {
   }
   inspectStatistics(listType: number) {
     this.navCtrl.push("InspectStatisticsPage", listType);
+  } 
+  culturalRelicStatistics(listType: number) {
+    this.navCtrl.push("CulturalRelicStatisticsPage", listType);
   }
 }

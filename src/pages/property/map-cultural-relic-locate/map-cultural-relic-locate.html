@@ -34,9 +34,8 @@
   <div style="position:absolute;bottom:0;width:100%;">
       <ion-item>
         <ion-label>标注精确度</ion-label>
-        <ion-select placeholder="请选择" interface="popover" cancelText="取消" [(ngModel)]="gaming">
-          <ion-option value="nes">明确</ion-option>
-          <ion-option value="n64">稍有偏差</ion-option>
+        <ion-select [(ngModel)]="coordinateAccurate" interface="popover">
+          <ion-option *ngFor="let item of coordinateAccurateList" value="{{item.key}}">{{item.value}}</ion-option>
         </ion-select>
       </ion-item>
   </div>

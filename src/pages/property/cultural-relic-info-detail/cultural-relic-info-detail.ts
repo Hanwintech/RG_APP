@@ -10,6 +10,7 @@ import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-in
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
 import { EnumAppRole } from "./../../../models/enum";
 import { Attachment } from "./../../../models/attachment.model";
+import { Console } from '@angular/core/src/console';
 
 @IonicPage()
 @Component({
@@ -40,7 +41,6 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
       res => {
         if (res.success) {
           this.culturalRelicInfo = res.data;
-
           super.changeAttachmentFileType(this.culturalRelicInfo.attachmentList)
           super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
           super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitAttachmentList)
@@ -70,10 +70,13 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
-    // console.log(this.culturalRelicInfo.upCulturalRelic.culturalRelicID);
-    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage");
-    locate.onDidDismiss(data => {
+    let culturalRelicMapInfo = new CulturalRelicInfo();
+    culturalRelicMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
+    culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfo.twoLineInfoList;
 
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfo.coordinateAccurateList });
+    locate.onDidDismiss(data => {
+      console.log(data);
     });
     locate.present();
   }

@@ -12,4 +12,6 @@ export interface MapMark {
     culturalRelicLevel:number;
     //两线信息
     twolineInfo:any;
+    //标注精确度
+    coordinateAccurate:any;
 }

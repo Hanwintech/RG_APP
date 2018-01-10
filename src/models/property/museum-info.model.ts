@@ -36,6 +36,9 @@ export class MuseumInfo implements MapMark {
     public get twolineInfo() {
         return false;
     }
+    public get coordinateAccurate() {
+        return this.museumDetailInfo.coordinateAccurate;
+    }
     constructor() {
         this.museumDetailInfo = new MuseumInfoDetail();
     }

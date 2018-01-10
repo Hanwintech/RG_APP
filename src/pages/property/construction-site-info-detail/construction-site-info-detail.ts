@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -23,6 +23,7 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalCtrl: ModalController,
     public file: File,
     public fileTransfer: FileTransfer,
     public apiService: ApiService,
@@ -69,6 +70,14 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
-    console.log(this.culturalRelicInfo.upCulturalRelic.culturalRelicID);
+    let culturalRelicMapInfo = new CulturalRelicInfo();
+    culturalRelicMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
+    culturalRelicMapInfo.culturalRelicPostInfo = this.culturalRelicInfo.culturalRelicPostInfo;
+
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":culturalRelicMapInfo,"coordinateAccurateList":this.culturalRelicInfo.coordinateAccurateList});
+    locate.onDidDismiss(data => {
+
+    });
+    locate.present();
   }
 }

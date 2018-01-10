@@ -36,19 +36,27 @@ export class CulturalRelicInfo implements MapMark {
     public get culturalRelicX() {
         return this.culturalRelic.coordinateX;
     }
+    public set culturalRelicX(value) { 
+        this.culturalRelic.coordinateX= value;
+     }
     public get culturalRelicY() {
         return this.culturalRelic.coordinateY;
+    }
+    public set culturalRelicY(value) {
+        this.culturalRelic.coordinateY= value;
     }
     public get culturalRelicLevel() {
         return this.culturalRelic.culturalRelicLevel;
     }
     public get twolineInfo() {
-        return this.culturalRelicPostInfo.twoLinetwoLineInfoList;
+        return this.twoLineInfoList;
+    }
+    public get coordinateAccurate() {
+        return this.culturalRelic.coordinateAccurate;
     }
     constructor() {
         this.culturalRelic = new CulturalRelicInfoDetail();
         this.upCulturalRelic = new UPGetCulturalRelicInfos();
-        this.culturalRelicPostInfo = new CulturalRelicPostInfo();
     }
 }
 
@@ -74,6 +82,7 @@ export class CulturalRelicInfoDetail {
     public coordinateTypeName: string;
     public coordinateType: number;
     public coordinateAccurateName: string;
+    public coordinateAccurate:number;
     public remark: string;
     public sortIndex: number;
     public addDate: string;

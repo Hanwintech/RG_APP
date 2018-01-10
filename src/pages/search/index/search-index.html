@@ -106,6 +106,22 @@
       </ion-grid>
     </ion-list>
 
+    <ion-list *ngSwitchCase="'culturalRelic'">
+      <ion-grid>
+        <ion-row>
+          <ion-col (click)='culturalRelicStatistics(1)' text-center>
+            <img src="assets/icon/ic_search_level.png">
+            <p>按位置统计</p>
+          </ion-col>
+          <ion-col (click)='culturalRelicStatistics(2)' text-center>
+            <img src="assets/icon/ic_search_rectification.png">
+            <p>按级别统计</p>
+          </ion-col>
+          <ion-col text-center></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
     <ion-list *ngSwitchCase="'laws'">
       <div>
         <ion-list>

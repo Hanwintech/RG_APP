@@ -68,8 +68,13 @@ export class MapPage extends DetailPage {
             res => {
                 if (res.success) {
                     this.culturalRelicInfo = res.data;
-                    super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
-                    this.showPicture("", this.culturalRelicInfo.twoLimitImageList);
+                    if(this.culturalRelicInfo.twoLimitImageList){
+                        super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
+                        this.showPicture("", this.culturalRelicInfo.twoLimitImageList);
+                    }
+                    else{
+                        this.pageService.showErrorMessage("没有相关图片！");
+                    }
                 } else {
                     this.pageService.showErrorMessage(res.reason);
                 }
@@ -103,7 +108,6 @@ export class MapPage extends DetailPage {
         this.apiService.sendApi(new GetCulturalRelicMapInfosUrl(this.search)).subscribe(
             res => {
                 if (res.success) {
-                    console.log(res.data);
                     this.twoLine = res.data.twoLineInfoList;
                     this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
                     this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;

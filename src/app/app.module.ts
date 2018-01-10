@@ -21,6 +21,8 @@ import { nativeImgService } from "./../services/nativeImg.service";
 import { FileUploadService } from "./../services/file-upload.service";
 import { ImagePickerService } from "./../services/image-picker.service";
 import { SystemConst } from './../services/system-const.service';
+import { SMS } from '@ionic-native/sms';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { SystemConst } from './../services/system-const.service';
   providers: [
     StatusBar,
     SplashScreen,
+    SMS,
+    CallNumber,
     Geolocation,
     File,
     FileTransfer,

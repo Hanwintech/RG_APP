@@ -31,6 +31,8 @@ export class MyApp {
 
       //注册返回按键事件
       //this.registerBackButtonAction();
+
+      //注册极光推送
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
         (<any>window).plugins.jPushPlugin.init();
         (<any>window).plugins.jPushPlugin.getRegistrationID(function (data) {

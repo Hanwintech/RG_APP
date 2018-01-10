@@ -2,14 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Geolocation } from '@ionic-native/geolocation';
-
-import { ApiService } from './../services/api.service';
-import { PageService } from './../services/page.service';
-import { PostUserCoordinateInfo } from './../apis/system/system.api';
-import { UserLocationInfo } from './../models/system/user-location-info.model';
-
-declare var BMap;
+import { Device } from '@ionic-native/device';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,10 +18,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public toastCtrl: ToastController,
-    public geolocation: Geolocation,
     public ionicApp: IonicApp,
-    public apiService: ApiService,
-    public pageService: PageService
+    public device: Device
   ) {
     this.initializeApp();
   }
@@ -37,8 +28,36 @@ export class MyApp {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      //this.registerBackButtonAction();//注册返回按键事件
-      this.watchPosition();//监控实时位置
+
+      //注册返回按键事件
+      //this.registerBackButtonAction();
+      if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+        (<any>window).plugins.jPushPlugin.init();
+        (<any>window).plugins.jPushPlugin.getRegistrationID(function (data) {
+          // if (data) {
+          //   let request: BaseRequest = new BaseRequest();
+          //   request.method = "Post";
+          //   request.requestUrl = "/api/Users/Registration";
+          //   request.requestBody = { "registrationID": data };
+          //   this.apiService.sendApi(request).subscribe(
+          //     res => { alert(res); });
+          // }
+        });
+
+        document.addEventListener("jpush.receiveNotification", event => {
+          let alertContent;
+          if (this.device.platform == 'Android') {
+            alertContent = (<any>event).alert;
+          } else {
+            alertContent = (<any>event).aps.alert
+          }
+          let toast = this.toastCtrl.create({ message: alertContent, duration: 3000, position: 'bottom' });
+          toast.present();
+        }, false);
+      }
+
+      //检查APP更新
+      //this.nativeService.detectionUpgrade();
     });
   }
 
@@ -83,55 +102,5 @@ export class MyApp {
       this.backButtonPressed = true;
       setTimeout(() => this.backButtonPressed = false, 2000);//2秒内没有再次点击返回则将触发标志标记为false
     }
-  }
-
-  //监控实时位置
-  watchPosition() {
-    // localStorage.setItem('longitude', '120.78877004348');
-    // localStorage.setItem('latitude', '31.346248778536');
-
-    this.geolocation.watchPosition().subscribe(
-      res => {
-        if (res && res.coords) {
-          let pointArr = [new BMap.Point(res.coords.longitude, res.coords.latitude)];
-          new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
-            if (data.status === 0) {
-              localStorage.setItem('longitude', data.points[0].lng);
-              localStorage.setItem('latitude', data.points[0].lat);
-              this.uploadLocation();
-            } else {
-              localStorage.removeItem('longitude');
-              localStorage.removeItem('latitude');
-              this.pageService.showErrorMessage("获取地理坐标失败！");
-            }
-          }.bind(this));
-        } else {
-          localStorage.removeItem('longitude');
-          localStorage.removeItem('latitude');
-          this.pageService.showErrorMessage("获取地理位置失败！");
-        }
-        // localStorage.setItem('longitude', '120.78877004348');
-        // localStorage.setItem('latitude', '31.346248778536');
-      },
-      error => {
-        this.pageService.showErrorMessage("获取地理位置出错！");
-      },
-      () => {
-        localStorage.removeItem('longitude');
-        localStorage.removeItem('latitude');
-      }
-    );
-  }
-
-  uploadLocation(){
-    let location: UserLocationInfo = new UserLocationInfo();
-    location.userId = localStorage.getItem('userId')
-    location.longitude = localStorage.getItem('longitude')
-    location.latitude = localStorage.getItem('latitude')
-    this.apiService.sendApi(new PostUserCoordinateInfo(location)).subscribe(
-      res => { },
-      error => { this.pageService.showErrorMessage("上传地理坐标出错！"); },
-      () => { }
-    );
   }
 }

@@ -10,6 +10,7 @@ import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { Device } from '@ionic-native/device';
 
 import { MyApp } from './app.component';
 
@@ -59,6 +60,7 @@ import { SystemConst } from './../services/system-const.service';
     ImagePickerService,
     Camera,
     ImagePicker,
+    Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

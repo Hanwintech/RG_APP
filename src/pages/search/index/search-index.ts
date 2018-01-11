@@ -8,7 +8,7 @@ import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetLawFileInfos } from './../../../apis/search/get-law-file-infos.api';
-import { LawFileInfoSearch} from './../../../models/search/law-file-info-search.model';
+import { LawFileInfoSearch } from './../../../models/search/law-file-info-search.model';
 import { LawFileInfos } from './../../../models/search/law-file-infos.model';
 import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
@@ -64,20 +64,31 @@ export class SearchIndexPage extends PagingListPage {
 
   ionViewDidEnter() {
     let searchDefaultPage = this.navCtrl.parent.viewCtrl.instance.searchDefaultPage;
-    if (searchDefaultPage == 1 && this.hasPatrol) {
-      this.statistics = "inspect";
+    if (searchDefaultPage == 0 && this.hasCase) {
+      this.statistics = "cases";
+    } else if (searchDefaultPage == 1 && this.hasPatrol) {
+      this.statistics = "culturalRelic";
+    } else if (searchDefaultPage == 2) {
+      this.statistics = "culturalRelic";
+    } else if (searchDefaultPage == 3) {
+      this.statistics = "laws";
     } else if (this.hasCase) {
       this.statistics = "cases";
     } else {
       this.statistics = "culturalRelic";
     }
   }
+
+  changeSegment(segIndex) {
+    this.navCtrl.parent.viewCtrl.instance.searchDefaultPage = segIndex;
+  }
+
   Statistics(listType: number) {
     this.navCtrl.push("SearchStatisticsPage", listType);
   }
   inspectStatistics(listType: number) {
     this.navCtrl.push("InspectStatisticsPage", listType);
-  } 
+  }
   culturalRelicStatistics(listType: number) {
     this.navCtrl.push("CulturalRelicStatisticsPage", listType);
   }

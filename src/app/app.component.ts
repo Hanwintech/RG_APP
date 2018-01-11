@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Device } from '@ionic-native/device';
 
+import { NativeService } from './../services/native.service';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,7 +21,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public toastCtrl: ToastController,
     public ionicApp: IonicApp,
-    public device: Device
+    public device: Device,
+    public nativeService: NativeService
   ) {
     this.initializeApp();
   }
@@ -59,7 +62,7 @@ export class MyApp {
       }
 
       //检查APP更新
-      //this.nativeService.detectionUpgrade();
+      this.nativeService.detectionUpgrade();
     });
   }
 
@@ -82,10 +85,6 @@ export class MyApp {
       }
       console.log(this.nav);
       console.log(this.nav.getViews());
-      console.log(this.nav.getActiveChildNavs());
-      console.log(this.nav.getActiveChildNavs()[0].length());
-      console.log(this.nav.getActiveChildNavs()[0].getActiveChildNavs());
-      console.log(this.nav.getActiveChildNavs()[0].getActiveChildNavs().length);
       console.log(this.nav.getActiveChildNavs()[0].getActiveChildNavs()[0]);
       return this.nav.canGoBack() ? this.nav.pop() : this.showExit()
     }, 1);

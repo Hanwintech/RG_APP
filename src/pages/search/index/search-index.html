@@ -11,16 +11,16 @@
 
 <ion-content>
   <ion-segment [(ngModel)]="statistics">
-    <ion-segment-button value="cases" *ngIf="hasCase">
+    <ion-segment-button value="cases" *ngIf="hasCase" (click)="changeSegment(0)">
       案件统计
     </ion-segment-button>
-    <ion-segment-button value="inspect" *ngIf="hasPatrol">
+    <ion-segment-button value="inspect" *ngIf="hasPatrol" (click)="changeSegment(1)">
       巡查统计
     </ion-segment-button>
-    <ion-segment-button value="culturalRelic">
+    <ion-segment-button value="culturalRelic" (click)="changeSegment(2)">
       可移动文物统计
     </ion-segment-button>
-    <ion-segment-button value="laws">
+    <ion-segment-button value="laws" (click)="changeSegment(3)">
       法律法规
     </ion-segment-button>
   </ion-segment>

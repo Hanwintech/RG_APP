@@ -56,6 +56,11 @@ export class TabsPage extends BasePage {
     this.navCtrl.getAllChildNavs()[0].select(1);
   }
 
+  public showMoveableStatistic() {
+    this.searchDefaultPage = 2;
+    this.navCtrl.getAllChildNavs()[0].select(2);
+  }
+
   public showPatrolStatistic() {
     this.searchDefaultPage = 1;
     this.navCtrl.getAllChildNavs()[0].select(2);
@@ -103,7 +108,7 @@ export class TabsPage extends BasePage {
     );
   }
 
-  uploadLocation(){
+  uploadLocation() {
     let location: UserLocationInfo = new UserLocationInfo();
     location.userId = localStorage.getItem('userId')
     location.longitude = localStorage.getItem('longitude')

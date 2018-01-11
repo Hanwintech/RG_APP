@@ -23,6 +23,7 @@ export class SelfIndexPage extends BasePage {
   private hasMessageCenter: boolean;
   private hasPatrolAdd: boolean;
   private hasPatrolOnline: boolean;
+  private hasMoveableStatistic: boolean;
   private hasPatrolStatistic: boolean;
   private hasPublicOpinion: boolean;
 
@@ -44,6 +45,7 @@ export class SelfIndexPage extends BasePage {
     this.hasMessageCenter = false;
     this.hasPatrolAdd = false;
     this.hasPatrolOnline = false;
+    this.hasMoveableStatistic = false;
     this.hasPatrolStatistic = false;
     this.hasPublicOpinion = false;
 
@@ -55,6 +57,7 @@ export class SelfIndexPage extends BasePage {
       this.hasMessageCenter = true;
       this.hasPatrolAdd = true;
       this.hasPatrolOnline = true;
+      this.hasMoveableStatistic = true;
       this.hasPatrolStatistic = true;
       this.hasPublicOpinion = true;
     }
@@ -66,6 +69,7 @@ export class SelfIndexPage extends BasePage {
       this.hasNotice = true;
       this.hasMessageCenter = true;
       this.hasPatrolOnline = true;
+      this.hasMoveableStatistic = true;
       this.hasPatrolStatistic = true;
       this.hasPublicOpinion = true;
     }
@@ -74,6 +78,7 @@ export class SelfIndexPage extends BasePage {
       this.hasCulturalRelicTwoLine = true;
       this.hasPatrolAdd = true;
       this.hasPatrolOnline = true;
+      this.hasMoveableStatistic = true;
       this.hasPublicOpinion = true;
     }
   }
@@ -141,6 +146,10 @@ export class SelfIndexPage extends BasePage {
 
   patrolOnline() {
     this.navCtrl.parent.viewCtrl.instance.showPatrolOnline();
+  }
+
+  moveableStatistic(){
+    this.navCtrl.parent.viewCtrl.instance.showMoveableStatistic();
   }
 
   patrolStatistic() {

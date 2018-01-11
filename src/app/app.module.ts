@@ -11,6 +11,10 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Device } from '@ionic-native/device';
+import { SMS } from '@ionic-native/sms';
+import { CallNumber } from '@ionic-native/call-number';
+import { AppVersion } from '@ionic-native/app-version';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { MyApp } from './app.component';
 
@@ -21,8 +25,7 @@ import { nativeImgService } from "./../services/nativeImg.service";
 import { FileUploadService } from "./../services/file-upload.service";
 import { ImagePickerService } from "./../services/image-picker.service";
 import { SystemConst } from './../services/system-const.service';
-import { SMS } from '@ionic-native/sms';
-import { CallNumber } from '@ionic-native/call-number';
+import { NativeService } from './../services/native.service';
 
 @NgModule({
   declarations: [
@@ -59,10 +62,13 @@ import { CallNumber } from '@ionic-native/call-number';
     PageService,
     ValidateService,
     SystemConst,
+    NativeService,
     nativeImgService,
     FileUploadService,
     ImagePickerService,
     Camera,
+    AppVersion,
+    InAppBrowser,
     ImagePicker,
     Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler }

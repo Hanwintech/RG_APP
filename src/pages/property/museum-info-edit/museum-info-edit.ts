@@ -15,6 +15,7 @@ import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { ValidateService } from './../../../services/validate.service';
 import { SystemConst } from './../../../services/system-const.service';
 import { BasePage } from "./../../../base-pages/base-page";
+import { EnumCulturalRelicLevel } from './../../../models/enum';
 
 @IonicPage()
 @Component({
@@ -98,7 +99,14 @@ export class MuseumInfoEditPage extends BasePage {
     }
   }
 
-  getCoordinate() { }
+  getCoordinate() {
+    console.log(this.museumInfo);
+    let locate = this.modalCtrl.create("MapLocatePage", {"coordinate":this.museumPostInfo.museumInfo,"culturalLevel":EnumCulturalRelicLevel["博物馆"]});
+    locate.onDidDismiss(data => {
+
+    });
+    locate.present();
+  }
 
   selectMiniImage() {
     let actionSheet = this.actionSheetCtrl.create({

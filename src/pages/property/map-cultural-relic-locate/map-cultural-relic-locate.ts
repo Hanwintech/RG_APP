@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController, ViewController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ViewController, ActionSheetController } from 'ionic-angular';
 import { EnumCulturalRelicLevel } from './../../../models/enum';
-import { ActionSheet } from 'ionic-angular/components/action-sheet/action-sheet';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { ApiService } from './../../../services/api.service';
 import { Attachment } from "./../../../models/attachment.model";
@@ -11,8 +10,6 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { PageService } from './../../../services/page.service';
 
 declare var BMap;
-declare var BMAP_NORMAL_MAP;
-declare var BMAP_HYBRID_MAP;
 @IonicPage()
 @Component({
   selector: 'page-map-cultural-relic-locate',
@@ -35,24 +32,58 @@ export class MapCulturalRelicLocatePage extends BasePage {
     public file: File,
     public fileTransfer: FileTransfer,
     public actionSheetCtrl: ActionSheetController) {
-      super(navCtrl,file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService);
   }
 
-  ionViewDidEnter() {
+  ionViewDidLoad() {
     this.initialEvent();
+    this.map.addOverlay(this.marker);
+    this.map.centerAndZoom(new BMap.Point(this.culturalRelicMapInfo.culturalRelicX, this.culturalRelicMapInfo.culturalRelicY), 15);
+    if(this.culturalRelicMapInfo.twolineInfo){
+      for (let info of this.culturalRelicMapInfo.twolineInfo) {
+        let color = "#" + info.twoLinePolygon.color;
+        if (info.twoLinePolygon.polygonType == 2) {
+          color = "#507daf";
+        }
+        let line = [];
+        for (let twoLinePoint of info.twoLinePointList) {
+          line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
+        }
+        this.drawTwoLine(line, color);
+      }
+    }
+  }
+
+  //初始化数据及动作
+  initialEvent() {
+    this.culturalRelicMapInfo = this.navParams.data.culturalRelicMapInfo;
+    this.coordinateAccurateList = this.navParams.data.coordinateAccurateList;
+    this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
+    this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
+    this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
+    this.addMarker();
+  }
+
+  moveMarker() {
     this.marker.enableDragging();
     this.marker.addEventListener("dragend", function (e) {
       this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
       this.culturalRelicMapInfo.culturalRelicY = e.point.v;
     }.bind(this));
-    this.map.addOverlay(this.marker);
-    this.map.centerAndZoom(new BMap.Point(this.culturalRelicMapInfo.culturalRelicX, this.culturalRelicMapInfo.culturalRelicY), 15);
+
+    this.enableClick();
     this.map.addEventListener("click", function (e) {
       this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
       this.culturalRelicMapInfo.culturalRelicY = e.point.lat;
       this.addMarker();
+      this.marker.enableDragging();
       this.map.addOverlay(this.marker);
     }.bind(this));
+  }
+
+  disableMarker() {
+    this.marker.disableDragging();
+    this.map.removeEventListener("click");
   }
 
   viewDetail() {
@@ -67,10 +98,10 @@ export class MapCulturalRelicLocatePage extends BasePage {
     this.apiService.sendApi(new GetCulturalRelicInfo(this.culturalRelicMapInfo.culturalRelicId)).subscribe(
       res => {
         if (res.success) {
-         let culturalRelicImageInfo = res.data;
+          let culturalRelicImageInfo = res.data;
           super.changeAttachmentFileType(culturalRelicImageInfo.twoLimitImageList)
           this.showPicture("", culturalRelicImageInfo.twoLimitImageList);
-          if(!culturalRelicImageInfo.twoLimitImageList.length){
+          if (!culturalRelicImageInfo.twoLimitImageList.length) {
             this.pageService.showErrorMessage("无相关图片！");
           }
         } else {
@@ -82,21 +113,9 @@ export class MapCulturalRelicLocatePage extends BasePage {
       });
   }
 
-    //查看图片
-    showPicture(fileUrl: string, attachmentList: Attachment[]) {
-      super.showSlidesPage(attachmentList, fileUrl);
-  }
-
-  //初始化数据及动作
-  initialEvent() {
-    this.culturalRelicMapInfo = this.navParams.data.culturalRelicMapInfo;
-    console.log(this.culturalRelicMapInfo);
-    this.coordinateAccurateList = this.navParams.data.coordinateAccurateList;
-    this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
-    this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
-    this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
-    this.addMarker();
-    this.enableClick();
+  //查看图片
+  showPicture(fileUrl: string, attachmentList: Attachment[]) {
+    super.showSlidesPage(attachmentList, fileUrl);
   }
 
   addMarker() {
@@ -107,7 +126,6 @@ export class MapCulturalRelicLocatePage extends BasePage {
     let pointData = new BMap.Point(this.culturalRelicMapInfo.culturalRelicX, this.culturalRelicMapInfo.culturalRelicY);
     let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
     this.marker = new BMap.Marker(pointData, { icon: myLocation });
-    this.marker.enableDragging();
     this.marker.addEventListener("dragend", function (e) {
       this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
       this.culturalRelicMapInfo.culturalRelicY = e.point.v;
@@ -118,10 +136,10 @@ export class MapCulturalRelicLocatePage extends BasePage {
     let actionSheet = this.actionSheetCtrl.create({
       title: '操作',
       buttons: [
-        { text: '查看相关图片', handler: () => {this.viewPic() } },
-        { text: '查看相关案件', handler: () => {this.viewPatrol() } },
+        { text: '查看相关图片', handler: () => { this.viewPic() } },
+        { text: '查看相关案件', handler: () => { this.viewPatrol() } },
         { text: '查看相关巡查', handler: () => { this.viewPatrol() } },
-        { text: '标注文物点', handler: () => { this.canShowFooter = true; } }
+        { text: '标注文物点', handler: () => { this.canShowFooter = true; this.moveMarker(); } }
       ]
     });
     actionSheet.present();
@@ -160,6 +178,12 @@ export class MapCulturalRelicLocatePage extends BasePage {
     }
     return picsName;
   }
+
+
+  drawTwoLine(linePoint, color) {
+    let Polygon = new BMap.Polygon(linePoint, { strokeColor: color, fillColor: "", fillOpacity: 0.3, strokeWeight: 2, strokeOpacity: 1 });   //创建折线
+    this.map.addOverlay(Polygon);
+}
 
   back() {
     this.viewCtrl.dismiss();

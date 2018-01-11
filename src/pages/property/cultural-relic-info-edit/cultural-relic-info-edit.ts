@@ -124,7 +124,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
   }
 
   getCoordinate() {
-    let locate = this.modalCtrl.create("MapLocatePage", this.culturalRelicInfo);
+    let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel});
     locate.onDidDismiss(data => {
    
     });

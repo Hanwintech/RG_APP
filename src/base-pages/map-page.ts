@@ -1,5 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
+import { NavController, NavParams, Platform, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ApiService } from './../services/api.service';
 import { GetCulturalRelicMapInfosUrl } from './../apis/two-line/two-line.api';
@@ -16,8 +15,6 @@ import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
 declare var BMap;
-declare var BMAP_NORMAL_MAP;
-declare var BMAP_HYBRID_MAP;
 export class MapPage extends DetailPage {
     map: any;
     caseCountTemp: any;//案件
@@ -176,7 +173,6 @@ export class MapPage extends DetailPage {
         let myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
         let mkr = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false });
         this.map.addOverlay(mkr);
-        this.map.panTo(pointData);
     }
 
     //两线图
@@ -308,11 +304,11 @@ export class MapPage extends DetailPage {
             }
             else {
                 if (this.selectedMarkerTag == cluster.uniqueTag) {
-                    myIcon = new BMap.Icon("assets/map/" + picName + "selected.png", new BMap.Size(34, 35));
+                    myIcon = new BMap.Icon("assets/map/" + picName + "selected.png",new BMap.Size(34, 35));
                     lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'  name='selected'>";
                 }
                 else {
-                    myIcon = new BMap.Icon("assets/map/" + picName + "normal.png", new BMap.Size(34, 35));
+                    myIcon = new BMap.Icon("assets/map/" + picName + "normal.png", new BMap.Size(34, 30));
                     lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'>";
                 }
                 marker = new BMap.Marker(pt, { icon: myIcon, })
@@ -360,7 +356,7 @@ export class MapPage extends DetailPage {
         this.hideDetailContrl = false;
         this.selectedMarkItem = cluster;
         this.patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
-        let list, index;
+        let list;
         list = document.getElementsByClassName("positionContain");
         for (let indexItem of list) {
             if (indexItem.hasAttribute("name")) {
@@ -372,14 +368,15 @@ export class MapPage extends DetailPage {
         if (document.getElementById(cluster.uniqueTag)) {
             document.getElementById(cluster.uniqueTag).setAttribute("name", "selected");
             this.selectedMarkerTag = cluster.uniqueTag;
-            this.setIcon(this.selectedMarkerTag);
+            this.setIcon(this.selectedMarkerTag,cluster);
         }
     }
 
     //设置label下方的marker图标
-    private setIcon(id) {
+    private setIcon(id,cluster) {
         let pImg = document.getElementById(id).parentNode.previousSibling.firstChild as HTMLElement;
-        pImg.setAttribute("src", "assets/map/ic_cultural_relic_level1_selected.png");
+        let picName = this.setMarkerByCRlevel(cluster);
+        pImg.setAttribute("src", "assets/map/" + picName + "selected.png");
     }
 
     //为地图绑定zoom、drag事件

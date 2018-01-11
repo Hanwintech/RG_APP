@@ -3,22 +3,13 @@ import { IonicPage, NavController, NavParams, Platform, ModalController, ToastCo
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import { ApiService } from './../../../services/api.service';
-import { GetCulturalRelicMapInfosUrl } from './../../../apis/two-line/two-line.api';
-import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
-import { UserEntity } from './../../../models/user-info.model';
-import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
-import { EnumAreaCode, EnumDistrictType, EnumCulturalRelicLevel } from './../../../models/enum';
-import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
-import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
+import { EnumCulturalRelicLevel } from './../../../models/enum';
 import { PageService } from './../../../services/page.service';
-import { DetailPage } from './../../../base-pages/detail-page';
 import { MapPage } from './../../../base-pages/map-page';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
 declare var BMap;
-declare var BMAP_NORMAL_MAP;
-declare var BMAP_HYBRID_MAP;
 @IonicPage()
 @Component({
   selector: 'page-map-people-locate',
@@ -89,18 +80,18 @@ export class MapPeopleLocatePage extends MapPage {
       this.map.addOverlay(mkr);
       this.map.centerAndZoom(culturalPointData, 16);
       let twoLineInfoList = this.navParams.data.culturalRelicInfo.twoLineInfoList;
-      if(twoLineInfoList){
+      if (twoLineInfoList) {
         for (let info of twoLineInfoList) {
           let color = "#" + info.twoLinePolygon.color;
           if (info.twoLinePolygon.polygonType == 2) {
-              color = "#507daf";
+            color = "#507daf";
           }
           let line = [];
           for (let twoLinePoint of info.twoLinePointList) {
-              line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
+            line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
           }
           this.drawTwoLine(line, color);
-      }
+        }
       }
     }
     else {
@@ -117,7 +108,7 @@ export class MapPeopleLocatePage extends MapPage {
   drawTwoLine(linePoint, color) {
     let Polygon = new BMap.Polygon(linePoint, { strokeColor: color, fillColor: "", fillOpacity: 0.3, strokeWeight: 2, strokeOpacity: 1 });   //创建折线
     this.map.addOverlay(Polygon);
-}
+  }
   //根据culturalRelicLevel判断marker
   setMarkerByCRlevel(culturalRelicLevel) {
     let picsName = "";

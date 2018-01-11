@@ -15,4 +15,7 @@ page-tabs {
     .copyTwoLine:active{
         background-image: url('../assets/icon/tabs_twoLine_active.png');
     }
+    .tabbar.show-tabbar{
+        background:#ddd;
+    }
 }

@@ -3,15 +3,8 @@ import { IonicPage, NavController, NavParams, Platform, ModalController } from '
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import { ApiService } from './../../../services/api.service';
-import { GetCulturalRelicMapInfosUrl } from './../../../apis/two-line/two-line.api';
-import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
-import { UserEntity } from './../../../models/user-info.model';
-import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
-import { EnumAreaCode, EnumDistrictType, EnumCulturalRelicLevel,EnumAppRole ,EnumSearchType} from './../../../models/enum';
-import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
+import { EnumAppRole } from './../../../models/enum';
 import { PageService } from './../../../services/page.service';
-import { Attachment } from "./../../../models/attachment.model";
-import { DetailPage } from './../../../base-pages/detail-page';
 import { MapPage } from './../../../base-pages/map-page';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -53,12 +46,9 @@ export class PatrolMapPage extends MapPage {
   }
 
   ionViewDidLoad() {
-    //  setInterval(()=>{
-    //   //this.getLocation();
-    // longT=longT+0.000001;
-    // lati=lati+0.0000001; 
-    // this.getLocation(longT,lati);
-    // },1000000);
+     setInterval(()=>{
+      this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
+    },60000);
     this.initSearchData();
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
@@ -69,12 +59,11 @@ export class PatrolMapPage extends MapPage {
         BMAP_HYBRID_MAP
       ]
     }));
-    // Projection projection=  this.map.getProjection();
-    let longT = '120.788713';
-    let lati = '31.345924';
+    let longT =localStorage.getItem("longitude");
+    let lati = localStorage.getItem("latitude");
     super.getLocation(longT, lati);
     let pointData = new BMap.Point(longT, lati);
-    this.map.centerAndZoom(pointData, 16);
+    this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
     this.mapLevel = this.map.getZoom() + 1;
     this.getData(this.mapLevel);
     this.mapAddEventListener();
@@ -92,9 +81,7 @@ export class PatrolMapPage extends MapPage {
   }
   //获取当前所在位置
   selfLocation() {
-    let longT = '120.788713';
-    let lati = '31.345924';
-    let movePoint = new BMap.Point(longT, lati);
+    let movePoint = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
     this.map.setCenter(movePoint);
   }
 

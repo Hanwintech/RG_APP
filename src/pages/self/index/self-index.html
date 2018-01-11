@@ -54,7 +54,7 @@
       <img src="../assets/self/message_center.png"> 消息中心
     </button>
     <button ion-item *ngIf="hasPatrolAdd" (click)="patrolAdd();">
-      <img src="../assets/self/patrol_add.png"> 巡查录入
+      <img src="../assets/self/patrol_add.png " (click)="patrolAdd();"> 巡查录入
     </button>
     <button ion-item *ngIf="hasPatrolOnline" (click)="patrolOnline();">
       <img src="../assets/self/patrol_online.png"> 巡查在线

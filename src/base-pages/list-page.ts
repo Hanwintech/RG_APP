@@ -137,6 +137,10 @@ export class PagingListPage extends ListBasePage {
             });
     }
 
+    refreshDataList(ionRefreshEvent) {
+        this.getData(null, true); 
+        ionRefreshEvent.complete();
+    }
 
     showSimpleSearch() {
         super.showKeywordSearchPage(this.condition.keyword)

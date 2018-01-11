@@ -16,9 +16,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="refreshDataList($event)" [pullMax]="800">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list>
-      <ion-item *ngFor="let data of dataList" (click)="defaultView('ConstructionSiteInfoDetailPage', data.upCulturalRelic.culturalRelicID)" (press)="pressDataItem(data)">
+      <ion-item *ngFor="let data of dataList" (click)="defaultView('ConstructionSiteInfoDetailPage', data.upCulturalRelic.culturalRelicID)"
+        (press)="pressDataItem(data)">
         <div class="img">
           <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
         </div>

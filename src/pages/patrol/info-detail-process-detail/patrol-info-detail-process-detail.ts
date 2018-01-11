@@ -9,6 +9,8 @@ import { DetailPage } from './../../../base-pages/detail-page';
 import { GetPatrolProcessDetailInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolProcessInfoDetails } from './../../../models/patrol/patrol-info.model';
 import { EnumProcessResult, EnumRunState } from './../../../models/enum';
+import { SMS } from '@ionic-native/sms';
+import { CallNumber } from '@ionic-native/call-number';
 
 @IonicPage()
 @Component({
@@ -24,6 +26,8 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
     public actionSheetCtrl: ActionSheetController,
     public apiService: ApiService,
     public pageService: PageService,
+    private sms: SMS,
+    private callNumber: CallNumber,
     public file: File,
     public fileTransfer: FileTransfer
   ) {
@@ -71,12 +75,12 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
         {
           text: '拨打电话',
           handler: () => {
-            console.log(phoneNo);
+            window.location.href = "tel:" + phoneNo;
           }
         }, {
           text: '发送短信',
           handler: () => {
-            console.log(phoneNo);
+            this.sendMessage(phoneNo);
           }
         }, {
           text: '取消',
@@ -85,5 +89,24 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
       ]
     });
     actionSheet.present();
+  }
+
+  callNUmber(phoneNo) {
+    this.callNumber.callNumber(phoneNo, true)
+      .then(() => this.pageService.showErrorMessage("初始化通话失败！"))
+      .catch(() => this.pageService.showErrorMessage("初始化通话失败！"));
+  }
+
+  sendMessage(phoneNo) {
+    let options = {
+      android: {
+        intent: 'INTENT'  // send SMS with the native android SMS messaging
+      }
+    };
+    this.sms.send(phoneNo, ' ', options).then((e) => {
+      this.pageService.showErrorMessage("初始化失败！")
+    }, error => {
+      this.pageService.showErrorMessage("初始化失败！")
+    });
   }
 }

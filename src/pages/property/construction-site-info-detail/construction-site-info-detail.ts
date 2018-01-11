@@ -70,11 +70,11 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
-    let culturalRelicMapInfo = new CulturalRelicInfo();
-    culturalRelicMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
-    culturalRelicMapInfo.culturalRelicPostInfo = this.culturalRelicInfo.culturalRelicPostInfo;
+    let constructionMapInfo = new CulturalRelicInfo();
+    constructionMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
+    constructionMapInfo.culturalRelicPostInfo = this.culturalRelicInfo.culturalRelicPostInfo;
 
-    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":culturalRelicMapInfo,"coordinateAccurateList":this.culturalRelicInfo.coordinateAccurateList});
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":constructionMapInfo,"coordinateAccurateList":this.culturalRelicInfo.coordinateAccurateList});
     locate.onDidDismiss(data => {
 
     });

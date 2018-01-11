@@ -64,14 +64,14 @@ export class MuseumInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
-    // let museumMapInfo = new MuseumInfo();
-    // museumMapInfo.culturalRelic = this.museumMapInfo.culturalRelic;
-    // museumMapInfo.culturalRelicPostInfo = this.museumMapInfo.culturalRelicPostInfo;
+    let museumMapInfo = new MuseumInfo();
+    console.log(this.museumInfo);
+    museumMapInfo.museumDetailInfo = this.museumInfo.museumDetailInfo;
 
-    // let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":culturalRelicMapInfo,"coordinateAccurateList":this.culturalRelicInfo.coordinateAccurateList});
-    // locate.onDidDismiss(data => {
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":museumMapInfo,"coordinateAccurateList":this.museumInfo.coordinateAccurateList});
+    locate.onDidDismiss(data => {
 
-    // });
-    // locate.present();
+    });
+    locate.present();
   }
 }

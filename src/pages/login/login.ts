@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, Platform } from 'ionic-angular';
 
 import { ApiService } from './../../services/api.service';
 import { PageService } from './../../services/page.service';
@@ -17,6 +17,7 @@ export class LoginPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
+    private platform: Platform,
     private apiService: ApiService,
     private pageService: PageService
   ) {
@@ -42,6 +43,13 @@ export class LoginPage {
       localStorage.removeItem('mobile');
       localStorage.removeItem('phone');
       localStorage.removeItem('email');
+
+      // if (this.device.platform == 'Android') {
+      //   (<any>window).plugins.jPushPlugin.setAlias("");
+      //   (<any>window).plugins.jPushPlugin.clearAllNotification()
+      // } else if (this.device.platform == 'iOS') {
+      //   (<any>window).plugins.jPushPlugin.setAlias("");
+      // }
     }
   }
 
@@ -64,6 +72,13 @@ export class LoginPage {
         localStorage.setItem('phone', res.officePhone);
         localStorage.setItem('email', res.email);
         this.apiService.token = res.access_token;
+
+        // if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+        //   (<any>window).plugins.jPushPlugin.setAlias([this.auth.account],
+        //     r => { },
+        //     error => { this.pageService.showErrorMessage('推送服务注册失败！'); });
+        // }
+
         this.navCtrl.setRoot("TabsPage");
       },
       error => {

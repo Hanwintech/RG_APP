@@ -9,3 +9,11 @@ export class PostUserCoordinateInfo extends BaseRequest {
         this.requestBody = this.userLocationInfo;
     }
 }
+
+export class GetAppVersionInfo extends BaseRequest {
+    constructor() {
+        super();
+        this.method = "GET";
+        this.requestUrl = "/api/system/get_app_version_info";
+    }
+}

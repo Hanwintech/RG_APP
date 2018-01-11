@@ -10,12 +10,12 @@ import { GetReportQueryPatrolByHalfYearInfos } from './../../../../apis/search/g
 import { GetReportQueryPatrolByYearInfos } from './../../../../apis/search/get-report-query-patrol-by-year-infos.api';
 import { GetReportQueryPatrolByAreaInfos } from './../../../../apis/search/get-report-query-patrol-by-area-infos.api';
 import { ReportQueryPatrolSearch } from './../../../../models/search/report-query-patrol-search.model';
-import { ReportQueryPatrolByRelicLevelInfo } from './../../../../models/search/report-query-patrol-by-relic-level-info';
-import { ReportQueryPatrolByMonthlyInfo } from './../../../../models/search/report-query-patrol-by-monthly-info';
-import { ReportQueryPatrolByQuarterInfo } from './../../../../models/search/report-query-patrol-by-quarter-info';
-import { ReportQueryPatrolByHalfYearInfo } from './../../../../models/search/report-query-patrol-by-half-year-info';
-import { ReportQueryPatrolByYearInfo } from './../../../../models/search/report-query-patrol-by-year-info';
-import { ReportQueryPatrolByAreaInfo } from './../../../../models/search/report-query-patrol-by-area-info';
+import { ReportQueryPatrolByRelicLevelInfo } from './../../../../models/search/report-query-patrol-by-relic-level-info.model';
+import { ReportQueryPatrolByMonthlyInfo } from './../../../../models/search/report-query-patrol-by-monthly-info.model';
+import { ReportQueryPatrolByQuarterInfo } from './../../../../models/search/report-query-patrol-by-quarter-info.model';
+import { ReportQueryPatrolByHalfYearInfo } from './../../../../models/search/report-query-patrol-by-half-year-info.model';
+import { ReportQueryPatrolByYearInfo } from './../../../../models/search/report-query-patrol-by-year-info.model';
+import { ReportQueryPatrolByAreaInfo } from './../../../../models/search/report-query-patrol-by-area-info.model';
 
 import { ReportQueryPatrolSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
 

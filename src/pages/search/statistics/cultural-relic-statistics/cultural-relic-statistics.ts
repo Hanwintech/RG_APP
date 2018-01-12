@@ -91,19 +91,12 @@ export class CulturalRelicStatisticsPage {
           res => {
             console.log(res);
             if (res.success) {
-              // this.totalCaseCount = 0;
-              // this.totalSumFineAmount = 0;
-              // for (let data of res.data.reportQueryCaseByRectificationInfoList) {
-              //     this.totalCaseCount += data.reportQueryCaseByRectification.caseCount;
-              //     this.totalSumFineAmount += data.reportQueryCaseByRectification.sumFineAmount;
-              //     this.dataSource.push([
-              //         data.reportQueryCaseByRectification.rectificationName,
-              //         data.reportQueryCaseByRectification.caseCount.toString(),
-              //         data.reportQueryCaseByRectification.sumFineAmount.toString()
-              //     ]);
-              // }
-              // this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
-              // this.search = res.data.search;
+              this.sum = res.data.sum;
+              this.actualSum = res.data.actualSum;
+
+
+
+
             } else {
               this.pageService.showErrorMessage(res.reason);
             }

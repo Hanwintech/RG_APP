@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController,ModalController} from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -29,6 +29,7 @@ export class SelfIndexPage extends BasePage {
 
   constructor(
     public navCtrl: NavController,
+    public modalCtrl: ModalController,
     public file: File,
     public fileTransfer: FileTransfer,
     public apiService: ApiService,
@@ -124,24 +125,10 @@ export class SelfIndexPage extends BasePage {
   }
 
   patrolAdd() {
-    // let modal = this.modalCtrl.create('PatrolInfoEditPage', { "selectDataSource": this.conditionDataSource });
-    // modal.onDidDismiss(patrolInfoId => {
-    //   if (patrolInfoId) {
-    //     this.apiService.sendApi(new GetPatrolInfo(patrolInfoId, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
-    //       res => {
-    //         if (res.success) {
-    //           let newItem: PatrolInfoDetails = res.data;
-    //           this.dataList.unshift(newItem);
-    //         } else {
-    //           this.pageService.showErrorMessage(res.reason);
-    //         }
-    //       },
-    //       error => {
-    //         this.pageService.showErrorMessage(error);
-    //       });
-    //   }
-    // });
-    // modal.present();
+    let patrolModal = this.modalCtrl.create('PatrolInfoEditPage');
+    patrolModal.onDidDismiss(data => {
+    });
+    patrolModal.present();
   }
 
   patrolOnline() {

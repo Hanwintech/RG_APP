@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { EnumCulturalRelicLevel } from './../../../models/enum';
 
 declare var BMap;
-declare var BMAP_NORMAL_MAP;
-declare var BMAP_HYBRID_MAP;
 @IonicPage()
 @Component({
   selector: 'page-map-locate',
@@ -13,6 +11,7 @@ declare var BMAP_HYBRID_MAP;
 export class MapLocatePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  marker:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,12 +22,44 @@ export class MapLocatePage {
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
-    let picName = this.setMarkerByCRlevel(this.navParams.data.upCulturalRelic.culturalRelicLevel);
-    let pointData = new BMap.Point(this.navParams.data.upCulturalRelic.coordinateX, this.navParams.data.upCulturalRelic.coordinateY);
+    let picName = this.setMarkerByCRlevel(this.navParams.data.culturalLevel);
+    let pointData = new BMap.Point(this.navParams.data.coordinate.coordinateX, this.navParams.data.coordinate.coordinateY);
     let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
-    let mkr = new BMap.Marker(pointData, { icon: myLocation });
-    this.map.addOverlay(mkr);
+    this.marker = new BMap.Marker(pointData, { icon: myLocation });
+    this.map.addOverlay(this.marker);
     this.map.centerAndZoom(pointData, 16);
+    this.moveMarker();
+  }
+
+  moveMarker() {
+    this.marker.enableDragging();
+    this.marker.addEventListener("dragend", function (e) {
+      this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
+      this.culturalRelicMapInfo.culturalRelicY = e.point.v;
+    }.bind(this));
+
+    this.enableClick();
+    this.map.addEventListener("click", function (e) {
+      this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
+      this.culturalRelicMapInfo.culturalRelicY = e.point.lat;
+      this.addMarker();
+      this.marker.enableDragging();
+      this.map.addOverlay(this.marker);
+    }.bind(this));
+  }
+
+
+  //解决地图click事件在移动端失效的问题
+  enableClick() {
+    this.map.addEventListener("touchstart", function (e) {
+      this.map.disableDragging();
+    }.bind(this));
+    this.map.addEventListener("touchmove", function (e) {
+      this.map.enableDragging();
+    }.bind(this));
+    this.map.addEventListener("touchend", function (e) {
+      this.map.disableDragging();
+    }.bind(this));
   }
 
   close() {

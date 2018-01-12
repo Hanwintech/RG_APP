@@ -51,13 +51,10 @@ export class TwoLinePage extends MapPage {
     this.navCtrl.push('PatrolInfoListPage');
   }
 
-  ionViewDidLoad() {
-    //  setInterval(()=>{
-    //   //this.getLocation();
-    // longT=longT+0.000001;
-    // lati=lati+0.0000001; 
-    // this.getLocation(longT,lati);
-    // },1000000);
+  ionViewDidEnter() {
+    setInterval(()=>{
+      this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
+    },60000);
     this.initSearchData();
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
@@ -68,11 +65,11 @@ export class TwoLinePage extends MapPage {
         BMAP_HYBRID_MAP
       ]
     }));
-    let longT = '120.788713';
-    let lati = '31.345924';
+    let longT =localStorage.getItem("longitude");
+    let lati = localStorage.getItem("latitude");
     super.getLocation(longT, lati);
     let pointData = new BMap.Point(longT, lati);
-    this.map.centerAndZoom(pointData, 16);
+    this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
     this.mapLevel = this.map.getZoom() + 1;
     this.getData(this.mapLevel);
     this.mapAddEventListener();
@@ -90,9 +87,7 @@ export class TwoLinePage extends MapPage {
   }
   //获取当前所在位置
   selfLocation() {
-    let longT = '120.788713';
-    let lati = '31.345924';
-    let movePoint = new BMap.Point(longT, lati);
+    let movePoint = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
     this.map.setCenter(movePoint);
   }
 

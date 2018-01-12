@@ -40,7 +40,7 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
       res => {
         if (res.success) {
           this.culturalRelicInfo = res.data;
-
+          console.log(res.data);
           super.changeAttachmentFileType(this.culturalRelicInfo.attachmentList)
           super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
           super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitAttachmentList)

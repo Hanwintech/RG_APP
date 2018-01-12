@@ -1,5 +1,6 @@
 page-cultural-relic-statistics {
     ion-toolbar {
+        //padding:0;
         .toolbar-background {
             background: #fff;
         }
@@ -9,15 +10,22 @@ page-cultural-relic-statistics {
             padding-left: 0;
             .item-inner {
                 padding-left: 16px;
+                ion-label {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
             }
         }
+    }
+    .list {
+        margin-bottom: 0;
     }
     .Total {
         padding: 15px 0;
         .total {
             display: inline-block;
-            width: 48.5%;
-            font-size: 12px; // text-align: center;
+            width: 49.5%;
+            font-size: 12px;
             padding: 5px 0 5px 16px;
             height: 52px;
             border-right: solid 1px #c7c7c7;
@@ -30,35 +38,39 @@ page-cultural-relic-statistics {
             border-right: 0;
         }
     }
-    .category {
+    .Total11,
+    .Total12 {
+        padding-top: 7px;
+        width: 49.5%;
         float: left;
-        width: 68%;
-        h3 {
-            float: left;
-            width: 80px;
+        border-left: solid 1px #c7c7c7;
+        .Total1 {
+            padding: 15px 0 0 0;
+            .total1 {
+                display: inline-block;
+                width: 49.5%;
+                font-size: 12px;
+                padding: 0;
+                height: 52px;
+                div:last-child {
+                    padding-top: 5px;
+                    font-size: 18px;
+                }
+            }
         }
     }
-    .cases {
-        float: right;
-        width: 32%;
-        h3 {
-            float: left;
-            width: 65px;
-        }
-        p {
-            float: left;
-            line-height: 1.5;
-        }
+    .Total11:first-child {
+        border-left: 0;
     }
-    .fine {
-        width: 100%;
-        h3 {
-            float: left;
-            width: 80px;
-        }
-        p {
-            float: left;
-            line-height: 1.5;
-        }
+    .Total12 {
+        padding-left: 16px;
+    }
+    .collectionUnitName {
+        text-align: center;
+        background-color: #c8c7cc;
+        border-bottom: 0;
+        font-size: 16px;
+        height:30px;
+        line-height:32px;
     }
 }

@@ -49,7 +49,7 @@
     </ion-item>
     <ion-item *ngIf="inspectionNotice.attachmentList && inspectionNotice.attachmentList.length > 0" class="attachment">
       <div *ngFor="let att of inspectionNotice.attachmentList" class="attachmentContent">
-        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <img src="assets/icon/file_{{att.fileType}}.png">
         <div class="description">
           <div class="fileShowName">{{att.fileShowName}}</div>
           <div class="fileName">{{att.fileName}}</div>

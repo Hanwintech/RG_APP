@@ -91,7 +91,7 @@
     </ion-item>
     <ion-item *ngIf="museumPostInfo.miniImage" class="attachment">
       <div class="attachmentContent">
-        <img src="./../../../assets/icon/file_{{museumPostInfo.miniImage.fileType}}.png">
+        <img src="assets/icon/file_{{museumPostInfo.miniImage.fileType}}.png">
         <div class="description">
           <div class="fileShowName">{{museumPostInfo.miniImage.fileShowName}}</div>
           <div class="fileName">{{museumPostInfo.miniImage.fileName}}</div>
@@ -108,7 +108,7 @@
     </ion-item>
     <ion-item *ngIf="museumPostInfo.attachmentList && museumPostInfo.attachmentList.length > 0" class="attachment">
       <div *ngFor="let att of museumPostInfo.attachmentList" class="attachmentContent">
-        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <img src="assets/icon/file_{{att.fileType}}.png">
         <div class="description">
           <div class="fileShowName">{{att.fileShowName}}</div>
           <div class="fileName">{{att.fileName}}</div>

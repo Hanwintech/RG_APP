@@ -3,6 +3,7 @@ import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Device } from '@ionic-native/device';
+import { JPushService } from 'ionic2-jpush/dist';
 
 import { NativeService } from './../services/native.service';
 
@@ -22,6 +23,7 @@ export class MyApp {
     public toastCtrl: ToastController,
     public ionicApp: IonicApp,
     public device: Device,
+    public jPushPlugin: JPushService,
     public nativeService: NativeService
   ) {
     this.initializeApp();
@@ -36,30 +38,22 @@ export class MyApp {
       //this.registerBackButtonAction();
 
       //注册极光推送
-      if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-        (<any>window).plugins.jPushPlugin.init();
-        (<any>window).plugins.jPushPlugin.getRegistrationID(function (data) {
-          // if (data) {
-          //   let request: BaseRequest = new BaseRequest();
-          //   request.method = "Post";
-          //   request.requestUrl = "/api/Users/Registration";
-          //   request.requestBody = { "registrationID": data };
-          //   this.apiService.sendApi(request).subscribe(
-          //     res => { alert(res); });
-          // }
-        });
+      // if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+      //   this.jPushPlugin.init()
+      //     .then(res => console.log(res))
+      //     .catch(err => console.log("error:" + err));
+      //   this.jPushPlugin.getRegistrationID()
+      //     .then(res => console.log(res))
+      //     .catch(err => console.log("error:" + err));
 
-        document.addEventListener("jpush.receiveNotification", event => {
-          let alertContent;
-          if (this.device.platform == 'Android') {
-            alertContent = (<any>event).alert;
-          } else {
-            alertContent = (<any>event).aps.alert
-          }
-          let toast = this.toastCtrl.create({ message: alertContent, duration: 3000, position: 'bottom' });
-          toast.present();
-        }, false);
-      }
+      //   let receiveNotification = this.jPushPlugin.receiveNotification()
+      //     .subscribe(event => {
+      //       console.log(event);
+      //       let alertContent = event;
+      //       let toast = this.toastCtrl.create({ message: alertContent, duration: 3000, position: 'bottom' });
+      //       toast.present();
+      //     });
+      // }
 
       //检查APP更新
       this.nativeService.detectionUpgrade();

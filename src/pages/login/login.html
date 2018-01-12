@@ -1,17 +1,17 @@
 <ion-content padding>
   <form (ngSubmit)="login()" #form="ngForm">
     <div class="logo">
-        <img alt="" src="../assets/login/logo_{{areaCode}}.png" />
+        <img alt="" src="assets/login/logo_{{areaCode}}.png" />
     </div>
     <div class="spacer"></div>
     <div class="loginBar accountBar">
-      <img alt="" src="../assets/login/login_user.png" />
+      <img alt="" src="assets/login/login_user.png" />
       <ion-item>
         <ion-input placeholder="请输入账号" type="text" [(ngModel)]="auth.account" name="account"></ion-input>
       </ion-item>
     </div>
     <div class="loginBar passwordBar">
-      <img alt="" src="../assets/login/login_lock.png" />
+      <img alt="" src="assets/login/login_lock.png" />
       <ion-item>
         <ion-input placeholder="请输入密码" type="password" [(ngModel)]="auth.password" name="password"></ion-input>
       </ion-item>

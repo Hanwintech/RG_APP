@@ -15,6 +15,7 @@ import { SMS } from '@ionic-native/sms';
 import { CallNumber } from '@ionic-native/call-number';
 import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { JPushService  } from 'ionic2-jpush/dist';
 
 import { MyApp } from './app.component';
 
@@ -26,6 +27,7 @@ import { FileUploadService } from "./../services/file-upload.service";
 import { ImagePickerService } from "./../services/image-picker.service";
 import { SystemConst } from './../services/system-const.service';
 import { NativeService } from './../services/native.service';
+import { LocationWatchService } from './../services/location-watch.service';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { NativeService } from './../services/native.service';
     InAppBrowser,
     ImagePicker,
     Device,
+    JPushService,
+    LocationWatchService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

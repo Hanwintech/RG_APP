@@ -88,6 +88,22 @@ page-map-cultural-relic-locate {
     .anchorBL {
         display: none;
     }
+    .locateContainer {
+        margin-left: 0.6em;
+        margin-bottom: 0.6em;
+        position:absolute;
+    }
+    .locateContainer div{
+        width: 3.4em;
+        height: 3.4em;
+        background-size: 3.4em;
+    }
+    .locateContainer div {
+        background-image: url('../assets/map/ic_map_location_to_self_normal.png');
+    }
+    .locateContainer div:active {
+        background-image: url('../assets/map/ic_map_location_to_self_press.png');
+    }
     ion-footer {
         height: 45px;
         .grid {

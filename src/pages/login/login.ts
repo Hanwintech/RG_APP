@@ -80,6 +80,8 @@ export class LoginPage {
           this.jPushPlugin.init()
             .then(res => console.log("init:" + res))
             .catch(err => console.log("init error:" + err));
+
+            
           this.jPushPlugin.getRegistrationID()
             .then(res => {
               console.log("getRegistrationID:" + res);

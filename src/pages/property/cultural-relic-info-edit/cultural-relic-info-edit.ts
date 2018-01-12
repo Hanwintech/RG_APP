@@ -15,6 +15,7 @@ import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
 
 import { BasePage } from "./../../../base-pages/base-page";
+import { Console } from '@angular/core/src/console';
 
 @IonicPage()
 @Component({
@@ -126,7 +127,8 @@ export class CulturalRelicInfoEditPage extends BasePage {
   getCoordinate() {
     let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel});
     locate.onDidDismiss(data => {
-   
+      this.culturalRelicPostInfo.culturalRelic.coordinateX=data.culturalRelicX;
+      this.culturalRelicPostInfo.culturalRelic.coordinateY=data.culturalRelicY;
     });
     locate.present();
    }

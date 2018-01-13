@@ -5,6 +5,7 @@ import { Device } from '@ionic-native/device';
 import { ApiService } from './../../services/api.service';
 import { PageService } from './../../services/page.service';
 import { LocationWatchService } from './../../services/location-watch.service';
+import { NativeService } from './../../services/native.service';
 
 @IonicPage()
 @Component({
@@ -23,7 +24,8 @@ export class LoginPage {
     public platform: Platform,
     public apiService: ApiService,
     public pageService: PageService,
-    public locationWatchService: LocationWatchService
+    public locationWatchService: LocationWatchService,
+    public nativeService: NativeService
   ) {
     this.areaCode = this.apiService.areaCode.toString();
 

@@ -12,6 +12,9 @@ import { AppVersionInfo } from './../models/system/app-version-info.model';
 
 @Injectable()
 export class NativeService {
+    private _version: string;
+    public get version(): string { return this._version; }
+
     private newVersionInfo: AppVersionInfo;
 
     constructor(
@@ -36,7 +39,8 @@ export class NativeService {
                 this.appVersion.getVersionNumber()
                     // 对应/config.xml中version的值
                     .then((value: string) => {
-                        if (value != this.newVersionInfo.appVersion) {
+                        this._version = value;
+                        if (this._version != this.newVersionInfo.appVersion) {
                             this.pageService.showComfirmMessage(
                                 "发现新版本,是否立即升级？",
                                 () => { this.downloadApp(); },

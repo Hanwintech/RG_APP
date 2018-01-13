@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild,ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, ActionSheetController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -14,7 +14,9 @@ import { EnumAttachmentType, EnumCulturalRelicLevel, EnumAreaCode } from './../.
 import { SystemConst } from './../../../services/system-const.service';
 import { DateTime } from './../../../pipes/datetime.pipe';
 import { BasePage } from "./../../../base-pages/base-page";
+import { Console } from '@angular/core/src/console';
 
+declare var BMap;
 @IonicPage()
 @Component({
   selector: 'page-patrol-info-edit',
@@ -27,6 +29,7 @@ export class PatrolInfoEditPage extends BasePage {
   private areaName: string;
   private patrolInfo: PatrolInfo;
   private selectDataSource: PatrolEditDataSource;
+  private pointA;
 
   constructor(
     public navCtrl: NavController,
@@ -69,14 +72,15 @@ export class PatrolInfoEditPage extends BasePage {
   }
 
   showLocation() {
-    this.navCtrl.push("TwoLinePage",{"title":"文物地图"});
-   }
+    this.navCtrl.push("TwoLinePage", { "title": "文物地图" });
+  }
 
   getCulturalRelic() {
     return new Promise((resolve, reject) => {
       let searchModal = this.modalCtrl.create('CulturalRelicSelectPage');
       searchModal.onDidDismiss(data => {
         if (data) {
+          this.pointA=new BMap.Point( data.upCulturalRelic.coordinateX,  data.upCulturalRelic.coordinateY);
           this.patrolInfo.patrol.fK_CulturalRelicID = data.upCulturalRelic.culturalRelicID;
           this.culturalRelicName = data.upCulturalRelic.culturalRelicName;
           this.culturalRelicLevelName = EnumCulturalRelicLevel[data.upCulturalRelic.culturalRelicLevel];
@@ -152,9 +156,11 @@ export class PatrolInfoEditPage extends BasePage {
     }
     let latitude = localStorage.getItem('latitude');
     if (latitude) {
-      this.patrolInfo.patrol.coordinateY  = Number(latitude);
+      this.patrolInfo.patrol.coordinateY = Number(latitude);
     }
-
+    let map = new BMap.Map();
+    let personPoint = new BMap.Point(longitude, latitude);
+    this.patrolInfo.personPointDistance = map.getDistance(this.pointA, personPoint).toFixed(0);
     this.apiService.sendApi(new PostPatrolInfo(this.patrolInfo)).subscribe(
       res => {
         if (res.success) {

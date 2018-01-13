@@ -11,7 +11,8 @@ declare var BMap;
 export class MapLocatePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
-  marker:any;
+  marker: any;
+  culturalRelicMapInfo = {};
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,13 +43,15 @@ export class MapLocatePage {
     this.map.addEventListener("click", function (e) {
       this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
       this.culturalRelicMapInfo.culturalRelicY = e.point.lat;
-      this.addMarker();
+      this.addMarker(this.culturalRelicMapInfo.culturalRelicX, this.culturalRelicMapInfo.culturalRelicY);
       this.marker.enableDragging();
       this.map.addOverlay(this.marker);
     }.bind(this));
   }
 
-
+  save() {
+    this.viewCtrl.dismiss(this.culturalRelicMapInfo);
+  }
   //解决地图click事件在移动端失效的问题
   enableClick() {
     this.map.addEventListener("touchstart", function (e) {
@@ -62,13 +65,10 @@ export class MapLocatePage {
     }.bind(this));
   }
 
-  close() {
-    //this.viewCtrl.dismiss({ "needSearch": false });
-  }
-
-  back(){
+  back() {
     this.navCtrl.pop();
   }
+  
   //根据culturalRelicLevel判断marker
   setMarkerByCRlevel(culturalRelicLevel) {
     let picsName = "";
@@ -101,5 +101,15 @@ export class MapLocatePage {
         picsName = "ic_cultural_relic_level1_normal";
     }
     return picsName;
+  }
+
+  addMarker(X, Y) {
+    if (this.marker) {
+      this.map.removeOverlay(this.marker);
+    }
+    let picName = this.setMarkerByCRlevel(this.navParams.data.culturalLevel.culturalRelicLevel);
+    let pointData = new BMap.Point(X, Y);
+    let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
+    this.marker = new BMap.Marker(pointData, { icon: myLocation });
   }
 }

@@ -22,6 +22,7 @@ export class PatrolInfoDetails {
     // 当前用户对该巡查记录是否可处理
     public isCanDispose: boolean;
 
+
     constructor() {
         this.patrolInfo = new UVPatrolCaseInfo();
     }
@@ -120,6 +121,8 @@ export class PatrolInfo {
     public attachmentList: Attachment[];
     public selectedCaseProblemList: number[];
     public selectedUserInfoList: CommonUserInfo[];
+    //人员离文物点距离
+    public personPointDistance:number;
 
     constructor() {
         this.patrol = new PatrolEntity();

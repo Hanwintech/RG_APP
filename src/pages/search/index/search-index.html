@@ -23,6 +23,9 @@
     <ion-segment-button value="laws" (click)="changeSegment(3)">
       法律法规
     </ion-segment-button>
+    <ion-segment-button value="license" (click)="changeSegment(4)">
+      行政许可
+    </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="statistics">
@@ -123,15 +126,18 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'laws'">
-      <div>
+      <ion-refresher (ionRefresh)="refreshDataList($event)" [pullMax]="800">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
+      </ion-refresher>
+      <div *ngIf="dataList && dataList.length > 0">
         <ion-list>
-          <ion-item (click)="view(data)">
+          <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
-              <h2>XXXX</h2>
-              <h3>XXXXX</h3>
+              <h2>{{data.typeName}}</h2>
+              <h3>{{data.lawFile.fileTitle}}</h3>
             </div>
-            <div>XXXXX</div>
-            <h5>XXXXXX</h5>
+            <div>{{data.lawFile.abstract}}</div>
+            <h5>{{data.lawFile.updateDate| datetime}}</h5>
           </ion-item>
         </ion-list>
         <ion-infinite-scroll (ionInfinite)="nextPage($event)">
@@ -140,7 +146,32 @@
         </ion-infinite-scroll>
       </div>
       <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
-        无相关的法律法规
+        无数据
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'license'">
+      <ion-refresher (ionRefresh)="refreshDataList($event)" [pullMax]="800">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
+      </ion-refresher>
+      <div *ngIf="dataList && dataList.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let data of dataList" (click)="view(data)">
+            <div class="messageTitle">
+              <h2>{{data.typeName}}</h2>
+              <h3>{{data.lawFile.fileTitle}}</h3>
+            </div>
+            <div>{{data.lawFile.abstract}}</div>
+            <h5>{{data.lawFile.updateDate| datetime}}</h5>
+          </ion-item>
+        </ion-list>
+        <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+          <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+      <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
+        无数据
       </div>
     </ion-list>
   </div>

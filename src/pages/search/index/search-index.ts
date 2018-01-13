@@ -92,4 +92,7 @@ export class SearchIndexPage extends PagingListPage {
   culturalRelicStatistics(listType: number) {
     this.navCtrl.push("CulturalRelicStatisticsPage", listType);
   }
+  view(){
+    
+  }
 }

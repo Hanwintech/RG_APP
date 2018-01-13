@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, Platform } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
-import { JPushService } from 'ionic2-jpush/dist';
 
 import { ApiService } from './../../services/api.service';
 import { PageService } from './../../services/page.service';
@@ -21,7 +20,6 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public device: Device,
-    public jPushPlugin: JPushService,
     public platform: Platform,
     public apiService: ApiService,
     public pageService: PageService,
@@ -73,55 +71,18 @@ export class LoginPage {
         localStorage.setItem('email', res.email);
         this.apiService.token = res.access_token;
 
-
-
-        //注册极光推送
         if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-          this.jPushPlugin.init()
-            .then(res => console.log("init:" + res))
-            .catch(err => console.log("init error:" + err));
-          this.jPushPlugin.getRegistrationID()
-            .then(res => {
-              console.log("getRegistrationID:" + res);
-
-              this.jPushPlugin.setAlias(this.auth.account)
-                .then(r => {
-                  console.log("setAlias:" + r);
-                })
-                .catch(error => {
-                  console.log("setAlias error:" + error);
-                  this.pageService.showErrorMessage('推送服务注册失败！');
-                });
-              // if (this.device.platform == 'Android') {
-              //   this.jPushPlugin.setAlias("");
-              //   this.jPushPlugin.clearAllNotification()
-              // } else if (this.device.platform == 'iOS') {
-              //   this.jPushPlugin.setAlias("");
-              // }
-            })
-            .catch(err => console.log("getRegistrationID error:" + err));
-
-          let receiveNotification = this.jPushPlugin.receiveNotification().subscribe(
-            event => {
-              console.log("receiveNotification error:" + event);
-              this.pageService.showMessage(event);
+          let alias = res.userID.replace("-", "").replace("-", "").replace("-", "").replace("-", "");
+          (<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": alias },
+            function (r) {
+              console.log(r);
             },
-            error => { console.log("receiveNotification error:" + error); },
-            () => { console.log("receiveNotification complete"); });
+            function (errorMsg) {
+              console.log("setAlias error:");
+              console.log(errorMsg);
+              this.pageService.showErrorMessage('推送服务注册失败！');
+            }.bind(this));
         }
-
-
-
-        // if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-        //   this.jPushPlugin.setAlias(this.auth.account)
-        //     .then(r => {
-        //       console.log("setAlias:" + r);
-        //     })
-        //     .catch(error => {
-        //       console.log("setAlias error:" + error);
-        //       this.pageService.showErrorMessage('推送服务注册失败！');
-        //     });
-        // }
 
         this.locationWatchService.start();
         this.navCtrl.setRoot("TabsPage");

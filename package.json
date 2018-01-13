@@ -1,5 +1,5 @@
 {
-  "name": "com.hanwintech.wwaqxc_app",
+  "name": "wwaqxc_app",
   "version": "1.0.0",
   "description": "文物安全巡查APP",
   "keywords": [
@@ -56,8 +56,9 @@
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-file-opener2": "^2.0.19",
-    "cordova-plugin-file-transfer": "~1.7.0",
+    "cordova-plugin-file-transfer": "^1.7.0",
     "cordova-plugin-geolocation": "^2.4.3",
+    "cordova-plugin-jcore": "^1.1.11",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-statusbar": "^2.4.1",
@@ -67,20 +68,16 @@
     "echarts": "^3.8.5",
     "echarts-ng2": "^1.4.1",
     "ionic-angular": "^3.9.2",
+    "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
-    "ionic2-jpush": "^0.1.1",
     "ionicons": "3.0.0",
     "jpush-phonegap-plugin": "^3.2.13",
-    "mx.ferreyra.callnumber": "~0.0.2",
+    "mx.ferreyra.callnumber": "0.0.2",
     "rxjs": "^5.5.6",
     "sdk": "^0.5.0",
     "sw-toolbox": "3.6.0",
     "ts-md5": "^1.2.2",
-    "zone.js": "0.8.12",
-    "cordova-plugin-app-version": "^0.1.9",
-    "cordova-plugin-file-transfer": "~1.7.0",
-    "cordova-plugin-file-opener2": "^2.0.19",
-    "cordova-plugin-network-information": "^2.0.1"
+    "zone.js": "0.8.12"
   },
   "devDependencies": {
     "@ionic/app-scripts": "^3.1.7",
@@ -102,15 +99,16 @@
       "com.synconset.imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "使用相册"
       },
-      "jpush-phonegap-plugin": {
-        "APP_KEY": "eb1772f8b0e4ef049a9dc285"
-      },
       "cordova-sms-plugin": {},
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-app-version": {},
       "cordova-plugin-file-opener2": {},
-      "cordova-plugin-network-information": {}
+      "cordova-plugin-network-information": {},
+      "jpush-phonegap-plugin": {
+        "APP_KEY": "eb1772f8b0e4ef049a9dc285"
+      },
+      "call-number": {}
     },
     "platforms": [
       "android",

@@ -15,7 +15,6 @@ import { SMS } from '@ionic-native/sms';
 import { CallNumber } from '@ionic-native/call-number';
 import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { JPushService  } from 'ionic2-jpush/dist';
 
 import { MyApp } from './app.component';
 
@@ -73,7 +72,6 @@ import { LocationWatchService } from './../services/location-watch.service';
     InAppBrowser,
     ImagePicker,
     Device,
-    JPushService,
     LocationWatchService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

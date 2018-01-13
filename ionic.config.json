@@ -1,6 +1,6 @@
 {
   "name": "wwaqxc_app",
-  "app_id": "com.hanwintech.wwaqxc_app",
+  "app_id": "",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

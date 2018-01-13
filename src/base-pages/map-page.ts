@@ -319,8 +319,7 @@ export class MapPage extends DetailPage {
 
     private mapAddOverlay(lblString, caseCountTemp, patrolCountTemp, cluster, marker, picName) {
         let lblStringNew = lblString + "<div  style='border-bottom:1px solid #fff;padding:0.2em 0.4em;'>"
-            + cluster.showName + "</div><div style='padding:0.2em 0.4em;'><span class='caseCountShow'>案件:" + caseCountTemp +
-            "&nbsp;&nbsp;&nbsp;&nbsp;</span>巡查：" + patrolCountTemp + "</div></div>";
+            + cluster.showName + "</div><div style='padding:0.2em 0.4em;'>巡查：" + patrolCountTemp + "</div></div>";
         let label = new BMap.Label(lblStringNew, { offset: new BMap.Size(5, -50) });
         label.setStyle({
             border: "none",

@@ -93,10 +93,21 @@ export class CulturalRelicStatisticsPage {
             if (res.success) {
               this.sum = res.data.sum;
               this.actualSum = res.data.actualSum;
-
-
-
-
+              for (let data of res.data.reportStatisticalCulturalRelicByLevelInfoList) {
+                this.dataSource.push([
+                  data.collectionUnitName,
+                  data.culturalSum1 ? data.culturalSum1.toString() : "",
+                  data.culturalActualSum1 ? data.culturalActualSum1.toString() : "",
+                  data.culturalSum2 ? data.culturalSum2.toString() : "",
+                  data.culturalActualSum2 ? data.culturalActualSum2.toString() : "",
+                  data.culturalSum3 ? data.culturalSum3.toString() : "",
+                  data.culturalActualSum3 ? data.culturalActualSum3.toString() : "",
+                  data.culturalSum4 ? data.culturalSum4.toString() : "",
+                  data.culturalActualSum4 ? data.culturalActualSum4.toString() : "",
+                  data.culturalSum5 ? data.culturalSum5.toString() : "",
+                  data.culturalActualSum5 ? data.culturalActualSum5.toString() : ""
+                ]);
+              }
             } else {
               this.pageService.showErrorMessage(res.reason);
             }

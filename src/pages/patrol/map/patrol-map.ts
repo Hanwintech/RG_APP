@@ -97,7 +97,7 @@ export class PatrolMapPage extends MapPage {
     searchModal.present();
   }
   addPatrol(){
-    let patrolModal = this.modalCtrl.create('PatrolInfoEditPage');
+    let patrolModal = this.modalCtrl.create('PatrolInfoEditPage',this.map);
     patrolModal.onDidDismiss(data => {
     });
     patrolModal.present();

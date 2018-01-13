@@ -145,6 +145,12 @@ export class MapCulturalRelicLocatePage extends BasePage {
     actionSheet.present();
   }
 
+  //获取当前所在位置
+  selfLocation() {
+    let movePoint = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+    this.map.setCenter(movePoint);
+  }
+
   //根据culturalRelicLevel判断marker
   setMarkerByCRlevel(culturalRelicLevel) {
     let picsName = "";

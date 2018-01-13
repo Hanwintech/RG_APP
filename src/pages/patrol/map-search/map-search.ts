@@ -64,6 +64,8 @@ export class MapSearchPage extends SearchPage<CulturalRelicInfoSearch, CulturalR
   private clearData() {
     this.search.culturalRelicName = "";
     this.tempArea = "";
+    this.search.areaName="";
+    this.search.culturalRelicLevelName="";
     this.tempLevel = "";
     this.tempDistrict = "";
     this.search.startDate = "";

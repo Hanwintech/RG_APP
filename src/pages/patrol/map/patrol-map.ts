@@ -46,7 +46,7 @@ export class PatrolMapPage extends MapPage {
   }
 
   ionViewDidLoad() {
-     setInterval(()=>{
+    setInterval(()=>{
       this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
     },60000);
     this.initSearchData();

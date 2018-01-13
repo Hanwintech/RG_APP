@@ -36,6 +36,7 @@ export class MapPage extends DetailPage {
     searchDataSource: CulturalRelicInfoSearchDataSource;
     private mapDistrictClusterInfoList: UTMapDistrictClusterInfo[];
     private currentMapLevelMax: number;
+    private personLocate;
     uniqueTagList = [];
     isNeedMoveToFirstIcon: boolean;
     zoomendControle: boolean;//解决setZoom 会触发zoomend事件的问题
@@ -65,11 +66,11 @@ export class MapPage extends DetailPage {
             res => {
                 if (res.success) {
                     this.culturalRelicInfo = res.data;
-                    if(this.culturalRelicInfo.twoLimitImageList){
+                    if (this.culturalRelicInfo.twoLimitImageList) {
                         super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
                         this.showPicture("", this.culturalRelicInfo.twoLimitImageList);
                     }
-                    else{
+                    else {
                         this.pageService.showErrorMessage("没有相关图片！");
                     }
                 } else {
@@ -169,10 +170,11 @@ export class MapPage extends DetailPage {
 
     //定位
     getLocation(longitude, latitude) {
+        this.map.removeOverlay(this.personLocate);
         let pointData = new BMap.Point(longitude, latitude);
         let myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
-        let mkr = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false });
-        this.map.addOverlay(mkr);
+        this.personLocate = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false });
+        this.map.addOverlay(this.personLocate);
     }
 
     //两线图
@@ -270,8 +272,8 @@ export class MapPage extends DetailPage {
             let pt = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
             let marker;
             let picName = this.setMarkerByCRlevel(cluster);
-            this.caseCountTemp = cluster.caseCount == 0 ? 0 : cluster.caseDoingCount + "/" + cluster.caseCount;
-            this.patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
+            this.caseCountTemp = cluster.caseCount == 0 || !cluster.caseCount ? 0 : cluster.caseDoingCount + "/" + cluster.caseCount;
+            this.patrolCountTemp = cluster.patrolCount == 0 || !cluster.patrolCount ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
             //需要闪烁的文保点
             if (cluster.caseDoingCount > 0 || cluster.patrolDoingCount > 0) {
                 myIcon = new BMap.Icon("assets/map/ic_cultural_relic_level1_normal.png", new BMap.Size(34, 35));
@@ -304,7 +306,7 @@ export class MapPage extends DetailPage {
             }
             else {
                 if (this.selectedMarkerTag == cluster.uniqueTag) {
-                    myIcon = new BMap.Icon("assets/map/" + picName + "selected.png",new BMap.Size(34, 35));
+                    myIcon = new BMap.Icon("assets/map/" + picName + "selected.png", new BMap.Size(34, 35));
                     lblString = "<div id=" + cluster.uniqueTag + " class='positionContain'  name='selected'>";
                 }
                 else {
@@ -344,7 +346,7 @@ export class MapPage extends DetailPage {
         }.bind(this))
         label.addEventListener("click", function (event) {
             this.selectedItem(cluster, picName);
-          
+
         }.bind(this));
     }
 
@@ -354,7 +356,7 @@ export class MapPage extends DetailPage {
         this.upArrowContrl = false;
         this.hideDetailContrl = false;
         this.selectedMarkItem = cluster;
-        this.patrolCountTemp = cluster.patrolCount == 0 ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
+        this.patrolCountTemp = cluster.patrolCount == 0 || !cluster.patrolCount ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
         let list;
         list = document.getElementsByClassName("positionContain");
         for (let indexItem of list) {
@@ -367,12 +369,12 @@ export class MapPage extends DetailPage {
         if (document.getElementById(cluster.uniqueTag)) {
             document.getElementById(cluster.uniqueTag).setAttribute("name", "selected");
             this.selectedMarkerTag = cluster.uniqueTag;
-            this.setIcon(this.selectedMarkerTag,cluster);
+            this.setIcon(this.selectedMarkerTag, cluster);
         }
     }
 
     //设置label下方的marker图标
-    private setIcon(id,cluster) {
+    private setIcon(id, cluster) {
         let pImg = document.getElementById(id).parentNode.previousSibling.firstChild as HTMLElement;
         let picName = this.setMarkerByCRlevel(cluster);
         pImg.setAttribute("src", "assets/map/" + picName + "selected.png");

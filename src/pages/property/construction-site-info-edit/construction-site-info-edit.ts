@@ -102,8 +102,10 @@ export class ConstructionSiteInfoEditPage extends BasePage {
   getCoordinate() {
     let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel});
     locate.onDidDismiss(data => {
-      this.culturalRelicPostInfo.culturalRelic.coordinateX=data.culturalRelicX;
-      this.culturalRelicPostInfo.culturalRelic.coordinateY=data.culturalRelicY;
+      if(data&&data.culturalRelicX.toString()!="{}"){
+        this.culturalRelicPostInfo.culturalRelic.coordinateX=data.culturalRelicX;
+        this.culturalRelicPostInfo.culturalRelic.coordinateY=data.culturalRelicY;
+      }
     });
     locate.present();
   }

@@ -101,7 +101,7 @@ export class SelfIndexPage extends BasePage {
   }
 
   culturalRelicMap() {
-    this.navCtrl.push("TwoLinePage", { "title": "文物地图" });
+    this.navCtrl.push("CulturalRelicMapPage");
   }
 
   culturalRelicTwoLine() {

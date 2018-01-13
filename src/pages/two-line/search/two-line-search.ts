@@ -57,6 +57,9 @@ export class TwoLineSearchPage extends SearchPage<CulturalRelicInfoSearch, Cultu
 
   private clearData() {
     this.search.culturalRelicName = "";
+    this.search.areaName="";
+    this.search.culturalRelicLevelName="";
+    this.search.districtName="";
     this.tempArea = "";
     this.tempDistrict = "";
     this.search.startDate = "";

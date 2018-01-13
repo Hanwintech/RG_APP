@@ -42,6 +42,7 @@ export class MapPeopleLocatePage extends MapPage {
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
+    this.peopleLocate();
     //巡查人员的定位信息
     if (this.patrolInfo.coordinateX) {
       let pointData = new BMap.Point(this.patrolInfo.coordinateX, this.patrolInfo.coordinateY);
@@ -62,8 +63,8 @@ export class MapPeopleLocatePage extends MapPage {
       }
       else {
         //显示人员的定位信息
-        let longT = '120.788713';
-        let lati = '31.345924';
+        let longT = localStorage.getItem("longitude");
+        let lati =localStorage.getItem("latitude");
         super.getLocation(longT, lati);
         this.map.centerAndZoom(new BMap.Point(longT, lati), 16);
       }
@@ -109,6 +110,7 @@ export class MapPeopleLocatePage extends MapPage {
     let Polygon = new BMap.Polygon(linePoint, { strokeColor: color, fillColor: "", fillOpacity: 0.3, strokeWeight: 2, strokeOpacity: 1 });   //创建折线
     this.map.addOverlay(Polygon);
   }
+
   //根据culturalRelicLevel判断marker
   setMarkerByCRlevel(culturalRelicLevel) {
     let picsName = "";
@@ -141,5 +143,19 @@ export class MapPeopleLocatePage extends MapPage {
         picsName = "ic_cultural_relic_level1_normal";
     }
     return picsName;
+  }
+
+  //人员定位
+  peopleLocate() {
+    let pointData = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+    let myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
+    let personLocate = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false });
+    this.map.addOverlay(personLocate);
+  }
+
+  //获取当前所在位置
+  selfLocation() {
+    let movePoint = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+    this.map.setCenter(movePoint);
   }
 }

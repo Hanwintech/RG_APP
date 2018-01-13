@@ -102,8 +102,10 @@ export class MuseumInfoEditPage extends BasePage {
   getCoordinate() {
     let locate = this.modalCtrl.create("MapLocatePage", {"coordinate":this.museumPostInfo.museumInfo,"culturalLevel":EnumCulturalRelicLevel["博物馆"]});
     locate.onDidDismiss(data => {
-      this.museumPostInfo.museumInfo.coordinateX=data.culturalRelicX;
-      this.museumPostInfo.museumInfo.coordinateY=data.culturalRelicY;
+      if(data&&data.culturalRelicX.toString()!="{}"){
+        this.museumPostInfo.museumInfo.coordinateX=data.culturalRelicX;
+        this.museumPostInfo.museumInfo.coordinateY=data.culturalRelicY;
+      }
     });
     locate.present();
   }

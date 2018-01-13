@@ -24,21 +24,30 @@ export class MapLocatePage {
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     let picName = this.setMarkerByCRlevel(this.navParams.data.culturalLevel);
-    let pointData = new BMap.Point(this.navParams.data.coordinate.coordinateX, this.navParams.data.coordinate.coordinateY);
-    let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
-    this.marker = new BMap.Marker(pointData, { icon: myLocation });
-    this.map.addOverlay(this.marker);
-    this.map.centerAndZoom(pointData, 16);
+    this.personLocate();
+    if (this.navParams.data.coordinate.coordinateX) {
+      let pointData = new BMap.Point(this.navParams.data.coordinate.coordinateX, this.navParams.data.coordinate.coordinateY);
+      let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
+      this.marker = new BMap.Marker(pointData, { icon: myLocation });
+      this.map.addOverlay(this.marker);
+      this.map.centerAndZoom(pointData, 16);
+    }
+    else{
+      let pointData = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+      this.map.centerAndZoom(pointData, 16);
+    }
     this.moveMarker();
+
   }
 
   moveMarker() {
-    this.marker.enableDragging();
-    this.marker.addEventListener("dragend", function (e) {
-      this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
-      this.culturalRelicMapInfo.culturalRelicY = e.point.v;
-    }.bind(this));
-
+    if(this.marker){
+      this.marker.enableDragging();
+      this.marker.addEventListener("dragend", function (e) {
+        this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
+        this.culturalRelicMapInfo.culturalRelicY = e.point.v;
+      }.bind(this));
+    }
     this.enableClick();
     this.map.addEventListener("click", function (e) {
       this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
@@ -68,7 +77,7 @@ export class MapLocatePage {
   back() {
     this.navCtrl.pop();
   }
-  
+
   //根据culturalRelicLevel判断marker
   setMarkerByCRlevel(culturalRelicLevel) {
     let picsName = "";
@@ -107,9 +116,23 @@ export class MapLocatePage {
     if (this.marker) {
       this.map.removeOverlay(this.marker);
     }
-    let picName = this.setMarkerByCRlevel(this.navParams.data.culturalLevel.culturalRelicLevel);
+    let picName = this.setMarkerByCRlevel(this.navParams.data.culturalLevel);
     let pointData = new BMap.Point(X, Y);
     let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
     this.marker = new BMap.Marker(pointData, { icon: myLocation });
+  }
+
+  //人员定位
+  personLocate() {
+    let pointData = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+    let myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
+    let personLocate = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false });
+    this.map.addOverlay(personLocate);
+  }
+
+  //获取当前所在位置
+  selfPersonLocation() {
+    let movePoint = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+    this.map.setCenter(movePoint);
   }
 }

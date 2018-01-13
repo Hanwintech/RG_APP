@@ -129,7 +129,8 @@ page-two-line {
         }
         img {
             width: 1.5rem;
-            float: left;
+            position: relative;
+            top: 3px;
             margin-right: 0.2rem;
         }
         .detail {
@@ -141,7 +142,7 @@ page-two-line {
                 div {
                     display: inline-block;
                     color: $toolbar-background;
-                    padding: 0.5rem 0.8em 0.5rem 0.5em;
+                    width: 30%;
                     border-right: 1px solid #ddd;
                 }
                 div:active {

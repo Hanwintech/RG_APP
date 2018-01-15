@@ -46,20 +46,29 @@ export class UTMapDistrictCluster {
 }
 
 export class UTMapDistrictClusterInfo {
-    businessID:number
-    caseCount:number
-    caseDoingCount:number
-    coordinateX:number
-    coordinateY:number
-    culturalRelicCount:number
-    culturalRelicId:number
-    culturalRelicLevel:number
-    districtType:number
-    mapLevelMax:number
-    mapLevelMin:number
-    patrolCount:number
-    patrolDoingCount:number
-    showName:string
-    twoLimitCulturalRelicId:number
-    uniqueTag:string
+    businessID: number
+    caseCount: number
+    caseDoingCount: number
+    coordinateX: number
+    coordinateY: number
+    culturalRelicCount: number
+    culturalRelicId: number
+    culturalRelicLevel: number
+    districtType: number
+    mapLevelMax: number
+    mapLevelMin: number
+    patrolCount: number
+    patrolDoingCount: number
+    showName: string
+    twoLimitCulturalRelicId: number
+    uniqueTag: string
+}
+
+export class CoordinatePostInfo {
+    public coordinateType: number;
+    public businessId: string;
+    public coordinateAccurate: number;
+    public coordinateX: number;
+    public coordinateY: number;
+    public userId: string;
 }

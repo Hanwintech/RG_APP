@@ -38,6 +38,11 @@ export enum EnumCulturalRelicLevel {
     工地 = 8
 }
 
+export enum EnumCoordinateObjectType {
+    文物=1,
+    博物馆 =2,
+}
+
 export enum EnumSearchType {
     All = 1,
     FuzzySearch = 2,

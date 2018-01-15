@@ -53,6 +53,9 @@ export class CulturalRelicInfo implements MapMark {
     public get coordinateAccurate() {
         return this.culturalRelic.coordinateAccurate;
     }
+    public set coordinateAccurate(value) {
+        this.culturalRelic.coordinateAccurate=value;
+    }
     constructor() {
         this.culturalRelic = new CulturalRelicInfoDetail();
         this.upCulturalRelic = new UPGetCulturalRelicInfos();

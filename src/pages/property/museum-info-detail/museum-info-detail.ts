@@ -40,7 +40,6 @@ export class MuseumInfoDetailPage extends DetailPage {
       res => {
         if (res.success) {
           this.museumInfo = res.data;
-console.log( this.museumInfo);
           super.changeAttachmentFileType(this.museumInfo.attachmentList)
         } else {
           this.pageService.showErrorMessage(res.reason);
@@ -65,12 +64,16 @@ console.log( this.museumInfo);
 
   showLocation() {
     let museumMapInfo = new MuseumInfo();
-    console.log(this.museumInfo);
     museumMapInfo.museumDetailInfo = this.museumInfo.museumDetailInfo;
-
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":museumMapInfo,"coordinateAccurateList":this.museumInfo.coordinateAccurateList});
     locate.onDidDismiss(data => {
-
+      console.log(this.museumInfo);
+      console.log(data);
+      if(data){
+        this.museumInfo.museumDetailInfo.coordinateX=data.culturalRelicX;
+        this.museumInfo.museumDetailInfo.coordinateY=data.culturalRelicY;
+        this.museumInfo.museumDetailInfo.coordinateAccurate=data.coordinateAccurate;
+      }
     });
     locate.present();
   }

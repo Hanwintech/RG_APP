@@ -1,11 +1,11 @@
-<ion-header>
+<ion-header (click)="editInfo()">
   <div class="title">我的</div>
   <div class="avatar"></div>
   <div class="name">
-    <div>{{areaName}}</div>
-    <div>系统管理员</div>
+    <div>{{manageUnitName}}</div>
+    <div>{{userName}}</div>
   </div>
-  <ion-icon name="ios-create-outline" (click)="editInfo()"></ion-icon>
+  <ion-icon name="ios-create-outline"></ion-icon>
 </ion-header>
 
 <ion-content>
@@ -43,15 +43,19 @@
     </button>
     <button ion-item *ngIf="hasAllTodo" (click)="allTodo();">
       <img src="assets/self/all_todo.png"> 待办事宜
+      <ion-badge *ngIf="allTodoBadge && allTodoBadge != 0" color="danger">{{allTodoBadge}}</ion-badge>
     </button>
     <button ion-item *ngIf="hasInspectionNotice" (click)="inspectionNotice();">
       <img src="assets/self/inspection_notice.png"> 督查通知
+      <ion-badge *ngIf="inspectionNoticeBadge && inspectionNoticeBadge != 0" color="danger">{{inspectionNoticeBadge}}</ion-badge>
     </button>
     <button ion-item *ngIf="hasNotice" (click)="notice();">
       <img src="assets/self/notice.png"> 通知公告
+      <ion-badge *ngIf="noticeBadge && noticeBadge != 0" color="danger">{{noticeBadge}}</ion-badge>
     </button>
     <button ion-item *ngIf="hasMessageCenter" (click)="messageCenter();">
       <img src="assets/self/message_center.png"> 消息中心
+      <ion-badge *ngIf="messageCenterBadge && messageCenterBadge != 0" color="danger">{{messageCenterBadge}}</ion-badge>
     </button>
     <button ion-item *ngIf="hasPatrolAdd" (click)="patrolAdd();">
       <img src="assets/self/patrol_add.png"> 巡查录入

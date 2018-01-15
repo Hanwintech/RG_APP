@@ -44,6 +44,7 @@ export class LoginPage {
       localStorage.removeItem('name');
       localStorage.removeItem('userId');
       localStorage.removeItem('manageUnitId');
+      localStorage.removeItem('manageUnitName');
       localStorage.removeItem('userType');
       localStorage.removeItem('appRole');
       localStorage.removeItem('mobile');
@@ -77,6 +78,7 @@ export class LoginPage {
         localStorage.setItem('name', res.userName);
         localStorage.setItem('userId', res.userID);
         localStorage.setItem('manageUnitId', res.manageUnitID);
+        localStorage.setItem('manageUnitName', res.manageUnitName);
         localStorage.setItem('userType', res.userType);
         localStorage.setItem('appRole', "[" + res.appRole + "]");
         localStorage.setItem('mobile', res.mobilePhone);

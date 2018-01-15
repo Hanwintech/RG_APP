@@ -1,1 +1,4 @@
+ionic cordova build android --prod --release --device --minifyjs --minifycss --optimizejs
+
+
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore com.hanwintech.wwaqxc_app.keystore android-release-unsigned.apk androiddebugkey

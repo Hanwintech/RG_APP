@@ -9,7 +9,7 @@ import { EnumAreaCode } from './../models/enum'
 @Injectable()
 export class ApiService {
     public get areaCode(): EnumAreaCode {
-        return EnumAreaCode.江苏省;
+        return EnumAreaCode.淮安市;
     }
 
     private _token: string;
@@ -25,8 +25,7 @@ export class ApiService {
     }
 
     public get baseUrl(): string {
-        return "http://10.10.10.219:9090"; //江苏省 = 1,
-        //return "http://hmerc.hanwintech.com:29090"; //江苏省 = 1,
+        // return ""; //江苏省 = 1,
         // return ""; //南京市 = 2,
         // return ""; //无锡市 = 3,
         // return ""; //徐州市 = 4,
@@ -34,7 +33,7 @@ export class ApiService {
         // return ""; //苏州市 = 6,
         // return ""; //南通市 = 7,
         // return ""; //连云港市 = 8,
-        // return ""; //淮安市 = 9,
+        return "http://10.10.10.219:9090"; //淮安市 = 9,
         // return ""; //盐城市 = 10,
         // return ""; //扬州市 = 11,
         // return ""; //镇江市 = 12,

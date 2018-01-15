@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EchartsNg2Component, EChartOption } from 'echarts-ng2';
 
+declare var echarts;
 
 @IonicPage()
 @Component({
@@ -13,12 +13,12 @@ export class SearchStatisticsChartPage {
   private totalCaseCount: number;
   private totalSumFineAmount: number;
   private dataSource: string[][];
-  @ViewChild('chart1') chart1: EchartsNg2Component;
-  @ViewChild('chart2') chart2: EchartsNg2Component;
-  @ViewChild('chart3') chart3: EchartsNg2Component;
-  option1: EChartOption;
-  option2: EChartOption;
-  option3: EChartOption;
+  @ViewChild('chart1') element1: ElementRef;
+  @ViewChild('chart2') element2: ElementRef;
+  @ViewChild('chart3') element3: ElementRef;  
+  chart1;
+  chart2;
+  chart3;
   xAxis: string[];
   yAxis: string[];
   endValue: number;
@@ -31,7 +31,6 @@ export class SearchStatisticsChartPage {
     this.dataSource = this.navParams.data.数据源;
     this.xAxis = [];
     this.yAxis = [];
-
   }
 
   ionViewDidLoad() {
@@ -205,8 +204,13 @@ export class SearchStatisticsChartPage {
       data: da
     });
 
-    this.option1 = op1;
-    this.option2 = op2;
-    this.option3 = op3;
+    this.chart1 = echarts.init(this.element1.nativeElement);
+    this.chart1.setOption(op1);
+
+    this.chart2 = echarts.init(this.element2.nativeElement);
+    this.chart2.setOption(op2);
+
+    this.chart3 = echarts.init(this.element3.nativeElement);
+    this.chart3.setOption(op3);
   }
 }

@@ -49,6 +49,17 @@ export class LoginPage {
       localStorage.removeItem('mobile');
       localStorage.removeItem('phone');
       localStorage.removeItem('email');
+      if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+        (<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": "" },
+          function (r) {
+            console.log(r);
+          },
+          function (errorMsg) {
+            console.log("setAlias error:");
+            console.log(errorMsg);
+            this.pageService.showErrorMessage('推送服务注册失败！');
+          }.bind(this));
+      }
       this.locationWatchService.stop();
     }
   }

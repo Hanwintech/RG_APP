@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, NavController } from 'ionic-angular';
+import { IonicPage, Platform, IonicApp, NavParams, NavController, ToastController, Tabs } from 'ionic-angular';
+import { Device } from '@ionic-native/device';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -8,14 +9,14 @@ import { ApiService } from './../../services/api.service';
 import { PageService } from './../../services/page.service';
 import { EnumAppRole } from "./../../models/enum";
 
-declare var BMap;
-
 @IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html',
 })
 export class TabsPage extends BasePage {
+  private backButtonPressed: boolean;  //用于判断返回键是否触发
+
   private showPatrol: boolean;
   private searchDefaultPage: number;
 
@@ -27,18 +28,28 @@ export class TabsPage extends BasePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public ionicApp: IonicApp,
+    public platform: Platform,
     public file: File,
     public fileTransfer: FileTransfer,
+    public toastCtrl: ToastController,
     public apiService: ApiService,
     public pageService: PageService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
+
+    this.backButtonPressed = false
 
     this.showPatrol = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.SearchPatrol) || super.hasRole(EnumAppRole.Volunteer);
 
     this.tab2Root = 'PatrolMapPage';
     this.tab3Root = 'SearchIndexPage';
     this.tab4Root = 'SelfIndexPage';
+  }
+
+  ionViewDidEnter() {
+    //注册返回按键事件
+    //this.registerBackButtonAction();
   }
 
   twoline() {
@@ -51,16 +62,44 @@ export class TabsPage extends BasePage {
   }
 
   public showMoveableStatistic() {
-    this.searchDefaultPage = 2;
+    this.searchDefaultPage = 1;
     this.navCtrl.getAllChildNavs()[0].select(2);
   }
 
   public showPatrolStatistic() {
-    this.searchDefaultPage = 1;
+    this.searchDefaultPage = 0;
     this.navCtrl.getAllChildNavs()[0].select(2);
   }
 
   public searchSelected() {
     this.searchDefaultPage = 0;
+  }
+
+  registerBackButtonAction() {
+    this.platform.registerBackButtonAction(() => {
+      let tabs = this.navCtrl.getAllChildNavs()[0]._tabs;
+      for (let i = 0; i < tabs.length; i++) {
+        if (tabs[i].canGoBack()) {
+          console.log(tabs[i].first())
+          return tabs[i].dismiss() ;
+        }
+      }
+      return this.showExit()
+    }, 2000);
+  }
+
+  //双击退出提示框
+  showExit() {
+    if (this.backButtonPressed) { //当触发标志为true时，即2秒内双击返回按键则退出APP
+      this.platform.exitApp();
+    } else {
+      this.toastCtrl.create({
+        message: '再按一次退出应用',
+        duration: 2000,
+        position: 'bottom'
+      }).present();
+      this.backButtonPressed = true;
+      setTimeout(() => this.backButtonPressed = false, 2000);//2秒内没有再次点击返回则将触发标志标记为false
+    }
   }
 }

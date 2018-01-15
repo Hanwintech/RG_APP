@@ -32,3 +32,4 @@ $RECYCLE.BIN/
 Thumbs.db
 package-lock.json
 UserInterfaceState.xcuserstate
+*.apk

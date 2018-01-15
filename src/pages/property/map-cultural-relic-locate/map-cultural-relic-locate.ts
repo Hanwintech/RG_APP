@@ -1,10 +1,13 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ViewController, ActionSheetController } from 'ionic-angular';
-import { EnumCulturalRelicLevel } from './../../../models/enum';
+import { EnumCulturalRelicLevel, EnumCoordinateObjectType } from './../../../models/enum';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
+import { PostCoordinateInfosUrl } from './../../../apis/two-line/two-line.api';
 import { ApiService } from './../../../services/api.service';
 import { Attachment } from "./../../../models/attachment.model";
 import { BasePage } from '../../../base-pages/base-page';
+import { CoordinatePostInfo } from "./../../../models/two-line/two-line-info.model";
+import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { PageService } from './../../../services/page.service';
@@ -19,9 +22,10 @@ export class MapCulturalRelicLocatePage extends BasePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   marker: any;
-  culturalRelicMapInfo: any;
+  culturalRelicMapInfo: CulturalRelicInfo;
   coordinateAccurateList: any;
   canShowFooter: boolean = false;
+  private coordinatePostInfo: CoordinatePostInfo;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,12 +43,12 @@ export class MapCulturalRelicLocatePage extends BasePage {
     this.initialEvent();
     this.personLocate();
     this.map.addOverlay(this.marker);
-    if(this.culturalRelicMapInfo.culturalRelicX){
+    if (this.culturalRelicMapInfo.culturalRelicX) {
       this.map.centerAndZoom(new BMap.Point(this.culturalRelicMapInfo.culturalRelicX, this.culturalRelicMapInfo.culturalRelicY), 15);
     }
-    else{
+    else {
       let pointData = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
-      this.map.centerAndZoom(pointData, 16); 
+      this.map.centerAndZoom(pointData, 16);
     }
     if (this.culturalRelicMapInfo.twolineInfo) {
       for (let info of this.culturalRelicMapInfo.twolineInfo) {
@@ -65,6 +69,7 @@ export class MapCulturalRelicLocatePage extends BasePage {
   initialEvent() {
     this.culturalRelicMapInfo = this.navParams.data.culturalRelicMapInfo;
     this.coordinateAccurateList = this.navParams.data.coordinateAccurateList;
+    console.log(this.coordinateAccurateList);
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
@@ -81,11 +86,11 @@ export class MapCulturalRelicLocatePage extends BasePage {
   }
 
   moveMarker() {
-    if(this.marker){
+    if (this.marker) {
       this.marker.enableDragging();
       this.marker.addEventListener("dragend", function (e) {
         this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
-        this.culturalRelicMapInfo.culturalRelicY = e.point.v;
+        this.culturalRelicMapInfo.culturalRelicY = e.point.lat;
       }.bind(this));
     }
     this.enableClick();
@@ -104,19 +109,19 @@ export class MapCulturalRelicLocatePage extends BasePage {
   }
 
   viewDetail() {
-    this.navCtrl.push('CulturalRelicInfoDetailPage', this.culturalRelicMapInfo.culturalRelicId);
+    this.navCtrl.push('CulturalRelicInfoDetailPage', this.culturalRelicMapInfo.id);
   }
 
   viewPatrol() {
-    this.navCtrl.push('PatrolInfoListPage', { "culturalRelicID": this.culturalRelicMapInfo.culturalRelicId });
+    this.navCtrl.push('PatrolInfoListPage', { "culturalRelicID": this.culturalRelicMapInfo.id });
   }
 
   viewPic() {
-    this.apiService.sendApi(new GetCulturalRelicInfo(this.culturalRelicMapInfo.culturalRelicId)).subscribe(
+    this.apiService.sendApi(new GetCulturalRelicInfo(this.culturalRelicMapInfo.id)).subscribe(
       res => {
         if (res.success) {
           let culturalRelicImageInfo = res.data;
-          super.changeAttachmentFileType(culturalRelicImageInfo.twoLimitImageList)
+          super.changeAttachmentFileType(culturalRelicImageInfo.twoLimitImageList);
           this.showPicture("", culturalRelicImageInfo.twoLimitImageList);
           if (!culturalRelicImageInfo.twoLimitImageList.length) {
             this.pageService.showErrorMessage("无相关图片！");
@@ -145,7 +150,7 @@ export class MapCulturalRelicLocatePage extends BasePage {
     this.marker = new BMap.Marker(pointData, { icon: myLocation });
     this.marker.addEventListener("dragend", function (e) {
       this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
-      this.culturalRelicMapInfo.culturalRelicY = e.point.v;
+      this.culturalRelicMapInfo.culturalRelicY = e.point.lat;
     }.bind(this));
   }
 
@@ -208,11 +213,39 @@ export class MapCulturalRelicLocatePage extends BasePage {
   }
 
   back() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.culturalRelicMapInfo);
   }
 
-  close() {
-    this.viewCtrl.dismiss(this.culturalRelicMapInfo);
+  saveCoordinate() {
+    this.coordinatePostInfo = new CoordinatePostInfo();
+    if (this.culturalRelicMapInfo.culturalRelicLevel == EnumCulturalRelicLevel["博物馆"]) {
+      this.coordinatePostInfo.coordinateType = EnumCoordinateObjectType["博物馆"];
+    }
+    else {
+      this.coordinatePostInfo.coordinateType = EnumCoordinateObjectType["文物"];
+    }
+    this.coordinatePostInfo.businessId = this.culturalRelicMapInfo.id;
+    this.coordinatePostInfo.coordinateAccurate = this.culturalRelicMapInfo.coordinateAccurate;
+    this.coordinatePostInfo.coordinateX = this.culturalRelicMapInfo.culturalRelicX;
+    this.coordinatePostInfo.coordinateY = this.culturalRelicMapInfo.culturalRelicY;
+    this.coordinatePostInfo.userId = localStorage.getItem("userId");
+    this.pageService.showComfirmMessage("确定要提交标注信息吗？",
+      () => {
+        this.apiService.sendApi(new PostCoordinateInfosUrl(this.coordinatePostInfo)).subscribe(
+          res => {
+            if (res.success) {
+              this.pageService.showMessage("标注信息提交成功！");
+
+            } else {
+              this.pageService.showErrorMessage(res.reason);
+            }
+          },
+          error => {
+            this.pageService.showErrorMessage(error);
+          });
+        this.canShowFooter = false;
+      },
+      () => { });
   }
 
   //解决地图click事件在移动端失效的问题

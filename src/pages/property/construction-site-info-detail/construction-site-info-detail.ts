@@ -76,7 +76,11 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
 
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":constructionMapInfo,"coordinateAccurateList":this.culturalRelicInfo.coordinateAccurateList});
     locate.onDidDismiss(data => {
-
+      if(data){
+        this.culturalRelicInfo.culturalRelic.coordinateX=data.culturalRelicX;
+        this.culturalRelicInfo.culturalRelic.coordinateY=data.culturalRelicY;
+        this.culturalRelicInfo.culturalRelic.coordinateAccurate=data.culturalRelic.coordinateAccurate;
+      }
     });
     locate.present();
   }

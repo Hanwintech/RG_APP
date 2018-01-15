@@ -45,7 +45,7 @@ export class MapLocatePage {
       this.marker.enableDragging();
       this.marker.addEventListener("dragend", function (e) {
         this.culturalRelicMapInfo.culturalRelicX = e.point.lng;
-        this.culturalRelicMapInfo.culturalRelicY = e.point.v;
+        this.culturalRelicMapInfo.culturalRelicY = e.point.lat;
       }.bind(this));
     }
     this.enableClick();

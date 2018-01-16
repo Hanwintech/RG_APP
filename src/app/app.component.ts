@@ -24,12 +24,12 @@ export class MyApp {
     public device: Device,
     public nativeService: NativeService,
   ) {
+    this.statusBar.hide();
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
       this.splashScreen.hide();
 
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {

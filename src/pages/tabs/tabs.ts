@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, Platform, IonicApp, NavParams, NavController, ToastController, Tabs } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import { Device } from '@ionic-native/device';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -30,6 +31,7 @@ export class TabsPage extends BasePage {
     public navParams: NavParams,
     public ionicApp: IonicApp,
     public platform: Platform,
+    public statusBar: StatusBar,
     public file: File,
     public fileTransfer: FileTransfer,
     public toastCtrl: ToastController,
@@ -47,10 +49,18 @@ export class TabsPage extends BasePage {
     this.tab4Root = 'SelfIndexPage';
   }
 
+  ionViewDidLoad() {
+    this.statusBar.show();
+    this.statusBar.backgroundColorByHexString("#2ead8c");
+  }
+  ionViewWillEnter() { }
   ionViewDidEnter() {
     //注册返回按键事件
     //this.registerBackButtonAction();
   }
+  ionViewWillLeave() { }
+  ionViewDidLeave() { }
+  ionViewWillUnload() { }
 
   twoline() {
     var navOptions = { animation: 'wp-transition' };
@@ -81,7 +91,7 @@ export class TabsPage extends BasePage {
       for (let i = 0; i < tabs.length; i++) {
         if (tabs[i].canGoBack()) {
           console.log(tabs[i].first())
-          return tabs[i].dismiss() ;
+          return tabs[i].dismiss();
         }
       }
       return this.showExit()

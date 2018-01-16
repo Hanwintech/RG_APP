@@ -21,7 +21,7 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #2ead8c, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222, background: #e4ebeb, grayText: #818080, avater: #EDAA45, border: #c8c7cc);
+$colors: ( primary: #2ead8c, secondary: #2ead8c, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #e4ebeb, grayText: #818080, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9);
 $toolbar-background:color($colors, primary, base);
 $img-placeholder-background: #EDAA45;
 // App iOS Variables
@@ -57,39 +57,99 @@ $item-md-divider-background:color($colors, background, base);
 }
 
 ion-header {
-    .toolbar-ios ion-title {
-        padding-left: 45px;
-        .toolbar-title {
-            text-align: left;
+    .toolbar {
+        height: 13mm;
+        min-height: 13mm;
+        .toolbar-background {
+            border-color: color($colors, shadow, base);
+        }
+        .back-button {
+            .back-button-icon {
+                font-size: 7.5mm;
+                font-weight: lighter;
+                margin: 0 0 0 4mm;
+            }
+            .back-button-text {
+                display: none;
+            }
+        }
+        .toolbar-content {
+            .title {
+                padding-left: 15mm;
+                .toolbar-title {
+                    font-size: 4.8mm;
+                    font-weight: lighter;
+                    text-align: left;
+                }
+            }
         }
     }
-    .back-button-text {
-        display: none;
+}
+
+ion-content {
+    .list {
+        .item:first-child {
+            border-top: 0;
+        }
+        .item:last-child {
+            border-bottom: 1px solid color($colors, border, base);
+        }
+        .item {
+            .item-inner {
+                border-bottom: 1px solid color($colors, border, base);
+            }
+        }
+        .item {
+            .label:first-child {
+                border-right:  1px solid color($colors, border, base);
+            }
+            .label:last-child {
+                color: color($colors, dark, base);
+            }
+            .label{
+                padding-top: 2mm;
+                padding-bottom: 2mm;
+                font-size: 4.3mm;
+                margin: 2.1mm 1.5mm 2.1mm 0;
+            }
+
+            .text-input{
+                margin-left: 0;
+                color: color($colors, dark, base);
+            }
+        }
+        ion-item-options {
+            .button {
+                width: 2.6em;
+            }
+        }
+        .commonNoResult {
+            text-align: center;
+            color: color($colors, border, base);
+            line-height: 16px;
+            margin-top: 50%;
+            padding-top: 65px;
+            background-image: url('/assets/icon/common_no_result.png');
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: 12%;
+        }
     }
 }
 
-.list-ios>.item-block:first-child {
-    border-top: 1px solid color($colors, border, base) !important;
-}
-
-.list-ios .item-block .item-inner {
-    border-bottom-width: 1px !important;
-}
-
-ion-item-options {
+ion-footer {
     .button {
-        width: 2.6em;
+        height: 12.5mm;
+        font-size: 4.8mm;
+        font-weight: lighter;
+        margin: 0;
+        padding: 0;
     }
-}
-
-.commonNoResult {
-    text-align: center;
-    color: color($colors, border, base);
-    line-height: 16px;
-    margin-top: 50%;
-    padding-top: 65px;
-    background-image: url('/assets/icon/common_no_result.png');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: 12%;
+    .grid {
+        padding: 0;
+        .col {
+            height: 12.5mm;
+            padding: 0;
+        }
+    }
 }

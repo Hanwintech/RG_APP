@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -39,6 +40,7 @@ export class SelfIndexPage extends BasePage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
+    public statusBar: StatusBar,
     public file: File,
     public fileTransfer: FileTransfer,
     public apiService: ApiService,
@@ -135,6 +137,14 @@ export class SelfIndexPage extends BasePage {
         this.pageService.dismissLoading();
         this.pageService.showErrorMessage(error);
       });
+  }
+
+  ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#5d2102");
+  }
+
+  ionViewDidLeave() { 
+    this.statusBar.backgroundColorByHexString("#2ead8c");
   }
 
   editInfo() {

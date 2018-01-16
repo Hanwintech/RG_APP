@@ -8,7 +8,7 @@
   <ion-icon name="ios-create-outline"></ion-icon>
 </ion-header>
 
-<ion-content>
+<ion-content class="self-index">
   <ion-grid class="mainBar">
     <ion-row>
       <ion-col>
@@ -39,38 +39,52 @@
   </ion-grid>
   <ion-list>
     <button ion-item *ngIf="hasCulturalRelicTwoLine" (click)="culturalRelicTwoLine();">
-      <img src="assets/self/two_line.png"> 国保单位两线监控
+      <img src="assets/self/two_line.png">
+      <div class="list-title">国保单位两线监控</div>
     </button>
     <button ion-item *ngIf="hasAllTodo" (click)="allTodo();">
-      <img src="assets/self/all_todo.png"> 待办事宜
-      <ion-badge *ngIf="allTodoBadge && allTodoBadge != 0" color="danger">{{allTodoBadge}}</ion-badge>
+      <img src="assets/self/all_todo.png">
+      <div class="list-title">待办事宜
+        <ion-badge *ngIf="allTodoBadge && allTodoBadge != 0" color="danger">{{allTodoBadge}}</ion-badge>
+      </div>
     </button>
     <button ion-item *ngIf="hasInspectionNotice" (click)="inspectionNotice();">
-      <img src="assets/self/inspection_notice.png"> 督查通知
-      <ion-badge *ngIf="inspectionNoticeBadge && inspectionNoticeBadge != 0" color="danger">{{inspectionNoticeBadge}}</ion-badge>
+      <img src="assets/self/inspection_notice.png">
+      <div class="list-title">督查通知
+        <ion-badge *ngIf="inspectionNoticeBadge && inspectionNoticeBadge != 0" color="danger">{{inspectionNoticeBadge}}</ion-badge>
+      </div>
     </button>
     <button ion-item *ngIf="hasNotice" (click)="notice();">
-      <img src="assets/self/notice.png"> 通知公告
-      <ion-badge *ngIf="noticeBadge && noticeBadge != 0" color="danger">{{noticeBadge}}</ion-badge>
+      <img src="assets/self/notice.png">
+      <div class="list-title">通知公告
+        <ion-badge *ngIf="noticeBadge && noticeBadge != 0" color="danger">{{noticeBadge}}</ion-badge>
+      </div>
     </button>
     <button ion-item *ngIf="hasMessageCenter" (click)="messageCenter();">
-      <img src="assets/self/message_center.png"> 消息中心
-      <ion-badge *ngIf="messageCenterBadge && messageCenterBadge != 0" color="danger">{{messageCenterBadge}}</ion-badge>
+      <img src="assets/self/message_center.png">
+      <div class="list-title">消息中心
+        <ion-badge *ngIf="messageCenterBadge && messageCenterBadge != 0" color="danger">{{messageCenterBadge}}</ion-badge>
+      </div>
     </button>
     <button ion-item *ngIf="hasPatrolAdd" (click)="patrolAdd();">
-      <img src="assets/self/patrol_add.png"> 巡查录入
+      <img src="assets/self/patrol_add.png">
+      <div class="list-title">巡查录入</div>
     </button>
     <button ion-item *ngIf="hasPatrolOnline" (click)="patrolOnline();">
-      <img src="assets/self/patrol_online.png"> 巡查在线
+      <img src="assets/self/patrol_online.png">
+      <div class="list-title">巡查在线</div>
     </button>
     <button ion-item *ngIf="hasMoveableStatistic" (click)="moveableStatistic();">
-      <img src="assets/self/case_statistic.png"> 可移动文物统计
+      <img src="assets/self/case_statistic.png">
+      <div class="list-title">可移动文物统计</div>
     </button>
     <button ion-item *ngIf="hasPatrolStatistic" (click)="patrolStatistic();">
-      <img src="assets/self/patrol_statistic.png"> 巡查统计
+      <img src="assets/self/patrol_statistic.png">
+      <div class="list-title">巡查统计</div>
     </button>
     <button ion-item *ngIf="hasPublicOpinion" (click)="publicOpinion();">
-      <img src="assets/self/public_opinion.png"> 舆情信息
+      <img src="assets/self/public_opinion.png">
+      <div class="list-title">舆情信息</div>
     </button>
   </ion-list>
 </ion-content>

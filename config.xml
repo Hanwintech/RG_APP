@@ -88,8 +88,6 @@
     <allow-navigation href="http://192.168.2.7:8100" />
     <allow-navigation href="http://10.10.10.110:8100" />
     <allow-navigation href="http://10.10.10.110:8101" />
-    <engine name="android" spec="6.3.0" />
-    <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
@@ -114,4 +112,7 @@
         <variable name="APP_KEY" value="eb1772f8b0e4ef049a9dc285" />
     </plugin>
     <plugin name="call-number" spec="^1.0.1" />
+    <allow-navigation href="http://192.168.42.172:8100" />
+    <engine name="android" spec="6.3.0" />
+    <engine name="ios" spec="^4.5.4" />
 </widget>

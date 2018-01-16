@@ -17,29 +17,29 @@
     <ion-list>
         <ion-item>
           <ion-label fixed>文件标题</ion-label>
-          <ion-label>A</ion-label>
+          <ion-label>{{lawFileInfo.lawFile.fileTitle}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-label fixed>关键字</ion-label>
-          <ion-label></ion-label>
+          <ion-label>{{lawFileInfo.lawFile.keyWords}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-label fixed>类别</ion-label>
-          <ion-label></ion-label>
+          <ion-label>{{lawFileInfo.typeName}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-label fixed>添加日期</ion-label>
-          <ion-label>NNN</ion-label>
+          <ion-label>{{lawFileInfo.lawFile.addDate|datetime}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-label fixed>摘要</ion-label>
-          <ion-label>XXXX</ion-label>
+          <ion-label>{{lawFileInfo.lawFile.abstract}}</ion-label>
         </ion-item>
-        <!-- <ion-item *ngIf="museumInfo.attachmentList && museumInfo.attachmentList.length > 0" class="littleTitle">
+        <ion-item *ngIf="lawFileInfo.attachmentList && lawFileInfo.attachmentList.length > 0" class="littleTitle">
             附件
           </ion-item>
-          <ion-item *ngIf="museumInfo.attachmentList && museumInfo.attachmentList.length > 0" class="attachment">
-            <div *ngFor="let att of museumInfo.attachmentList" class="attachmentContent">
+          <ion-item *ngIf="lawFileInfo.attachmentList && lawFileInfo.attachmentList.length > 0" class="attachment">
+            <div *ngFor="let att of lawFileInfo.attachmentList" class="attachmentContent">
               <img src="assets/icon/file_{{att.fileType}}.png">
               <div class="description">
                 <div class="fileShowName">{{att.fileShowName}}</div>
@@ -48,6 +48,6 @@
               <button ion-button outline (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
               <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
             </div>
-          </ion-item> -->
+          </ion-item>
         </ion-list>
 </ion-content>

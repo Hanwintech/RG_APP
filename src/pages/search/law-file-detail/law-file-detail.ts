@@ -1,29 +1,51 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController  } from 'ionic-angular';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
-/**
- * Generated class for the LawFileDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ApiService } from './../../../services/api.service';
+import { PageService } from './../../../services/page.service';
+import { DetailPage } from './../../../base-pages/detail-page';
+import { LawFileInfo } from './../../../models/search/law-file-infos.model';
+import { Attachment } from "./../../../models/attachment.model";
+
 
 @IonicPage()
 @Component({
   selector: 'page-law-file-detail',
   templateUrl: 'law-file-detail.html',
 })
-export class LawFileDetailPage {
-  //private dataList: any[];
+export class LawFileDetailPage extends DetailPage {
+  private lawFileInfo: LawFileInfo;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // this.dataList=this.navParams.data;
-    // console.log(this.navParams.data);
-    // console.log(this.dataList);
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController,
+    public apiService: ApiService,
+    public file: File,
+    public fileTransfer: FileTransfer,
+    public pageService: PageService
+    ) {
+      super(navCtrl, file, fileTransfer, pageService);
+
+      this.lawFileInfo = this.navParams.data;
+  
+      super.changeAttachmentFileType(this.lawFileInfo.attachmentList)
+  }
+  showPicture(fileUrl: string, attachmentList: Attachment[]) {
+    super.showSlidesPage(attachmentList, fileUrl);
+  }
+  download(fileUrl: string, fileName: string) {
+    super.downloadFile(fileUrl, fileName);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LawFileDetailPage');
+  showAttachmentList(fileUrl: string) {
+    super.showSlidesPage(this.lawFileInfo.attachmentList, fileUrl);
   }
 
+  close() {
+    this.viewCtrl.dismiss(this.lawFileInfo);
+  }
 }

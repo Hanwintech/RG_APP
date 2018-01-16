@@ -12,7 +12,7 @@ export class LawFileInfos {
 export class LawFileInfo {
     public lawFile: LawFileEntity;
     public typeName: string;
-    public attachmentList: Attachment;
+    public attachmentList: Attachment[];
 }
 export class LawFileEntity {
     public iD: string;

@@ -9,7 +9,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetLawFileInfos } from './../../../apis/search/get-law-file-infos.api';
 import { LawFileInfoSearch } from './../../../models/search/law-file-info-search.model';
-import { LawFileInfos } from './../../../models/search/law-file-infos.model';
+import { LawFileInfos,LawFileInfo } from './../../../models/search/law-file-infos.model';
 import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 @IonicPage()
@@ -92,7 +92,7 @@ export class SearchIndexPage extends PagingListPage {
   culturalRelicStatistics(listType: number) {
     this.navCtrl.push("CulturalRelicStatisticsPage", listType);
   }
-  // view(){
-  //   this.navCtrl.push("LawFileDetailPage", this.dataList);
-  // }
+  view(lawFileInfo: LawFileInfo) {
+    this.navCtrl.push("LawFileDetailPage", lawFileInfo);
+  }
 }

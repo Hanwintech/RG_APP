@@ -92,7 +92,7 @@ export class SearchIndexPage extends PagingListPage {
   culturalRelicStatistics(listType: number) {
     this.navCtrl.push("CulturalRelicStatisticsPage", listType);
   }
-  view(){
-    
-  }
+  // view(){
+  //   this.navCtrl.push("LawFileDetailPage", this.dataList);
+  // }
 }

@@ -10,10 +10,9 @@ import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
 import { EditCulturalRelicInfo, PostCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo, CulturalRelicPostInfo, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
-import { EnumAttachmentType } from './../../../models/enum';
+import { EnumAttachmentType ,EnumCulturalRelicLevel} from './../../../models/enum';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
-
 import { BasePage } from "./../../../base-pages/base-page";
 import { Console } from '@angular/core/src/console';
 
@@ -125,7 +124,8 @@ export class CulturalRelicInfoEditPage extends BasePage {
   }
 
   getCoordinate() {
-    let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel});
+    let culturalLevel= this.culturalRelicInfo?this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel:EnumCulturalRelicLevel["其他不可移动文物"];
+    let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":culturalLevel});
     locate.onDidDismiss(data => {
       if(data&&data.culturalRelicX.toString()!="{}"){
         this.culturalRelicPostInfo.culturalRelic.coordinateX=data.culturalRelicX;

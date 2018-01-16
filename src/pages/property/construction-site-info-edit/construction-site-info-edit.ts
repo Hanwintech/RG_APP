@@ -100,7 +100,8 @@ export class ConstructionSiteInfoEditPage extends BasePage {
   }
 
   getCoordinate() {
-    let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel});
+    let culturalLevel= this.culturalRelicInfo?this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel:EnumCulturalRelicLevel["工地"];
+    let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":culturalLevel});
     locate.onDidDismiss(data => {
       if(data&&data.culturalRelicX.toString()!="{}"){
         this.culturalRelicPostInfo.culturalRelic.coordinateX=data.culturalRelicX;

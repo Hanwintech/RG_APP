@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>通知公告详情</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="noticeBasicInfo">
+    <h2>{{noticeBasicInfo.title}}</h2>
+    <h5>{{noticeBasicInfo.sendDeptName}}&nbsp;&nbsp;&nbsp;{{noticeBasicInfo.sendDate | datetime}}</h5>
+    <div [innerHTML]="noticeBasicInfo.noticeText"></div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <button ion-button block (click)="close()">关闭</button>
+</ion-footer>

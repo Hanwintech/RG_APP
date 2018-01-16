@@ -39,8 +39,8 @@ export enum EnumCulturalRelicLevel {
 }
 
 export enum EnumCoordinateObjectType {
-    文物=1,
-    博物馆 =2,
+    文物 = 1,
+    博物馆 = 2,
 }
 
 export enum EnumSearchType {
@@ -142,4 +142,19 @@ export enum EnumAttachmentType {
     文物借方信息明细附件 = 54,
     巡查处理附件 = 55,
     通知公告附件 = 56
+}
+
+/**
+ * 消息类型
+ */
+export enum EnumMessageCenterType {
+    上报通知 = 1,
+    指导意见 = 2,
+    督察令通知 = 3,
+    督察令回复 = 4,
+    巡查自动预警 = 5,
+    人员进出两线范围提醒 = 6,
+    通知公告 = 7,
+    巡查处理 = 8,
+    立案逾期预警 = 9,
 }

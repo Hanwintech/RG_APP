@@ -1,0 +1,12 @@
+page-notice-message-center {
+    ion-content {
+        h2 {
+            font-size: 20px;
+        }
+        h5 {
+            margin-top: 12px;
+            font-size: 12px;
+            color: color($colors, border, base);
+        }
+    }
+}

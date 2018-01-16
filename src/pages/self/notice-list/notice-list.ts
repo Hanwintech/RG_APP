@@ -47,12 +47,13 @@ export class NoticeListPage extends PagingListPage {
     this.condition.userId = localStorage.getItem("userId");
     this.condition.manageUnitId = localStorage.getItem("manageUnitId");
     this.condition.userType = Number(localStorage.getItem("userType"));
-
+console.log(this.dataList);
     //查询首页数据
     this.nextPage(null);
   }
 
   view(messageCenterEntity: UVNoticeBasicInfo) {
+    console.log(messageCenterEntity);
     this.navCtrl.push('NoticeDetailPage', messageCenterEntity);
   }
 }

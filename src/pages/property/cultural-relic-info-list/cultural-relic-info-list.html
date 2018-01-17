@@ -21,8 +21,7 @@
   </ion-refresher>
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list class="data-list">
-      <ion-item *ngFor="let data of dataList" (click)="defaultView('CulturalRelicInfoDetailPage', data.upCulturalRelic.culturalRelicID)"
-        (press)="pressDataItem(data)">
+      <ion-item *ngFor="let data of dataList" (click)="defaultView('CulturalRelicInfoDetailPage', data.upCulturalRelic.culturalRelicID)" (press)="pressDataItem(data)">
         <div class="img">
           <img src="{{data.miniImageUrl ? data.miniImageUrl : 'assets/icon/empty_small.png'}}">
         </div>

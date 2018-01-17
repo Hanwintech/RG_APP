@@ -25,7 +25,7 @@ export class SearchStatisticsChartPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
-  ) {
+  ) {     
     this.totalCaseCount = this.navParams.data.案件总数;
     this.totalSumFineAmount = this.navParams.data.总罚款金额;
     this.dataSource = this.navParams.data.数据源;
@@ -113,7 +113,7 @@ export class SearchStatisticsChartPage {
     }
 
     let op1 = {
-      grid: { top: '25%', bottom: '25%'},
+      grid: { top: '25%', bottom: '25%'},    
       xAxis: {
         data: this.xAxis,
       },

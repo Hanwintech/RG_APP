@@ -21,5 +21,5 @@ export class LawFileSearchPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LawFileSearchPage');
   }
-
+ 
 }

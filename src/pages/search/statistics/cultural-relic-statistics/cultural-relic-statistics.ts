@@ -119,12 +119,8 @@ export class CulturalRelicStatisticsPage {
       default:
         break;
     }
-
-    // chart() {
-    //   this.navCtrl.push("SearchStatisticsChartPage", {
-    //       "编号": this.chartType, "案件总数": this.totalCaseCount, "总罚款金额": this.totalSumFineAmount, "数据源": this.dataSource
-    //   });
-    //   }
-
+  }
+   chart(){
+      this.navCtrl.push("CulturalRelicChartPage",{"编号":this.chartType,"数据源":this.dataSource});
   }
 }

@@ -70,7 +70,7 @@
     <ion-item *ngIf="museumInfo.attachmentList && museumInfo.attachmentList.length > 0" class="littleTitle">
       附件
     </ion-item>
-    <ion-item *ngIf="museumInfo.attachmentList && museumInfo.attachmentList.length > 0" class="attachment">
+    <div *ngIf="museumInfo.attachmentList && museumInfo.attachmentList.length > 0" class="attachment">
       <div *ngFor="let att of museumInfo.attachmentList" class="attachmentContent">
         <img src="assets/icon/file_{{att.fileType}}.png">
         <div class="description">
@@ -80,6 +80,6 @@
         <button ion-button outline (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
         <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
       </div>
-    </ion-item>
+    </div>
   </ion-list>
 </ion-content>

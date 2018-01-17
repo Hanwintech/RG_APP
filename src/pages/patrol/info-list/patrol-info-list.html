@@ -20,10 +20,10 @@
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
   </ion-refresher>
   <div *ngIf="dataList && dataList.length > 0">
-    <ion-list>
+    <ion-list class="data-list">
       <ion-item *ngFor="let data of dataList" (click)="defaultView('PatrolInfoDetailPage', data)">
         <div class="img">
-          <img src="{{data.patrolImageUrl ? data.patrolImageUrl : './../../../assets/icon/empty_small.png'}}">
+          <img src="{{data.patrolImageUrl ? data.patrolImageUrl : 'assets/icon/empty_small.png'}}">
         </div>
         <div class="description">
           <h3>{{data.patrolInfo.culturalRelicName}}</h3>

@@ -31,7 +31,7 @@
   <div [ngSwitch]="segmentIndex">
     <div *ngSwitchCase="'0'">
       <div *ngIf="dataList && dataList.length > 0">
-        <ion-list>
+        <ion-list class="data-list">
           <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
               <h2>{{data.recordStateName}}</h2>
@@ -53,7 +53,7 @@
 
     <div *ngSwitchCase="'1'">
       <div *ngIf="dataList && dataList.length > 0">
-        <ion-list>
+        <ion-list class="data-list">
           <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
               <h2>{{data.recordStateName}}</h2>

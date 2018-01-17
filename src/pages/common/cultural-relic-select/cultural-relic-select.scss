@@ -1,20 +1,25 @@
 page-cultural-relic-select {
     ion-header {
         .searchBox {
+            float: left;
+            position: fixed;
+            top: 2.7mm;
+            left: 14mm;
+            right: 14mm;
             background-color: #fff;
             border-radius: 3px;
             .icon {
-                font-size: 22px;
+                font-size: 6mm;
                 position: absolute;
-                margin: 5px 10px;
+                margin: 1.7mm 2mm;
             }
             .ion-ios-search-outline {
                 float: left;
             }
             .text-input {
                 width: 100%;
-                margin: 0;
-                padding: 8px 30px 7px 35px;
+                height: 4mm;
+                margin: 2mm 8mm;
             }
             .ion-ios-close-outline {
                 float: right;

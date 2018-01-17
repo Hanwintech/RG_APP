@@ -1,4 +1,4 @@
-    <ion-header>
+<ion-header>
   <ion-navbar>
     <ion-buttons left>
       <button ion-button (click)="close()">关闭</button>
@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
       <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>

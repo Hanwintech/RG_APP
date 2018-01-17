@@ -75,13 +75,16 @@ ion-header {
         }
         .toolbar-content {
             .title {
-                padding-left: 15mm;
+                padding: 0 30mm 0 15mm;
                 .toolbar-title {
                     font-size: 4.8mm;
                     font-weight: lighter;
                     text-align: left;
                 }
             }
+        }
+        .bar-buttons{
+            min-width:30mm;
         }
     }
 }
@@ -100,22 +103,11 @@ ion-content {
             }
         }
         .item {
-            .label:first-child {
-                border-right:  1px solid color($colors, border, base);
-            }
-            .label:last-child {
-                color: color($colors, dark, base);
-            }
-            .label{
+            .label {
                 padding-top: 2mm;
                 padding-bottom: 2mm;
                 font-size: 4.3mm;
-                margin: 2.1mm 1.5mm 2.1mm 0;
-            }
-
-            .text-input{
-                margin-left: 0;
-                color: color($colors, dark, base);
+                margin: 2.1mm 0;
             }
         }
         ion-item-options {
@@ -123,17 +115,176 @@ ion-content {
                 width: 2.6em;
             }
         }
-        .commonNoResult {
-            text-align: center;
-            color: color($colors, border, base);
-            line-height: 16px;
-            margin-top: 50%;
-            padding-top: 65px;
-            background-image: url('/assets/icon/common_no_result.png');
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-            background-size: 12%;
+    }
+    .list.data-list {
+        .item {
+            padding-left: 0;
+            .item-inner {
+                padding-right: 0;
+                .label {
+                    height: 80px;
+                    margin: 5px;
+                    padding: 0;
+                    .img {
+                        position: absolute;
+                        float: left;
+                        width: 68px;
+                        height: 68px;
+                        line-height: 64px;
+                        margin: 6px;
+                        border: 1px solid color($colors, border, base);
+                        text-align: center;
+                        vertical-align: middle;
+                        img {
+                            vertical-align: middle;
+                            max-width: 66px;
+                            max-height: 66px;
+                        }
+                    }
+                    .description {
+                        width: 100%;
+                        height: 100%;
+                        padding-left: 80px;
+                    }
+                }
+            }
         }
+    }
+    .list.form-list {
+        .item {
+            .label:last-child {
+                margin: 2mm 0 2mm 1.5mm;
+                padding: 2mm 0 2mm 1.5mm;
+                border-left: 1px solid color($colors, border, base);
+                color: color($colors, dark, base);
+                word-wrap: break-word;
+                word-break: break-all;
+                text-overflow: clip;
+                white-space: normal;
+            }
+            .text-input {
+                width: 100%;
+                max-width: 100%;
+                margin: 2mm 0 2mm 1.5mm;
+                padding: 2mm 1.5mm;
+                border-left: 1px solid color($colors, border, base);
+                color: color($colors, dark, base);
+            }
+            .select {
+                width: 100%;
+                max-width: 100%;
+                margin: 2mm 0 2mm 1.5mm;
+                padding: 1.8mm 1.5mm;
+                border-left: 1px solid color($colors, border, base);
+                color: color($colors, dark, base);
+            }
+            textarea {
+                width: 100%;
+                border: 0px;
+                padding: 0 1.5mm 0 0;
+                font-size: 17px;
+            }
+            .label.attachment-label {
+                margin: 2mm 0;
+                padding: 2mm 0;
+                font-weight: bold;
+                border: 0px;
+                color: color($colors, primary, base);
+                .title {
+                    width: 100%;
+                    padding-right: 60px;
+                    float: left;
+                }
+                .icon {
+                    float: right;
+                    position: absolute;
+                    font-size: 22px;
+                    margin-left: -22px;
+                }
+                div.attachment {
+                    margin-top:24px;
+                    .attachmentContent {
+                        width: 100%;
+                        height: 50px;
+                        padding: 5px 0;
+                        img {
+                            float: left;
+                            max-width:40px;
+                            max-height: 40px;
+                            position: absolute;
+                        }
+                        .description {
+                            width: 100%;
+                            padding-left: 40px;
+                            padding-right: 62px;
+                            float: left;
+                            .fileShowName,
+                            .fileName {
+                                font-size: 12px;
+                                width: 100%;
+                                padding: 3px 0;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                overflow: hidden;
+                            }
+                            .fileShowName {
+                                color: color($colors, dark, base);
+                            }
+                            .fileName {
+                                color: color($colors, border, base);
+                            }
+                        }
+                        .button {
+                            font-size: 13px;
+                            height: 24px;
+                            float: right;
+                            position: absolute;
+                            margin-left: -58px;
+                            margin-top:10px;
+                        }
+                    }
+                }
+            }
+            .label.navi {
+                div {
+                    width: 100%;
+                    min-height:19px;
+                    padding-right: 62px;
+                    float: left;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                .button {
+                    font-size: 13px;
+                    height: 24px;
+                    float: right;
+                    position: absolute;
+                    margin: -3px 0 0 -58px;
+                }
+            }
+        }
+        .item.subTitle {
+            .label:last-child {
+                margin: 2mm 0;
+                padding: 2mm 0;
+                font-size: 20px;
+                font-weight: bold;
+                border: 0px;
+                color: color($colors, primary, base);
+            }
+        }
+    }
+    .commonNoResult {
+        text-align: center;
+        color: color($colors, border, base);
+        line-height: 16px;
+        margin-top: 50%;
+        padding-top: 65px;
+        background-image: url('/assets/icon/common_no_result.png');
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: 12%;
     }
 }
 

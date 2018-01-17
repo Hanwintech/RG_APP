@@ -1,24 +1,31 @@
 page-common-simple-search {
-    .searchBox {
-        background-color: #fff;
-        border-radius: 3px;
-        .icon {
-            font-size: 22px;
-            position: absolute;
-            margin: 5px 10px;
-        }
-        .ion-ios-search-outline {
+    ion-header {
+        .searchBox {
             float: left;
-        }
-        .text-input {
-            width: 100%;
-            margin: 0;
-            padding: 8px 30px 7px 35px;
-        }
-        .ion-ios-close-outline {
-            float: right;
-            right: 0;
-            z-index: 999999;
+            position: fixed;
+            top: 2.7mm;
+            left: 14mm;
+            right: 14mm;
+            background-color: #fff;
+            border-radius: 3px;
+            .icon {
+                font-size: 6mm;
+                position: absolute;
+                margin: 1.7mm 2mm;
+            }
+            .ion-ios-search-outline {
+                float: left;
+            }
+            .text-input {
+                width: 100%;
+                height: 4mm;
+                margin: 2mm 8mm;
+            }
+            .ion-ios-close-outline {
+                float: right;
+                right: 0;
+                z-index: 999999;
+            }
         }
     }
 }

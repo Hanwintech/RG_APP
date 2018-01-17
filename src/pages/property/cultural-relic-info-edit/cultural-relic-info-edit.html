@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item class="subTitle">
       基本信息
     </ion-item>
@@ -40,7 +40,7 @@
     </ion-item>
     <ion-item>
       <ion-label fixed style="height:45px;">地址</ion-label>
-      <ion-label class="textareaLable">
+      <ion-label>
         <textarea placeholder="请输入地址" rows="3" [(ngModel)]="culturalRelicPostInfo.culturalRelic.location"></textarea>
       </ion-label>
     </ion-item>
@@ -84,44 +84,44 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label fixed style="height:75px;">简介</ion-label>
-      <ion-label class="textareaLable">
-        <textarea placeholder="请输入简介" rows="5" [(ngModel)]="culturalRelicPostInfo.culturalRelic.remark"></textarea>
+      <ion-label fixed>简介</ion-label>
+      <ion-label>
+        <textarea placeholder="请输入简介" rows="10" [(ngModel)]="culturalRelicPostInfo.culturalRelic.remark"></textarea>
       </ion-label>
     </ion-item>
-    <ion-item class="littleTitle">
-      <ion-label class="navi">
-        <div>缩略图</div>
+    <ion-item>
+      <ion-label class="attachment-label">
+        <div class="title">缩略图</div>
         <ion-icon name="ios-add-circle-outline" (click)="selectMiniImage()"></ion-icon>
+        <div *ngIf="culturalRelicPostInfo.miniImage" class="attachment">
+          <div class="attachmentContent">
+            <img src="assets/icon/file_{{culturalRelicPostInfo.miniImage.fileType}}.png">
+            <div class="description" style="padding-right: 118px;">
+              <div class="fileShowName">{{culturalRelicPostInfo.miniImage.fileShowName}}</div>
+              <div class="fileName">{{culturalRelicPostInfo.miniImage.fileName}}</div>
+            </div>
+            <button ion-button outline (click)="showMiniImage()" style="margin-left:-115px;">查看</button>
+            <button ion-button outline (click)="delMiniImage()">删除</button>
+          </div>
+        </div>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="culturalRelicPostInfo.miniImage" class="attachment">
-      <div class="attachmentContent">
-        <img src="assets/icon/file_{{culturalRelicPostInfo.miniImage.fileType}}.png">
-        <div class="description">
-          <div class="fileShowName">{{culturalRelicPostInfo.miniImage.fileShowName}}</div>
-          <div class="fileName">{{culturalRelicPostInfo.miniImage.fileName}}</div>
-        </div>
-        <button ion-button outline (click)="showMiniImage()" style="margin-left:-90px;">查看</button>
-        <button ion-button outline (click)="delMiniImage()">删除</button>
-      </div>
-    </ion-item>
-    <ion-item class="littleTitle">
-      <ion-label class="navi">
-        <div>附件</div>
+    <ion-item>
+      <ion-label class="attachment-label">
+        <div class="title">附件</div>
         <ion-icon name="ios-add-circle-outline" (click)="selectAttachmentList()"></ion-icon>
-      </ion-label>
-    </ion-item>
-    <ion-item *ngIf="culturalRelicPostInfo.attachmentList && culturalRelicPostInfo.attachmentList.length > 0" class="attachment">
-      <div *ngFor="let att of culturalRelicPostInfo.attachmentList" class="attachmentContent">
-        <img src="assets/icon/file_{{att.fileType}}.png">
-        <div class="description">
-          <div class="fileShowName">{{att.fileShowName}}</div>
-          <div class="fileName">{{att.fileName}}</div>
+        <div *ngIf="culturalRelicPostInfo.attachmentList && culturalRelicPostInfo.attachmentList.length > 0" class="attachment">
+          <div *ngFor="let att of culturalRelicPostInfo.attachmentList" class="attachmentContent">
+            <img src="assets/icon/file_{{att.fileType}}.png">
+            <div class="description" style="padding-right: 118px;">
+              <div class="fileShowName">{{att.fileShowName}}</div>
+              <div class="fileName">{{att.fileName}}</div>
+            </div>
+            <button ion-button outline (click)="showAttachmentList(att)" style="margin-left:-115px;">查看</button>
+            <button ion-button outline (click)="delAttachmentList(att)">删除</button>
+          </div>
         </div>
-        <button ion-button outline (click)="showAttachmentList(att)" style="margin-left:-90px;">查看</button>
-        <button ion-button outline (click)="delAttachmentList(att)">删除</button>
-      </div>
+      </ion-label>
     </ion-item>
     <ion-item class="subTitle">
       两线信息
@@ -132,32 +132,32 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>保护范围</ion-label>
-      <ion-label class="textareaLable">
+      <ion-label>
         <textarea placeholder="请输入保护范围" rows="2" [(ngModel)]="culturalRelicPostInfo.culturalRelic.protectionRange"></textarea>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label fixed>建设控制地带</ion-label>
-      <ion-label class="textareaLable">
+      <ion-label>
         <textarea placeholder="请输入建设控制地带" rows="2" [(ngModel)]="culturalRelicPostInfo.culturalRelic.constructionControl"></textarea>
       </ion-label>
     </ion-item>
-    <ion-item class="littleTitle">
-      <ion-label class="navi">
-        <div>两线附件</div>
+    <ion-item>
+      <ion-label class="attachment-label">
+        <div class="title">两线附件</div>
         <ion-icon name="ios-add-circle-outline" (click)="selectTwoLimitAttachmentList()"></ion-icon>
-      </ion-label>
-    </ion-item>
-    <ion-item *ngIf="culturalRelicPostInfo.twoLimitAttachmentList && culturalRelicPostInfo.twoLimitAttachmentList.length > 0" class="attachment">
-      <div *ngFor="let att of culturalRelicPostInfo.twoLimitAttachmentList" class="attachmentContent">
-        <img src="assets/icon/file_{{att.fileType}}.png">
-        <div class="description">
-          <div class="fileShowName">{{att.fileShowName}}</div>
-          <div class="fileName">{{att.fileName}}</div>
+        <div *ngIf="culturalRelicPostInfo.twoLimitAttachmentList && culturalRelicPostInfo.twoLimitAttachmentList.length > 0" class="attachment">
+          <div *ngFor="let att of culturalRelicPostInfo.twoLimitAttachmentList" class="attachmentContent">
+            <img src="assets/icon/file_{{att.fileType}}.png">
+            <div class="description" style="padding-right: 118px;">
+              <div class="fileShowName">{{att.fileShowName}}</div>
+              <div class="fileName">{{att.fileName}}</div>
+            </div>
+            <button ion-button outline (click)="showTwoLimitAttachmentList(att)" style="margin-left:-115px;">查看</button>
+            <button ion-button outline (click)="delTwoLimitAttachmentList(att)">删除</button>
+          </div>
         </div>
-        <button ion-button outline (click)="showTwoLimitAttachmentList(att)" style="margin-left:-90px;">查看</button>
-        <button ion-button outline (click)="delTwoLimitAttachmentList(att)">删除</button>
-      </div>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

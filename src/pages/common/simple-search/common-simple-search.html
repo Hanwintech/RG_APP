@@ -3,12 +3,10 @@
     <ion-buttons left>
       <button ion-button (click)="close()">关闭</button>
     </ion-buttons>
-    <ion-buttons center>
-      <div class="searchBox">
-        <ion-icon name="ios-search-outline"></ion-icon>
-        <ion-icon name="ios-close-outline" (click)="clear()"></ion-icon>
-        <ion-input type="text" placeholder="请输入关键字" [(ngModel)]="keyword"></ion-input>
-      </div>
+    <ion-buttons center class="searchBox">
+      <ion-icon name="ios-search-outline"></ion-icon>
+      <ion-icon name="ios-close-outline" (click)="clear()"></ion-icon>
+      <ion-input type="text" placeholder="请输入关键字" [(ngModel)]="keyword"></ion-input>
     </ion-buttons>
     <ion-buttons right>
       <button ion-button (click)="doSearch()">搜索</button>
@@ -16,6 +14,4 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-</ion-content>
+<ion-content padding></ion-content>

@@ -65,7 +65,7 @@ export class InspectionNoticeListPage extends PagingListPage {
   }
 
   view(inspectorNotice: InspectionNoticeInfo) {
-    let searchModal = this.modalCtrl.create('InspectionNoticeDetailPage', { "data": inspectorNotice, "segmentIndex": this.segmentIndex });
+    let searchModal = this.modalCtrl.create('InspectionNoticeDetailPage', { "keyID": inspectorNotice.inspectorNotice.keyID, "segmentIndex": this.segmentIndex });
     searchModal.onDidDismiss(data => {
       for (let originData in this.dataList) {
         if (this.dataList[originData].inspectorNotice.keyID == data.inspectorNotice.keyID) {

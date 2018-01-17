@@ -60,6 +60,10 @@ export class MessageCenterInfoListPage extends PagingListPage {
   }
 
   view(messageCenterEntity: MessageCenterEntity) {
-    this.navCtrl.push('MessageCenterInfoDetailPage', messageCenterEntity);
+    let detailPage = this.modalCtrl.create('MessageCenterInfoDetailPage', messageCenterEntity);
+    detailPage.onDidDismiss(data => {
+      messageCenterEntity.readStateName="已阅";
+    });
+    detailPage.present();
   }
 }

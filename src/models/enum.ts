@@ -115,6 +115,16 @@ export enum EnumRunState {
     他人已处理 = 5,
 }
 
+/**
+ * 消息阅读状态
+ */
+export enum EnumMessageCenterReadState {
+    未阅 = 1,
+    已阅 = 2,
+    已阅未处理 = 3,
+    已处理 = 4,
+    他人已处理 = 5,
+}
 
 export enum EnumAttachmentType {
     不可移动文物附件 = 30,

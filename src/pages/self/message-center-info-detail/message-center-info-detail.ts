@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
-import { EnumMessageCenterType } from './../../../models/enum';
+import { EnumMessageCenterType, EnumMessageCenterReadState } from './../../../models/enum';
 import { ApiService } from './../../../services/api.service';
+import { SetMessageStatus } from './../../../apis/self/set-message-status.api';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { MessageCenterEntity } from './../../../models/self/message-center-info.model';
@@ -27,34 +28,46 @@ export class MessageCenterInfoDetailPage extends DetailPage {
     super(navCtrl, file, fileTransfer, pageService);
 
     this.messageCenterEntity = this.navParams.data;
-    console.log(this.navParams.data.businessID);
+    if (this.navParams.data.readState == EnumMessageCenterReadState["未阅"]) {
+      let readStauts = EnumMessageCenterReadState["已阅"];
+      this.apiService.sendApi(new SetMessageStatus(this.navParams.data.msgCenterID, localStorage.getItem("userId"),readStauts)).subscribe(
+        res => {
+          if (res.success) {
+            
+          } else {
+            this.pageService.showErrorMessage(res.reason);
+          }
+        },
+        error => {
+          this.pageService.showErrorMessage(error);
+        });
+    }
   }
 
   detail() {
     switch (this.messageCenterEntity.messageType) {
       case EnumMessageCenterType["督察令通知"]:
-
+        this.navCtrl.push("InspectionNoticeDetailPage", { "keyID": this.navParams.data.businessID });
         break;
       case EnumMessageCenterType["督察令回复"]:
-        this.navCtrl.push('InspectionNoticeAlreadyReplyPage',{ "keyID": this.navParams.data.businessID });
+        this.navCtrl.push('InspectionNoticeDetailPage', { "keyID": this.navParams.data.businessID });
         break;
       case EnumMessageCenterType["巡查自动预警"]:
         this.navCtrl.push('PatrolInfoListPage', { "culturalRelicID": this.navParams.data.businessID });
         break;
-      case EnumMessageCenterType["人员进出两线范围提醒"]:
-
-        break;
       case EnumMessageCenterType["通知公告"]:
-        this.navCtrl.push('NoticeMessageCenterPage',{ "keyID": this.navParams.data.businessID });
+        this.navCtrl.push('NoticeMessageCenterPage', { "keyID": this.navParams.data.businessID });
         break;
       case EnumMessageCenterType["巡查处理"]:
 
         break;
 
       default:
-      // picsName = "ic_cultural_relic_level1_normal";
+        this.pageService.showMessage("请到PC端处理或查看详情！");
     }
   }
 
-  close() { }
+  close() {
+    this.navCtrl.pop();
+   }
 }

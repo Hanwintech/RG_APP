@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-buttons left>
+    <ion-buttons left *ngIf="canShowButton">
       <button ion-button (click)="close()">关闭</button>
     </ion-buttons>
     <ion-title>督查通知详情</ion-title>
@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="inspectionNotice">
     <ion-item>
       <ion-label fixed>接收单位</ion-label>
       <ion-label>{{inspectionNotice.inspectorNotice.toManageUnitName}}</ion-label>
@@ -44,6 +44,14 @@
       <ion-label fixed>情况描述</ion-label>
       <ion-label>{{inspectionNotice.inspectorNotice.situationDescription}}</ion-label>
     </ion-item>
+    <ion-item *ngIf="record == 3">
+        <ion-label fixed>回复人</ion-label>
+        <ion-label>{{inspectionNotice.inspectorNotice.replyUserName}}</ion-label>
+      </ion-item>
+      <ion-item *ngIf="record == 3">
+        <ion-label fixed>回复内容</ion-label>
+        <ion-label>{{inspectionNotice.inspectorNotice.replyContent}}</ion-label>
+      </ion-item>
     <ion-item *ngIf="inspectionNotice.attachmentList && inspectionNotice.attachmentList.length > 0" class="littleTitle">
       附件
     </ion-item>
@@ -61,6 +69,6 @@
   </ion-list>
 </ion-content>
 
-<ion-footer *ngIf="segmentIndex == '0' && inspectionNotice.inspectorNotice.recordState == 2">
+<ion-footer *ngIf="segmentIndex == '0' &&record == 2">
   <button ion-button block (click)="reply()">回复</button>
 </ion-footer>

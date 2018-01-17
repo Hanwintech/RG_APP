@@ -2,7 +2,7 @@ import { GetListAPI } from './../get-list-api.api';
 import { URLSearchParams } from '@angular/http';
 import { BaseRequest } from './../base-request.api';
 
-export class GetInspectionNoticeInfoList extends BaseRequest {
+export class GetInspectionNoticeInfo extends BaseRequest {
 
     constructor(private Id: string) {
         super();

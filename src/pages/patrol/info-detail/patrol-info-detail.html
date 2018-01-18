@@ -21,10 +21,10 @@
   </div>
 
   <div *ngIf="!patrolInfo.attachmentList || patrolInfo.attachmentList.length == 0" class="headImg">
-    <img src="{{patrolInfo.patrolImageUrl ? patrolInfo.patrolImageUrl : './../../../assets/icon/empty_middle.png'}}">
+    <img src="{{patrolInfo.patrolImageUrl ? patrolInfo.patrolImageUrl : 'assets/icon/empty_middle.png'}}">
   </div>
 
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
       <ion-label class="navi">
@@ -77,11 +77,11 @@
       <ion-label>{{patrolInfo.patrolInfo.problemDescription ? patrolInfo.patrolInfo.problemDescription : '无'}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">是否经过许可</ion-label>
+      <ion-label fixed>是否经过许可</ion-label>
       <ion-label>{{patrolInfo.patrolInfo.permission ? '是' : '否'}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">是否当场处理</ion-label>
+      <ion-label fixed>是否当场处理</ion-label>
       <ion-label>{{patrolInfo.patrolInfo.isImmediately ? '是' : '否'}}</ion-label>
     </ion-item>
   </ion-list>

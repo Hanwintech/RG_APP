@@ -69,7 +69,7 @@
     </ion-item>
     <ion-item *ngIf="culturalRelicPostInfo.miniImage" class="attachment">
       <div class="attachmentContent">
-        <img src="./../../../assets/icon/file_{{culturalRelicPostInfo.miniImage.fileType}}.png">
+        <img src="assets/icon/file_{{culturalRelicPostInfo.miniImage.fileType}}.png">
         <div class="description">
           <div class="fileShowName">{{culturalRelicPostInfo.miniImage.fileShowName}}</div>
           <div class="fileName">{{culturalRelicPostInfo.miniImage.fileName}}</div>
@@ -86,7 +86,7 @@
     </ion-item>
     <ion-item *ngIf="culturalRelicPostInfo.attachmentList && culturalRelicPostInfo.attachmentList.length > 0" class="attachment">
       <div *ngFor="let att of culturalRelicPostInfo.attachmentList" class="attachmentContent">
-        <img src="./../../../assets/icon/file_{{att.fileType}}.png">
+        <img src="assets/icon/file_{{att.fileType}}.png">
         <div class="description">
           <div class="fileShowName">{{att.fileShowName}}</div>
           <div class="fileName">{{att.fileName}}</div>

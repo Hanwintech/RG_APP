@@ -96,23 +96,23 @@ page-cultural-relic-map {
         .upArrow div {
             margin-right: 0.9em;
             margin-bottom: 0.9em;
-            background-image: url('../assets/map/ic_title_bar_arrow_up.png');
+            background-image: url('/assets/map/ic_title_bar_arrow_up.png');
         }
         .ios-arrow-down div {
             // margin-right: -0.2em;
-            background-image: url('../assets/map/ic_title_bar_arrow_down.png');
+            background-image: url('/assets/map/ic_title_bar_arrow_down.png');
         }
         .locateContainer div {
-            background-image: url('../assets/map/ic_map_location_to_self_normal.png');
+            background-image: url('/assets/map/ic_map_location_to_self_normal.png');
         }
         .locateContainer div:active {
-            background-image: url('../assets/map/ic_map_location_to_self_press.png');
+            background-image: url('/assets/map/ic_map_location_to_self_press.png');
         }
         .editInfo div {
-            background-image: url('../assets/map/ic_patrol_info_add_normal.png');
+            background-image: url('/assets/map/ic_patrol_info_add_normal.png');
         }
         .editInfo div:active {
-            background-image: url('../assets/map/ic_patrol_info_add_press.png');
+            background-image: url('/assets/map/ic_patrol_info_add_press.png');
         }
         .titleContain {
             float: left;

@@ -2,7 +2,7 @@
 // http://ionicframework.com/docs/v2/theming/
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
-$font-path: "../assets/fonts";
+$font-path: "/assets/fonts";
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
@@ -21,7 +21,7 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #2ead8c, secondary: #2ead8c, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #e4ebeb, grayText: #818080, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9);
+$colors: ( primary: #2ead8c, secondary: #2ead8c, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #e4ebeb, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9);
 $toolbar-background:color($colors, primary, base);
 $img-placeholder-background: #EDAA45;
 // App iOS Variables
@@ -184,6 +184,10 @@ ion-content {
                 padding: 0 1.5mm 0 0;
                 font-size: 17px;
             }
+            .phoneNo {
+                text-decoration: underline;
+                color: color($colors, primary, base) !important;
+            }
             .label.attachment-label {
                 margin: 2mm 0;
                 padding: 2mm 0;
@@ -216,13 +220,13 @@ ion-content {
                         .description {
                             width: 100%;
                             padding-left: 40px;
-                            padding-right: 62px;
+                            padding-right: 60px;
                             float: left;
                             .fileShowName,
                             .fileName {
                                 font-size: 12px;
                                 width: 100%;
-                                padding: 3px 0;
+                                padding: 3px;
                                 text-overflow: ellipsis;
                                 white-space: nowrap;
                                 overflow: hidden;
@@ -231,7 +235,7 @@ ion-content {
                                 color: color($colors, dark, base);
                             }
                             .fileName {
-                                color: color($colors, border, base);
+                                color: color($colors, grayText, base);
                             }
                         }
                         .button {

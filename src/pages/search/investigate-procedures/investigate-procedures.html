@@ -1,13 +1,11 @@
 <ion-header>
   <ion-navbar>
-  <ion-buttons left>
-    <button ion-button (click)="close()">关闭</button>
-  </ion-buttons>
+    <ion-buttons left>
+      <button ion-button (click)="close()">关闭</button>
+    </ion-buttons>
     <ion-title>选择执法人员</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content>
   <ion-item *ngFor="let data of investigationProcedureList; let i = index;">
@@ -15,6 +13,7 @@
     <ion-checkbox [(ngModel)]="checked[i]"></ion-checkbox>
   </ion-item>
 </ion-content>
+
 <ion-footer>
   <button ion-button (click)="doSelectAll()">全选</button>
   <button ion-button (click)="doEmptied()">清空</button>

@@ -1,16 +1,11 @@
 <ion-header>
   <ion-navbar>
-      <ion-buttons left>
-      <button  ion-button icon-only (click)="close()">
-          <ion-icon name="ios-arrow-back"></ion-icon>
-        </button>
-      </ion-buttons>
     <ion-title>消息详情</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>发送单位</ion-label>
       <ion-label>{{messageCenterEntity.addManageUnitName}}</ion-label>

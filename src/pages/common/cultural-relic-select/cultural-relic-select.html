@@ -19,7 +19,7 @@
     <ion-list>
       <ion-item *ngFor="let data of dataList" (click)="select(data)">
         <div class="img">
-          <img src="{{data.miniImageUrl ? data.miniImageUrl : './../../../assets/icon/empty_small.png'}}">
+          <img src="{{data.miniImageUrl ? data.miniImageUrl : 'assets/icon/empty_small.png'}}">
         </div>
         <div class="description">
           <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>

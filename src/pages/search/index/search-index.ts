@@ -9,7 +9,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetLawFileInfos } from './../../../apis/search/get-law-file-infos.api';
 import { LawFileInfoSearch } from './../../../models/search/law-file-info-search.model';
-import { LawFileInfos,LawFileInfo } from './../../../models/search/law-file-infos.model';
+import { LawFileInfos, LawFileInfo } from './../../../models/search/law-file-infos.model';
 import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 @IonicPage()
@@ -41,11 +41,32 @@ export class SearchIndexPage extends PagingListPage {
 
     this.pageService.showLoading("数据加载中...");
 
+    this.ionViewDidEnter();
+  }
+
+  ionViewDidEnter() {
+    let searchDefaultPage = this.navCtrl.parent.viewCtrl.instance.searchDefaultPage;
+    if (!searchDefaultPage && this.hasCase || searchDefaultPage == "cases" && this.hasCase) {
+      this.statistics = "cases";
+    } else if (!searchDefaultPage && this.hasPatrol || searchDefaultPage == "inspect" && this.hasPatrol) {
+      this.statistics = "inspect";
+    } else {
+      this.statistics = "culturalRelic";
+    }
+  }
+
+  changeSegment(segValue) {
+    this.navCtrl.parent.viewCtrl.instance.searchDefaultPage = segValue;
+
+    if (segValue == 'laws') {
+      this.getLawsData();
+    }
+  }
+
+  getLawsData() {
     //初始化父类参数
     this.api = new GetLawFileInfos();
     this.condition = new LawFileInfoSearch();
-    //this.conditionDataSource = new CaseInfoSearchDataSource();
-    this.dataList = [];
 
     //初始化查询字段
     this.condition = new LawFileInfoSearch();
@@ -59,28 +80,10 @@ export class SearchIndexPage extends PagingListPage {
     this.condition.userType = Number(localStorage.getItem("userType"));
 
     //查询首页数据
+    this.nextPageIndex = 0;
+    this.isLastPage = false;
+    this.dataList = [];
     this.nextPage(null);
-  }
-
-  ionViewDidEnter() {
-    let searchDefaultPage = this.navCtrl.parent.viewCtrl.instance.searchDefaultPage;
-    if (searchDefaultPage == 0 && this.hasCase) {
-      this.statistics = "cases";
-    } else if (searchDefaultPage == 1 && this.hasPatrol) {
-      this.statistics = "culturalRelic";
-    } else if (searchDefaultPage == 2) {
-      this.statistics = "culturalRelic";
-    } else if (searchDefaultPage == 3) {
-      this.statistics = "laws";
-    } else if (this.hasCase) {
-      this.statistics = "cases";
-    } else {
-      this.statistics = "culturalRelic";
-    }
-  }
-
-  changeSegment(segIndex) {
-    this.navCtrl.parent.viewCtrl.instance.searchDefaultPage = segIndex;
   }
 
   Statistics(listType: number) {
@@ -95,5 +98,5 @@ export class SearchIndexPage extends PagingListPage {
   view(lawFileInfo: LawFileInfo) {
     this.navCtrl.push("LawFileDetailPage", lawFileInfo);
   }
-  
+
 }

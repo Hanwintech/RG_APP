@@ -83,8 +83,8 @@ ion-header {
                 }
             }
         }
-        .bar-buttons{
-            min-width:30mm;
+        .bar-buttons {
+            min-width: 30mm;
         }
     }
 }
@@ -184,7 +184,7 @@ ion-content {
                 padding: 0 1.5mm 0 0;
                 font-size: 17px;
             }
-            .datetime  {
+            .datetime {
                 width: 100%;
                 max-width: 100%;
                 margin: 2mm 0 2mm 1.5mm;
@@ -214,14 +214,14 @@ ion-content {
                     margin-left: -22px;
                 }
                 div.attachment {
-                    margin-top:24px;
+                    margin-top: 24px;
                     .attachmentContent {
                         width: 100%;
                         height: 50px;
                         padding: 5px 0;
                         img {
                             float: left;
-                            max-width:40px;
+                            max-width: 40px;
                             max-height: 40px;
                             position: absolute;
                         }
@@ -252,7 +252,7 @@ ion-content {
                             float: right;
                             position: absolute;
                             margin-left: -58px;
-                            margin-top:10px;
+                            margin-top: 10px;
                         }
                     }
                 }
@@ -260,7 +260,7 @@ ion-content {
             .label.navi {
                 div {
                     width: 100%;
-                    min-height:19px;
+                    min-height: 19px;
                     padding-right: 62px;
                     float: left;
                     text-overflow: ellipsis;
@@ -298,6 +298,10 @@ ion-content {
         background-position: 50% 50%;
         background-size: 12%;
     }
+}
+
+ion-content.has-refresher>.scroll-content {
+    border-top: 0;
 }
 
 ion-footer {

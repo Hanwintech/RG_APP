@@ -10,9 +10,8 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
       <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
@@ -30,11 +29,11 @@
       <ion-input type="text" [(ngModel)]="search.othersPeople"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">巡查开始日期</ion-label>
+      <ion-label fixed>巡查开始日期</ion-label>
       <ion-datetime placeholder="点击选择巡查开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">巡查结束日期</ion-label>
+      <ion-label fixed>巡查结束日期</ion-label>
       <ion-datetime placeholder="点击选择巡查结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
@@ -62,7 +61,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">是否当场处理</ion-label>
+      <ion-label fixed>是否当场处理</ion-label>
       <ion-select [(ngModel)]="search.disposeType" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.disposeTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>

@@ -11,13 +11,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
-      <ion-label fixed class="wrap">巡查开始日期</ion-label>
+      <ion-label fixed>巡查开始日期</ion-label>
       <ion-datetime placeholder="点击选择巡查开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">巡查结束日期</ion-label>
+      <ion-label fixed>巡查结束日期</ion-label>
       <ion-datetime placeholder="点击选择巡查结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
     </ion-item>
     <ion-item>

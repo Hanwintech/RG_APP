@@ -11,8 +11,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
+  <ion-list class="form-list">
+    <ion-item class="form-list">
       <ion-label fixed>工地名称</ion-label>
       <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
     </ion-item>
@@ -45,13 +45,13 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">地图标注情况</ion-label>
+      <ion-label fixed>地图标注情况</ion-label>
       <ion-select [(ngModel)]="search.mapLabelStatus" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.mapLabelStatusList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">标注精确度</ion-label>
+      <ion-label fixed>标注精确度</ion-label>
       <ion-select [(ngModel)]="search.coordinateAccurate" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.coordinateAccurateList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>

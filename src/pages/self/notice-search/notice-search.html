@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>公告类别</ion-label>
       <ion-select [(ngModel)]="search.infoCategory" cancelText="取消" interface="popover">
@@ -47,11 +47,11 @@
       <ion-input type="text" [(ngModel)]="search.relatedDepartmentName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">发送开始时间</ion-label>
+      <ion-label fixed>发送开始时间</ion-label>
       <ion-datetime placeholder="点击选择发送开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.sendDateStart"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">发送结束时间</ion-label>
+      <ion-label fixed>发送结束时间</ion-label>
       <ion-datetime placeholder="点击选择发送结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.sendDateEnd"></ion-datetime>
     </ion-item>
   </ion-list>

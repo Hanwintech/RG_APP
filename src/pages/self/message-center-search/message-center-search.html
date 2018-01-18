@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>消息类别</ion-label>
       <ion-select [(ngModel)]="search.messageType" cancelText="取消" interface="popover">
@@ -25,11 +25,11 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">发送开始时间</ion-label>
+      <ion-label fixed>发送开始时间</ion-label>
       <ion-datetime placeholder="点击选择发送开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label fixed class="wrap">发送结束时间</ion-label>
+      <ion-label fixed>发送结束时间</ion-label>
       <ion-datetime placeholder="点击选择发送结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
     </ion-item>
     <ion-item>

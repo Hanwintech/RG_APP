@@ -184,6 +184,14 @@ ion-content {
                 padding: 0 1.5mm 0 0;
                 font-size: 17px;
             }
+            .datetime  {
+                width: 100%;
+                max-width: 100%;
+                margin: 2mm 0 2mm 1.5mm;
+                padding: 2mm 1.5mm;
+                border-left: 1px solid color($colors, border, base);
+                color: color($colors, dark, base);
+            }
             .phoneNo {
                 text-decoration: underline;
                 color: color($colors, primary, base) !important;

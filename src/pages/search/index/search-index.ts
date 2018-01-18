@@ -95,7 +95,5 @@ export class SearchIndexPage extends PagingListPage {
   view(lawFileInfo: LawFileInfo) {
     this.navCtrl.push("LawFileDetailPage", lawFileInfo);
   }
-  // showSimpleSearch(){
-  //   this.navCtrl.push("LawFileSearchPage");
-  // }
+  
 }

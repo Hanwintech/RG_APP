@@ -17,10 +17,11 @@ page-search-statistics {
         .total {
             display: inline-block;
             width: 48.5%;
-            font-size: 12px; // text-align: center;
+            font-size:1.05rem; 
             padding: 5px 0 5px 16px;
             height: 52px;
             border-right: solid 1px #c7c7c7;
+            color: color($colors, dark, base);//设置字体颜色为灰色
             div:last-child {
                 padding-top: 5px;
                 font-size: 18px;

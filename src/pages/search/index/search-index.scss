@@ -21,6 +21,12 @@
                 border-color: color($colors, primary, base);
             }
         }
+        .grid {
+            padding: 16px 5px 30px 5px !important;
+        }
+        .col {
+            padding: 20px 5px 5px 5px;
+        }
         .item-block {
             padding-left: 0;
             .label {
@@ -79,9 +85,7 @@
                     float: right;
                 }
             }
-        } // .item-inner{
-        //     border-top-width:0;
-        // }
+        }
         .list {
             margin-top: 0;
         }
@@ -94,7 +98,7 @@
             color: color($colors, dark, base);
         }
         img {
-            width: 60px;
-            height: 60px;
+            width: 54px;
+            height: 54px;
         }
     }

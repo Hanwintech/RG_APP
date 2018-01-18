@@ -33,27 +33,32 @@ export class InspectionNoticeReplyPage {
       this.pageService.showErrorMessage('请输入回复内容！');
       return;
     }
+    this.pageService.showComfirmMessage("确定要回复督查通知吗？",
+    () => {
+      this.pageService.showLoading("提交中...");
+      this.apiService.sendApi(new PostInspectorNoticeReply(this.inspectionNotice)).subscribe(
+        res => {
+          this.pageService.dismissLoading();
+          if (res.success) {
+            this.inspectionNotice = res.data;
+            this.pageService.showMessage('提交回复成功!');
+            this.viewCtrl.dismiss(this.inspectionNotice);
+          } else {
+            this.pageService.showErrorMessage(res.reason);
+          }
+        },
+        error => {
+          this.pageService.dismissLoading();
+          this.pageService.showErrorMessage(error);
+        })
+    },
+    () => { });
 
-    this.pageService.showLoading("提交中...");
 
-    this.apiService.sendApi(new PostInspectorNoticeReply(this.inspectionNotice)).subscribe(
-      res => {
-        this.pageService.dismissLoading();
-        if (res.success) {
-          this.inspectionNotice = res.data;
-          this.pageService.showMessage('提交成功!');
-          this.close();
-        } else {
-          this.pageService.showErrorMessage(res.reason);
-        }
-      },
-      error => {
-        this.pageService.dismissLoading();
-        this.pageService.showErrorMessage(error);
-      })
+
   }
 
-  close() {
+  closeReply() {
     this.viewCtrl.dismiss(this.inspectionNotice);
   }
 }

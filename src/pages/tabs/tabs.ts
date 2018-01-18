@@ -19,7 +19,7 @@ export class TabsPage extends BasePage {
   private backButtonPressed: boolean;  //用于判断返回键是否触发
 
   private showPatrol: boolean;
-  private searchDefaultPage: number;
+  private searchDefaultPage: string;
 
   private tab1Root: string;
   private tab2Root: string;
@@ -72,17 +72,17 @@ export class TabsPage extends BasePage {
   }
 
   public showMoveableStatistic() {
-    this.searchDefaultPage = 1;
+    this.searchDefaultPage = "culturalRelic";
     this.navCtrl.getAllChildNavs()[0].select(2);
   }
 
   public showPatrolStatistic() {
-    this.searchDefaultPage = 0;
+    this.searchDefaultPage = "inspect";
     this.navCtrl.getAllChildNavs()[0].select(2);
   }
 
   public searchSelected() {
-    this.searchDefaultPage = 0;
+    this.searchDefaultPage = "";
   }
 
   registerBackButtonAction() {

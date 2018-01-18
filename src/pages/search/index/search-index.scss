@@ -1,6 +1,12 @@
-    page-search-index {
+page-search-index {
+    ion-header {
         .toolbar {
             border-width: 0;
+            .toolbar-content {
+                .title {
+                    padding-left: 5mm;
+                }
+            }
         }
         .segment {
             border-color: #fff;
@@ -21,6 +27,8 @@
                 border-color: color($colors, primary, base);
             }
         }
+    }
+    ion-content {
         .grid {
             padding: 16px 5px 30px 5px !important;
         }
@@ -102,3 +110,4 @@
             height: 54px;
         }
     }
+}

@@ -1,7 +1,7 @@
 page-search-statistics {
-    element.style {
-        margin-top: 132px;
-    }
+    // element.style {
+    //     margin-top: 132px;
+    // }
     ion-toolbar {
         .toolbar-background {
             background: #fff;
@@ -43,7 +43,7 @@ page-search-statistics {
     }
     ion-content .list .item .label {
         padding-top: 1mm;
-        padding-bottom: 1mm;
+        padding-bottom: 0mm;
     }
     .Total {
         padding: 15px 0;

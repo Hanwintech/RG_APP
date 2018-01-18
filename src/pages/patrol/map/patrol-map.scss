@@ -4,8 +4,14 @@ page-patrol-map {
     $origionMarker: #2b81ff; //原始的marker颜色
     $selectedMarker: #f57e1e; //被选中的marker颜色
     $warningMarker: #f05853; //预警的marker颜色
-    ion-header .toolbar-ios ion-title {
-        padding-left: 1rem;
+    ion-header {
+        .toolbar {
+            .toolbar-content {
+                .title {
+                    padding-left: 5mm;
+                }
+            }
+        }
     }
     #map-content {
         position: absolute;

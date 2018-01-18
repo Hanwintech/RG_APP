@@ -8,15 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>回复人</ion-label>
       <ion-label>{{inspectionNotice.inspectorNotice.replyUserName}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label fixed style="height:116px;">回复内容</ion-label>
+      <ion-label fixed>回复内容</ion-label>
       <ion-label>
-        <textarea placeholder="请输入回复内容" rows="5" [(ngModel)]="inspectionNotice.inspectorNotice.replyContent"></textarea>
+        <textarea placeholder="请输入回复内容" rows="10" [(ngModel)]="inspectionNotice.inspectorNotice.replyContent"></textarea>
       </ion-label>
     </ion-item>
   </ion-list>

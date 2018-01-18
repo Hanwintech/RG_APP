@@ -39,7 +39,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label fixed style="height:45px;">地址</ion-label>
+      <ion-label fixed>地址</ion-label>
       <ion-label>
         <textarea placeholder="请输入地址" rows="3" [(ngModel)]="culturalRelicPostInfo.culturalRelic.location"></textarea>
       </ion-label>
@@ -96,7 +96,7 @@
         <div *ngIf="culturalRelicPostInfo.miniImage" class="attachment">
           <div class="attachmentContent">
             <img src="assets/icon/file_{{culturalRelicPostInfo.miniImage.fileType}}.png">
-            <div class="description" style="padding-right: 118px;">
+            <div class="description" style="padding-right: 115px;">
               <div class="fileShowName">{{culturalRelicPostInfo.miniImage.fileShowName}}</div>
               <div class="fileName">{{culturalRelicPostInfo.miniImage.fileName}}</div>
             </div>

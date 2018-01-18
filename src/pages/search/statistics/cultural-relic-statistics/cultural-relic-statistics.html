@@ -7,21 +7,24 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
+  <ion-toolbar class="top">
     <div class="Total">
       <div class="total">
         <div>件/套(总)</div>
-        <div style="color:#EDAA45;">{{sum}}</div>
+        <div style="color:#ff8a0f;">{{sum}}</div>
       </div>
       <div class="total">
         <div>实际数量(总)</div>
-        <div style="color:#EDAA45;">{{actualSum}}</div>
+        <div style="color:#ff8a0f;">{{actualSum}}</div>
       </div>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!-- <ion-refresher (ionRefresh)="refreshDataList($event)" [pullMax]="800">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
+  </ion-refresher> -->
   <div *ngIf="dataSource && dataSource.length > 0">
     <ion-list *ngFor="let data of dataSource">
       <div class="collectionUnitName">
@@ -31,24 +34,24 @@
         <div class="Total11"> {{category1}}
           <div class="Total1">
             <div class="total1">
-              <div style="color:black">件/套</div>
-              <div style="color:#EDAA45;">{{data[1]}}</div>
+              <div style="color:dark">件/套</div>
+              <div style="color:#ff8a0f;">{{data[1]}}</div>
             </div>
             <div class="total1">
-              <div style="color:black">实际数量</div>
-              <div style="color:#EDAA45;">{{data[2]}}</div>
+              <div style="color:dark">实际数量</div>
+              <div style="color:#ff8a0f;">{{data[2]}}</div>
             </div>
           </div>
         </div>
         <div class="Total12"> {{category2}}
           <div class="Total1">
             <div class="total1">
-              <div style="color:black">件/套</div>
-              <div style="color:#EDAA45;">{{data[3]}}</div>
+              <div style="color:dark">件/套</div>
+              <div style="color:#ff8a0f;">{{data[3]}}</div>
             </div>
             <div class="total1">
-              <div style="color:black">实际数量</div>
-              <div style="color:#EDAA45;">{{data[4]}}</div>
+              <div style="color:dark">实际数量</div>
+              <div style="color:#ff8a0f;">{{data[4]}}</div>
             </div>
           </div>
         </div>
@@ -57,42 +60,42 @@
         <div class="Total11"> {{category3}}
           <div class="Total1">
             <div class="total1">
-              <div style="color:black">件/套</div>
-              <div style="color:#EDAA45;">{{data[5]}}</div>
+              <div style="color:dark">件/套</div>
+              <div style="color:#ff8a0f;">{{data[5]}}</div>
             </div>
             <div class="total1">
-              <div style="color:black">实际数量</div>
-              <div style="color:#EDAA45;">{{data[6]}}</div>
+              <div style="color:dark">实际数量</div>
+              <div style="color:#ff8a0f;">{{data[6]}}</div>
             </div>
           </div>
         </div>
         <div class="Total12"> {{category4}}
           <div class="Total1">
             <div class="total1">
-              <div style="color:black">件/套</div>
-              <div style="color:#EDAA45;">{{data[7]}}</div>
+              <div style="color:dark">件/套</div>
+              <div style="color:#ff8a0f;">{{data[7]}}</div>
             </div>
             <div class="total1">
-              <div style="color:black">实际数量</div>
-              <div style="color:#EDAA45;">{{data[8]}}</div>
+              <div style="color:dark">实际数量</div>
+              <div style="color:#ff8a0f;">{{data[8]}}</div>
             </div>
           </div>
         </div>
       </ion-item>
-      <ion-item  *ngIf="title=='按级别统计'">
-          <div class="Total11"> 未定级
-            <div class="Total1">
-              <div class="total1">
-                <div style="color:black">件/套</div>
-                <div style="color:#EDAA45;">{{data[9]}}</div>
-              </div>
-              <div class="total1">
-                <div style="color:black">实际数量</div>
-                <div style="color:#EDAA45;">{{data[10]}}</div>
-              </div>
+      <ion-item *ngIf="title=='按级别统计'">
+        <div class="Total11"> 未定级
+          <div class="Total1">
+            <div class="total1">
+              <div style="color:dark">件/套</div>
+              <div style="color:#ff8a0f;">{{data[9]}}</div>
+            </div>
+            <div class="total1">
+              <div style="color:dark">实际数量</div>
+              <div style="color:#ff8a0f;">{{data[10]}}</div>
             </div>
           </div>
-        </ion-item>
+        </div>
+      </ion-item>
     </ion-list>
   </div>
   <div *ngIf="!dataSource || dataSource.length == 0" class="commonNoResult">

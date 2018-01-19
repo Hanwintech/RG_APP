@@ -1,15 +1,14 @@
 page-search-statistics-chart {
     .Total {
-        padding: 10px 0;
+        padding: 12px 0;
         color: color($colors, dark, base); //设置字体颜色为灰色
-        height: 15mm;
-        //border-width: 0 0 1px 0!important;
+        height: 15mm; //border-width: 0 0 1px 0!important;
         .total {
             display: inline-block;
             width: 48.5%;
-            font-size: 0.9rem; 
+            font-size: 0.9rem;
             padding: 2px 0 5px 16px;
-            height: 32px;
+            height: 34px;
             border-right: solid 1px #c7c7c7;
             div:last-child {
                 padding-top: 2px;
@@ -18,13 +17,13 @@ page-search-statistics-chart {
         }
         .total:last-child {
             border-right: 0;
-            padding-left:12px;
+            padding-left: 12px;
         }
     }
-    .shadow{
-        border-top-width:1px!important;
-        height:5px;
-        background-color:rgb(247,247,248);
-        width:100%;
+    .shadow {
+        border-top: solid 1px rgb(219, 219, 219);
+        height: 6px;
+        background-color: rgb(247, 247, 248);
+        width: 100%;
     }
 }

@@ -15,7 +15,7 @@ export class SearchStatisticsChartPage {
   private dataSource: string[][];
   @ViewChild('chart1') element1: ElementRef;
   @ViewChild('chart2') element2: ElementRef;
-  @ViewChild('chart3') element3: ElementRef;  
+  @ViewChild('chart3') element3: ElementRef;
   chart1;
   chart2;
   chart3;
@@ -25,7 +25,7 @@ export class SearchStatisticsChartPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
-  ) {     
+  ) {
     this.totalCaseCount = this.navParams.data.案件总数;
     this.totalSumFineAmount = this.navParams.data.总罚款金额;
     this.dataSource = this.navParams.data.数据源;
@@ -113,9 +113,21 @@ export class SearchStatisticsChartPage {
     }
 
     let op1 = {
-      grid: { top: '25%', bottom: '25%'},    
+      color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
+      grid: { top: '25%', bottom: '25%', right: '10%' },
       xAxis: {
         data: this.xAxis,
+        axisLabel: {
+          show: true,
+          fontSize: 5,
+          color: 'rgb(204,204,204)'
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: 'rgb(204,204,204)'
+          }
+        }
       },
       dataZoom: [//给x轴设置滚动条  
         {
@@ -134,13 +146,38 @@ export class SearchStatisticsChartPage {
           endValue: this.endValue,
         },
       ],
-      yAxis: { name: "案件数(起)" },
+      yAxis: {
+        name: "案件数(起)",
+        axisLabel: {
+          show: true,
+          fontSize: 10,
+          color: 'rgb(204,204,204)'
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: 'rgb(204,204,204)'
+          }
+        },
+      },
       series: []
     };
     let op2 = {
-      grid: { top: '25%', bottom: '25%'},
+      color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
+      grid: { top: '25%', bottom: '25%' },
       xAxis: {
         data: this.xAxis,
+        axisLabel: {
+          show: true,
+          fontSize: 5,
+          color: 'rgb(204,204,204)'
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: 'rgb(204,204,204)'
+          }
+        }
       },
       dataZoom: [//给x轴设置滚动条  
         {
@@ -159,11 +196,25 @@ export class SearchStatisticsChartPage {
           endValue: this.endValue,
         },
       ],
-      yAxis: { name: "案件数(起)" },
+      yAxis: {
+        name: "案件数(起)",
+        axisLabel: {
+          show: true,
+          fontSize: 10,
+          color: 'rgb(204,204,204)'
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: 'rgb(204,204,204)'
+          }
+        }
+      },
       series: []
     };
 
     let op3 = {
+      color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
       series: []
     };
 
@@ -171,6 +222,7 @@ export class SearchStatisticsChartPage {
       name: '案件数(起)',
       type: 'line',
       label: {
+        //backgroundColor:  ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
         normal: { show: true, position: 'top' }
       },
       data: this.yAxis
@@ -182,6 +234,9 @@ export class SearchStatisticsChartPage {
       label: {
         normal: { show: true, position: 'top' }
       },
+      // itemStyle: {
+      //   color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)']
+      // },
       data: this.yAxis
     });
 

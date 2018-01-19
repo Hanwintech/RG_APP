@@ -7,8 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="form-list">
-  <ion-list *ngIf="inspectionNotice">
+<ion-content >
+  <ion-list *ngIf="inspectionNotice" class="form-list">
     <ion-item>
       <ion-label fixed>接收单位</ion-label>
       <ion-label>{{inspectionNotice.inspectorNotice.toManageUnitName}}</ion-label>

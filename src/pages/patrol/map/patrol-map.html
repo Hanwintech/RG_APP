@@ -17,15 +17,15 @@
     <div style="float:left;margin-right:1.2em;">
       <div *ngIf="search.culturalRelicName">名称:{{search.culturalRelicName}}</div>
       <div *ngIf="!search.culturalRelicName">名称:不限</div>
-      <div *ngIf="search.culturalRelicLevelName">类别:{{search.culturalRelicLevelName}}</div>
-      <div *ngIf="!search.culturalRelicLevelName">类别:不限</div>
+      <div *ngIf="search.culturalRelicLevelName" style="margin-top:5px;">类别:{{search.culturalRelicLevelName}}</div>
+      <div *ngIf="!search.culturalRelicLevelName" style="margin-top:5px;">类别:不限</div>
     </div>
     <div>
       <div style="white-space:nowrap" *ngIf="!search.startDate&&!search.endDate">时间:不限</div>
       <div style="white-space:nowrap" *ngIf="search.startDate||search.endDate">时间:{{search.startDate}}至{{search.endDate}}</div>
-      <div *ngIf="search.districtName&&search.areaName">地区:{{search.areaName}}—{{search.districtName}}</div>
-      <div *ngIf="search.districtName||search.areaName">地区:{{search.areaName}}{{search.districtName}}</div>
-      <div *ngIf="!search.districtName&&!search.areaName">地区:不限</div>
+      <div *ngIf="search.districtName&&search.areaName" style="margin-top:5px;">地区:{{search.areaName}}—{{search.districtName}}</div>
+      <div *ngIf="(search.districtName&&!search.areaName)||(!search.districtName&&search.areaName)" style="margin-top:5px;">地区:{{search.areaName}}{{search.districtName}}</div>
+      <div *ngIf="!search.districtName&&!search.areaName" style="margin-top:5px;">地区:不限</div>
     </div>
   </div>
   <div class="card" [ngClass]="{'hideCard':CardContrl}">

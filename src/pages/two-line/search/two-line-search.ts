@@ -19,14 +19,25 @@ export class TwoLineSearchPage extends SearchPage<CulturalRelicInfoSearch, Cultu
     this.districtList = [];
     this.areaChanged();
     this.tempArea = this.search.area + "_" + this.search.areaName;
+    if (this.search.area > 0 && !this.search.areaName) {
+      this.tempArea = this.search.area + "_" + "淮安市";
+    }
     this.tempDistrict = this.search.district + "_" + this.search.districtName;
   }
 
   districtChanged() {
-    if (this.tempDistrict) { this.search.district = this.tempDistrict.split("_").shift(); this.search.districtName = this.tempDistrict.split("_").pop(); }
+    if (this.tempDistrict) {
+      this.search.district = this.tempDistrict.split("_").shift();
+      this.search.districtName = this.tempDistrict.split("_").pop();
+      this.search.districtName = this.search.districtName == "请选择" ? "" : this.search.districtName;
+    }
   }
   areaChanged() {
-    if (this.tempArea) { this.search.area = this.tempArea.split("_").shift(); this.search.areaName = this.tempArea.split("_").pop(); }
+    if (this.tempArea) {
+      this.search.area = this.tempArea.split("_").shift();
+      this.search.areaName = this.tempArea.split("_").pop();
+      this.search.areaName = this.search.areaName == "请选择" ? "" : this.search.areaName;
+    }
     this.districtList = [];
     let temp: IntegerKeyValue[] = [];
     for (let d of this.searchDataSource.districtList) {
@@ -57,10 +68,11 @@ export class TwoLineSearchPage extends SearchPage<CulturalRelicInfoSearch, Cultu
 
   private clearData() {
     this.search.culturalRelicName = "";
-    this.search.areaName="";
-    this.search.culturalRelicLevelName="";
-    this.search.districtName="";
     this.tempArea = "";
+    this.search.areaName = "";
+    this.search.area = -1;
+    this.search.culturalRelicLevelName = "";
+    this.search.culturalRelicLevel = -1;
     this.tempDistrict = "";
     this.search.startDate = "";
     this.search.endDate = "";

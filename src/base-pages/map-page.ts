@@ -111,6 +111,7 @@ export class MapPage extends DetailPage {
                     this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
                     this.search = res.data.search;//采用服务器端的默认查询条件
                     this.bindMarker();
+                    console.log(res.data);
                 }
             }, error => {
             }

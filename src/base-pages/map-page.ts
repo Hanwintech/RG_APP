@@ -254,6 +254,7 @@ export class MapPage extends DetailPage {
             this.hideContrl = false;
             this.selectedMarkItem = cluster;
             this.selectedCircleTag = cluster.uniqueTag;
+            this.patrolCountTemp = cluster.patrolCount == 0 || !cluster.patrolCount ? 0 : cluster.patrolDoingCount + "/" + cluster.patrolCount;
             this.mapLevel = this.currentMapLevelMax + 1;
             let movePoint = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
             this.map.setCenter(movePoint);

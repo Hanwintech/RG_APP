@@ -1,6 +1,5 @@
 page-cultural-relic-statistics {
     ion-toolbar {
-        //padding:0;
         .toolbar-background {
             background: #fff;
         }
@@ -8,17 +7,25 @@ page-cultural-relic-statistics {
     ion-list {
         .item-block {
             padding-left: 0;
+            height: 80px;
             .item-inner {
-                padding-left: 16px;
+                padding-left: 8px;
+                padding-right: 10px!important;
                 ion-label {
                     margin-top: 0;
                     margin-bottom: 0;
                 }
             }
         }
+        .item-block:last-child {
+              border-bottom-width:0!important;
+            }
     }
     .list {
         margin-bottom: 0;
+    }
+    .top {
+        height: 19mm;
     }
     .Total {
         padding: 15px 0;
@@ -26,9 +33,10 @@ page-cultural-relic-statistics {
             display: inline-block;
             width: 49.5%;
             font-size: 12px;
-            padding: 5px 0 5px 16px;
+            padding: 5px 0 5px 12px;
             height: 52px;
             border-right: solid 1px #c7c7c7;
+            color: color($colors, dark, base); //设置字体颜色为灰色
             div:last-child {
                 padding-top: 5px;
                 font-size: 18px;
@@ -40,21 +48,23 @@ page-cultural-relic-statistics {
     }
     .Total11,
     .Total12 {
-        padding-top: 7px;
+        padding-top: 12px;
         width: 49.5%;
         float: left;
         border-left: solid 1px #c7c7c7;
+        font-size: 12px;
         .Total1 {
-            padding: 15px 0 0 0;
+            padding: 4px 0 0 0;
             .total1 {
                 display: inline-block;
                 width: 49.5%;
-                font-size: 12px;
+                font-size: 0.1rem;
                 padding: 0;
                 height: 52px;
+                color: color($colors, dark, base); //设置字体颜色为灰色
                 div:last-child {
                     padding-top: 5px;
-                    font-size: 18px;
+                    font-size: 15px;
                 }
             }
         }
@@ -65,12 +75,16 @@ page-cultural-relic-statistics {
     .Total12 {
         padding-left: 16px;
     }
+    .Total11 {
+        padding-left: 8px;
+    }
     .collectionUnitName {
         text-align: center;
-        background-color: #c8c7cc;
+        background-color: rgb(222, 222, 222);
         border-bottom: 0;
-        font-size: 16px;
-        height:30px;
-        line-height:32px;
+        font-size: 14px;
+        height: 38px;
+        line-height: 40px;
+        color: rgb(90, 90, 90); //设置字体颜色为灰色
     }
 }

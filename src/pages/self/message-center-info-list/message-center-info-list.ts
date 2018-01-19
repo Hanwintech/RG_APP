@@ -8,7 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetMessageCenterInfoList } from './../../../apis/self/get-message-center-info-list.api';
 import { MessageCenterEntity, MessageCenterInfoSearch, MessageCenterInfoSearchDataSource } from './../../../models/self/message-center-info.model';
-import { EnumSearchType, EnumMessageShowType } from './../../../models/enum';
+import { EnumSearchType, EnumMessageShowType,EnumMessageCenterReadState } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
@@ -54,7 +54,6 @@ export class MessageCenterInfoListPage extends PagingListPage {
     this.condition.manageUnitId = localStorage.getItem("manageUnitId");
     this.condition.userType = Number(localStorage.getItem("userType"));
     this.condition.messageShowType = <number>this.messageShowType;
-
     //查询首页数据
     this.nextPage(null);
   }
@@ -62,7 +61,13 @@ export class MessageCenterInfoListPage extends PagingListPage {
   view(messageCenterEntity: MessageCenterEntity) {
     let detailPage = this.modalCtrl.create('MessageCenterInfoDetailPage', messageCenterEntity);
     detailPage.onDidDismiss(data => {
-      messageCenterEntity.readStateName="已阅";
+      if(data){
+        messageCenterEntity.readState=data;
+        messageCenterEntity.readStateName=EnumMessageCenterReadState[data];
+      }
+      else{
+        messageCenterEntity.readStateName="已阅";
+      }
     });
     detailPage.present();
   }

@@ -1,21 +1,30 @@
 page-search-statistics-chart {
     .Total {
-        padding: 15px 0;
+        padding: 10px 0;
+        color: color($colors, dark, base); //设置字体颜色为灰色
+        height: 15mm;
+        //border-width: 0 0 1px 0!important;
         .total {
             display: inline-block;
             width: 48.5%;
-            font-size: 10px; // text-align: center;
-            padding: 5px 0 5px 16px;
-            height: 52px;
+            font-size: 0.9rem; 
+            padding: 2px 0 5px 16px;
+            height: 32px;
             border-right: solid 1px #c7c7c7;
             div:last-child {
-                padding-top: 5px;
+                padding-top: 2px;
                 font-size: 14px;
             }
         }
         .total:last-child {
             border-right: 0;
+            padding-left:12px;
         }
     }
-
+    .shadow{
+        border-top-width:1px!important;
+        height:5px;
+        background-color:rgb(247,247,248);
+        width:100%;
+    }
 }

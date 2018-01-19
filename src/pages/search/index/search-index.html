@@ -150,7 +150,7 @@
       </ion-refresher>
       <div *ngIf="dataList && dataList.length > 0">
         <ion-list class="data-list">
-          <ion-item *ngFor="let data of dataList" (click)="view1(data)">
+          <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
               <h2>{{data.typeName}}</h2>
               <h3>{{data.lawFile.fileTitle}}</h3>

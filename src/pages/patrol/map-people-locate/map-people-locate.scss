@@ -85,10 +85,10 @@ page-map-people-locate {
         background-size: 3.4em;
     }
     .locateContainer div {
-        background-image: url('/assets/map/ic_map_location_to_self_normal.png');
+        background-image: url('../assets/map/ic_map_location_to_self_normal.png');
     }
     .locateContainer div:active {
-        background-image: url('/assets/map/ic_map_location_to_self_press.png');
+        background-image: url('../assets/map/ic_map_location_to_self_press.png');
     }
     .header-ios .toolbar-ios:last-child .toolbar-background-ios {
         border-width: 0;

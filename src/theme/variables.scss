@@ -2,7 +2,7 @@
 // http://ionicframework.com/docs/v2/theming/
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
-$font-path: "/assets/fonts";
+$font-path: "../assets/fonts";
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
@@ -91,6 +91,7 @@ ion-header {
 
 ion-content {
     .list {
+        margin-bottom: 0;
         .item:first-child {
             border-top: 0;
         }
@@ -123,7 +124,7 @@ ion-content {
                 padding-right: 0;
                 .label {
                     height: 80px;
-                    margin: 5px;
+                    margin: 15px 5px;
                     padding: 0;
                     .img {
                         position: absolute;
@@ -293,7 +294,7 @@ ion-content {
         line-height: 16px;
         margin-top: 50%;
         padding-top: 65px;
-        background-image: url('/assets/icon/common_no_result.png');
+        background-image: url('../assets/icon/common_no_result.png');
         background-repeat: no-repeat;
         background-position: 50% 50%;
         background-size: 12%;

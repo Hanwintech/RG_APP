@@ -27,9 +27,9 @@ page-map-locate {
         background-size: 3.4em;
     }
     .locateContainer div {
-        background-image: url('/assets/map/ic_map_location_to_self_normal.png');
+        background-image: url('../assets/map/ic_map_location_to_self_normal.png');
     }
     .locateContainer div:active {
-        background-image: url('/assets/map/ic_map_location_to_self_press.png');
+        background-image: url('../assets/map/ic_map_location_to_self_press.png');
     }
 }

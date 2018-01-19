@@ -159,7 +159,7 @@ export class PagingListPage extends ListBasePage {
     showSearch(searchPage: string) {
         super.showConditionalSearchPage(searchPage, { "search": this.condition, "dataSource": this.conditionDataSource })
             .then(data => {
-                if (data.needSearch) {
+                if (data && data.needSearch) {
                     this.condition = data.search;
                     this.condition.isDefaultSearch = false;
                     this.condition.keyword = "";

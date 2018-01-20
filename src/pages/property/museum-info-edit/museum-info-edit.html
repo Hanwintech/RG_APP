@@ -1,8 +1,5 @@
 <ion-header>
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button (click)="close()">关闭</button>
-    </ion-buttons>
+  <ion-navbar class="modal-nav">
     <ion-title>{{pageTitle}}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -44,7 +41,7 @@
         <div *ngIf="museumPostInfo.museumInfo.coordinateX || museumPostInfo.museumInfo.coordinateY">
           {{museumPostInfo.museumInfo.coordinateX}},{{museumPostInfo.museumInfo.coordinateY}}
         </div>
-        <button ion-button outline (click)="getCoordinate()">请从地图标注坐标</button>
+        <button ion-button outline color="secondary" (click)="getCoordinate()">请从地图标注坐标</button>
       </ion-label>
     </ion-item>
     <ion-item>
@@ -90,12 +87,12 @@
         <div *ngIf="museumPostInfo.miniImage" class="attachment">
           <div class="attachmentContent">
             <img src="assets/icon/file_{{museumPostInfo.miniImage.fileType}}.png">
-            <div class="description" style="padding-right: 115px;">
+            <div class="description" style="padding-right: 104px;">
               <div class="fileShowName">{{museumPostInfo.miniImage.fileShowName}}</div>
               <div class="fileName">{{museumPostInfo.miniImage.fileName}}</div>
             </div>
-            <button ion-button outline (click)="showMiniImage()" style="margin-left:-115px;">查看</button>
-            <button ion-button outline (click)="delMiniImage()">删除</button>
+            <button ion-button outline color="secondary" (click)="showMiniImage()" style="margin-left: -104px;">查看</button>
+            <button ion-button outline color="danger" (click)="delMiniImage()">删除</button>
           </div>
         </div>
       </ion-label>
@@ -107,12 +104,12 @@
         <div *ngIf="museumPostInfo.attachmentList && museumPostInfo.attachmentList.length > 0" class="attachment">
           <div *ngFor="let att of museumPostInfo.attachmentList" class="attachmentContent">
             <img src="assets/icon/file_{{att.fileType}}.png">
-            <div class="description" style="padding-right: 115px;">
+            <div class="description" style="padding-right: 104px;">
               <div class="fileShowName">{{att.fileShowName}}</div>
               <div class="fileName">{{att.fileName}}</div>
             </div>
-            <button ion-button outline (click)="showAttachmentList(att)" style="margin-left:-115px;">查看</button>
-            <button ion-button outline (click)="delAttachmentList(att)">删除</button>
+            <button ion-button outline color="secondary" (click)="showAttachmentList(att)" style="margin-left: -104px;">查看</button>
+            <button ion-button outline color="danger" (click)="delAttachmentList(att)">删除</button>
           </div>
         </div>
       </ion-label>

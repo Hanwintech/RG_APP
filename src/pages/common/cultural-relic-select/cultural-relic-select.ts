@@ -65,10 +65,6 @@ export class CulturalRelicSelectPage extends PagingListPage {
     return EnumCulturalRelicLevel[culturalRelicLevel];
   }
 
-  close() {
-    this.viewCtrl.dismiss();
-  }
-
   select(culturalRelic: CulturalRelicInfo) {
     this.viewCtrl.dismiss(culturalRelic);
   }

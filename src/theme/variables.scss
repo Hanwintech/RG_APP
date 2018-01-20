@@ -21,7 +21,7 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #2ead8c, secondary: #2ead8c, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #e4ebeb, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9);
+$colors: ( primary: #2ead8c, secondary: #2ead8c, tertiary: #ff8a0f, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #e4ebeb, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9);
 $toolbar-background:color($colors, primary, base);
 $img-placeholder-background: #EDAA45;
 // App iOS Variables
@@ -57,6 +57,11 @@ $item-md-divider-background:color($colors, background, base);
 }
 
 ion-header {
+    .modal-nav{
+        .back-button {
+            display: block;
+        }
+    }
     .toolbar {
         height: 13mm;
         min-height: 13mm;
@@ -229,7 +234,7 @@ ion-content {
                         .description {
                             width: 100%;
                             padding-left: 40px;
-                            padding-right: 60px;
+                            padding-right: 54px;
                             float: left;
                             .fileShowName,
                             .fileName {
@@ -252,8 +257,9 @@ ion-content {
                             height: 24px;
                             float: right;
                             position: absolute;
-                            margin-left: -58px;
-                            margin-top: 10px;
+                            margin-left: -52px;
+                            margin-top: 4px;
+                            padding: 14px 10px;
                         }
                     }
                 }

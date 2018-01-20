@@ -21,7 +21,7 @@
     <ion-row>
       <ion-col col-3>处理人电话</ion-col>
       <ion-col col-9 *ngIf="p.mobilePhone" class="phoneNo">{{p.mobilePhone}}
-        <button ion-button outline (click)="optPhone($event, p.mobilePhone)">操作</button>
+        <button ion-button outline color="secondary" (click)="optPhone($event, p.mobilePhone)">操作</button>
       </ion-col>
       <ion-col col-9 *ngIf="!p.mobilePhone">-</ion-col>
     </ion-row>

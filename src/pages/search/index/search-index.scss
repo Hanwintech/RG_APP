@@ -19,7 +19,13 @@ page-search-index {
                 border-color: #fff;
                 color: color($colors, dark, base);
                 font-size: 1.2rem;
-                line-height: 4rem;
+                line-height: 1.5rem!important;
+                //垂直居中
+                display: -webkit-box;
+                -webkit-box-pack: center;
+                -webkit-box-align: center;
+                -webkit-box-orient: vertical;
+                text-align: center;
             }
             .segment-button.segment-activated {
                 background-color: #fff;

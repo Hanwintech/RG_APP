@@ -69,7 +69,6 @@ export class MapCulturalRelicLocatePage extends BasePage {
   initialEvent() {
     this.culturalRelicMapInfo = this.navParams.data.culturalRelicMapInfo;
     this.coordinateAccurateList = this.navParams.data.coordinateAccurateList;
-    console.log(this.coordinateAccurateList);
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
@@ -160,7 +159,7 @@ export class MapCulturalRelicLocatePage extends BasePage {
       buttons: [
         { text: '查看相关图片', handler: () => { this.viewPic() } },
         { text: '查看相关巡查', handler: () => { this.viewPatrol() } },
-        { text: '标注文物点', handler: () => { this.canShowFooter = true; this.moveMarker(); } }
+        { text: '标注文物点', handler: () => { this.pageService.showMessage("您可以通过在地图上点击或者拖动图标进行文物点标注！"); this.canShowFooter = true; this.moveMarker(); } }
       ]
     });
     actionSheet.present();

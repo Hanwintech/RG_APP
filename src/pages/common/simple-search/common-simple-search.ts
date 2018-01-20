@@ -13,10 +13,6 @@ export class CommonSimpleSearchPage {
     this.keyword = this.params.data.keyword;
   }
 
-  close() {
-    this.viewCtrl.dismiss({ "needSearch": false });
-  }
-
   clear() {
     this.keyword = "";
   }

@@ -24,7 +24,7 @@
       <ion-label fixed>处理人电话</ion-label>
       <ion-label *ngIf="processInfo.patrolCaseProcess.mobilePhone" class="navi">
         <div class="phoneNo">{{processInfo.patrolCaseProcess.mobilePhone}}</div>
-        <button ion-button outline (click)="optPhone($event, processInfo.patrolCaseProcess.mobilePhone)">操作</button>
+        <button ion-button outline color="secondary" (click)="optPhone($event, processInfo.patrolCaseProcess.mobilePhone)">操作</button>
       </ion-label>
       <ion-label col-9 *ngIf="!processInfo.patrolCaseProcess.mobilePhone">-</ion-label>
     </ion-item>
@@ -54,8 +54,8 @@
               <div class="fileShowName">{{att.fileShowName}}</div>
               <div class="fileName">{{att.fileName}}</div>
             </div>
-            <button ion-button outline (click)="showPicture(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
-            <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
+            <button ion-button outline color="secondary" (click)="showPicture(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
+            <button ion-button outline color="tertiary" (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
           </div>
         </div>
       </ion-label>

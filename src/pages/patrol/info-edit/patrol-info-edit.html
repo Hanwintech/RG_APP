@@ -1,8 +1,5 @@
 <ion-header>
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button (click)="close()">关闭</button>
-    </ion-buttons>
+  <ion-navbar class="modal-nav">
     <ion-title>新增巡查记录</ion-title>
     <ion-buttons right>
       <button ion-button icon-only (click)="showLocation()">
@@ -27,7 +24,7 @@
       <ion-label fixed>文物名称</ion-label>
       <ion-label class="navi" style="padding-right: 40px;">
         <div>{{culturalRelicName}}</div>
-        <button ion-button outline (click)="getCulturalRelic()">请选择文物</button>
+        <button ion-button outline color="secondary" (click)="getCulturalRelic()">请选择文物</button>
       </ion-label>
     </ion-item>
     <ion-item>

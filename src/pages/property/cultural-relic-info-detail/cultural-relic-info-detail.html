@@ -79,8 +79,8 @@
               <div class="fileShowName">{{att.fileShowName}}</div>
               <div class="fileName">{{att.fileName}}</div>
             </div>
-            <button ion-button outline (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
-            <button ion-button outline (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
+            <button ion-button outline color="secondary" (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
+            <button ion-button outline color="tertiary" (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
           </div>
         </div>
       </ion-label>
@@ -104,9 +104,7 @@
       <ion-label fixed>相关图片</ion-label>
       <ion-label *ngIf="culturalRelicInfo.twoLimitImageList && culturalRelicInfo.twoLimitImageList.length > 0" class="navi">
         <div></div>
-        <button ion-button outline (click)="showTwoLimitImageList()" style="margin-left: -137px;">
-          点击查看相关图片
-        </button>
+        <button ion-button outline color="secondary" (click)="showTwoLimitImageList()" style="margin-left: -137px;">点击查看相关图片</button>
       </ion-label>
       <ion-label *ngIf="!culturalRelicInfo.twoLimitImageList || culturalRelicInfo.twoLimitImageList.length == 0">
         无
@@ -122,7 +120,7 @@
               <div class="fileShowName">{{att.fileShowName}}</div>
               <div class="fileName">{{att.fileName}}</div>
             </div>
-            <button ion-button outline (click)="download(att.fileUrl, att.fileShowName)">下载</button>
+            <button ion-button outline color="tertiary" (click)="download(att.fileUrl, att.fileShowName)">下载</button>
           </div>
         </div>
       </ion-label>

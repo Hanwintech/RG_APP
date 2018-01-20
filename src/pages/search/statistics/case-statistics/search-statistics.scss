@@ -1,7 +1,4 @@
 page-search-statistics {
-    // element.style {
-    //     margin-top: 132px;
-    // }
     ion-toolbar {
         .toolbar-background {
             background: #fff;
@@ -18,27 +15,7 @@ page-search-statistics {
     .top {
         height: 22mm;
         .toolbar-background {
-            border-width: 0 0 1px 0!important; // position: relative;
-            // &:after,
-            // &:before {
-            //     content: '';
-            //     position: absolute;
-            //     left: 0;
-            //     top: 0;
-            //     height: 1px;
-            //     width: 100%;
-            //     -webkit-transform: scaleY(0.1);
-            //     transform: scaleY(0.1);
-            //     -webkit-transform-origin: 0 0;
-            //     transform-origin: 0 0;
-            //     background: #f00;
-            // }
-            // &:after {
-            //     top: auto;
-            //     bottom: 0;
-            //     -webkit-transform-origin: 0 100%;
-            //     transform-origin: 0 100%;
-            //}
+            border-width: 0 0 1px 0!important; 
         }
     }
     ion-content .list .item .label {

@@ -14,23 +14,42 @@ export class LocationWatchService {
     private _isWatching: boolean;
     public get isWatching(): boolean { return this._isWatching; }
 
-    private _geoPosition: Subscription
+    private _needAlert: boolean;
+
+    private _baiduMapGeolocation;
+
+    private _intervalId: number;
+
     constructor(
         public geolocation: Geolocation,
         public apiService: ApiService,
         public pageService: PageService
     ) {
         this._isWatching = false;
+        this._needAlert = false;
     }
 
     start() {
-        // localStorage.setItem('longitude', '120.78877004348');
-        // localStorage.setItem('latitude', '31.346248778536');
-
         this._isWatching = true;
-        this._geoPosition = this.geolocation.watchPosition().subscribe(
-            res => {
-                if (localStorage.getItem('userId') && res && res.coords) {
+        this._needAlert = true;
+
+        this._baiduMapGeolocation = new BMap.Geolocation();
+        this._baiduMapGeolocation.enableSDKLocation()
+        this._intervalId = setInterval(() => { this.getPosition(); }, 5000);
+    }
+
+    stop() {
+        this._isWatching = false;
+
+        clearInterval(this._intervalId);
+        localStorage.removeItem('longitude');
+        localStorage.removeItem('latitude');
+    }
+
+    getPosition() {
+        if (this._isWatching && localStorage.getItem('userId')) {
+            this.geolocation.getCurrentPosition().then(res => {
+                if (res && res.coords) {
                     let pointArr = [new BMap.Point(res.coords.longitude, res.coords.latitude)];
                     new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
                         if (data.status === 0) {
@@ -40,30 +59,39 @@ export class LocationWatchService {
                         } else {
                             localStorage.removeItem('longitude');
                             localStorage.removeItem('latitude');
-                            this.pageService.showErrorMessage("获取地理坐标失败！");
+                            this.startGetPositionByBaiduMap();
                         }
                     }.bind(this));
                 } else {
                     localStorage.removeItem('longitude');
                     localStorage.removeItem('latitude');
-                    this.pageService.showErrorMessage("获取地理位置失败！");
+                    this.getPositionByBaiduMap();
                 }
-            },
-            error => {
-                this.pageService.showErrorMessage("获取地理位置出错！");
-            },
-            () => {
+            }).catch((error) => {
                 localStorage.removeItem('longitude');
                 localStorage.removeItem('latitude');
-            }
-        );
+                this.getPositionByBaiduMap();
+            });
+        } else {
+            this.stop();
+        }
     }
 
-    stop() {
-        this._isWatching = false;
-        if (this._geoPosition) { this._geoPosition.unsubscribe(); }
-        localStorage.removeItem('longitude');
-        localStorage.removeItem('latitude');
+    getPositionByBaiduMap() {
+        this._baiduMapGeolocation.getCurrentPosition(res => {
+            if (this._baiduMapGeolocation.getStatus() == 0) {
+                localStorage.setItem('longitude', res.longitude);
+                localStorage.setItem('latitude', res.latitude);
+                this.uploadLocation();
+            } else {
+                localStorage.removeItem('longitude');
+                localStorage.removeItem('latitude');
+                if (this._needAlert) {
+                    this.pageService.showErrorMessage("无法定位您的位置！");
+                    this._needAlert = false;
+                }
+            }
+        });
     }
 
     uploadLocation() {

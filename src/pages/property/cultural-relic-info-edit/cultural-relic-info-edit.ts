@@ -49,7 +49,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
     this.culturalRelicPostInfo = new CulturalRelicPostInfo();
 
     this.selectDataSource = this.navParams.data.selectDataSource;
-    this.districtList = [];
+    this.districtList = this.systemConst.EMPTY_SELECT_LIST;
     this.twoStageTypeList = [];
 
     if (this.navParams.data.culturalRelicInfo) {
@@ -60,8 +60,8 @@ export class CulturalRelicInfoEditPage extends BasePage {
         res => {
           if (res.success) {
             this.culturalRelicPostInfo = res.data;
-            this.areaChanged();
-            this.typeChanged();
+            this.areaChanged(this.culturalRelicPostInfo.culturalRelic.district);
+            this.typeChanged(this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType);
 
             super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
             super.changeAttachmentFileType(this.culturalRelicPostInfo.attachmentList);
@@ -79,46 +79,28 @@ export class CulturalRelicInfoEditPage extends BasePage {
     }
   }
 
-  areaChanged() {
-    this.districtList = [];
-    let temp: IntegerKeyValue[] = [];
+  areaChanged(district) {
+    this.districtList = this.systemConst.EMPTY_SELECT_LIST;
+    this.culturalRelicPostInfo.culturalRelic.district = district ? district : this.systemConst.EMPTY_INTEGER;
     for (let d of this.selectDataSource.districtList) {
       if (this.culturalRelicPostInfo.culturalRelic.enumArea && d.parentId == this.culturalRelicPostInfo.culturalRelic.enumArea.toString()) {
         let kvp: IntegerKeyValue = new IntegerKeyValue();
         kvp.key = d.value;
         kvp.value = d.text;
-        temp.push(kvp)
-      }
-    }
-    if (temp.length != 0) {
-      let kvp: IntegerKeyValue = new IntegerKeyValue();
-      kvp.key = -1;
-      kvp.value = "请选择";
-      this.districtList.push(kvp)
-      for (let kv of temp) {
-        this.districtList.push(kv)
+        this.districtList.push(kvp)
       }
     }
   }
 
-  typeChanged() {
-    this.twoStageTypeList = [];
-    let temp: IntegerKeyValue[] = [];
+  typeChanged(twoStageType) {
+    this.twoStageTypeList  = this.systemConst.EMPTY_SELECT_LIST;
+    this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType = twoStageType ? twoStageType : this.systemConst.EMPTY_INTEGER;
     for (let d of this.selectDataSource.culturalRelicTwoStageTypeList) {
       if (this.culturalRelicPostInfo.culturalRelic.culturalRelicType && d.parentId == this.culturalRelicPostInfo.culturalRelic.culturalRelicType.toString()) {
         let kvp: IntegerKeyValue = new IntegerKeyValue();
         kvp.key = d.value;
         kvp.value = d.text;
-        temp.push(kvp)
-      }
-    }
-    if (temp.length != 0) {
-      let kvp: IntegerKeyValue = new IntegerKeyValue();
-      kvp.key = -1;
-      kvp.value = "请选择";
-      this.twoStageTypeList.push(kvp)
-      for (let kv of temp) {
-        this.twoStageTypeList.push(kv)
+        this.twoStageTypeList.push(kvp)
       }
     }
   }

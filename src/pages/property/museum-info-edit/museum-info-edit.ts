@@ -50,7 +50,7 @@ export class MuseumInfoEditPage extends BasePage {
     this.museumPostInfo = new MuseumPostInfo();
 
     this.selectDataSource = this.navParams.data.selectDataSource;
-    this.districtList = [];
+    this.districtList = this.systemConst.EMPTY_SELECT_LIST;
 
     if (this.navParams.data.museumInfo) {
       this.museumInfo = this.navParams.data.museumInfo;
@@ -60,7 +60,7 @@ export class MuseumInfoEditPage extends BasePage {
         res => {
           if (res.success) {
             this.museumPostInfo = res.data;
-            this.areaChanged();
+            this.areaChanged(this.museumPostInfo.museumInfo.district);
 
             super.changeAttachmentFileType([this.museumPostInfo.miniImage]);
             super.changeAttachmentFileType(this.museumPostInfo.attachmentList);
@@ -77,34 +77,25 @@ export class MuseumInfoEditPage extends BasePage {
     }
   }
 
-  areaChanged() {
-    this.districtList = [];
-    let temp: IntegerKeyValue[] = [];
+  areaChanged(district) {
+    this.districtList = this.systemConst.EMPTY_SELECT_LIST;
+    this.museumPostInfo.museumInfo.district = district ? district : this.systemConst.EMPTY_INTEGER;
     for (let d of this.selectDataSource.districtList) {
       if (this.museumPostInfo.museumInfo.enumArea && d.parentId == this.museumPostInfo.museumInfo.enumArea.toString()) {
         let kvp: IntegerKeyValue = new IntegerKeyValue();
         kvp.key = d.value;
         kvp.value = d.text;
-        temp.push(kvp)
-      }
-    }
-    if (temp.length != 0) {
-      let kvp: IntegerKeyValue = new IntegerKeyValue();
-      kvp.key = -1;
-      kvp.value = "请选择";
-      this.districtList.push(kvp)
-      for (let kv of temp) {
-        this.districtList.push(kv)
+        this.districtList.push(kvp)
       }
     }
   }
 
   getCoordinate() {
-    let locate = this.modalCtrl.create("MapLocatePage", {"coordinate":this.museumPostInfo.museumInfo,"culturalLevel":EnumCulturalRelicLevel["博物馆"]});
+    let locate = this.modalCtrl.create("MapLocatePage", { "coordinate": this.museumPostInfo.museumInfo, "culturalLevel": EnumCulturalRelicLevel["博物馆"] });
     locate.onDidDismiss(data => {
-      if(data&&data.culturalRelicX.toString()!="{}"){
-        this.museumPostInfo.museumInfo.coordinateX=data.culturalRelicX;
-        this.museumPostInfo.museumInfo.coordinateY=data.culturalRelicY;
+      if (data && data.culturalRelicX.toString() != "{}") {
+        this.museumPostInfo.museumInfo.coordinateX = data.culturalRelicX;
+        this.museumPostInfo.museumInfo.coordinateY = data.culturalRelicY;
       }
     });
     locate.present();

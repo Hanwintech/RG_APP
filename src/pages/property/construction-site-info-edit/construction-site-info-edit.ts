@@ -49,7 +49,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
     this.culturalRelicPostInfo = new CulturalRelicPostInfo();
 
     this.selectDataSource = this.navParams.data.selectDataSource;
-    this.districtList = [];
+    this.districtList = this.systemConst.EMPTY_SELECT_LIST;
 
     if (this.navParams.data.culturalRelicInfo) {
       this.culturalRelicInfo = this.navParams.data.culturalRelicInfo;
@@ -59,7 +59,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
         res => {
           if (res.success) {
             this.culturalRelicPostInfo = res.data;
-            this.areaChanged();
+            this.areaChanged(this.culturalRelicPostInfo.culturalRelic.district);
 
             super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
             super.changeAttachmentFileType(this.culturalRelicPostInfo.attachmentList);
@@ -77,35 +77,26 @@ export class ConstructionSiteInfoEditPage extends BasePage {
     }
   }
 
-  areaChanged() {
-    this.districtList = [];
-    let temp: IntegerKeyValue[] = [];
+  areaChanged(district) {
+    this.districtList = this.systemConst.EMPTY_SELECT_LIST;
+    this.culturalRelicPostInfo.culturalRelic.district = district ? district : this.systemConst.EMPTY_INTEGER;
     for (let d of this.selectDataSource.districtList) {
       if (this.culturalRelicPostInfo.culturalRelic.enumArea && d.parentId == this.culturalRelicPostInfo.culturalRelic.enumArea.toString()) {
         let kvp: IntegerKeyValue = new IntegerKeyValue();
         kvp.key = d.value;
         kvp.value = d.text;
-        temp.push(kvp)
-      }
-    }
-    if (temp.length != 0) {
-      let kvp: IntegerKeyValue = new IntegerKeyValue();
-      kvp.key = -1;
-      kvp.value = "请选择";
-      this.districtList.push(kvp)
-      for (let kv of temp) {
-        this.districtList.push(kv)
+        this.districtList.push(kvp)
       }
     }
   }
 
   getCoordinate() {
-    let culturalLevel= this.culturalRelicInfo?this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel:EnumCulturalRelicLevel["工地"];
-    let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":culturalLevel});
+    let culturalLevel = this.culturalRelicInfo ? this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel : EnumCulturalRelicLevel["工地"];
+    let locate = this.modalCtrl.create("MapLocatePage", { "coordinate": this.culturalRelicPostInfo.culturalRelic, "culturalLevel": culturalLevel });
     locate.onDidDismiss(data => {
-      if(data&&data.culturalRelicX.toString()!="{}"){
-        this.culturalRelicPostInfo.culturalRelic.coordinateX=data.culturalRelicX;
-        this.culturalRelicPostInfo.culturalRelic.coordinateY=data.culturalRelicY;
+      if (data && data.culturalRelicX.toString() != "{}") {
+        this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
       }
     });
     locate.present();

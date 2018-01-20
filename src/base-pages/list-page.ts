@@ -42,7 +42,9 @@ export class ListBasePage extends BasePage {
         return new Promise((resolve, reject) => {
             let searchModal = this.modalCtrl.create('CommonSimpleSearchPage', { "keyword": keyword });
             searchModal.onDidDismiss(data => {
-                resolve({ "needSearch": data.needSearch, "keyword": data.keyword });
+                let needSearch = data ? data.needSearch : false;
+                keyword = data ? data.keyword : keyword;
+                resolve({ "needSearch": needSearch, "keyword": keyword });
             });
             searchModal.present();
         });

@@ -17,4 +17,7 @@ page-investigate-procedures {
             border-right: 0;
         }
     }
+    .item-ios.item-block .item-inner {
+        border-bottom: 1px solid color($colors, border, base)!important;
+    }
 }

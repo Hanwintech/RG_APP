@@ -197,8 +197,8 @@ export class InspectStatisticsPage {
           });
         break;
       case (9):
-        this.title = "按地区统计";
-        this.category = "地区";
+        this.title = "按人员统计";
+        this.category = "人员";
         this.apiService.sendApi(new GetReportQueryPatrolByAreaInfos(this.search)).subscribe(
           res => {
             //console.log(res);

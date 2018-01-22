@@ -17,13 +17,21 @@
       <ion-label fixed>案发结束日期</ion-label>
       <ion-datetime placeholder="点击选择案发结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="this.search.endDateTime"></ion-datetime>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label fixed>查处程序</ion-label>
       <ion-input readonly="true" placeholder="请选择查处程序" (click)="investigateProcedures()" [(ngModel)]="this.investigationProcedureName">{{investigationProcedureName}}</ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>案件状态</ion-label>
       <ion-input readonly="true" placeholder="请选择案件状态" (click)="caseStates()" [(ngModel)]="this.caseStateName">{{caseStateName}}</ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-label fixed>查处程序</ion-label>
+      <ion-label (click)="investigateProcedures()">{{investigationProcedureName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>查处程序</ion-label>
+      <ion-label (click)="caseStates()">{{caseStateName}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

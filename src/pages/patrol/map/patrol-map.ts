@@ -71,8 +71,8 @@ export class PatrolMapPage extends MapPage {
   //底部查看详情面板
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
-    this.hideDetailContrl = false;
     this.upArrowContrl = this.hideContrl;
+    this.hideDetailContrl = false;
   }
 
   showBottomInfo() {

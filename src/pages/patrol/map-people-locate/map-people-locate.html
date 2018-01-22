@@ -9,22 +9,28 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div class="topHeader">
-    <div>
-      <div style="font-size:14px;">{{culturalRelicName}}</div>
-      <div style="font-size:0.6em;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">{{location}}</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="selfThing">
-      <span></span>本体</div>
-    <div class="protect">
-      <span></span>保护范围</div>
-    <div class="controlPlace">
-      <span></span>建设控制地带</div>
-  </div>
-  <div id="map-content">
-    <div id="map" #map></div>
+  <div class="map-box">
+      <div class="topHeader">
+          <table style="width:100%;">
+            <tr>
+              <th style="font-size:14px;">{{culturalRelicName}}</th>
+            </tr>
+            <tr>
+                <th style="font-size:0.8em;">{{location}}</th>
+              </tr>
+          </table>
+        </div>
+        <div id="map-content">
+            <div class="card">
+                <div class="selfThing">
+                  <span></span>本体</div>
+                <div class="protect">
+                  <span></span>保护范围</div>
+                <div class="controlPlace">
+                  <span></span>建设控制地带</div>
+              </div>
+          <div id="map" #map></div>
+        </div>
   </div>
   <div class="locateContainer"  style="bottom:15px;" (click)="selfLocation()"><div></div></div>
 </ion-content>

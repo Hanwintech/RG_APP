@@ -13,6 +13,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { PageService } from './../../../services/page.service';
 
 declare var BMap;
+declare var BMAP_NORMAL_MAP;
+declare var BMAP_HYBRID_MAP;
 @IonicPage()
 @Component({
   selector: 'page-map-cultural-relic-locate',
@@ -43,6 +45,12 @@ export class MapCulturalRelicLocatePage extends BasePage {
     this.initialEvent();
     this.personLocate();
     this.map.addOverlay(this.marker);
+    this.map.addControl(new BMap.MapTypeControl({
+      mapTypes: [
+        BMAP_NORMAL_MAP,
+        BMAP_HYBRID_MAP
+      ]
+    }));
     if (this.culturalRelicMapInfo.culturalRelicX) {
       this.map.centerAndZoom(new BMap.Point(this.culturalRelicMapInfo.culturalRelicX, this.culturalRelicMapInfo.culturalRelicY), 15);
     }
@@ -74,6 +82,7 @@ export class MapCulturalRelicLocatePage extends BasePage {
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     this.addMarker();
     this.personLocate();
+    console.log(this.navParams.data);
   }
 
   //人员定位
@@ -120,10 +129,12 @@ export class MapCulturalRelicLocatePage extends BasePage {
       res => {
         if (res.success) {
           let culturalRelicImageInfo = res.data;
-          super.changeAttachmentFileType(culturalRelicImageInfo.twoLimitImageList);
-          this.showPicture("", culturalRelicImageInfo.twoLimitImageList);
-          if (!culturalRelicImageInfo.twoLimitImageList.length) {
-            this.pageService.showErrorMessage("无相关图片！");
+          if (culturalRelicImageInfo.twoLimitImageList) {
+            super.changeAttachmentFileType(culturalRelicImageInfo.twoLimitImageList)
+            this.showPicture("", culturalRelicImageInfo.twoLimitImageList);
+          }
+          else {
+            this.pageService.showErrorMessage("没有相关图片！");
           }
         } else {
           this.pageService.showErrorMessage(res.reason);
@@ -158,7 +169,7 @@ export class MapCulturalRelicLocatePage extends BasePage {
       title: '操作',
       buttons: [
         { text: '查看相关图片', handler: () => { this.viewPic() } },
-        { text: '查看相关巡查', handler: () => { this.viewPatrol() } },
+        { text: '查看相关巡查('+this.culturalRelicMapInfo.culturalRelic.patrolCount+')', handler: () => { this.viewPatrol() } },
         { text: '标注文物点', handler: () => { this.pageService.showMessage("您可以通过在地图上点击或者拖动图标进行文物点标注！"); this.canShowFooter = true; this.moveMarker(); } }
       ]
     });

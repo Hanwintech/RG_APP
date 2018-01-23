@@ -9,8 +9,6 @@ import { UserEntity } from './../../../models/user-info.model';
 import { UTMapDistrictClusterInfo } from './../../../models/two-line/two-line-info.model';
 import { EnumAreaCode, EnumDistrictType } from './../../../models/enum';
 import { PageService } from './../../../services/page.service';
-import { Attachment } from "./../../../models/attachment.model";
-import { DetailPage } from './../../../base-pages/detail-page';
 import { MapPage } from './../../../base-pages/map-page';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -96,7 +94,7 @@ export class TwoLinePage extends MapPage {
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("TwoLineSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      if (data.needSearch) {
+      if (data&&data.needSearch) {
         that.getSearchData(data.search);
       }
     });

@@ -1,39 +1,42 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>文物地图</ion-title>
-      <ion-buttons right>
-        <button ion-button icon-only (click)="showSearch()" (press)="pageService.showMessage('筛选文物')">
-          <ion-icon name="ios-funnel-outline"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content>
+  <ion-navbar>
+    <ion-title>文物地图</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showSearch()" (press)="pageService.showMessage('筛选文物')">
+        <ion-icon name="ios-funnel-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="map-box">
     <div class="topHeader" *ngIf="search">
-      <div style="float:left;margin-right:1.2em;">
-        <div *ngIf="search.culturalRelicName">名称:{{search.culturalRelicName}}</div>
-        <div *ngIf="!search.culturalRelicName">名称:不限</div>
-        <div *ngIf="search.culturalRelicLevelName">类别:{{search.culturalRelicLevelName}}</div>
-        <div *ngIf="!search.culturalRelicLevelName">类别:不限</div>
-      </div>
-      <div>
-        <div style="white-space:nowrap" *ngIf="!search.startDate&&!search.endDate">时间:不限</div>
-        <div style="white-space:nowrap" *ngIf="search.startDate||search.endDate">时间:{{search.startDate}}至{{search.endDate}}</div>
-        <div *ngIf="search.districtName&&search.areaName">地区:{{search.areaName}}—{{search.districtName}}</div>
-        <div *ngIf="search.districtName||search.areaName">地区:{{search.areaName}}{{search.districtName}}</div>
-        <div *ngIf="!search.districtName&&!search.areaName">地区:不限</div>
-      </div>
-    </div>
-    <div class="card" [ngClass]="{'hideCard':CardContrl}">
-      <div class="selfThing">
-        <span></span>本体</div>
-      <div class="protect">
-        <span></span>保护范围</div>
-      <div class="controlPlace">
-        <span></span>建设控制地带</div>
+      <table style="width:100%;">
+        <tr>
+          <th *ngIf="search.culturalRelicName">名称:{{search.culturalRelicName}}</th>
+          <th *ngIf="!search.culturalRelicName">名称:不限</th>
+          <td *ngIf="!search.startDate&&!search.endDate">时间:不限</td>
+          <td *ngIf="search.startDate||search.endDate">时间:{{search.startDate}}至{{search.endDate}}</td>
+        </tr>
+        <tr>
+          <th *ngIf="search.culturalRelicLevelName">类别:{{search.culturalRelicLevelName}}</th>
+          <th *ngIf="!search.culturalRelicLevelName">类别:不限</th>
+          <td *ngIf="search.districtName&&search.areaName">地区:{{search.areaName}}—{{search.districtName}}</td>
+          <td *ngIf="(search.districtName&&!search.areaName)||(!search.districtName&&search.areaName)">地区:{{search.areaName}}{{search.districtName}}</td>
+          <td *ngIf="!search.districtName&&!search.areaName">地区:不限</td>
+        </tr>
+      </table>
     </div>
     <div id="map-content">
+      <div class="card" [ngClass]="{'hideCard':CardContrl}">
+        <div class="selfThing">
+          <span></span>本体</div>
+        <div class="protect">
+          <span></span>保护范围</div>
+        <div class="controlPlace">
+          <span></span>建设控制地带</div>
+      </div>
       <div id="map" #map></div>
     </div>
     <div class="bottom">
@@ -80,5 +83,5 @@
         <div class="clear"></div>
       </div>
     </div>
-  
-  </ion-content>
+  </div>
+</ion-content>

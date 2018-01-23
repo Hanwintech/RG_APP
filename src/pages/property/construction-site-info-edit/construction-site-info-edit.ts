@@ -25,7 +25,6 @@ export class ConstructionSiteInfoEditPage extends BasePage {
   private culturalRelicInfo: CulturalRelicInfo;
   private selectDataSource: CulturalRelicInfoSearchDataSource;
   private districtList: IntegerKeyValue[];
-  private twoStageTypeList: IntegerKeyValue[];
   private pageTitle: string;
   private culturalRelicPostInfo: CulturalRelicPostInfo;
 
@@ -189,28 +188,30 @@ export class ConstructionSiteInfoEditPage extends BasePage {
   }
 
   submit() {
+    let valiMessage = "";
+
     if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicName) {
-      this.pageService.showErrorMessage('请填写工地名称！');
-      return;
+      valiMessage += '、工地名称';
     }
 
     if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicCode) {
-      this.pageService.showErrorMessage('请填写工地编码！');
-      return;
+      valiMessage += '、工地编码';
     }
 
     if (this.culturalRelicPostInfo.culturalRelic.enumArea == -1) {
-      this.pageService.showErrorMessage('请选择地区！');
-      return;
+      valiMessage += '、地区';
     }
 
     if (!this.culturalRelicPostInfo.culturalRelic.location) {
-      this.pageService.showErrorMessage('请填写地址！');
-      return;
+      valiMessage += '、地址';
     }
 
     if (this.culturalRelicPostInfo.culturalRelic.coordinateAccurate == -1) {
-      this.pageService.showErrorMessage('请选择标注精确度！');
+      valiMessage += '、标注精确度';
+    }
+
+    if (valiMessage) {
+      this.pageService.showErrorMessage("请填写以下内容：" + valiMessage.substring(1) + "！");
       return;
     }
 

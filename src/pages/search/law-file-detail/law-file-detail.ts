@@ -5,6 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
+import { NetworkInformationService } from './../../../services/network-information.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { LawFileInfo } from './../../../models/search/law-file-infos.model';
 import { Attachment } from "./../../../models/attachment.model";
@@ -26,7 +27,8 @@ export class LawFileDetailPage extends DetailPage {
     public apiService: ApiService,
     public file: File,
     public fileTransfer: FileTransfer,
-    public pageService: PageService
+    public pageService: PageService,
+    public networkInfoService: NetworkInformationService
     ) {
       super(navCtrl, file, fileTransfer, pageService);
 
@@ -38,7 +40,7 @@ export class LawFileDetailPage extends DetailPage {
     super.showSlidesPage(attachmentList, fileUrl);
   }
   download(fileUrl: string, fileName: string) {
-    super.downloadFile(fileUrl, fileName);
+    super.downloadFile(this.networkInfoService, fileUrl, fileName);
   }
 
   showAttachmentList(fileUrl: string) {

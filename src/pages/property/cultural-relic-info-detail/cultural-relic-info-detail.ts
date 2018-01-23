@@ -5,6 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
+import { NetworkInformationService } from './../../../services/network-information.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
@@ -28,7 +29,8 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     public apiService: ApiService,
     public pageService: PageService,
     public file: File,
-    public fileTransfer: FileTransfer
+    public fileTransfer: FileTransfer,
+    public networkInfoService: NetworkInformationService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
 
@@ -58,7 +60,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
   }
 
   download(fileUrl: string, fileName: string) {
-    super.downloadFile(fileUrl, fileName);
+    super.downloadFile(this.networkInfoService, fileUrl, fileName);
   }
 
   showAttachmentList(fileUrl: string) {

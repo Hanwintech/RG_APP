@@ -15,6 +15,7 @@ import { SMS } from '@ionic-native/sms';
 import { CallNumber } from '@ionic-native/call-number';
 import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Network } from '@ionic-native/network';
 
 import { MyApp } from './app.component';
 
@@ -27,6 +28,7 @@ import { ImagePickerService } from "./../services/image-picker.service";
 import { SystemConst } from './../services/system-const.service';
 import { NativeService } from './../services/native.service';
 import { LocationWatchService } from './../services/location-watch.service';
+import { NetworkInformationService } from './../services/network-information.service';
 
 @NgModule({
   declarations: [
@@ -70,9 +72,11 @@ import { LocationWatchService } from './../services/location-watch.service';
     Camera,
     AppVersion,
     InAppBrowser,
+    Network,
     ImagePicker,
     Device,
     LocationWatchService,
+    NetworkInformationService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

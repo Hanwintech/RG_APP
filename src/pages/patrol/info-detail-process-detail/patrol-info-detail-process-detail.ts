@@ -5,6 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
+import { NetworkInformationService } from './../../../services/network-information.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { GetPatrolProcessDetailInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolProcessInfoDetails } from './../../../models/patrol/patrol-info.model';
@@ -29,7 +30,8 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
     private sms: SMS,
     private callNumber: CallNumber,
     public file: File,
-    public fileTransfer: FileTransfer
+    public fileTransfer: FileTransfer,
+    public networkInfoService: NetworkInformationService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
 
@@ -60,7 +62,7 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
   }
 
   download(fileUrl: string, fileName: string) {
-    super.downloadFile(fileUrl, fileName);
+    super.downloadFile(this.networkInfoService, fileUrl, fileName);
   }
 
   showPicture(fileUrl: string) {

@@ -21,7 +21,7 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #2ead8c, secondary: #2ead8c, tertiary: #ff8a0f, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #e4ebeb, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9);
+$colors: ( primary: #2ead8c, secondary: #2ead8c, tertiary: #ff8a0f, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #f7f7f7, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9);
 $toolbar-background:color($colors, primary, base);
 $img-placeholder-background: #EDAA45;
 // App iOS Variables
@@ -59,6 +59,7 @@ $popover-ios-width: 75%;
 .alert-head {
     background-color: color($colors, primary, base);
 }
+
 ion-header {
     .toolbar {
         height: 13mm;
@@ -88,6 +89,51 @@ ion-header {
         }
         .bar-buttons {
             min-width: 30mm;
+            .icon{
+                width:6mm;
+                height:6mm;
+                background-size: 6mm 6mm;
+                margin: 0 1mm;
+            }
+            .icon:before {
+                content: "";
+            }
+            .icon.ion-ios-search-outline {
+                background-image: url('../assets/icon/title_bar_search_normal.png');
+            }
+            .icon.ion-ios-search-outline:active {
+                background-image: url('../assets/icon/title_bar_search_press.png');
+            }
+            .icon.ion-ios-funnel-outline {
+                background-image: url('../assets/icon/title_bar_filter_normal.png');
+            }
+            .icon.ion-ios-funnel-outline:active {
+                background-image: url('../assets/icon/title_bar_filter_press.png');
+            }
+            .icon.ion-ios-add-circle-outline {
+                background-image: url('../assets/icon/title_bar_add_normal.png');
+            }
+            .icon.ion-ios-add-circle-outline:active {
+                background-image: url('../assets/icon/title_bar_add_press.png');
+            }
+            .icon.ion-ios-pin-outline {
+                background-image: url('../assets/icon/title_bar_location_normal.png');
+            }
+            .icon.ion-ios-pin-outline:active {
+                background-image: url('../assets/icon/title_bar_location_press.png');
+            }
+            .icon.ion-ios-list-box-outline {
+                background-image: url('../assets/icon/title_bar_list_normal.png');
+            }
+            .icon.ion-ios-list-box-outline:active {
+                background-image: url('../assets/icon/title_bar_list_press.png');
+            }
+            .icon.ion-ios-stats-outline {
+                background-image: url('../assets/icon/title_bar_chart_normal.png');
+            }
+            .icon.ion-ios-stats-outline:active {
+                background-image: url('../assets/icon/title_bar_chart_press.png');
+            }
         }
     }
     .modal-nav {

@@ -2,10 +2,10 @@
   <ion-toolbar>
     <ion-title>巡查在线</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showSearch()">
+      <button ion-button icon-only (click)="showSearch()" (press)="pageService.showMessage('筛选')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="list()">
+      <button ion-button icon-only (click)="list()" (press)="pageService.showMessage('切换到巡查记录列表')">
         <ion-icon name="ios-list-box-outline"></ion-icon>
       </button>
     </ion-buttons>

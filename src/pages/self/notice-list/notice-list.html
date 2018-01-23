@@ -2,10 +2,10 @@
   <ion-navbar>
     <ion-title>通知公告</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showSimpleSearch()">
+      <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索通知公告')">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="showSearch('NoticeSearchPage')">
+      <button ion-button icon-only (click)="showSearch('NoticeSearchPage')" (press)="pageService.showMessage('筛选通知公告')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
     </ion-buttons>

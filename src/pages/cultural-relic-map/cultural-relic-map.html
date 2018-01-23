@@ -2,7 +2,7 @@
     <ion-navbar>
       <ion-title>文物地图</ion-title>
       <ion-buttons right>
-        <button ion-button icon-only (click)="showSearch()">
+        <button ion-button icon-only (click)="showSearch()" (press)="pageService.showMessage('筛选文物')">
           <ion-icon name="ios-funnel-outline"></ion-icon>
         </button>
       </ion-buttons>

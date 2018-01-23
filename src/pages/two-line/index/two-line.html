@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showSearch('TwoLineSearchPage')">
+      <button ion-button icon-only (click)="showSearch('TwoLineSearchPage')" (press)="pageService.showMessage('筛选')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
     </ion-buttons>

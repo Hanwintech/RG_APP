@@ -50,6 +50,9 @@ ion-content.self-index {
                     width: 4em;
                 }
             }
+            .iconButton:active {
+                background-color: color($colors, background, base);
+            }
         }
         .col:last-child {
             border-right: 0px;
@@ -78,6 +81,12 @@ ion-content.self-index {
                     }
                 }
             }
+        }
+        .item:active {
+            background-color: color($colors, background, base);
+        }
+        .item-ios.activated {
+            background-color: color($colors, background, base);
         }
     }
 }

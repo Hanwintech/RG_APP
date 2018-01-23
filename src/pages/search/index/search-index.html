@@ -2,8 +2,8 @@
   <ion-navbar>
     <ion-title>查询</ion-title>
     <ion-buttons right *ngIf="statistics=='laws'">
-      <button ion-button icon-only (click)="showSimpleSearch()">
-        <ion-icon name="search"></ion-icon>
+      <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索')">
+        <ion-icon name="ios-search-outline"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>

@@ -1,6 +1,5 @@
 import { BaseRequest } from './../base-request.api';
 import { URLSearchParams } from '@angular/http';
-import { InspectionNoticeInfo } from './../../models/self/inspection-notice-info.model';
 
 export class SetMessageStatus extends BaseRequest {
     constructor(private messageId: string, private userId: string, private status: any) {

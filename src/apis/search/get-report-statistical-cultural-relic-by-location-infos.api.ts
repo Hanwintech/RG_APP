@@ -1,5 +1,3 @@
-
-import { URLSearchParams } from '@angular/http';
 import { BaseRequest } from './../base-request.api';
 import { ReportStatisticalCulturalRelicSearch } from './../../models/search/report-statistical-cultural-relic-search.model';
 

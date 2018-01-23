@@ -1,5 +1,3 @@
-
-import { URLSearchParams } from '@angular/http';
 import { BaseRequest } from './../base-request.api';
 import { ReportQueryPatrolSearch } from './../../models/search/report-query-patrol-search.model';
 

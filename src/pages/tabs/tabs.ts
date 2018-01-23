@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, Platform, IonicApp, NavParams, NavController, ToastController, Tabs } from 'ionic-angular';
+import { IonicPage, Platform, IonicApp, NavParams, NavController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Device } from '@ionic-native/device';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
-import { GetInspectionNoticeInfo } from './../../../apis/self/get-inspection-notice-info.api';
+import { GetInspectionNoticeInfo } from './../../../apis/self/inspection-notice.api';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';

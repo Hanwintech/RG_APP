@@ -88,7 +88,7 @@ export class CulturalRelicMapPage extends MapPage {
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("MapSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      if (data.needSearch) {
+      if (data&&data.needSearch) {
         that.getSearchData(data.search);
       }
     });

@@ -8,14 +8,14 @@ import { GetReportQueryPatrolByMonthlyInfos } from './../../../../apis/search/ge
 import { GetReportQueryPatrolByQuarterInfos } from './../../../../apis/search/get-report-query-patrol-by-quarter-infos.api';
 import { GetReportQueryPatrolByHalfYearInfos } from './../../../../apis/search/get-report-query-patrol-by-half-year-infos.api';
 import { GetReportQueryPatrolByYearInfos } from './../../../../apis/search/get-report-query-patrol-by-year-infos.api';
-import { GetReportQueryPatrolByAreaInfos } from './../../../../apis/search/get-report-query-patrol-by-area-infos.api';
+import { GetReportQueryPatrolByUserInfos } from './../../../../apis/search/get-report-query-patrol-by-user-infos.api';
 import { ReportQueryPatrolSearch } from './../../../../models/search/report-query-patrol-search.model';
 import { ReportQueryPatrolByRelicLevelInfo } from './../../../../models/search/report-query-patrol-by-relic-level-info.model';
 import { ReportQueryPatrolByMonthlyInfo } from './../../../../models/search/report-query-patrol-by-monthly-info.model';
 import { ReportQueryPatrolByQuarterInfo } from './../../../../models/search/report-query-patrol-by-quarter-info.model';
 import { ReportQueryPatrolByHalfYearInfo } from './../../../../models/search/report-query-patrol-by-half-year-info.model';
 import { ReportQueryPatrolByYearInfo } from './../../../../models/search/report-query-patrol-by-year-info.model';
-import { ReportQueryPatrolByAreaInfo } from './../../../../models/search/report-query-patrol-by-area-info.model';
+import { ReportQueryPatrolByUserInfo } from './../../../../models/search/report-query-patrol-by-user-info.model';
 
 import { ReportQueryPatrolSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
 
@@ -199,16 +199,17 @@ export class InspectStatisticsPage {
       case (9):
         this.title = "按人员统计";
         this.category = "人员";
-        this.apiService.sendApi(new GetReportQueryPatrolByAreaInfos(this.search)).subscribe(
+        //console.log();
+        this.apiService.sendApi(new GetReportQueryPatrolByUserInfos(this.search)).subscribe(
           res => {
-            //console.log(res);
+            console.log(res);
             if (res.success) {
-              this.totalPatrolCount = res.data.reportQueryPatrolByAreaInfoList[0].reportQueryPatrolByArea.patrolCount;
-              console.log(res.data.reportQueryPatrolByAreaInfoList);
-              for (let data of res.data.reportQueryPatrolByAreaInfoList) {
+              this.totalPatrolCount = res.data.reportQueryPatrolByUserInfoList[0].reportQueryPatrolByUser.patrolCount;
+              console.log(res.data.reportQueryPatrolByUserInfoList);
+              for (let data of res.data.reportQueryPatrolByUserInfoList) {
                 this.dataSource.push([
-                  data.reportQueryPatrolByArea.areaName,
-                  data.reportQueryPatrolByArea.patrolCount.toString()
+                  data.reportQueryPatrolByUser.userName,
+                  data.reportQueryPatrolByUser.patrolCount.toString()
                 ]);
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;

@@ -4,35 +4,8 @@ page-map-people-locate {
     $origionMarker: #1fa0f2; //原始的marker颜色
     $selectedMarker: #f57e1e; //被选中的marker颜色
     $warningMarker: #f05853; //预警的marker颜色
-    #map-content {
-        position: absolute;
-        top: 45px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-    #map {
-        width: 100%;
-        height: 100%;
-    }
     .topHeader {
-        position: absolute;
-        top: 0;
-        padding: 0.6rem;
-        padding-left: 1rem;
         background-color: $toolbar-background;
-        z-index: 1;
-        width: 100%;
-        height: 45px;
-        color: #fff;
-        font-size: 12px;
-        display: block;
-        table tr td {
-            padding-right: 0.5rem;
-        }
-        table tr th {
-            padding-right: 0.6rem;
-        }
     }
     .card {
         position: absolute;

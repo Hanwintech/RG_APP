@@ -10,13 +10,6 @@ import { GetReportQueryPatrolByHalfYearInfos } from './../../../../apis/search/g
 import { GetReportQueryPatrolByYearInfos } from './../../../../apis/search/get-report-query-patrol-by-year-infos.api';
 import { GetReportQueryPatrolByUserInfos } from './../../../../apis/search/get-report-query-patrol-by-user-infos.api';
 import { ReportQueryPatrolSearch } from './../../../../models/search/report-query-patrol-search.model';
-import { ReportQueryPatrolByRelicLevelInfo } from './../../../../models/search/report-query-patrol-by-relic-level-info.model';
-import { ReportQueryPatrolByMonthlyInfo } from './../../../../models/search/report-query-patrol-by-monthly-info.model';
-import { ReportQueryPatrolByQuarterInfo } from './../../../../models/search/report-query-patrol-by-quarter-info.model';
-import { ReportQueryPatrolByHalfYearInfo } from './../../../../models/search/report-query-patrol-by-half-year-info.model';
-import { ReportQueryPatrolByYearInfo } from './../../../../models/search/report-query-patrol-by-year-info.model';
-import { ReportQueryPatrolByUserInfo } from './../../../../models/search/report-query-patrol-by-user-info.model';
-
 import { ReportQueryPatrolSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
 
 @IonicPage()
@@ -45,6 +38,7 @@ export class InspectStatisticsPage {
     //初始化查询字段
     this.search = new ReportQueryPatrolSearch();
     this.search.isDefaultSearch = true;
+    this.search.isNeedPaging=false;
     this.search.userId = localStorage.getItem("userId");
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
@@ -173,7 +167,6 @@ export class InspectStatisticsPage {
         this.category = "巡查日期";
         this.apiService.sendApi(new GetReportQueryPatrolByYearInfos(this.search)).subscribe(
           res => {
-            //console.log(res);
             if (res.success) {
               this.totalPatrolCount = 0;
               for (let data of res.data.reportQueryPatrolByYearInfoList) {
@@ -199,14 +192,14 @@ export class InspectStatisticsPage {
       case (9):
         this.title = "按人员统计";
         this.category = "人员";
-        //console.log();
         this.apiService.sendApi(new GetReportQueryPatrolByUserInfos(this.search)).subscribe(
           res => {
             console.log(res);
             if (res.success) {
-              this.totalPatrolCount = res.data.reportQueryPatrolByUserInfoList[0].reportQueryPatrolByUser.patrolCount;
+              this.totalPatrolCount = 0;
               console.log(res.data.reportQueryPatrolByUserInfoList);
               for (let data of res.data.reportQueryPatrolByUserInfoList) {
+                this.totalPatrolCount += data.reportQueryPatrolByUser.patrolCount;
                 this.dataSource.push([
                   data.reportQueryPatrolByUser.userName,
                   data.reportQueryPatrolByUser.patrolCount.toString()

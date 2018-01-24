@@ -21,6 +21,7 @@ export class PatrolMapPage extends MapPage {
   @ViewChild('map') mapElement: ElementRef;
   private CardContrl: boolean;//左上角两线图信息栏的控制
   private canAdd: boolean;
+  private isSuccess=false;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,7 +46,19 @@ export class PatrolMapPage extends MapPage {
     this.navCtrl.push('PatrolInfoListPage');
   }
 
+  ionViewDidEnter(){
+    if(localStorage.getItem("longitude")&&localStorage.getItem("latitude")&&!this.isSuccess){
+      this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
+      let pointData = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+      this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
+      this.isSuccess=true;
+    }
+  }
+
   ionViewDidLoad() {
+    if(!localStorage.getItem("longitude")&&!localStorage.getItem("latitude")){
+      this.pageService.showMessage("正在初始化页面！");
+    }
     setInterval(()=>{
       this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
     },60000);
@@ -71,8 +84,8 @@ export class PatrolMapPage extends MapPage {
   //底部查看详情面板
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
-    this.hideDetailContrl = false;
     this.upArrowContrl = this.hideContrl;
+    this.hideDetailContrl = false;
   }
 
   showBottomInfo() {
@@ -90,7 +103,7 @@ export class PatrolMapPage extends MapPage {
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("MapSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      if (data.needSearch) {
+      if (data&&data.needSearch) {
         that.getSearchData(data.search);
       }
     });

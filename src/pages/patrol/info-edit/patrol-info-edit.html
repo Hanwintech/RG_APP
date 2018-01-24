@@ -2,7 +2,7 @@
   <ion-navbar class="modal-nav">
     <ion-title>新增巡查记录</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showLocation()">
+      <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看当前所处位置')">
         <ion-icon name="ios-pin-outline"></ion-icon>
       </button>
     </ion-buttons>

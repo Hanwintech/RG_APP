@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
-import { ReportQueryCaseSearchDataSource } from './../../../models/search/report-query-patrol-search.model';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 
 @IonicPage()

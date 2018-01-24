@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, ActionSheetController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -14,9 +14,9 @@ import { EnumAttachmentType, EnumCulturalRelicLevel, EnumAreaCode } from './../.
 import { SystemConst } from './../../../services/system-const.service';
 import { DateTime } from './../../../pipes/datetime.pipe';
 import { BasePage } from "./../../../base-pages/base-page";
-import { Console } from '@angular/core/src/console';
 
 declare var BMap;
+
 @IonicPage()
 @Component({
   selector: 'page-patrol-info-edit',
@@ -80,7 +80,7 @@ export class PatrolInfoEditPage extends BasePage {
       let searchModal = this.modalCtrl.create('CulturalRelicSelectPage');
       searchModal.onDidDismiss(data => {
         if (data) {
-          this.pointA=new BMap.Point( data.upCulturalRelic.coordinateX,  data.upCulturalRelic.coordinateY);
+          this.pointA = new BMap.Point(data.upCulturalRelic.coordinateX, data.upCulturalRelic.coordinateY);
           this.patrolInfo.patrol.fK_CulturalRelicID = data.upCulturalRelic.culturalRelicID;
           this.culturalRelicName = data.upCulturalRelic.culturalRelicName;
           this.culturalRelicLevelName = EnumCulturalRelicLevel[data.upCulturalRelic.culturalRelicLevel];

@@ -6,7 +6,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
-import { GetInspectionNoticeInfoList } from './../../../apis/self/get-inspection-notice-info-list.api';
+import { GetInspectionNoticeInfoList } from './../../../apis/self/inspection-notice.api';
 import { InspectionNoticeInfo, InspectionNoticeInfoSearch, InspectionNoticeInfoSearchDataSource } from './../../../models/self/inspection-notice-info.model';
 import { EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';

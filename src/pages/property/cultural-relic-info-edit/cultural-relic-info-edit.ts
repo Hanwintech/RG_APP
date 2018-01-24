@@ -10,11 +10,10 @@ import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
 import { EditCulturalRelicInfo, PostCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { CulturalRelicInfo, CulturalRelicPostInfo, CulturalRelicInfoSearchDataSource } from './../../../models/property/cultural-relic-info.model';
-import { EnumAttachmentType ,EnumCulturalRelicLevel} from './../../../models/enum';
+import { EnumAttachmentType, EnumCulturalRelicLevel } from './../../../models/enum';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
 import { BasePage } from "./../../../base-pages/base-page";
-import { Console } from '@angular/core/src/console';
 
 @IonicPage()
 @Component({
@@ -50,7 +49,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
 
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
-    this.twoStageTypeList = [];
+    this.twoStageTypeList = this.systemConst.EMPTY_SELECT_LIST;
 
     if (this.navParams.data.culturalRelicInfo) {
       this.culturalRelicInfo = this.navParams.data.culturalRelicInfo;
@@ -93,7 +92,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
   }
 
   typeChanged(twoStageType) {
-    this.twoStageTypeList  = this.systemConst.EMPTY_SELECT_LIST;
+    this.twoStageTypeList = this.systemConst.EMPTY_SELECT_LIST;
     this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType = twoStageType ? twoStageType : this.systemConst.EMPTY_INTEGER;
     for (let d of this.selectDataSource.culturalRelicTwoStageTypeList) {
       if (this.culturalRelicPostInfo.culturalRelic.culturalRelicType && d.parentId == this.culturalRelicPostInfo.culturalRelic.culturalRelicType.toString()) {
@@ -106,16 +105,16 @@ export class CulturalRelicInfoEditPage extends BasePage {
   }
 
   getCoordinate() {
-    let culturalLevel= this.culturalRelicInfo?this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel:EnumCulturalRelicLevel["其他不可移动文物"];
-    let locate = this.modalCtrl.create("MapLocatePage",{"coordinate": this.culturalRelicPostInfo.culturalRelic,"culturalLevel":culturalLevel});
+    let culturalLevel = this.culturalRelicInfo ? this.culturalRelicInfo.upCulturalRelic.culturalRelicLevel : EnumCulturalRelicLevel["其他不可移动文物"];
+    let locate = this.modalCtrl.create("MapLocatePage", { "coordinate": this.culturalRelicPostInfo.culturalRelic, "culturalLevel": culturalLevel });
     locate.onDidDismiss(data => {
-      if(data&&data.culturalRelicX.toString()!="{}"){
-        this.culturalRelicPostInfo.culturalRelic.coordinateX=data.culturalRelicX;
-        this.culturalRelicPostInfo.culturalRelic.coordinateY=data.culturalRelicY;
+      if (data && data.culturalRelicX.toString() != "{}") {
+        this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
       }
     });
     locate.present();
-   }
+  }
 
   selectMiniImage() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -247,43 +246,42 @@ export class CulturalRelicInfoEditPage extends BasePage {
   }
 
   submit() {
+    let valiMessage = "";
+
     if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicName) {
-      this.pageService.showErrorMessage('请填写文物名称！');
-      return;
+      valiMessage += '、文物名称';
     }
 
     if (!this.culturalRelicPostInfo.culturalRelic.culturalRelicCode) {
-      this.pageService.showErrorMessage('请填写文物编码！');
-      return;
+      valiMessage += '、文物编码';
     }
 
     if (this.culturalRelicPostInfo.culturalRelic.enumArea == -1) {
-      this.pageService.showErrorMessage('请选择地区！');
-      return;
+      valiMessage += '、地区';
     }
 
     if (this.culturalRelicPostInfo.culturalRelic.culturalRelicLevel == -1) {
-      this.pageService.showErrorMessage('请选择类别！');
-      return;
+      valiMessage += '、类别';
     }
 
     if (!this.culturalRelicPostInfo.culturalRelic.location) {
-      this.pageService.showErrorMessage('请填写地址！');
-      return;
+      valiMessage += '、地址';
     }
 
     if (this.culturalRelicPostInfo.culturalRelic.coordinateAccurate == -1) {
-      this.pageService.showErrorMessage('请选择标注精确度！');
-      return;
+      valiMessage += '、标注精确度';
     }
 
     if (this.culturalRelicPostInfo.culturalRelic.culturalRelicType == -1) {
-      this.pageService.showErrorMessage('请选择类型！');
-      return;
+      valiMessage += '、类型';
     }
 
     if (this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType == -1) {
-      this.pageService.showErrorMessage('请选择二级分类！');
+      valiMessage += '、二级分类';
+    }
+
+    if (valiMessage) {
+      this.pageService.showErrorMessage("请填写以下内容：" + valiMessage.substring(1) + "！");
       return;
     }
 

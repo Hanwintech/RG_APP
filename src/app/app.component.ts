@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Device } from '@ionic-native/device';
 
 import { NativeService } from './../services/native.service';
+import { LocationWatchService } from './../services/location-watch.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,13 +24,17 @@ export class MyApp {
     public ionicApp: IonicApp,
     public device: Device,
     public nativeService: NativeService,
+    public locationWatchService: LocationWatchService
   ) {
-    this.statusBar.hide();
     this.initializeApp();
   }
 
   initializeApp() {
+    this.statusBar.hide();
+
     this.platform.ready().then(() => {
+      this.locationWatchService.init();
+
       this.splashScreen.hide();
 
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {

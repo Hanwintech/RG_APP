@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
-import { Subscription } from 'rxjs/Subscription';
 
 import { ApiService } from './../services/api.service';
 import { PageService } from './../services/page.service';
@@ -8,6 +7,7 @@ import { PostUserCoordinateInfo } from './../apis/system/system.api';
 import { UserLocationInfo } from './../models/system/user-location-info.model';
 
 declare var BMap;
+declare var BMAP_STATUS_SUCCESS;
 
 @Injectable()
 export class LocationWatchService {
@@ -27,14 +27,33 @@ export class LocationWatchService {
     ) {
         this._isWatching = false;
         this._needAlert = false;
+        this._baiduMapGeolocation = new BMap.Geolocation();
+        // this._baiduMapGeolocation.enableSDKLocation()
+    }
+
+    init() {
+        this.geolocation.getCurrentPosition({ "timeout": 4000, "maximumAge": 5000 })
+            .then(res => {
+                console.log("1st time geolocation.getCurrentPosition()");
+                console.log(res);
+            })
+            .catch(error => {
+                console.log("1st time geolocation.getCurrentPosition() error");
+                console.log(error);
+            });
+
+        this._baiduMapGeolocation.getCurrentPosition(
+            res => {
+                console.log("1st time baiduMap.getCurrentPosition()");
+                console.log(res);
+            }, { "timeout": 4000, "maximumAge": 5000 });
     }
 
     start() {
         this._isWatching = true;
         this._needAlert = true;
 
-        this._baiduMapGeolocation = new BMap.Geolocation();
-        this._baiduMapGeolocation.enableSDKLocation()
+        this.getPosition();
         this._intervalId = setInterval(() => { this.getPosition(); }, 5000);
     }
 
@@ -48,11 +67,11 @@ export class LocationWatchService {
 
     getPosition() {
         if (this._isWatching && localStorage.getItem('userId')) {
-            this.geolocation.getCurrentPosition().then(res => {
+            this.geolocation.getCurrentPosition({ "timeout": 4000, "maximumAge": 5000 }).then(res => {
                 if (res && res.coords) {
                     let pointArr = [new BMap.Point(res.coords.longitude, res.coords.latitude)];
                     new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
-                        if (data.status === 0) {
+                        if (data.status === BMAP_STATUS_SUCCESS) {
                             localStorage.setItem('longitude', data.points[0].lng);
                             localStorage.setItem('latitude', data.points[0].lat);
                             this.uploadLocation();
@@ -80,9 +99,17 @@ export class LocationWatchService {
     getPositionByBaiduMap() {
         this._baiduMapGeolocation.getCurrentPosition(res => {
             if (this._baiduMapGeolocation.getStatus() == 0) {
-                localStorage.setItem('longitude', res.longitude);
-                localStorage.setItem('latitude', res.latitude);
-                this.uploadLocation();
+                let pointArr = [new BMap.Point(res.longitude, res.latitude)];
+                new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
+                    if (data.status === BMAP_STATUS_SUCCESS) {
+                        localStorage.setItem('longitude', data.points[0].lng);
+                        localStorage.setItem('latitude', data.points[0].lat);
+                        this.uploadLocation();
+                    } else {
+                        localStorage.removeItem('longitude');
+                        localStorage.removeItem('latitude');
+                    }
+                }.bind(this));
             } else {
                 localStorage.removeItem('longitude');
                 localStorage.removeItem('latitude');
@@ -91,7 +118,7 @@ export class LocationWatchService {
                     this._needAlert = false;
                 }
             }
-        });
+        }, { "timeout": 4000, "maximumAge": 5000 });
     }
 
     uploadLocation() {

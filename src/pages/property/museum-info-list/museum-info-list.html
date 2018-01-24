@@ -2,13 +2,13 @@
   <ion-navbar>
     <ion-title>博物馆</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showSimpleSearch()">
+      <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索博物馆')">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="showSearch('MuseumSearchPage')">
+      <button ion-button icon-only (click)="showSearch('MuseumSearchPage')" (press)="pageService.showMessage('筛选博物馆')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAdd">
+      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAdd" (press)="pageService.showMessage('新增博物馆')">
         <ion-icon name="ios-add-circle-outline"></ion-icon>
       </button>
     </ion-buttons>

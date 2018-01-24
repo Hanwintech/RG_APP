@@ -1,5 +1,4 @@
 
-import { URLSearchParams } from '@angular/http';
 import { BaseRequest } from './../base-request.api';
 import { ReportQueryCaseSearch } from './../../models/search/report-query-case-search.model';
 

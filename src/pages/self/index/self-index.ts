@@ -7,10 +7,9 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { GetUnreadMessageCountInfo } from './../../../apis/self/get-unread-message-count-info.api';
-import { EnumAppRole, EnumAreaCode, EnumMessageShowType } from './../../../models/enum'
+import { EnumAppRole, EnumMessageShowType } from './../../../models/enum'
 import { MessageCenterUnreadInfo } from './../../../models/self/message-center-unread-info.model';
 import { BasePage } from "./../../../base-pages/base-page";
-import { swipeShouldReset } from 'ionic-angular/util/util';
 
 @IonicPage()
 @Component({

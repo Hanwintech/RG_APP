@@ -6,9 +6,6 @@ import { PageService } from './../../../../services/page.service';
 import { GetReportStatisticalCulturalRelicByLevelInfos } from './../../../../apis/search/get-report-statistical-cultural-relic-by-level-infos.api';
 import { GetReportStatisticalCulturalRelicByLocationInfos } from './../../../../apis/search/get-report-statistical-cultural-relic-by-location-infos.api';
 import { ReportStatisticalCulturalRelicSearch } from './../../../../models/search/report-statistical-cultural-relic-search.model';
-import { ReportStatisticalCulturalRelicByLevelInfos } from './../../../../models/search/report-statistical-cultural-relic-by-level-info.model';
-import { ReportStatisticalCulturalRelicByLocationInfos } from './../../../../models/search/report-statistical-cultural-relic-by-location-info.model';
-
 
 @IonicPage()
 @Component({

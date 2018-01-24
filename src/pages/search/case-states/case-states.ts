@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
-import { ReportQueryCaseSearchDataSource } from './../../../models/search/report-query-patrol-search.model';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
-/**
- * Generated class for the CaseStatesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

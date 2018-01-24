@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>巡查记录详情</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showLocation()">
+      <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看巡查记录提交时，巡查人员所在位置')">
         <ion-icon name="ios-pin-outline"></ion-icon>
       </button>
     </ion-buttons>

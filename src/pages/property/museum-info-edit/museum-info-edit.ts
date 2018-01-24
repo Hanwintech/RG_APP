@@ -188,28 +188,30 @@ export class MuseumInfoEditPage extends BasePage {
   }
 
   submit() {
+    let valiMessage = "";
+
     if (!this.museumPostInfo.museumInfo.museumName) {
-      this.pageService.showErrorMessage('请填写博物馆名称！');
-      return;
+      valiMessage += '、博物馆名称';
     }
 
     if (this.museumPostInfo.museumInfo.enumArea == -1) {
-      this.pageService.showErrorMessage('请选择地区！');
-      return;
+      valiMessage += '、地区';
     }
 
     if (!this.museumPostInfo.museumInfo.location) {
-      this.pageService.showErrorMessage('请填写地址！');
-      return;
+      valiMessage += '、地址';
     }
 
     if (this.museumPostInfo.museumInfo.qualityGrade == -1) {
-      this.pageService.showErrorMessage('请选择质量等级！');
-      return;
+      valiMessage += '、质量等级';
     }
 
     if (this.museumPostInfo.museumInfo.coordinateAccurate == -1) {
-      this.pageService.showErrorMessage('请选择标注精确度！');
+      valiMessage += '、标注精确度';
+    }
+
+    if (valiMessage) {
+      this.pageService.showErrorMessage("请填写以下内容：" + valiMessage.substring(1) + "！");
       return;
     }
 

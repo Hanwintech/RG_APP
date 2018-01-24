@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showSearch('TwoLineSearchPage')">
+      <button ion-button icon-only (click)="showSearch('TwoLineSearchPage')" (press)="pageService.showMessage('筛选')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -11,70 +11,75 @@
 
 
 <ion-content>
-  <div class="topHeader" *ngIf="search">
-    <div style="float:left;margin-right:1.2em;">
-      <div *ngIf="search.culturalRelicName">名称:{{search.culturalRelicName}}</div>
-      <div *ngIf="!search.culturalRelicName">名称:不限</div>
-      <div *ngIf="search.culturalRelicLevelName" style="margin-top:5px;">类别:{{search.culturalRelicLevelName}}</div>
-      <div *ngIf="!search.culturalRelicLevelName" style="margin-top:5px;">类别:不限</div>
+  <div class="map-box">
+    <div class="topHeader" *ngIf="search">
+      <table style="width:100%;">
+        <tr>
+          <th *ngIf="search.culturalRelicName">名称:{{search.culturalRelicName}}</th>
+          <th *ngIf="!search.culturalRelicName">名称:不限</th>
+          <td *ngIf="!search.startDate&&!search.endDate">时间:不限</td>
+          <td *ngIf="search.startDate||search.endDate">时间:{{search.startDate}}至{{search.endDate}}</td>
+        </tr>
+        <tr>
+          <th *ngIf="search.culturalRelicLevelName">类别:{{search.culturalRelicLevelName}}</th>
+          <th *ngIf="!search.culturalRelicLevelName">类别:不限</th>
+          <td *ngIf="search.districtName&&search.areaName">地区:{{search.areaName}}—{{search.districtName}}</td>
+          <td *ngIf="(search.districtName&&!search.areaName)||(!search.districtName&&search.areaName)">地区:{{search.areaName}}{{search.districtName}}</td>
+          <td *ngIf="!search.districtName&&!search.areaName">地区:不限</td>
+        </tr>
+      </table>
     </div>
-    <div style="margin-top:1px;">
-      <div style="white-space:nowrap" *ngIf="!search.startDate&&!search.endDate">时间:不限</div>
-      <div style="white-space:nowrap" *ngIf="search.startDate||search.endDate">时间:{{search.startDate}}至{{search.endDate}}</div>
-      <div *ngIf="search.districtName&&search.areaName" style="margin-top:5px;">地区:{{search.areaName}}—{{search.districtName}}</div>
-      <div *ngIf="(search.districtName&&!search.areaName)||(!search.districtName&&search.areaName)" style="margin-top:5px;">地区:{{search.areaName}}{{search.districtName}}</div>      
-      <div *ngIf="!search.districtName&&!search.areaName" style="margin-top:5px;">地区:不限</div>
-    </div>
-  </div>
-  <div class="card" [ngClass]="{'hideCard':CardContrl}">
-    <div class="selfThing">
-      <span></span>本体</div>
-    <div class="protect">
-      <span></span>保护范围</div>
-    <div class="controlPlace">
-      <span></span>建设控制地带</div>
-  </div>
-  <div id="map-content">
-    <div id="map" #map></div>
-  </div>
-  <div class="bottom">
-    <div class="locateContainer" (click)="selfLocation()">
-      <div></div>
-    </div>
-    <div class="detail" [ngClass]="{'hideBottom':hideContrl}">
-      <div class="titleContain" *ngIf="selectedMarkItem">
-        <div class="title">{{selectedMarkItem.showName}}</div>
-        <div class="subTitle">
-          <span [ngClass]="{'hideDetailItem':!hideDetailContrl}">文物:{{selectedMarkItem.culturalRelicCount}}</span>
-          <span>巡查:{{patrolCountTemp}}</span>
-        </div>
+
+
+    <div id="map-content">
+      <div class="card" [ngClass]="{'hideCard':CardContrl}">
+        <div class="selfThing">
+          <span></span>本体</div>
+        <div class="protect">
+          <span></span>保护范围</div>
+        <div class="controlPlace">
+          <span></span>建设控制地带</div>
       </div>
-      <div class="ios-arrow-down" (click)="controlBottom()">
+      <div id="map" #map></div>
+    </div>
+    <div class="bottom">
+      <div class="locateContainer" (click)="selfLocation()">
         <div></div>
       </div>
-      <div class="clear"></div>
-      <div class="detailItem">
-        <div (click)="viewDetail()">
-          <span>
-            <img src="assets/map/ic_operation_detail.png" />
-            <span>查看详情</span>
-          </span>
+      <div class="detail" [ngClass]="{'hideBottom':hideContrl}">
+        <div class="titleContain" *ngIf="selectedMarkItem">
+          <div class="title">{{selectedMarkItem.showName}}</div>
+          <div class="subTitle">
+            <span [ngClass]="{'hideDetailItem':!hideDetailContrl}">文物:{{selectedMarkItem.culturalRelicCount}}</span>
+            <span>巡查:{{patrolCountTemp}}</span>
+          </div>
         </div>
-        <div (click)="viewPatrol()">
-          <span>
-            <img src="assets/map/ic_operation_patrol.png" />
-            <span>查看巡查</span>
-          </span>
+        <div class="ios-arrow-down" (click)="controlBottom()">
+          <div></div>
         </div>
-        <div (click)="viewPic()">
-          <span>
-            <img src="assets/map/ic_operation_image.png" />
-            <span>查看图片</span>
-          </span>
+        <div class="clear"></div>
+        <div class="detailItem">
+          <div (click)="viewDetail()">
+            <span>
+              <img src="assets/map/ic_operation_detail.png" />
+              <span>查看详情</span>
+            </span>
+          </div>
+          <div (click)="viewPatrol()">
+            <span>
+              <img src="assets/map/ic_operation_patrol.png" />
+              <span>查看巡查</span>
+            </span>
+          </div>
+          <div (click)="viewPic()">
+            <span>
+              <img src="assets/map/ic_operation_image.png" />
+              <span>查看图片</span>
+            </span>
+          </div>
         </div>
+        <div class="clear"></div>
       </div>
-      <div class="clear"></div>
     </div>
   </div>
-
 </ion-content>

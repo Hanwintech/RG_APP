@@ -2,13 +2,13 @@
   <ion-navbar>
     <ion-title>不可移动文物</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showSimpleSearch()">
+      <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索不可移动文物')">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="showSearch('CulturalRelicSearchPage')">
+      <button ion-button icon-only (click)="showSearch('CulturalRelicSearchPage')" (press)="pageService.showMessage('筛选不可移动文物')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAdd">
+      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAdd" (press)="pageService.showMessage('新增不可移动文物')">
         <ion-icon name="ios-add-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -27,6 +27,7 @@
         </div>
         <div class="description">
           <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
+          <h6>{{data.upCulturalRelic.distance | distance}}</h6>
           <div>{{data.upCulturalRelic.remark}}</div>
           <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
           <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>

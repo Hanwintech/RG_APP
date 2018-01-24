@@ -14,16 +14,6 @@ import { GetReportQueryCaseBySourceInfos } from './../../../../apis/search/get-r
 import { GetReportQueryCaseByAreaInfos } from './../../../../apis/search/get-report-query-case-by-area-infos.api';
 import { ReportQueryCaseSearch } from './../../../../models/search/report-query-case-search.model';
 import { ReportQueryCaseSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
-import { ReportQueryCaseByRelicLevelInfo } from './../../../../models/search/report-query-case-by-relic-level-info.model';
-import { ReportQueryCaseByRectificationInfo } from './../../../../models/search/report-query-case-by-rectification-info.model';
-import { ReportQueryCaseByFineAmountInfo } from './../../../../models/search/report-query-case-by-fine-amount-info.model';
-import { ReportQueryCaseByMonthlyInfo } from './../../../../models/search/report-query-case-by-monthly-info.model';
-import { ReportQueryCaseByQuarterInfo } from './../../../../models/search/report-query-case-by-quarter-info.model';
-import { ReportQueryCaseByHalfYearInfo } from './../../../../models/search/report-query-case-by-half-year-info.model';
-import { ReportQueryCaseByYearInfo } from './../../../../models/search/report-query-case-by-year-info.model';
-import { ReportQueryCaseBySourceInfo } from './../../../../models/search/report-query-case-by-source-info.model';
-import { ReportQueryCaseByAreaInfo } from './../../../../models/search/report-query-case-by-area-info.model';
-
 
 @IonicPage()
 @Component({

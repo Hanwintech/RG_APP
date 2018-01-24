@@ -3,6 +3,7 @@ import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 
 import { PageService } from './../services/page.service';
+import { NetworkInformationService } from './../services/network-information.service';
 import { Attachment } from "./../models/attachment.model";
 
 export class BasePage {
@@ -43,7 +44,18 @@ export class BasePage {
         }
     }
 
-    public downloadFile(fileUrl: string, fileName: string) {
+    public downloadFile(networkInfoService: NetworkInformationService, fileUrl: string, fileName: string) {
+        if (networkInfoService.connectionType != "wifi" && networkInfoService.connectionType != "ethernet") {
+            this.pageService.showComfirmMessage(
+                "正在使用数据流量,是否确定要下载？",
+                () => { this.downloadFilePrivately(fileUrl, fileName); },
+                () => { }
+            );
+        } else {
+            this.downloadFilePrivately(fileUrl, fileName);
+        }
+    }
+    private downloadFilePrivately(fileUrl: string, fileName: string) {
         fileUrl = fileUrl.replace("/CompressionFile/", "/OriginalFile/")
         this.fileTransferObj.download(fileUrl, this.file.externalRootDirectory + 'com.hanwintech.wwbhzf/' + fileName).then((entry) => {
             this.pageService.showMessage('下载完成: ' + entry.toURL());

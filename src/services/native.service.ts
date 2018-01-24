@@ -5,8 +5,9 @@ import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
-import { ApiService } from './../services/api.service';
-import { PageService } from './../services/page.service';
+import { ApiService } from './api.service';
+import { PageService } from './page.service';
+import { NetworkInformationService } from './network-information.service';
 import { GetAppVersionInfo } from './../apis/system/system.api';
 import { AppVersionInfo } from './../models/system/app-version-info.model';
 
@@ -25,7 +26,8 @@ export class NativeService {
         public file: File,
         public inAppBrowser: InAppBrowser,
         public apiService: ApiService,
-        public pageService: PageService
+        public pageService: PageService,
+        public networkInfoService: NetworkInformationService
     ) { }
 
     /**
@@ -41,8 +43,18 @@ export class NativeService {
                     .then((value: string) => {
                         this._version = value;
                         if (this._version != this.newVersionInfo.appVersion) {
+                            let message = "发现新版本,是否立即升级？";
+                            if (this.networkInfoService.isConnected
+                                &&
+                                this.networkInfoService.connectionType != "wifi"
+                                &&
+                                this.networkInfoService.connectionType != "ethernet"
+                            
+                            ) {
+                                message += "（会产生数据流量）";
+                            }
                             this.pageService.showComfirmMessage(
-                                "发现新版本,是否立即升级？",
+                                message,
                                 () => { this.downloadApp(); },
                                 () => { }
                             );

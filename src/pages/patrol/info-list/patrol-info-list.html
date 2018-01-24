@@ -2,13 +2,13 @@
   <ion-navbar>
     <ion-title>巡查在线</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only (click)="showSimpleSearch()">
+      <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索巡查记录')">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="showSearch('PatrolInfoSearchPage')">
+      <button ion-button icon-only (click)="showSearch('PatrolInfoSearchPage')" (press)="pageService.showMessage('筛选巡查记录')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAdd">
+      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAdd" (press)="pageService.showMessage('新增巡查记录')">
         <ion-icon name="ios-add-circle-outline"></ion-icon>
       </button>
     </ion-buttons>

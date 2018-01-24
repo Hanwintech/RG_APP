@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
-import { GetInspectionNoticeInfo } from './../../../apis/self/get-inspection-notice-info.api';
+import { GetInspectionNoticeInfo } from './../../../apis/self/inspection-notice.api';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
+import { NetworkInformationService } from './../../../services/network-information.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { InspectionNoticeInfo } from './../../../models/self/inspection-notice-info.model';
 
@@ -27,7 +28,8 @@ export class InspectionNoticeDetailPage extends DetailPage {
     public apiService: ApiService,
     public file: File,
     public fileTransfer: FileTransfer,
-    public pageService: PageService
+    public pageService: PageService,
+    public networkInfoService: NetworkInformationService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
     this.apiService.sendApi(new GetInspectionNoticeInfo(this.navParams.data.keyID)).subscribe(
@@ -47,7 +49,7 @@ export class InspectionNoticeDetailPage extends DetailPage {
   }
 
   download(fileUrl: string, fileName: string) {
-    super.downloadFile(fileUrl, fileName);
+    super.downloadFile(this.networkInfoService, fileUrl, fileName);
   }
 
   showAttachmentList(fileUrl: string) {

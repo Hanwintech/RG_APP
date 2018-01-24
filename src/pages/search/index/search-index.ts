@@ -9,7 +9,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetLawFileInfos } from './../../../apis/search/get-law-file-infos.api';
 import { LawFileInfoSearch } from './../../../models/search/law-file-info-search.model';
-import { LawFileInfos, LawFileInfo } from './../../../models/search/law-file-infos.model';
+import { LawFileInfo } from './../../../models/search/law-file-infos.model';
 import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 @IonicPage()

@@ -241,10 +241,10 @@ export class MapPage extends DetailPage {
         let point = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
         let option = {
             position: point,
-            offset: new BMap.Size(-45, -65),
+            offset: new BMap.Size(-43, -43),
         }
         label = new BMap.Label(lblString + "<div class='contentContainer'><div>"
-            + cluster.showName + "</div><div>" + cluster.culturalRelicCount + "</div></div></div>", option);
+            + cluster.showName + "</div><div style='margin-top:6px;'>" + cluster.culturalRelicCount + "</div></div></div>", option);
         label.setStyle({
             background: "none",
             border: "none"

@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>文物详情</ion-title>
     <ion-buttons *ngIf="canShowLocation" right>
-      <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看或标注当前文物所处位置')"></button>>
+      <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看或标注当前文物所处位置')">
         <ion-icon name="ios-pin-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -79,8 +79,8 @@
               <div class="fileShowName">{{att.fileShowName}}</div>
               <div class="fileName">{{att.fileName}}</div>
             </div>
-            <button ion-button outline color="secondary" (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img'">查看</button>
-            <button ion-button outline color="tertiary" (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img'">下载</button>
+            <button ion-button outline color="secondary" (click)="showAttachmentList(att.fileName)" *ngIf="att.fileType == 'img' && att.isDownloaded">查看</button>
+            <button ion-button outline color="tertiary" (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img' || !att.isDownloaded">下载</button>
           </div>
         </div>
       </ion-label>

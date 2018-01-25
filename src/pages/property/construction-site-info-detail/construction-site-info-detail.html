@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>工地详情</ion-title>
     <ion-buttons *ngIf="canShowLocation" right>
-      <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看或标注当前工地所处位置')"></button>>
+      <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看或标注当前工地所处位置')">
         <ion-icon name="ios-pin-outline"></ion-icon>
       </button>
     </ion-buttons>

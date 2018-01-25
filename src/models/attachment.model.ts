@@ -8,4 +8,6 @@ export class Attachment {
     public fileUrl: string;
     public createTime: string;
     public keyWords: string;
+
+    public isDownloaded: boolean;
 }

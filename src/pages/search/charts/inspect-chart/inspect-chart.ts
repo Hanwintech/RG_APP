@@ -52,7 +52,7 @@ export class InspectChartPage {
         this.endValue = 2;
         break;
       case (9):
-        this.title = "按地区统计";
+        this.title = "按人员统计";
         this.endValue = 4;
         break;
       default:
@@ -61,7 +61,7 @@ export class InspectChartPage {
     let da = [];
     for (let data of this.dataSource) {
 
-      if (data[0] != "江苏省") {
+     
         if (data[0] == "全国重点文物保护单位") {
           this.xAxis.push(
             "国家级"
@@ -86,7 +86,7 @@ export class InspectChartPage {
         this.yAxis.push(
           data[1]
         );
-        if (data[1] != "0" && data[0] != "江苏省") {
+        if (data[1] != "0") {
           if (data[0] == "全国重点文物保护单位") {
             da.push(
               { value: data[1], name: "国家级" }
@@ -110,7 +110,7 @@ export class InspectChartPage {
           }
         }
       }
-    }
+    
 
     let op1 = {
       color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
@@ -147,7 +147,7 @@ export class InspectChartPage {
         },
       ],
       yAxis: {
-        name: "案件数(起)",
+        name: "巡查次数",
         axisLabel: {
           show: true,
           fontSize: 10,
@@ -197,7 +197,7 @@ export class InspectChartPage {
         },
       ],
       yAxis: {
-        name: "案件数(起)",
+        name: "巡查次数",
         axisLabel: {
           show: true,
           fontSize: 10,

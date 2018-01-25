@@ -32,4 +32,8 @@ page-map-locate {
     .locateContainer div:active {
         background-image: url('../assets/map/ic_map_location_to_self_press.png');
     }
+    ion-header .toolbar .bar-buttons .icon:before {
+        content:"\f3cf";
+        display: inline-block;
+     }
 }

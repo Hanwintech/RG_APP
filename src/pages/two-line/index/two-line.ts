@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, Platform, ModalController } from '
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import { ApiService } from './../../../services/api.service';
-import { GetCulturalRelicMapInfosUrl } from './../../../apis/two-line/two-line.api';
 import { PageService } from './../../../services/page.service';
 import { MapPage } from './../../../base-pages/map-page';
 import { File } from '@ionic-native/file';
@@ -68,11 +67,14 @@ export class TwoLinePage extends MapPage {
     this.getData(this.mapLevel);
     this.mapAddEventListener();
   }
+
   //底部查看详情面板
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
-    this.hideDetailContrl = false;
     this.upArrowContrl = this.hideContrl;
+    if(!this.hideDetailContrl){
+      this.hideDetailContrl = false
+    }
   }
 
   showBottomInfo() {

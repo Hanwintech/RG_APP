@@ -8,7 +8,7 @@ import { GetReportQueryPatrolByMonthlyInfos } from './../../../../apis/search/ge
 import { GetReportQueryPatrolByQuarterInfos } from './../../../../apis/search/get-report-query-patrol-by-quarter-infos.api';
 import { GetReportQueryPatrolByHalfYearInfos } from './../../../../apis/search/get-report-query-patrol-by-half-year-infos.api';
 import { GetReportQueryPatrolByYearInfos } from './../../../../apis/search/get-report-query-patrol-by-year-infos.api';
-import { GetReportQueryPatrolByAreaInfos } from './../../../../apis/search/get-report-query-patrol-by-area-infos.api';
+import { GetReportQueryPatrolByUserInfos } from './../../../../apis/search/get-report-query-patrol-by-user-infos.api';
 import { ReportQueryPatrolSearch } from './../../../../models/search/report-query-patrol-search.model';
 import { ReportQueryPatrolSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
 
@@ -38,6 +38,7 @@ export class InspectStatisticsPage {
     //初始化查询字段
     this.search = new ReportQueryPatrolSearch();
     this.search.isDefaultSearch = true;
+    this.search.isNeedPaging=false;
     this.search.userId = localStorage.getItem("userId");
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
@@ -166,7 +167,6 @@ export class InspectStatisticsPage {
         this.category = "巡查日期";
         this.apiService.sendApi(new GetReportQueryPatrolByYearInfos(this.search)).subscribe(
           res => {
-            //console.log(res);
             if (res.success) {
               this.totalPatrolCount = 0;
               for (let data of res.data.reportQueryPatrolByYearInfoList) {
@@ -192,16 +192,17 @@ export class InspectStatisticsPage {
       case (9):
         this.title = "按人员统计";
         this.category = "人员";
-        this.apiService.sendApi(new GetReportQueryPatrolByAreaInfos(this.search)).subscribe(
+        this.apiService.sendApi(new GetReportQueryPatrolByUserInfos(this.search)).subscribe(
           res => {
-            //console.log(res);
+            console.log(res);
             if (res.success) {
-              this.totalPatrolCount = res.data.reportQueryPatrolByAreaInfoList[0].reportQueryPatrolByArea.patrolCount;
-              console.log(res.data.reportQueryPatrolByAreaInfoList);
-              for (let data of res.data.reportQueryPatrolByAreaInfoList) {
+              this.totalPatrolCount = 0;
+              console.log(res.data.reportQueryPatrolByUserInfoList);
+              for (let data of res.data.reportQueryPatrolByUserInfoList) {
+                this.totalPatrolCount += data.reportQueryPatrolByUser.patrolCount;
                 this.dataSource.push([
-                  data.reportQueryPatrolByArea.areaName,
-                  data.reportQueryPatrolByArea.patrolCount.toString()
+                  data.reportQueryPatrolByUser.userName,
+                  data.reportQueryPatrolByUser.patrolCount.toString()
                 ]);
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;

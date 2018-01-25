@@ -174,8 +174,8 @@ page-patrol-map {
         margin-right: 0.6em;
         margin-bottom: 0.6em;
     }
-    .anchorBL {
-        display: none;
+    .BMap_cpyCtrl, .anchorBL{
+        display:none;   
     }
     .toolbar-background {
         border-bottom-width: 0px !important;
@@ -260,4 +260,19 @@ page-patrol-map {
     .col {
         background: gray;
     }
+    .BMap_scaleBar.BMap_scaleHBar img{
+        display: none;
+    }
+    .BMap_scaleHBar,
+    {
+        height: 1px;
+    }
+    .BMap_scaleLBar, .BMap_scaleRBar{
+        width: 1px;
+    }
+    .BMap_scaleCtrl.BMap_noprint.anchorBL{
+        display: block;
+        left: 10px;
+    }
+        
 }

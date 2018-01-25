@@ -95,7 +95,7 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
 
   callNUmber(phoneNo) {
     this.callNumber.callNumber(phoneNo, true)
-      .then(() => this.pageService.showErrorMessage("初始化通话失败！"))
+      .then()
       .catch(() => this.pageService.showErrorMessage("初始化通话失败！"));
   }
 
@@ -105,9 +105,7 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
         intent: 'INTENT'  // send SMS with the native android SMS messaging
       }
     };
-    this.sms.send(phoneNo, ' ', options).then((e) => {
-      this.pageService.showErrorMessage("初始化失败！")
-    }, error => {
+    this.sms.send(phoneNo, ' ', options).then((e) => {}, error => {
       this.pageService.showErrorMessage("初始化失败！")
     });
   }

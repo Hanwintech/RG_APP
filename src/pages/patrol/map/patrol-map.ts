@@ -12,6 +12,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 declare var BMap;
 declare var BMAP_NORMAL_MAP;
 declare var BMAP_HYBRID_MAP;
+declare var BMAP_ANCHOR_BOTTOM_LEFT;
 @IonicPage()
 @Component({
   selector: 'page-patrol-map',
@@ -55,6 +56,7 @@ export class PatrolMapPage extends MapPage {
     }
     else if(!localStorage.getItem("longitude")&&!localStorage.getItem("latitude")&&!this.isSuccess){
       this.pageService.showMessage("页面正在初始化");
+      return;
     }
   }
 
@@ -67,6 +69,7 @@ export class PatrolMapPage extends MapPage {
     },60000);
     this.initSearchData();
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
+
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     this.map.addControl(new BMap.MapTypeControl({
@@ -80,9 +83,12 @@ export class PatrolMapPage extends MapPage {
     super.getLocation(longT, lati);
     let pointData = new BMap.Point(longT, lati);
     this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
+ 
     this.mapLevel = this.map.getZoom() + 1;
     this.getData(this.mapLevel);
     this.mapAddEventListener();
+    // let bottom_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT,offset: new BMap.Size(10, 13)});
+    // this.map.addControl(bottom_left_control);//添加比例尺
   }
   //底部查看详情面板
   controlBottom() {
@@ -114,6 +120,7 @@ export class PatrolMapPage extends MapPage {
     });
     searchModal.present();
   }
+
   addPatrol(){
     let patrolModal = this.modalCtrl.create('PatrolInfoEditPage',this.map);
     patrolModal.onDidDismiss(data => {

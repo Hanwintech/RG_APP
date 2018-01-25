@@ -53,6 +53,9 @@ export class PatrolMapPage extends MapPage {
       this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
       this.isSuccess=true;
     }
+    else if(!localStorage.getItem("longitude")&&!localStorage.getItem("latitude")&&!this.isSuccess){
+      this.pageService.showMessage("页面正在初始化");
+    }
   }
 
   ionViewDidLoad() {
@@ -85,7 +88,9 @@ export class PatrolMapPage extends MapPage {
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
     this.upArrowContrl = this.hideContrl;
-    this.hideDetailContrl = false;
+    if(!this.hideDetailContrl){
+      this.hideDetailContrl = false
+    }
   }
 
   showBottomInfo() {

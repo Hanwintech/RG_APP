@@ -1,1 +1,6 @@
-page-message-center-info-detail {}
+page-message-center-info-detail {
+    ion-header .toolbar .bar-buttons .icon:before {
+        content:"\f3cf";
+        display: inline-block;
+     }
+}

@@ -64,9 +64,9 @@ page-map-cultural-relic-locate {
     .locateContainer {
         margin-left: 0.6em;
         margin-bottom: 0.6em;
-        position:absolute;
+        position: absolute;
     }
-    .locateContainer div{
+    .locateContainer div {
         width: 3.4em;
         height: 3.4em;
         background-size: 3.4em;
@@ -89,5 +89,9 @@ page-map-cultural-relic-locate {
                 }
             }
         }
+    }
+    ion-header .toolbar .bar-buttons .icon:before {
+       content:"\f3cf";
+       display: inline-block;
     }
 }

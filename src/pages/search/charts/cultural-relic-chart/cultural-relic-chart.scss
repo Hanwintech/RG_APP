@@ -1,8 +1,11 @@
 page-cultural-relic-chart {
     .shadow {
-        border-top: solid 1px rgb(219, 219, 219);
+        border-top: solid 1px  color($colors, border, base);
         height: 6px;
         background-color: rgb(247, 247, 248);
         width: 100%;
+    }
+    .shadow:first-child {
+        border-top: 0;
     }
 }

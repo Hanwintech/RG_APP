@@ -18,8 +18,8 @@ page-cultural-relic-statistics {
             }
         }
         .item-block:last-child {
-              border-bottom-width:0!important;
-            }
+            border-bottom-width: 0!important;
+        }
     }
     .list {
         margin-bottom: 0;
@@ -35,7 +35,7 @@ page-cultural-relic-statistics {
             font-size: 12px;
             padding: 5px 0 5px 12px;
             height: 52px;
-            border-right: solid 1px #c7c7c7;
+            border-right: solid 1px color($colors, border, base);
             color: color($colors, dark, base); //设置字体颜色为灰色
             div:last-child {
                 padding-top: 5px;
@@ -51,7 +51,7 @@ page-cultural-relic-statistics {
         padding-top: 12px;
         width: 49.5%;
         float: left;
-        border-left: solid 1px #c7c7c7;
+        border-left: solid 1px color($colors, border, base);
         font-size: 12px;
         .Total1 {
             padding: 4px 0 0 0;

@@ -37,7 +37,7 @@ export class LawFileDetailPage extends DetailPage {
 
     super.changeAttachmentFileType(this.lawFileInfo.attachmentList)
     this.do();
-    console.log(this.lawFileInfo);
+    //console.log(this.lawFileInfo);
   }
   do() {
     if (this.lawFileInfo.typeName == "法律法规") {

@@ -1,7 +1,13 @@
 <ion-header>
   <ion-navbar>
+
     <ion-title>巡查记录详情</ion-title>
-    <ion-buttons right>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="toogelMenu()">
+        <ion-icon name="ios-menu-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons right *ngIf="canShowLocation">
       <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看巡查记录提交时，巡查人员所在位置')">
         <ion-icon name="ios-pin-outline"></ion-icon>
       </button>
@@ -10,92 +16,171 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides *ngIf="patrolInfo.attachmentList && patrolInfo.attachmentList.length > 1" pager>
-    <ion-slide *ngFor="let pic of patrolInfo.attachmentList">
-      <img src="{{pic.fileUrl}}">
-    </ion-slide>
-  </ion-slides>
+  <!-- 巡查记录详情 -->
+  <div *ngIf="patrolInfo">
+    <ion-slides *ngIf="patrolInfo.attachmentList && patrolInfo.attachmentList.length > 1" pager>
+      <ion-slide *ngFor="let pic of patrolInfo.attachmentList">
+        <img src="{{pic.fileUrl}}">
+      </ion-slide>
+    </ion-slides>
 
-  <div *ngIf="patrolInfo.attachmentList && patrolInfo.attachmentList.length == 1" class="headImg">
-    <img src="{{patrolInfo.attachmentList[0].fileUrl}}">
+    <div *ngIf="patrolInfo.attachmentList && patrolInfo.attachmentList.length == 1" class="headImg">
+      <img src="{{patrolInfo.attachmentList[0].fileUrl}}">
+    </div>
+
+    <div *ngIf="!patrolInfo.attachmentList || patrolInfo.attachmentList.length == 0" class="headImg">
+      <img src="{{patrolInfo.patrolImageUrl ? patrolInfo.patrolImageUrl : 'assets/icon/empty_middle.png'}}">
+    </div>
+    <ion-list class="form-list">
+      <ion-item>
+        <ion-label fixed>文物名称</ion-label>
+        <ion-label class="navi">
+          <div>{{patrolInfo.patrolInfo.culturalRelicName}}</div>
+          <button ion-button outline color="secondary" (click)="showCulturalRelic(patrolInfo.patrolInfo.fK_CulturalRelicID)">查看</button>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>类别</ion-label>
+        <ion-label>{{patrolInfo.culturalRelicLevelName}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>巡查人员</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.patrolUser}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>巡查单位</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.manageUnitName}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>巡查日期</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.patroDate | datetime:'yyyy-MM-dd'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>同行人员</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.othersPeople ? patrolInfo.patrolInfo.othersPeople : '无'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>情况描述</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.patrolDescription ? patrolInfo.patrolInfo.patrolDescription : '无'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>巡查状态</ion-label>
+        <ion-label>{{patrolInfo.patrolStateName ? patrolInfo.patrolStateName : '无'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>问题情况</ion-label>
+        <ion-label *ngIf="!caseProblem || caseProblem.length == 0">无</ion-label>
+        <ion-label *ngIf="caseProblem && caseProblem.length > 0" class="navi">
+          <div>
+            <span *ngFor="let s of caseProblem">{{s}}
+              <br>
+            </span>
+          </div>
+          <button ion-button outline color="secondary" (click)="showCaseProblem()">查看</button>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>问题描述</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.problemDescription ? patrolInfo.patrolInfo.problemDescription : '无'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>是否经过许可</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.permission ? '是' : '否'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>是否当场处理</ion-label>
+        <ion-label>{{patrolInfo.patrolInfo.isImmediately ? '是' : '否'}}</ion-label>
+      </ion-item>
+    </ion-list>
   </div>
-
-  <div *ngIf="!patrolInfo.attachmentList || patrolInfo.attachmentList.length == 0" class="headImg">
-    <img src="{{patrolInfo.patrolImageUrl ? patrolInfo.patrolImageUrl : 'assets/icon/empty_middle.png'}}">
-  </div>
-
-  <ion-list class="form-list">
-    <ion-item>
-      <ion-label fixed>文物名称</ion-label>
-      <ion-label class="navi">
-        <div>{{patrolInfo.patrolInfo.culturalRelicName}}</div>
-        <button ion-button outline color="secondary" (click)="showCulturalRelic(patrolInfo.patrolInfo.fK_CulturalRelicID)">查看</button>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>类别</ion-label>
-      <ion-label>{{patrolInfo.culturalRelicLevelName}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>巡查人员</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.patrolUser}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>巡查单位</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.manageUnitName}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>巡查日期</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.patroDate | datetime:'yyyy-MM-dd'}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>同行人员</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.othersPeople ? patrolInfo.patrolInfo.othersPeople : '无'}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>情况描述</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.patrolDescription ? patrolInfo.patrolInfo.patrolDescription : '无'}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>巡查状态</ion-label>
-      <ion-label>{{patrolInfo.patrolStateName ? patrolInfo.patrolStateName : '无'}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>问题情况</ion-label>
-      <ion-label *ngIf="!caseProblem || caseProblem.length == 0">无</ion-label>
-      <ion-label *ngIf="caseProblem && caseProblem.length > 0" class="navi">
-        <div>
-          <span *ngFor="let s of caseProblem">{{s}}
-            <br>
-          </span>
-        </div>
-        <button ion-button outline color="secondary" (click)="showCaseProblem()">查看</button>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>问题描述</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.problemDescription ? patrolInfo.patrolInfo.problemDescription : '无'}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>是否经过许可</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.permission ? '是' : '否'}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>是否当场处理</ion-label>
-      <ion-label>{{patrolInfo.patrolInfo.isImmediately ? '是' : '否'}}</ion-label>
-    </ion-item>
-  </ion-list>
-</ion-content>
-
-<ion-footer>
-  <ion-grid>
+  <!-- 巡查处理日志 -->
+  <ion-grid *ngFor="let p of patrolProcess" (click)="showProcessDetail(p)">
     <ion-row>
-      <ion-col>
-        <button ion-button block (click)="showLog()">查看处理日志</button>
+      <ion-col col-3>处理结果</ion-col>
+      <ion-col col-9>{{p.processResult ? getProcessResultName(p.processResult) : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理人</ion-col>
+      <ion-col col-9>{{p.transactUser ? p.transactUser : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理人单位</ion-col>
+      <ion-col col-9>{{p.transactUserManageUnitName ? p.transactUserManageUnitName : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理人电话</ion-col>
+      <ion-col col-9 *ngIf="p.mobilePhone" class="phoneNo">{{p.mobilePhone}}
+        <button ion-button outline color="secondary" (click)="optPhone($event, p.mobilePhone)">操作</button>
       </ion-col>
-      <ion-col style="border-left: solid 1px #fff;">
-        <button ion-button block (click)="close()">关闭</button>
-      </ion-col>
+      <ion-col col-9 *ngIf="!p.mobilePhone">-</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>到达时间</ion-col>
+      <ion-col col-9>{{p.arriveDate ? (p.arriveDate | datetime) : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理状态</ion-col>
+      <ion-col col-9>{{p.runState ? getRunStateName(p.runState) : '-'}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>处理时间</ion-col>
+      <ion-col col-9>{{p.processDate ? (p.processDate | datetime) : '-'}}</ion-col>
     </ion-row>
   </ion-grid>
-</ion-footer>
+<!-- 巡查处理 -->
+<ion-list class="form-list">
+    <ion-item>
+      <ion-label fixed>处理结果</ion-label>
+      <ion-input type="text" placeholder="请输入同行人员"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>处理说明</ion-label>
+      <ion-label>
+        <textarea placeholder="请输入情况描述" rows="10"></textarea>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-item>
+        <ion-label class="attachment-label">
+          <div class="title">附件</div>
+          <ion-icon name="ios-add-circle-outline" (click)="selectAttachmentList()"></ion-icon>
+          <div *ngIf="culturalRelicPostInfo.attachmentList && culturalRelicPostInfo.attachmentList.length > 0" class="attachment">
+            <div *ngFor="let att of culturalRelicPostInfo.attachmentList" class="attachmentContent">
+              <img src="assets/icon/file_{{att.fileType}}.png">
+              <div class="description" style="padding-right: 104px;">
+                <div class="fileShowName">{{att.fileShowName}}</div>
+                <div class="fileName">{{att.fileName}}</div>
+              </div>
+              <button ion-button outline color="secondary" (click)="showAttachmentList(att)" style="margin-left: -104px;">查看</button>
+              <button ion-button outline color="danger" (click)="delAttachmentList(att)">删除</button>
+            </div>
+          </div>
+        </ion-label>
+      </ion-item> -->
+  </ion-list>
+  <ion-footer>
+    <ion-row>
+      <button ion-button block (click)="close()">关闭</button>
+    </ion-row>
+  </ion-footer>
+
+  <ion-menu [content]="mycontent" type="overlay" class="side-menu">
+    <ion-content>
+      <ion-list>
+        <button ion-item class="patrol-history" (click)="showSelfPage()" [ngClass]="{'selected':canShowLocation}">
+          <div class="img"></div>
+          <div class="list-title">巡查记录详情</div>
+        </button>
+        <button ion-item class="patrol-handle" (click)="showLogPage()" [ngClass]="{'selected':!canShowLocation}">
+          <div class="img"></div>
+          <div class="list-title">巡查处理日志</div>
+        </button>
+        <button ion-item class="patrol-reply" (click)="showReplayPage()" [ngClass]="{'selected':!canShowLocation&&patrolReplay}">
+            <div class="img"></div>
+            <div class="list-title">巡查处理</div>
+          </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-nav #mycontent [root]="rootPage"></ion-nav>
+
+</ion-content>

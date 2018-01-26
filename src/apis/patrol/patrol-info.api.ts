@@ -66,3 +66,26 @@ export class PostPatrolInfo extends BaseRequest {
         this.requestBody = this.patrolInfo;
     }
 }
+
+export class getPatrolProcessInfo extends BaseRequest {
+    constructor(private patrolId:string, private userId: string, private manageUnitId: string, private userType: string) {
+        super();
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('patrolId', this.patrolId);
+        params.set('userId', this.userId);
+        params.set('manageUnitId', this.manageUnitId);
+        params.set('userType', this.userType);
+        this.method = "GET";
+        this.requestUrl = "/api/system/get_patrol_process_info";
+        this.requestArgument =params;
+    }
+}
+
+export class PostPatrolProcessInfo extends BaseRequest {
+    constructor(public patrolInfo: PatrolInfo) {
+        super();
+        this.method = "POST";
+        this.requestUrl = "/api/system/submit_patrol_process_info";
+        this.requestBody = this.patrolInfo;
+    }
+}

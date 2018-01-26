@@ -1,4 +1,10 @@
 page-patrol-info-detail {
+    ion-header .toolbar .toolbar-background {
+        border: none;
+    }
+    .back-button.show-back-button {
+        display: none;
+    }
     ion-content {
         .slides {
             height: 54vw;
@@ -10,6 +16,94 @@ page-patrol-info-detail {
                 min-height: 100%;
                 min-width: 100%;
             }
+        }
+    }
+    .grid {
+        border-bottom: 1px solid color($colors, border, base);
+        padding: 15px 0;
+        .row {
+            .col {
+                font-size: 13px;
+            }
+            .col:first-child {
+                color: color($colors, primary, base);
+            }
+            .col:last-child {
+                border-left: solid 1px #c7c7c7;
+                word-wrap: break-word;
+                word-break: break-all;
+                text-overflow: clip;
+                white-space: normal;
+                .button {
+                    font-size: 12px;
+                    height: 18px;
+                    float: right;
+                    margin: 0 0.2rem;
+                }
+            }
+            .phoneNo {
+                text-decoration: underline;
+                color: color($colors, primary, base);
+            }
+        }
+    }
+    .side-menu {
+        .menu-inner>ion-content {
+            background: $toolbar-background;
+        }
+        .img {
+            width: 3rem;
+            height: 3rem;
+            float: left;
+            margin-left: 1rem;
+            background-size: 3rem;
+        }
+        .item.item-block.selected {
+            background-color: #228f6f;
+        }
+        .patrol-history.selected .img {
+            background-image: url('../assets/icon/ic_law_input_press.png');
+        }
+        .patrol-handle.selected .img {
+            background-image: url('../assets/icon/ic_patrol_info_dispose_process_press.png');
+        }
+        .patrol-history .img {
+            background-image: url('../assets/icon/ic_law_input_normal.png');
+        }
+        .patrol-history:active .img {
+            background-image: url('../assets/icon/ic_law_input_press.png');
+        }
+        .patrol-handle .img {
+            background-image: url('../assets/icon/ic_patrol_info_dispose_process_normal.png');
+        }
+        .patrol-handle:active .img {
+            background-image: url('../assets/icon/ic_patrol_info_dispose_process_press.png');
+        }
+        .patrol-reply .img {
+            background-image: url('../assets/icon/ic_patrol_info_dispose_normal.png');
+        }
+        .patrol-reply:active .img {
+            background-image: url('../assets/icon/ic_patrol_info_dispose_press.png');
+        }
+        button.item-ios:not([detail-none]) .item-inner {
+            background-image: none;
+        }
+        .item.item-block {
+            background: color($colors, primary, base);
+        }
+        .list-title {
+            color: #fff;
+            margin-left: 5rem;
+            line-height: 3rem;
+        }
+        ion-content .list .item .item-inner {
+            border-bottom: 1px solid #b3e3da;
+        }
+        .item.item-ios {
+            padding-left: 0;
+        }
+        ion-content .list .item:last-child {
+            border-bottom: none;
         }
     }
 }

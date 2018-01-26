@@ -17,7 +17,7 @@ import { MessageCenterEntity } from './../../../models/self/message-center-info.
 export class MessageCenterInfoDetailPage extends DetailPage {
   private messageCenterEntity: MessageCenterEntity;
   private state: number;
-
+  private viewDetail;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,6 +30,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
   ) {
     super(navCtrl, file, fileTransfer, pageService);
     this.messageCenterEntity = this.navParams.data;
+    this.viewDetail=this.messageCenterEntity.messageType== EnumMessageCenterType["巡查处理"]?false:true;
   }
 
   detail() {
@@ -59,9 +60,9 @@ export class MessageCenterInfoDetailPage extends DetailPage {
         this.state = EnumMessageCenterReadState["已阅"];
         break;
       case EnumMessageCenterType["巡查处理"]:
-        let detailPage = this.modalCtrl.create('detailPage');
+        let detailPage = this.modalCtrl.create('PatrolInfoDetailPage', { "keyID": this.navParams.data.businessID });
         detailPage.onDidDismiss(data => {
-
+         // this.navCtrl.push("PatrolInfoDetailPage",{ "keyID": this.navParams.data.businessID });
         });
         detailPage.present();
         break;

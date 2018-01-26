@@ -42,7 +42,8 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <button ion-button block (click)="detail()">查看详情</button>
+        <button ion-button block (click)="detail()" *ngIf="viewDetail">查看详情</button>
+        <button ion-button block (click)="detail()" *ngIf="!viewDetail">处理</button>
       </ion-col>
       <ion-col style="border-left: solid 1px #fff;">
         <button ion-button block (click)="close()">关闭</button>

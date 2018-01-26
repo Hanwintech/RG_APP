@@ -89,9 +89,9 @@ ion-header {
         }
         .bar-buttons {
             min-width: 30mm;
-            .icon{
-                width:6mm;
-                height:6mm;
+            .icon {
+                width: 6mm;
+                height: 6mm;
                 background-size: 6mm 6mm;
                 margin: 0 1mm;
             }
@@ -133,6 +133,12 @@ ion-header {
             }
             .icon.ion-ios-stats-outline:active {
                 background-image: url('../assets/icon/title_bar_chart_press.png');
+            }
+            .icon.ion-ios-menu-outline {
+                background-image: url('../assets/icon/title_bar_list_normal.png');
+            }
+            .icon.ion-ios-menu-outline:active {
+                background-image: url('../assets/icon/title_bar_list_press.png');
             }
         }
     }

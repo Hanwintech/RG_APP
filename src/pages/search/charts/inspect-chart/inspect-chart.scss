@@ -9,7 +9,7 @@ page-inspect-chart {
             font-size: 0.9rem;
             padding: 5px 0 5px 16px;
             height: 52px;
-            border-right: solid 1px #c7c7c7;
+            border-right: solid 1px color($colors, border, base);
             div:last-child {
                 padding-top: 2px;
                 font-size: 14px;
@@ -20,7 +20,7 @@ page-inspect-chart {
         }
     }
     .shadow {
-        border-top: solid 1px rgb(219, 219, 219);
+        border-top: solid 1px color($colors, border, base);
         height: 6px;
         background-color: rgb(247, 247, 248);
         width: 100%;

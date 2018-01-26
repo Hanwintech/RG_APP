@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -18,6 +18,7 @@ import { Attachment } from "./../../../models/attachment.model";
 })
 export class LawFileDetailPage extends DetailPage {
   private lawFileInfo: LawFileInfo;
+  private title: String;
 
   constructor(
     public navCtrl: NavController,
@@ -29,13 +30,23 @@ export class LawFileDetailPage extends DetailPage {
     public fileTransfer: FileTransfer,
     public pageService: PageService,
     public networkInfoService: NetworkInformationService
-    ) {
-      super(navCtrl, file, fileTransfer, pageService);
+  ) {
+    super(navCtrl, file, fileTransfer, pageService);
 
-      this.lawFileInfo = this.navParams.data;
-  
-      super.changeAttachmentFileType(this.lawFileInfo.attachmentList)
+    this.lawFileInfo = this.navParams.data;
+
+    super.changeAttachmentFileType(this.lawFileInfo.attachmentList)
+    this.do();
+    console.log(this.lawFileInfo);
   }
+  do() {
+    if (this.lawFileInfo.typeName == "法律法规") {
+      this.title = "法律法规详情";
+    } else if (this.lawFileInfo.typeName == "行政审批条例") {
+      this.title = "行政许可详情";
+    }
+  }
+
   showPicture(fileUrl: string, attachmentList: Attachment[]) {
     super.showSlidesPage(attachmentList, fileUrl);
   }

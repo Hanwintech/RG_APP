@@ -17,7 +17,7 @@ export class BasePage {
         public pageService: PageService
     ) {
         this.fileTransferObj = this.fileTransfer.create();
-        this._localFileDir = this.file.externalRootDirectory + 'com.hanwintech.wwbhzf/'
+        this._localFileDir = this.file.externalRootDirectory + 'download/'
     }
 
     public changeAttachmentFileType(attachmentList: Attachment[]) {
@@ -42,7 +42,7 @@ export class BasePage {
                         att.fileType = "other_file";
                     }
 
-                    this.file.checkFile(this._localFileDir, att.fileName).then(_ => { att.isDownloaded = true; })
+                    this.file.checkFile(this._localFileDir, att.fileName).then(() => { att.isDownloaded = true; }).catch(error => { console.log(error); })
                 }
             }
         }
@@ -59,12 +59,30 @@ export class BasePage {
             this.downloadFilePrivately(fileUrl, fileName);
         }
     }
+
+    public downloadAttachment(networkInfoService: NetworkInformationService, attachment: Attachment) {
+        if (attachment.isDownloaded) {
+            console.log(this._localFileDir + attachment.fileName);
+            this.pageService.showMessage('文件已存在: ' + this._localFileDir + attachment.fileName);
+        } else if (networkInfoService.connectionType != "wifi" && networkInfoService.connectionType != "ethernet") {
+            this.pageService.showComfirmMessage(
+                "正在使用数据流量,是否确定要下载？",
+                () => { this.downloadFilePrivately(attachment.fileUrl, attachment.fileName); },
+                () => { }
+            );
+        } else {
+            this.downloadFilePrivately(attachment.fileUrl, attachment.fileName);
+        }
+    }
+
     private downloadFilePrivately(fileUrl: string, fileName: string) {
         fileUrl = fileUrl.replace("/CompressionFile/", "/OriginalFile/")
         this.fileTransferObj.download(fileUrl, this._localFileDir + fileName).then((entry) => {
+            console.log(entry.toURL());
             this.pageService.showMessage('下载完成: ' + entry.toURL());
         }, (error) => {
-            this.pageService.showErrorMessage(error);
+            console.log(error);
+            this.pageService.showErrorMessage(JSON.stringify(error));
         });
     }
 
@@ -73,7 +91,12 @@ export class BasePage {
         let currentIndex: number = 0;
         for (let i = 0; i < attachmentList.length; i++) {
             if (attachmentList[i].fileType == "img") {
-                picUrls.push(attachmentList[i].fileUrl)
+                // if (attachmentList[i].isDownloaded) {
+                //     //this.file.readAsDataURL(this._localFileDir, attachmentList[i].fileName).then().catch
+                //     picUrls.push(this._localFileDir + attachmentList[i].fileName);
+                // } else {
+                    picUrls.push(attachmentList[i].fileUrl);
+                // }
             }
             if (attachmentList[i].fileUrl == fileUrl) {
                 currentIndex = i;

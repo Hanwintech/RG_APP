@@ -7,7 +7,7 @@
 <ion-content>
   <ion-slides pager loop="{{picUrls && picUrls.length > 1}}" initialSlide="{{currentIndex}}">
     <ion-slide *ngFor="let pic of picUrls">
-      <img src="{{pic}}">
+      <img src="{{pic}}" alt="">
     </ion-slide>
   </ion-slides>
 </ion-content>

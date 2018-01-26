@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>查询</ion-title>
-    <ion-buttons right *ngIf="statistics=='laws'">
+    <ion-buttons right *ngIf="statistics=='laws'||statistics=='license'">
       <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索')">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
@@ -72,7 +72,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
 
     <ion-grid *ngSwitchCase="'inspect'">
       <ion-row>

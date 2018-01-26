@@ -254,6 +254,15 @@ ion-content {
                 padding: 0 1.5mm 0 0;
                 font-size: 17px;
             }
+            textarea.rows2::-webkit-input-placeholder{
+                line-height: 46px
+            } 
+            textarea.rows3::-webkit-input-placeholder{
+                line-height: 64px
+            } 
+            textarea.rows10::-webkit-input-placeholder{
+                line-height: 203px
+            } 
             .datetime {
                 width: 100%;
                 max-width: 100%;

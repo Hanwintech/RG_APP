@@ -55,16 +55,16 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
       });
   }
 
-  showPicture(fileUrl: string, attachmentList: Attachment[]) {
-    super.showSlidesPage(attachmentList, fileUrl);
+  showPicture(fileName: string, attachmentList: Attachment[]) {
+    super.showSlidesPage(attachmentList, fileName);
   }
 
   download(fileUrl: string, fileName: string) {
     super.downloadFile(this.networkInfoService, fileUrl, fileName);
   }
 
-  showAttachmentList(fileUrl: string) {
-    this.showPicture(fileUrl, this.culturalRelicInfo.attachmentList)
+  showAttachmentList(fileName: string) {
+    this.showPicture(fileName, this.culturalRelicInfo.attachmentList)
   }
 
   showTwoLimitImageList() {

@@ -269,7 +269,7 @@ export class SearchStatisticsChartPage {
             formatter: '{b}:{c}',
             //position: 'inside'
           },
-          labelLine: { show: false }
+          labelLine: { show: true }
         }
       },
       data: da

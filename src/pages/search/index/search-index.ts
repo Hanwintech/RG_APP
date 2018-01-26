@@ -59,12 +59,7 @@ export class SearchIndexPage extends PagingListPage {
     this.navCtrl.parent.viewCtrl.instance.searchDefaultPage = segValue;
 
     if (segValue == 'laws') {
-      this.getLawsData();
-    }
-  }
-
-  getLawsData() {
-    //初始化父类参数
+       //初始化父类参数
     this.api = new GetLawFileInfos();
     this.condition = new LawFileInfoSearch();
 
@@ -74,7 +69,8 @@ export class SearchIndexPage extends PagingListPage {
     this.condition.isNeedPaging = true;
     this.condition.searchType = EnumSearchType.All;
     this.condition.pageSize = this.systemConst.DEFAULT_PAGE_SIZE;
-
+    this.condition.FileType = 1;
+    
     this.condition.userId = localStorage.getItem("userId");
     this.condition.manageUnitId = localStorage.getItem("manageUnitId");
     this.condition.userType = Number(localStorage.getItem("userType"));
@@ -84,7 +80,56 @@ export class SearchIndexPage extends PagingListPage {
     this.isLastPage = false;
     this.dataList = [];
     this.nextPage(null);
+     
+    } else if (segValue == 'license') {
+       //初始化父类参数
+    this.api = new GetLawFileInfos();
+    this.condition = new LawFileInfoSearch();
+
+    //初始化查询字段
+    this.condition = new LawFileInfoSearch();
+    this.condition.isDefaultSearch = true;
+    this.condition.isNeedPaging = true;
+    this.condition.searchType = EnumSearchType.All;
+    this.condition.pageSize = this.systemConst.DEFAULT_PAGE_SIZE;
+    this.condition.FileType = 3;
+    
+    this.condition.userId = localStorage.getItem("userId");
+    this.condition.manageUnitId = localStorage.getItem("manageUnitId");
+    this.condition.userType = Number(localStorage.getItem("userType"));
+
+    //查询首页数据
+    this.nextPageIndex = 0;
+    this.isLastPage = false;
+    this.dataList = [];
+    this.nextPage(null);
+      
+    }
   }
+
+  // getLawsData() {
+  //   //初始化父类参数
+  //   this.api = new GetLawFileInfos();
+  //   this.condition = new LawFileInfoSearch();
+
+  //   //初始化查询字段
+  //   this.condition = new LawFileInfoSearch();
+  //   this.condition.isDefaultSearch = true;
+  //   this.condition.isNeedPaging = true;
+  //   this.condition.searchType = EnumSearchType.All;
+  //   this.condition.pageSize = this.systemConst.DEFAULT_PAGE_SIZE;
+  //   this.condition.FileType = 3;
+
+  //   this.condition.userId = localStorage.getItem("userId");
+  //   this.condition.manageUnitId = localStorage.getItem("manageUnitId");
+  //   this.condition.userType = Number(localStorage.getItem("userType"));
+
+  //   //查询首页数据
+  //   this.nextPageIndex = 0;
+  //   this.isLastPage = false;
+  //   this.dataList = [];
+  //   this.nextPage(null);
+  // }
 
   Statistics(listType: number) {
     this.navCtrl.push("SearchStatisticsPage", listType);

@@ -1,7 +1,4 @@
 page-inspect-statistics {
-    // element.style {
-    //     margin-top: 132px;
-    // }
     ion-toolbar {
         .toolbar-background {
             background: #fff;
@@ -20,7 +17,8 @@ page-inspect-statistics {
     .top {
         height: 22mm;
         .toolbar-background {
-            border-width: 0 0 1px 0!important;
+            border-width: 0 0 1px 0!important; 
+            border-color:color($colors, border, base);
         }
     }
     ion-content .list .item .label {
@@ -35,7 +33,7 @@ page-inspect-statistics {
             font-size: 1.05rem; 
             padding: 5px 0 5px 16px;
             height: 52px;
-            border-right: solid 1px #c7c7c7;
+            border-right: solid 1px color($colors, border, base);
             color: color($colors, dark, base); //设置字体颜色为灰色
             div:last-child {
                 padding-top: 5px;

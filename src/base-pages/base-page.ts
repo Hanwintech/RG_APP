@@ -7,6 +7,7 @@ import { NetworkInformationService } from './../services/network-information.ser
 import { Attachment } from "./../models/attachment.model";
 
 export class BasePage {
+    private _localFileDir: string;
     private fileTransferObj: FileTransferObject;
 
     constructor(
@@ -16,6 +17,7 @@ export class BasePage {
         public pageService: PageService
     ) {
         this.fileTransferObj = this.fileTransfer.create();
+        this._localFileDir = this.file.externalRootDirectory + 'com.hanwintech.wwbhzf/'
     }
 
     public changeAttachmentFileType(attachmentList: Attachment[]) {
@@ -39,6 +41,8 @@ export class BasePage {
                     } else {
                         att.fileType = "other_file";
                     }
+
+                    this.file.checkFile(this._localFileDir, att.fileName).then(_ => { att.isDownloaded = true; })
                 }
             }
         }
@@ -57,7 +61,7 @@ export class BasePage {
     }
     private downloadFilePrivately(fileUrl: string, fileName: string) {
         fileUrl = fileUrl.replace("/CompressionFile/", "/OriginalFile/")
-        this.fileTransferObj.download(fileUrl, this.file.externalRootDirectory + 'com.hanwintech.wwbhzf/' + fileName).then((entry) => {
+        this.fileTransferObj.download(fileUrl, this._localFileDir + fileName).then((entry) => {
             this.pageService.showMessage('下载完成: ' + entry.toURL());
         }, (error) => {
             this.pageService.showErrorMessage(error);

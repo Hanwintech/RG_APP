@@ -112,4 +112,7 @@
         <variable name="APP_KEY" value="eb1772f8b0e4ef049a9dc285" />
     </plugin>
     <plugin name="call-number" spec="^1.0.1" />
+    <plugin name="com.qdc.plugins.baidu.location" spec="https://github.com/liangzhenghui/cordova-qdc-baidu-location">
+        <variable name="API_KEY" value="I69qT5DTQTrhyFH3v30CdqOk" />
+    </plugin>
 </widget>

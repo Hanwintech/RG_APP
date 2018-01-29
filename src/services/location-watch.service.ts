@@ -7,6 +7,7 @@ import { PostUserCoordinateInfo } from './../apis/system/system.api';
 import { UserLocationInfo } from './../models/system/user-location-info.model';
 
 declare var BMap;
+declare var baidu_location;
 declare var BMAP_STATUS_SUCCESS;
 
 @Injectable()
@@ -28,33 +29,13 @@ export class LocationWatchService {
         this._isWatching = false;
         this._needAlert = false;
         this._baiduMapGeolocation = new BMap.Geolocation();
-        // this._baiduMapGeolocation.enableSDKLocation()
     }
 
     init() {
-        this.geolocation.getCurrentPosition({ "timeout": 4000, "maximumAge": 5000 })
-            .then(res => {
-                if (res && res.coords) {
-                    let pointArr = [new BMap.Point(res.coords.longitude, res.coords.latitude)];
-                    new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
-                        if (data.status === BMAP_STATUS_SUCCESS) {
-                            localStorage.setItem('longitude', data.points[0].lng);
-                            localStorage.setItem('latitude', data.points[0].lat);
-                        }
-                    }.bind(this));
-                }
-                console.log("1st time geolocation.getCurrentPosition()");
-                console.log(res);
-            })
-            .catch(error => {
-                console.log("1st time geolocation.getCurrentPosition() error");
-                console.log(error);
-            });
-
-        this._baiduMapGeolocation.getCurrentPosition(
-            res => {
-                if (this._baiduMapGeolocation.getStatus() == 0) {
-                    let pointArr = [new BMap.Point(res.longitude, res.latitude)];
+        if (baidu_location) {
+            baidu_location.getCurrentPosition(
+                positionData => {
+                    let pointArr = [new BMap.Point(positionData.longitude, positionData.latitude)];
                     new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
                         if (data.status === BMAP_STATUS_SUCCESS) {
                             localStorage.setItem('bdLongitude', data.points[0].lng);
@@ -63,12 +44,32 @@ export class LocationWatchService {
                             localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
                         }
                     }.bind(this));
-                }
-                console.log("1st time baiduMap.getCurrentPosition()");
-                console.log(res);
-            }, { "timeout": 4000, "maximumAge": 5000 });
+                    console.log("1st time baidu_location.getCurrentPosition()");
+                    console.log(positionData);
+                },
+                error => {
+                    console.log("1st time baidu_location.getCurrentPosition() error");
+                    console.log(error);
+                });
+        } else {
+            this._baiduMapGeolocation.getCurrentPosition(
+                res => {
+                    if (this._baiduMapGeolocation.getStatus() == 0) {
+                        let pointArr = [new BMap.Point(res.longitude, res.latitude)];
+                        new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
+                            if (data.status === BMAP_STATUS_SUCCESS) {
+                                localStorage.setItem('bdLongitude', data.points[0].lng);
+                                localStorage.setItem('bdLatitude', data.points[0].lat);
+                                localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
+                                localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
+                            }
+                        }.bind(this));
+                    }
+                    console.log("1st time baiduMap.getCurrentPosition()");
+                    console.log(res);
+                }, { "timeout": 4000, "maximumAge": 5000 });
+        }
     }
-
     start() {
         this._isWatching = true;
         this._needAlert = true;
@@ -86,10 +87,10 @@ export class LocationWatchService {
     }
 
     getPosition() {
-        if (this._isWatching && localStorage.getItem('userId')) {
-            this.geolocation.getCurrentPosition({ "timeout": 4000, "maximumAge": 5000 }).then(res => {
-                if (res && res.coords) {
-                    let pointArr = [new BMap.Point(res.coords.longitude, res.coords.latitude)];
+        if (this._isWatching && localStorage.getItem('userId') && baidu_location) {
+            baidu_location.getCurrentPosition(
+                positionData => {
+                    let pointArr = [new BMap.Point(positionData.longitude, positionData.latitude)];
                     new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
                         if (data.status === BMAP_STATUS_SUCCESS) {
                             localStorage.setItem('longitude', data.points[0].lng);
@@ -101,44 +102,16 @@ export class LocationWatchService {
                             this.startGetPositionByBaiduMap();
                         }
                     }.bind(this));
-                } else {
+                    console.log(positionData);
+                },
+                error => {
                     localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
                     localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-                    this.getPositionByBaiduMap();
-                }
-            }).catch((error) => {
-                localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-                this.getPositionByBaiduMap();
-            });
+                    console.log(error);
+                });
         } else {
             this.stop();
         }
-    }
-
-    getPositionByBaiduMap() {
-        // this._baiduMapGeolocation.getCurrentPosition(res => {
-        //     if (this._baiduMapGeolocation.getStatus() == 0) {
-        //         let pointArr = [new BMap.Point(res.longitude, res.latitude)];
-        //         new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
-        //             if (data.status === BMAP_STATUS_SUCCESS) {
-        //                 localStorage.setItem('longitude', data.points[0].lng);
-        //                 localStorage.setItem('latitude', data.points[0].lat);
-        //                 this.uploadLocation();
-        //             } else {
-        //                 localStorage.removeItem('longitude');
-        //                 localStorage.removeItem('latitude');
-        //             }
-        //         }.bind(this));
-        //     } else {
-        //         localStorage.removeItem('longitude');
-        //         localStorage.removeItem('latitude');
-        //         if (this._needAlert) {
-        //             this.pageService.showErrorMessage("无法定位您的位置！");
-        //             this._needAlert = false;
-        //         }
-        //     }
-        // }, { "timeout": 4000, "maximumAge": 5000 });
     }
 
     uploadLocation() {

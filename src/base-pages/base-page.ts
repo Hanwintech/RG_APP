@@ -78,7 +78,6 @@ export class BasePage {
     private downloadFilePrivately(fileUrl: string, fileName: string) {
         fileUrl = fileUrl.replace("/CompressionFile/", "/OriginalFile/")
         this.fileTransferObj.download(fileUrl, this._localFileDir + fileName).then((entry) => {
-            console.log(entry.toURL());
             this.pageService.showMessage('下载完成: ' + entry.toURL());
         }, (error) => {
             console.log(error);
@@ -91,12 +90,11 @@ export class BasePage {
         let currentIndex: number = 0;
         for (let i = 0; i < attachmentList.length; i++) {
             if (attachmentList[i].fileType == "img") {
-                // if (attachmentList[i].isDownloaded) {
-                //     //this.file.readAsDataURL(this._localFileDir, attachmentList[i].fileName).then().catch
-                //     picUrls.push(this._localFileDir + attachmentList[i].fileName);
-                // } else {
+                if (attachmentList[i].isDownloaded) {
+                    picUrls.push(this._localFileDir + attachmentList[i].fileName);
+                } else {
                     picUrls.push(attachmentList[i].fileUrl);
-                // }
+                }
             }
             if (attachmentList[i].fileUrl == fileUrl) {
                 currentIndex = i;

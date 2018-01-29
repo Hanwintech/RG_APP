@@ -19,8 +19,7 @@ page-search-index {
                 border-color: #fff;
                 color: color($colors, dark, base);
                 font-size: 1.2rem;
-                line-height: 1.5rem!important;
-                //垂直居中
+                line-height: 1.5rem!important; //垂直居中
                 display: -webkit-box;
                 -webkit-box-pack: center;
                 -webkit-box-align: center;
@@ -116,4 +115,7 @@ page-search-index {
             height: 54px;
         }
     }
+    // ion-refresher {
+    //     top: 97px;
+    // }
 }

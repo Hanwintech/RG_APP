@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiService } from './../../../../services/api.service';
 import { PageService } from './../../../../services/page.service';
-
+//import { PagingListPage } from './../../../../base-pages/list-page';
 import { GetReportStatisticalCulturalRelicByLevelInfos } from './../../../../apis/search/get-report-statistical-cultural-relic-by-level-infos.api';
 import { GetReportStatisticalCulturalRelicByLocationInfos } from './../../../../apis/search/get-report-statistical-cultural-relic-by-location-infos.api';
 import { ReportStatisticalCulturalRelicSearch } from './../../../../models/search/report-statistical-cultural-relic-search.model';
@@ -120,4 +120,9 @@ export class CulturalRelicStatisticsPage {
    chart(){
       this.navCtrl.push("CulturalRelicChartPage",{"编号":this.chartType,"数据源":this.dataSource});
   }
+  
+  refreshDataList(ionRefreshEvent) {
+    //this.getData(null, true); 
+    ionRefreshEvent.complete();
+}
 }

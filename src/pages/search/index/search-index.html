@@ -27,6 +27,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher  [enabled]="statistics=='laws'||statistics=='license'" (ionRefresh)="refreshDataList($event)" [pullMax]="800">
+    <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
+  </ion-refresher>
+
   <div [ngSwitch]="statistics">
     <ion-grid *ngSwitchCase="'cases'">
       <ion-row>
@@ -118,10 +122,8 @@
       </ion-row>
     </ion-grid>
 
+
     <ion-list *ngSwitchCase="'laws'">
-      <ion-refresher (ionRefresh)="refreshDataList($event)" [pullMax]="800">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
-      </ion-refresher>
       <div *ngIf="dataList && dataList.length > 0">
         <ion-list class="data-list">
           <ion-item *ngFor="let data of dataList" (click)="view(data)">
@@ -144,9 +146,6 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'license'">
-      <ion-refresher (ionRefresh)="refreshDataList($event)" [pullMax]="800">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
-      </ion-refresher>
       <div *ngIf="dataList && dataList.length > 0">
         <ion-list class="data-list">
           <ion-item *ngFor="let data of dataList" (click)="view(data)">

@@ -10,7 +10,8 @@ export class LawFileInfoSearch extends BaseApiSearch {
     public keyword:string;
     public searchType:number;
     public isDefaultSearch:boolean;
-
+    public FileType:number;
+    
     constructor() {
         super();
         this.clearNumbers();

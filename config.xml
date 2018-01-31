@@ -3,7 +3,7 @@
     <name>文物安全巡查APP</name>
     <description>文物安全巡查APP</description>
     <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
-    <content original-src="index.html" src="http://10.10.10.85:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <access launch-external="yes" origin="tel:*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -93,26 +93,28 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
-        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="使用定位" />
-    </plugin>
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
-    <plugin name="cordova-plugin-ble-central" spec="^1.1.4" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="com.synconset.imagepicker" spec="^2.1.10">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="使用相册" />
     </plugin>
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
-    <plugin name="mx.ferreyra.callnumber" spec="0.0.2" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
-    <plugin name="jpush-phonegap-plugin" spec="^3.2.13">
+    <plugin name="jpush-phonegap-plugin" spec="^3.3.0">
         <variable name="APP_KEY" value="eb1772f8b0e4ef049a9dc285" />
     </plugin>
     <plugin name="call-number" spec="^1.0.1" />
-    <plugin name="com.qdc.plugins.baidu.location" spec="https://github.com/liangzhenghui/cordova-qdc-baidu-location">
-        <variable name="API_KEY" value="I69qT5DTQTrhyFH3v30CdqOk" />
+    <plugin name="mx.ferreyra.callnumber" spec="0.0.2" />
+    <plugin name="cordova-plugin-baidumaplocation" spec="^3.2.0">
+        <variable name="ANDROID_KEY" value="uguRyAOI3S3byHPZO5KDnEmFbP60FiqT" />
+        <variable name="IOS_KEY" value="uguRyAOI3S3byHPZO5KDnEmFbP60FiqT" />
+        <variable name="IOS_LOCATION_DESC" value="请点击'好'以允许访问。" />
     </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
+    </plugin>
+    <engine name="android" spec="^6.4.0" />
 </widget>

@@ -1,5 +1,4 @@
 import { NavController, NavParams, Platform, ModalController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import { ApiService } from './../services/api.service';
 import { GetCulturalRelicMapInfosUrl } from './../apis/two-line/two-line.api';
 import { CulturalRelicInfoSearch, CulturalRelicInfoSearchDataSource } from './../models/property/cultural-relic-info.model';
@@ -48,8 +47,7 @@ export class MapPage extends DetailPage {
         public modalCtrl: ModalController,
         public apiService: ApiService,
         public file: File,
-        public fileTransfer: FileTransfer,
-        public geolocation: Geolocation) {
+        public fileTransfer: FileTransfer) {
         super(navCtrl, file, fileTransfer, pageService);
     }
 

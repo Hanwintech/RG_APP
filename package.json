@@ -38,7 +38,7 @@
     "@ionic-native/device": "^4.5.2",
     "@ionic-native/file": "^4.5.2",
     "@ionic-native/file-transfer": "^4.5.2",
-    "@ionic-native/geolocation": "^4.5.2",
+    "@ionic-native/geolocation": "^4.5.3",
     "@ionic-native/image-picker": "^4.5.2",
     "@ionic-native/in-app-browser": "^4.5.2",
     "@ionic-native/network": "^4.5.2",
@@ -47,31 +47,29 @@
     "@ionic-native/status-bar": "^4.5.2",
     "@ionic/storage": "^2.1.3",
     "call-number": "^1.0.1",
+    "com.qdc.plugins.baidu.location": "~1.0.0",
     "com.synconset.imagepicker": "^2.1.10",
-    "cordova-android": "^7.0.0",
+    "cordova-android": "^6.4.0",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-baidumaplocation": "^3.2.0",
-    "cordova-plugin-ble-central": "^1.1.4",
     "cordova-plugin-camera": "^3.0.0",
-    "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-file-opener2": "^2.0.19",
     "cordova-plugin-file-transfer": "^1.7.0",
-    "cordova-plugin-geolocation": "^2.4.3",
-    "cordova-plugin-jcore": "^1.1.11",
+    "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-jcore": "^1.1.12",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-statusbar": "^2.4.1",
     "cordova-plugin-telerik-imagepicker": "^2.1.8",
     "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-qdc-baidu-location": "git+https://github.com/liangzhenghui/cordova-qdc-baidu-location.git",
     "cordova-sms-plugin": "^0.1.11",
     "ionic-angular": "^3.9.2",
     "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
-    "jpush-phonegap-plugin": "^3.2.13",
+    "jpush-phonegap-plugin": "^3.3.0",
     "mx.ferreyra.callnumber": "0.0.2",
     "rxjs": "^5.5.6",
     "sdk": "^0.5.0",
@@ -89,12 +87,7 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {},
-      "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "使用定位"
-      },
       "cordova-plugin-file": {},
-      "cordova-plugin-ble-central": {},
       "cordova-plugin-camera": {},
       "com.synconset.imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "使用相册"
@@ -105,14 +98,22 @@
       "cordova-plugin-app-version": {},
       "cordova-plugin-file-opener2": {},
       "cordova-plugin-network-information": {},
+      "ionic-plugin-keyboard": {},
       "jpush-phonegap-plugin": {
         "APP_KEY": "eb1772f8b0e4ef049a9dc285"
       },
       "call-number": {},
-      "com.qdc.plugins.baidu.location": {
-        "API_KEY": "I69qT5DTQTrhyFH3v30CdqOk"
+      "cordova-plugin-baidumaplocation": {
+        "ANDROID_KEY": "uguRyAOI3S3byHPZO5KDnEmFbP60FiqT",
+        "IOS_KEY": "uguRyAOI3S3byHPZO5KDnEmFbP60FiqT",
+        "IOS_LOCATION_DESC": "请点击'好'以允许访问。"
+      },
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       }
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

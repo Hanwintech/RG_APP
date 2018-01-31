@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import { ApiService } from './../../../services/api.service';
 import { EnumAppRole } from './../../../models/enum';
@@ -22,7 +21,7 @@ export class PatrolMapPage extends MapPage {
   @ViewChild('map') mapElement: ElementRef;
   private CardContrl: boolean;//左上角两线图信息栏的控制
   private canAdd: boolean;
-  private isSuccess=false;
+  private isSuccess = false;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,10 +31,9 @@ export class PatrolMapPage extends MapPage {
     public modalCtrl: ModalController,
     public apiService: ApiService,
     public file: File,
-    public fileTransfer: FileTransfer,
-    public geolocation: Geolocation) {
+    public fileTransfer: FileTransfer) {
     super(navCtrl, navParams, platform, pageService,
-      modalCtrl, apiService, file, fileTransfer, geolocation);
+      modalCtrl, apiService, file, fileTransfer);
     this.hideContrl = true;
     this.hideDetailContrl = false;
     this.CardContrl = false;
@@ -47,26 +45,28 @@ export class PatrolMapPage extends MapPage {
     this.navCtrl.push('PatrolInfoListPage');
   }
 
-  ionViewDidEnter(){
-    if(localStorage.getItem("longitude")&&localStorage.getItem("latitude")&&!this.isSuccess){
-      this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
+  ionViewDidEnter() {
+    if (localStorage.getItem("longitude") && localStorage.getItem("latitude") && !this.isSuccess) {
+      this.getLocation(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
       let pointData = new BMap.Point(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
       this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
-      this.isSuccess=true;
+      this.isSuccess = true;
     }
-    else if(!localStorage.getItem("longitude")&&!localStorage.getItem("latitude")&&!this.isSuccess){
+    else if (!localStorage.getItem("longitude") && !localStorage.getItem("latitude") && !this.isSuccess) {
       this.pageService.showMessage("页面正在初始化");
       return;
     }
   }
 
   ionViewDidLoad() {
-    if(!localStorage.getItem("longitude")&&!localStorage.getItem("latitude")){
+    if (!localStorage.getItem("longitude") && !localStorage.getItem("latitude")) {
       this.pageService.showMessage("正在初始化页面！");
     }
-    setInterval(()=>{
-      this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
-    },60000);
+    setInterval(() => {
+      console.log(localStorage.getItem("longitude") + "----" + localStorage.getItem("latitude"));
+      this.getLocation(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+
+    }, 60000);
     this.initSearchData();
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
 
@@ -78,12 +78,12 @@ export class PatrolMapPage extends MapPage {
         BMAP_HYBRID_MAP
       ]
     }));
-    let longT =localStorage.getItem("longitude");
+    let longT = localStorage.getItem("longitude");
     let lati = localStorage.getItem("latitude");
     super.getLocation(longT, lati);
     let pointData = new BMap.Point(longT, lati);
     this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
- 
+
     this.mapLevel = this.map.getZoom() + 1;
     this.getData(this.mapLevel);
     this.mapAddEventListener();
@@ -94,7 +94,7 @@ export class PatrolMapPage extends MapPage {
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
     this.upArrowContrl = this.hideContrl;
-    if(!this.hideDetailContrl){
+    if (!this.hideDetailContrl) {
       this.hideDetailContrl = false
     }
   }
@@ -114,15 +114,15 @@ export class PatrolMapPage extends MapPage {
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("MapSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      if (data&&data.needSearch) {
+      if (data && data.needSearch) {
         that.getSearchData(data.search);
       }
     });
     searchModal.present();
   }
 
-  addPatrol(){
-    let patrolModal = this.modalCtrl.create('PatrolInfoEditPage',this.map);
+  addPatrol() {
+    let patrolModal = this.modalCtrl.create('PatrolInfoEditPage', this.map);
     patrolModal.onDidDismiss(data => {
     });
     patrolModal.present();

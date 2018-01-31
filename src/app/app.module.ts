@@ -5,7 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Geolocation } from '@ionic-native/geolocation';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera';
@@ -16,6 +15,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Network } from '@ionic-native/network';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 
@@ -58,7 +58,6 @@ import { NetworkInformationService } from './../services/network-information.ser
     SplashScreen,
     SMS,
     CallNumber,
-    Geolocation,
     File,
     FileTransfer,
     ApiService,
@@ -77,6 +76,7 @@ import { NetworkInformationService } from './../services/network-information.ser
     Device,
     LocationWatchService,
     NetworkInformationService,
+    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

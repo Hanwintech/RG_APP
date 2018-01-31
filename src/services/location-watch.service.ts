@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { ApiService } from './../services/api.service';
@@ -7,7 +8,7 @@ import { PostUserCoordinateInfo } from './../apis/system/system.api';
 import { UserLocationInfo } from './../models/system/user-location-info.model';
 
 declare var BMap;
-declare var baidu_location;
+declare var baidumap_location;
 declare var BMAP_STATUS_SUCCESS;
 
 @Injectable()
@@ -22,9 +23,10 @@ export class LocationWatchService {
     private _intervalId: number;
 
     constructor(
-        public geolocation: Geolocation,
+        public device: Device,
         public apiService: ApiService,
-        public pageService: PageService
+        public pageService: PageService,
+        public geolocation: Geolocation
     ) {
         this._isWatching = false;
         this._needAlert = false;
@@ -32,8 +34,9 @@ export class LocationWatchService {
     }
 
     init() {
-        if (baidu_location) {
-            baidu_location.getCurrentPosition(
+        if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+            console.log(baidumap_location);
+            baidumap_location.getCurrentPosition(
                 positionData => {
                     let pointArr = [new BMap.Point(positionData.longitude, positionData.latitude)];
                     new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
@@ -70,6 +73,7 @@ export class LocationWatchService {
                 }, { "timeout": 4000, "maximumAge": 5000 });
         }
     }
+    
     start() {
         this._isWatching = true;
         this._needAlert = true;
@@ -87,31 +91,48 @@ export class LocationWatchService {
     }
 
     getPosition() {
-        if (this._isWatching && localStorage.getItem('userId') && baidu_location) {
-            baidu_location.getCurrentPosition(
-                positionData => {
-                    let pointArr = [new BMap.Point(positionData.longitude, positionData.latitude)];
-                    new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
-                        if (data.status === BMAP_STATUS_SUCCESS) {
-                            localStorage.setItem('longitude', data.points[0].lng);
-                            localStorage.setItem('latitude', data.points[0].lat);
-                            this.uploadLocation();
-                        } else {
-                            localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                            localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-                            this.startGetPositionByBaiduMap();
-                        }
-                    }.bind(this));
-                    console.log(positionData);
-                },
-                error => {
-                    localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                    localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-                    console.log(error);
-                });
+        if (this._isWatching && localStorage.getItem('userId')) {
+            if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+                baidumap_location.getCurrentPosition(
+                    positionData => {
+                        this.convertAndSave(positionData.longitude, positionData.latitude);
+                        console.log("baidumap_location");
+                        console.log(positionData);
+                    },
+                    error => {
+                        this.getPositionByNativeGeolocation();
+                        console.log("baidumap_location error");
+                        console.log(error);
+                    });
+            } else {
+                this.getPositionByNativeGeolocation();
+            }
         } else {
             this.stop();
         }
+    }
+
+    getPositionByNativeGeolocation() {
+        this.geolocation.getCurrentPosition().then((resp) => {
+            this.convertAndSave(resp.coords.longitude, resp.coords.latitude);
+        }).catch((error) => {
+            localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
+            localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
+        });
+    }
+
+    convertAndSave(longitude, latitude) {
+        let pointArr = [new BMap.Point(longitude, latitude)];
+        new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
+            if (data.status === BMAP_STATUS_SUCCESS) {
+                localStorage.setItem('longitude', data.points[0].lng);
+                localStorage.setItem('latitude', data.points[0].lat);
+                this.uploadLocation();
+            } else {
+                localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
+                localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
+            }
+        }.bind(this));
     }
 
     uploadLocation() {

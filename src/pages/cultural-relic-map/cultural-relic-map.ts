@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import { ApiService } from './../../services/api.service';
 import { EnumAppRole } from './../../models/enum';
@@ -31,10 +30,9 @@ export class CulturalRelicMapPage extends MapPage {
     public modalCtrl: ModalController,
     public apiService: ApiService,
     public file: File,
-    public fileTransfer: FileTransfer,
-    public geolocation: Geolocation) {
+    public fileTransfer: FileTransfer) {
     super(navCtrl, navParams, platform, pageService,
-      modalCtrl, apiService, file, fileTransfer, geolocation);
+      modalCtrl, apiService, file, fileTransfer);
     this.hideContrl = true;
     this.hideDetailContrl = false;
     this.CardContrl = false;

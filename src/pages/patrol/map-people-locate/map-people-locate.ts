@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, ModalController, ToastController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import { ApiService } from './../../../services/api.service';
 import { EnumCulturalRelicLevel } from './../../../models/enum';
@@ -29,10 +28,9 @@ export class MapPeopleLocatePage extends MapPage {
     public modalCtrl: ModalController,
     public apiService: ApiService,
     public file: File,
-    public fileTransfer: FileTransfer,
-    public geolocation: Geolocation) {
+    public fileTransfer: FileTransfer) {
     super(navCtrl, navParams, platform, pageService,
-      modalCtrl, apiService, file, fileTransfer, geolocation);
+      modalCtrl, apiService, file, fileTransfer);
     this.patrolInfo = this.navParams.data.patrolInfo.patrolInfo;
   }
 

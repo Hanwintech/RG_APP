@@ -78,10 +78,10 @@ export class CulturalRelicChartPage {
 
         let op1 = {
           color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
-          grid: { top: '25%', bottom: '25%' },
+          //grid: { top: '25%', bottom: '25%' },
           legend: {
             data: this.legend,
-            icon:'pin'
+            icon: 'pin'
           },
           xAxis: {
             data: this.xAxis,
@@ -114,28 +114,31 @@ export class CulturalRelicChartPage {
               endValue: this.endValue,
             },
           ],
-          yAxis: [{ 
+          yAxis: [{
             name: "可移动文物统计(件/套)", type: 'value',
-          axisLabel: {
-            show: true,
-            fontSize: 10,
-            color: 'rgb(204,204,204)'
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
-              color: 'rgb(204,204,204)'
-            }
-          },
-        }], 
+            nameTextStyle: {
+              padding: [0, 0, 0, 60],
+            },
+            axisLabel: {
+              show: true,
+              fontSize: 10,
+              color: 'rgb(204,204,204)',
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: 'rgb(204,204,204)'
+              }
+            },
+          }],
           series: []
         };
         let op2 = {
           color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
-          grid: { top: '25%', bottom: '25%' },
+          //grid: { top: '25%', bottom: '25%' },
           legend: {
             data: this.legend,
-            icon:'pin'
+            icon: 'pin'
           },
           xAxis: {
             data: this.xAxis,
@@ -168,19 +171,23 @@ export class CulturalRelicChartPage {
               endValue: this.endValue,
             },
           ],
-          yAxis: [{ name: "可移动文物统计(实际数量)", type: 'value',
-          axisLabel: {
-            show: true,
-            fontSize: 10,
-            color: 'rgb(204,204,204)'
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
+          yAxis: [{
+            name: "可移动文物统计(实际数量)", type: 'value',
+            nameTextStyle: {
+              padding: [0, 0, 0, 80],
+            },
+            axisLabel: {
+              show: true,
+              fontSize: 10,
               color: 'rgb(204,204,204)'
-            }
-          },
-        }],
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: 'rgb(204,204,204)'
+              }
+            },
+          }],
           series: []
         };
 
@@ -283,10 +290,10 @@ export class CulturalRelicChartPage {
 
         let op3 = {
           color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
-         //grid: { top: '25%', bottom: '25%',left:'55%',right: '10%'},
+          //grid: { top: '25%', bottom: '25%',left:'55%',right: '10%'},
           legend: {
             data: this.legend2,
-            icon:'pin'
+            icon: 'pin'
           },
           xAxis: {
             data: this.xAxis,
@@ -319,36 +326,31 @@ export class CulturalRelicChartPage {
               endValue: this.endValue,
             },
           ],
-          yAxis: [{ name: "可移动文物统计(件/套)", type: 'value',
-          axisLabel: {
-            show: true,
-            fontSize: 10,
-            color: 'rgb(204,204,204)'
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
+          yAxis: [{
+            name: "可移动文物统计(件/套)", type: 'value',
+            nameTextStyle: {
+              padding: [0, 0, 0, 60],
+            },
+            axisLabel: {
+              show: true,
+              fontSize: 10,
               color: 'rgb(204,204,204)'
-            }
-          },
-          nameTextStyle: {
-            fontSize: 10,
-            // align:'center',
-            // rich: {
-            //   a: {
-            //     align:'center',
-            //   }
-            //}
-          },
-        }],
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: 'rgb(204,204,204)'
+              }
+            },
+          }],
           series: []
         };
         let op4 = {
           color: ['rgb(29,159,206)', 'rgb(151,83,184)', 'rgb(153,204,0)', '#ff8a0f', 'rgb(230,44,44)', 'rgb(221,198,156)', 'rgb(187,12,124)', 'rgb(42,202,186)'],
-          grid: { top: '25%', bottom: '25%' },
+          //grid: { top: '25%', bottom: '25%' },
           legend: {
             data: this.legend2,
-            icon:'pin'
+            icon: 'pin'
           },
           xAxis: {
             data: this.xAxis,
@@ -381,19 +383,23 @@ export class CulturalRelicChartPage {
               endValue: this.endValue,
             },
           ],
-          yAxis: [{ name: "可移动文物统计(实际数量)", type: 'value',
-          axisLabel: {
-            show: true,
-            fontSize: 10,
-            color: 'rgb(204,204,204)'
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
+          yAxis: [{
+            name: "可移动文物统计(实际数量)", type: 'value',
+            nameTextStyle: {
+              padding: [0, 0, 0, 80],
+            },
+            axisLabel: {
+              show: true,
+              fontSize: 10,
               color: 'rgb(204,204,204)'
-            }
-          },
-        }],
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: 'rgb(204,204,204)'
+              }
+            },
+          }],
           series: []
         };
 

@@ -60,14 +60,14 @@ export class CulturalRelicStatisticsPage {
               for (let data of res.data.reportStatisticalCulturalRelicByLocationInfoList) {
                 this.dataSource.push([
                   data.collectionUnitName,
-                  data.culturalSum ? data.culturalSum.toString() : "",
-                  data.culturalActualSum ? data.culturalActualSum.toString() : "",
-                  data.exhibitionSum ? data.exhibitionSum.toString() : "",
-                  data.exhibitionActualSum ? data.exhibitionActualSum.toString() : "",
-                  data.storeSum ? data.storeSum.toString() : "",
-                  data.storeActualSum ? data.storeActualSum.toString() : "",
-                  data.borrowSum ? data.borrowSum.toString() : "",
-                  data.borrowActualSum ? data.borrowActualSum.toString() : ""
+                  data.culturalSum ? data.culturalSum.toString() : 0,
+                  data.culturalActualSum ? data.culturalActualSum.toString() : 0,
+                  data.exhibitionSum ? data.exhibitionSum.toString() : 0,
+                  data.exhibitionActualSum ? data.exhibitionActualSum.toString() : 0,
+                  data.storeSum ? data.storeSum.toString() : 0,
+                  data.storeActualSum ? data.storeActualSum.toString() : 0,
+                  data.borrowSum ? data.borrowSum.toString() : 0,
+                  data.borrowActualSum ? data.borrowActualSum.toString() : 0
                 ]);
               }
             } else {
@@ -93,16 +93,16 @@ export class CulturalRelicStatisticsPage {
               for (let data of res.data.reportStatisticalCulturalRelicByLevelInfoList) {
                 this.dataSource.push([
                   data.collectionUnitName,
-                  data.culturalSum1 ? data.culturalSum1.toString() : "",
-                  data.culturalActualSum1 ? data.culturalActualSum1.toString() : "",
-                  data.culturalSum2 ? data.culturalSum2.toString() : "",
-                  data.culturalActualSum2 ? data.culturalActualSum2.toString() : "",
-                  data.culturalSum3 ? data.culturalSum3.toString() : "",
-                  data.culturalActualSum3 ? data.culturalActualSum3.toString() : "",
-                  data.culturalSum4 ? data.culturalSum4.toString() : "",
-                  data.culturalActualSum4 ? data.culturalActualSum4.toString() : "",
-                  data.culturalSum5 ? data.culturalSum5.toString() : "",
-                  data.culturalActualSum5 ? data.culturalActualSum5.toString() : ""
+                  data.culturalSum1 ? data.culturalSum1.toString() : 0,
+                  data.culturalActualSum1 ? data.culturalActualSum1.toString() : 0,
+                  data.culturalSum2 ? data.culturalSum2.toString() : 0,
+                  data.culturalActualSum2 ? data.culturalActualSum2.toString() : 0,
+                  data.culturalSum3 ? data.culturalSum3.toString() : 0,
+                  data.culturalActualSum3 ? data.culturalActualSum3.toString() : 0,
+                  data.culturalSum4 ? data.culturalSum4.toString() : 0,
+                  data.culturalActualSum4 ? data.culturalActualSum4.toString() : 0,
+                  data.culturalSum5 ? data.culturalSum5.toString() : 0,
+                  data.culturalActualSum5 ? data.culturalActualSum5.toString() : 0
                 ]);
               }
             } else {
@@ -120,7 +120,7 @@ export class CulturalRelicStatisticsPage {
    chart(){
       this.navCtrl.push("CulturalRelicChartPage",{"编号":this.chartType,"数据源":this.dataSource});
   }
-  
+
   refreshDataList(ionRefreshEvent) {
     //this.getData(null, true); 
     ionRefreshEvent.complete();

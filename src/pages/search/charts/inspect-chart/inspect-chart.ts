@@ -55,6 +55,10 @@ export class InspectChartPage {
         this.title = "按人员统计";
         this.endValue = 4;
         break;
+        case (10):
+        this.title = "按县区统计";
+        this.endValue = 3;
+        break;
       default:
         break;
     }

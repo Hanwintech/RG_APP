@@ -9,6 +9,7 @@ import { GetReportQueryPatrolByQuarterInfos } from './../../../../apis/search/ge
 import { GetReportQueryPatrolByHalfYearInfos } from './../../../../apis/search/get-report-query-patrol-by-half-year-infos.api';
 import { GetReportQueryPatrolByYearInfos } from './../../../../apis/search/get-report-query-patrol-by-year-infos.api';
 import { GetReportQueryPatrolByUserInfos } from './../../../../apis/search/get-report-query-patrol-by-user-infos.api';
+import { GetReportQueryPatrolByDistrictInfos } from './../../../../apis/search/get_report_query_patrol_by_district_infos.api';
 import { ReportQueryPatrolSearch } from './../../../../models/search/report-query-patrol-search.model';
 import { ReportQueryPatrolSearchDataSource } from './../../../../models/search/report-query-patrol-search.model';
 
@@ -38,7 +39,7 @@ export class InspectStatisticsPage {
     //初始化查询字段
     this.search = new ReportQueryPatrolSearch();
     this.search.isDefaultSearch = true;
-    this.search.isNeedPaging=false;
+    this.search.isNeedPaging = false;
     this.search.userId = localStorage.getItem("userId");
     this.search.manageUnitId = localStorage.getItem("manageUnitId");
     this.search.userType = Number(localStorage.getItem("userType"));
@@ -174,6 +175,36 @@ export class InspectStatisticsPage {
                 this.dataSource.push([
                   data.reportQueryPatrolByYear.indexYear + "年",
                   data.reportQueryPatrolByYear.patrolCount.toString()
+                ]);
+              }
+              this.searchDataSource = res.data.reportQueryCaseSearchDataSource;
+              this.search = res.data.search;
+              if (this.search.patrolStatus == 0) {
+                this.search.patrolStatus = -1;
+              }
+            } else {
+              this.pageService.showErrorMessage(res.reason);
+            }
+          },
+          error => {
+            this.pageService.showErrorMessage(error);
+          });
+        break;
+      case (10):
+        this.title = "按县区统计";
+        this.category = "县区";
+
+        this.apiService.sendApi(new GetReportQueryPatrolByDistrictInfos(this.search)).subscribe(
+          res => {
+            console.log(res);
+            if (res.success) {
+              this.totalPatrolCount = 0;
+              console.log(res.data.reportQueryPatrolByDistrictInfoList);
+              for (let data of res.data.reportQueryPatrolByDistrictInfoList) {
+                this.totalPatrolCount += data.reportQueryPatrolByDistrict.patrolCount;
+                this.dataSource.push([
+                  data.reportQueryPatrolByDistrict.districtName,
+                  data.reportQueryPatrolByDistrict.patrolCount.toString()
                 ]);
               }
               this.searchDataSource = res.data.reportQueryCaseSearchDataSource;

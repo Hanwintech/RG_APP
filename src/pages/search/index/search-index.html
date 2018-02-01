@@ -27,8 +27,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher  [enabled]="statistics=='laws'||statistics=='license'" (ionRefresh)="refreshDataList($event)" [pullMax]="800">
-    <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
+  <ion-refresher [enabled]="statistics=='laws'||statistics=='license'" (ionRefresh)="refreshDataList($event)" [pullMax]="800">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中..."></ion-refresher-content>
   </ion-refresher>
 
   <div [ngSwitch]="statistics">
@@ -102,8 +102,18 @@
           <p>按年度统计</p>
         </ion-col>
         <ion-col (click)='inspectStatistics(9)' text-center>
-          <img src="assets/icon/ic_search_area.png">
+          <img src="assets/self/head_portrait.png">
           <p>按人员统计</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col (click)='inspectStatistics(10)' text-center>
+          <img src="assets/icon/ic_search_area.png">
+          <p>按县区统计</p>
+        </ion-col>
+        <ion-col text-center>
+        </ion-col>
+        <ion-col text-center>
         </ion-col>
       </ion-row>
     </ion-grid>

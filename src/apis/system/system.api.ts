@@ -1,6 +1,7 @@
 import { BaseRequest } from './../base-request.api';
 import { UserLocationInfo } from './../../models/system/user-location-info.model';
 
+//坐标
 export class PostUserCoordinateInfo extends BaseRequest {
     constructor(private userLocationInfo: UserLocationInfo) {
         super();
@@ -10,6 +11,7 @@ export class PostUserCoordinateInfo extends BaseRequest {
     }
 }
 
+//版本
 export class GetAppVersionInfo extends BaseRequest {
     constructor() {
         super();

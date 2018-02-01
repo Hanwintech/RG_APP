@@ -79,10 +79,20 @@
 
     <ion-grid *ngSwitchCase="'inspect'">
       <ion-row>
+        <ion-col (click)='inspectStatistics(10)' text-center>
+          <img src="assets/icon/ic_search_area.png">
+          <p>按县区统计</p>
+        </ion-col>
         <ion-col (click)='inspectStatistics(1)' text-center>
           <img src="assets/icon/ic_search_level.png">
           <p>按类别统计</p>
         </ion-col>
+        <ion-col (click)='inspectStatistics(9)' text-center>
+          <img src="assets/icon/ic_search_user.png">
+          <p>按人员统计</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col (click)='inspectStatistics(4)' text-center>
           <img src="assets/icon/ic_search_month.png">
           <p>按月度统计</p>
@@ -91,25 +101,15 @@
           <img src="assets/icon/ic_search_quarter.png">
           <p>按季度统计</p>
         </ion-col>
-      </ion-row>
-      <ion-row>
         <ion-col (click)='inspectStatistics(6)' text-center>
           <img src="assets/icon/ic_search_half_year.png">
           <p>按半年度统计</p>
         </ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col (click)='inspectStatistics(7)' text-center>
           <img src="assets/icon/ic_search_year.png">
           <p>按年度统计</p>
-        </ion-col>
-        <ion-col (click)='inspectStatistics(9)' text-center>
-          <img src="assets/self/head_portrait.png">
-          <p>按人员统计</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col (click)='inspectStatistics(10)' text-center>
-          <img src="assets/icon/ic_search_area.png">
-          <p>按县区统计</p>
         </ion-col>
         <ion-col text-center>
         </ion-col>
@@ -121,11 +121,11 @@
     <ion-grid *ngSwitchCase="'culturalRelic'">
       <ion-row>
         <ion-col (click)='culturalRelicStatistics(1)' text-center>
-          <img src="assets/icon/ic_search_level.png">
+          <img src="assets/icon/ic_search_position.png">
           <p>按位置统计</p>
         </ion-col>
         <ion-col (click)='culturalRelicStatistics(2)' text-center>
-          <img src="assets/icon/ic_search_rectification.png">
+          <img src="assets/icon/ic_search_grade.png">
           <p>按级别统计</p>
         </ion-col>
         <ion-col text-center></ion-col>

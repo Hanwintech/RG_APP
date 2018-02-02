@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar class="modal-nav">
+    <ion-searchbar [placeholder]="'请输入关键字'" (ionInput)="getItems($event)">
+    </ion-searchbar>
+    <ion-buttons right>
+      <button ion-button (click)="getData(null, true)">搜索</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="table-title">
+    <div>姓名</div>
+    <div>管理单位</div>
+    <div>联系电话</div>
+    <div></div>
+  </div>
+  <ion-item *ngFor="let person of userInfo" >
+      <ion-label>
+          <div>{{person.userName}}</div>
+          <div>{{person.manageUnitName}}</div>
+          <div><a>{{person.mobilePhone}}</a></div>
+        </ion-label>
+        <ion-checkbox></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <div>号鼠标号</div>
+      <div>号鼠标号号鼠标号号鼠标号</div>
+      <div>1212313213</div>
+    </ion-label>
+    <ion-checkbox></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <div>号鼠标号号鼠标号号鼠标号</div>
+      <div>号鼠标号</div>
+      <div>1212313213</div>
+    </ion-label>
+    <ion-checkbox></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <div>号鼠标号</div>
+      <div>号鼠标号号鼠标号号鼠标号</div>
+      <div>1212313213</div>
+    </ion-label>
+    <ion-checkbox></ion-checkbox>
+  </ion-item>
+</ion-content>
+<ion-footer>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block (click)="selectAll()">全选</button>
+        </ion-col>
+        <ion-col style="border-left: solid 1px #fff;">
+          <button ion-button block (click)="emptyData()">清空</button>
+        </ion-col>
+        <ion-col style="border-left: solid 1px #fff;">
+            <button ion-button block (click)="save()">确定</button>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>

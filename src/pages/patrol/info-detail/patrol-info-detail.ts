@@ -9,10 +9,11 @@ import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { GetPatrolInfo } from './../../../apis/patrol/patrol-info.api';
-import { PatrolInfoDetails, UVPatrolCaseProcess } from './../../../models/patrol/patrol-info.model';
-import { GetPatrolProcessInfoList,getPatrolProcessInfo, PostPatrolProcessInfo} from './../../../apis/patrol/patrol-info.api';
-import { EnumProcessResult, EnumRunState } from './../../../models/enum';
+import { PatrolInfoDetails, UVPatrolCaseProcess,PatrolProcessInfo } from './../../../models/patrol/patrol-info.model';
+import { GetPatrolProcessInfoList, getPatrolProcessInfo, PostPatrolProcessInfo, GetPatrolPlanUserInfos } from './../../../apis/patrol/patrol-info.api';
+import { EnumProcessResult, EnumRunState, EnumPlanUserType,EnumAttachmentType } from './../../../models/enum';
 import { nativeImgService } from './../../../services/nativeImg.service';
+import { ImagePickerService } from './../../../services/image-picker.service';
 import { FileUploadService } from './../../../services/file-upload.service';
 
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
@@ -27,8 +28,10 @@ export class PatrolInfoDetailPage extends DetailPage {
   private patrolInfo: PatrolInfoDetails;
   private caseProblem: string[];
   private patrolProcess: UVPatrolCaseProcess[];
+  private patrolProcessInfo:PatrolProcessInfo;
   private canShowLocation = true;
   private patrolReplay;
+  private patrolDispose;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -37,6 +40,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     public menuCtrl: MenuController,
     public apiService: ApiService,
     public nativeImgService: nativeImgService,
+    public imagePickerService: ImagePickerService,
     public fileUploadService: FileUploadService,
     public actionSheetCtrl: ActionSheetController,
     public pageService: PageService,
@@ -44,12 +48,15 @@ export class PatrolInfoDetailPage extends DetailPage {
     public fileTransfer: FileTransfer
   ) {
     super(navCtrl, file, fileTransfer, pageService);
-    this.patrolReplay=this.patrolReplay?true:false;
+    this.patrolReplay = this.navParams.data.patrolReplay ? true : false;
+    this.patrolDispose=this.navParams.data.patrolReplay ? true : false;
+    console.log("处理页面");
+    console.log(this.navParams.data);
     this.getPatroInfo();
   }
 
   getPatroInfo() {
-    let keyID=this.navParams.data.keyID?this.navParams.data.keyID:this.navParams.data.patrolInfo.keyID;
+    let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
     this.apiService.sendApi(new GetPatrolInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
         if (res.success) {
@@ -105,11 +112,13 @@ export class PatrolInfoDetailPage extends DetailPage {
 
   showLogPage() {
     this.menuCtrl.close();
-    this.apiService.sendApi(new GetPatrolProcessInfoList(this.patrolInfo.patrolInfo.keyID)).subscribe(
+    let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
+    this.apiService.sendApi(new GetPatrolProcessInfoList(keyID)).subscribe(
       res => {
         if (res.success) {
           this.patrolProcess = res.data.patrolProcessInfoList;
           this.canShowLocation = false;
+          this.patrolDispose=false;
           this.patrolInfo = null;
         } else {
           this.pageService.showErrorMessage(res.reason);
@@ -123,16 +132,21 @@ export class PatrolInfoDetailPage extends DetailPage {
   showSelfPage() {
     this.menuCtrl.close();
     this.patrolProcess = null;
+    this.patrolDispose=false;
     this.getPatroInfo();
 
   }
 
-  showReplayPage(){
-    let keyID=this.navParams.data.keyID?this.navParams.data.keyID:this.navParams.data.patrolInfo.keyID;
-    this.apiService.sendApi(new getPatrolProcessInfo(keyID,localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
+  showReplayPage() {
+    this.menuCtrl.close();
+    this.patrolDispose=true;
+    this.patrolInfo = null;
+    this.canShowLocation = false;
+    let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
+    this.apiService.sendApi(new getPatrolProcessInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
         if (res.success) {
-console.log(res);
+          this.patrolProcessInfo=res.data;
         } else {
           this.pageService.showErrorMessage(res.reason);
         }
@@ -154,49 +168,53 @@ console.log(res);
     this.navCtrl.push("PatrolInfoDetailProcessDetailPage", processDetail);
   }
 
-  selectMiniImage() {
-    let actionSheet = this.actionSheetCtrl.create({
-      buttons:
-        [{
-          text: '拍摄',
-          handler: () => {
-            this.nativeImgService.getPictureByCamera().subscribe(img => {
-              this.fileUploadService.upload(img).then(
-                data => {
-                  // this.culturalRelicPostInfo.miniImage = data;
-                  // this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
-                  // super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
-                },
-                error => { this.pageService.showErrorMessage("文件上传失败！"); }
-              );
-            });
+  selectAttachmentList() {
+    this.imagePickerService.getPictures().then(
+      attachments => {
+        if (attachments) {
+          super.changeAttachmentFileType(attachments);
+          for (let att of attachments) {
+            att.category = EnumAttachmentType.不可移动文物附件;
           }
-        }, {
-          text: '从相册选择',
-          handler: () => {
-            this.nativeImgService.getPictureByPhotoLibrary().subscribe(img => {
-              this.fileUploadService.upload(img).then(
-                data => {
-                  // this.culturalRelicPostInfo.miniImage = data;
-                  // this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
-                  // super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
-                },
-                error => { this.pageService.showErrorMessage("文件上传失败！"); });
-            });
+          if (!this.patrolProcessInfo) {
+            this.patrolProcessInfo.attachmentList = [];
           }
-        }]
-    });
-    actionSheet.present();
+          this.patrolProcessInfo.attachmentList = this.patrolProcessInfo.attachmentList.concat(attachments);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      },
+      error => {
+        if (typeof error === 'string') {
+          this.pageService.showErrorMessage(error);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      });
   }
 
-  showMiniImage() {
-    //super.showSlidesPage([this.culturalRelicPostInfo.miniImage], this.culturalRelicPostInfo.miniImage.fileUrl);
+  showAttachmentList(attachment) {
+    super.showSlidesPage(this.patrolProcessInfo.attachmentList, attachment.fileUrl);
   }
 
-  delMiniImage() {
-    //this.pageService.showComfirmMessage("确定要删除吗？", () => { this.culturalRelicPostInfo.miniImage = null; }, () => { });
+  delAttachmentList(attachment) {
+    this.pageService.showComfirmMessage("确定要删除吗？",
+      () => {
+        let tempArray = [];
+        for (let atta of this.patrolProcessInfo.attachmentList) {
+          if (attachment.attachmentId != atta.attachmentId) {
+            tempArray.push(atta);
+          }
+        }
+        this.patrolProcessInfo.attachmentList = tempArray;
+      },
+      () => { });
   }
 
+
+  showPersonPage(){
+    this.navCtrl.push("PatrolUserInfoPage", this.patrolProcessInfo.canSelectPatrolUserInfoList);
+  }
 
   optPhone(event, phoneNo: string) {
     event.stopPropagation();//阻止冒泡 

@@ -90,10 +90,11 @@ ion-header {
         .bar-buttons {
             min-width: 30mm;
             .icon {
-                width: 6mm;
-                height: 6mm;
-                background-size: 6mm 6mm;
+                width: 7.5mm;
+                height: 7.5mm;
+                background-size: 7mm;
                 margin: 0 1mm;
+                background-repeat: no-repeat;
             }
             .icon:before {
                 content: "";
@@ -182,7 +183,7 @@ ion-content {
         }
         ion-item-options {
             .button {
-                width: 2.6em;
+                width:3rem;
             }
         }
     }
@@ -254,15 +255,15 @@ ion-content {
                 padding: 0 1.5mm 0 0;
                 font-size: 17px;
             }
-            textarea.rows2::-webkit-input-placeholder{
+            textarea.rows2::-webkit-input-placeholder {
                 line-height: 46px
-            } 
-            textarea.rows3::-webkit-input-placeholder{
+            }
+            textarea.rows3::-webkit-input-placeholder {
                 line-height: 64px
-            } 
-            textarea.rows10::-webkit-input-placeholder{
+            }
+            textarea.rows10::-webkit-input-placeholder {
                 line-height: 203px
-            } 
+            }
             .datetime {
                 width: 100%;
                 max-width: 100%;
@@ -438,6 +439,12 @@ ion-content {
                 font-weight: normal;
             }
         }
+    }
+    ion-item-options button{
+        width: 7rem;
+        background: #ff8a0f;
+        color: #fff;
+        font-size: 2rem;
     }
 }
 

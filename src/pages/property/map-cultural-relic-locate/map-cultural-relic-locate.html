@@ -41,12 +41,15 @@
   <div class="locateContainer" *ngIf="!canShowFooter" style="bottom:15px;" (click)="selfLocation()"><div></div></div>
   <div class="locateContainer" *ngIf="canShowFooter" style="bottom:110px;" (click)="selfLocation()"><div></div></div>
   <div *ngIf="culturalRelicMapInfo&&canShowFooter" style="position:absolute;bottom:45px;width:100%;">
-    <ion-item>
-      <ion-label>标注精确度</ion-label>
-      <ion-select [(ngModel)]="culturalRelicMapInfo.coordinateAccurate" interface="popover">
-        <ion-option *ngFor="let item of coordinateAccurateList" value="{{item.key}}">{{item.value}}</ion-option>
-      </ion-select>
-    </ion-item>
+  <ion-list class="form-list">
+      <ion-item>
+          <ion-label fixed>标注精确度</ion-label>
+          <ion-select [(ngModel)]="culturalRelicMapInfo.coordinateAccurate" interface="popover">
+            <ion-option *ngFor="let item of coordinateAccurateList" value="{{item.key}}">{{item.value}}</ion-option>
+          </ion-select>
+        </ion-item>
+  </ion-list>
+
   </div>
 </ion-content>
 <ion-footer *ngIf="canShowFooter">

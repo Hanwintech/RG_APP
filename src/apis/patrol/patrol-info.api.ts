@@ -89,3 +89,16 @@ export class PostPatrolProcessInfo extends BaseRequest {
         this.requestBody = this.patrolInfo;
     }
 }
+
+export class GetPatrolPlanUserInfos extends BaseRequest {
+    constructor(private culId: string,private planUserType:any,private userId: string) {
+        super();
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('culId', this.culId);
+        params.set('planUserType', this.planUserType);
+        params.set('userId', this.userId);
+        this.method = "GET";
+        this.requestUrl = "/api/system/get_patrol_plan_user_infos";
+        this.requestArgument =params;
+    }
+}

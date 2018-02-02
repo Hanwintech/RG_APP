@@ -1,6 +1,6 @@
 page-self-index {
     ion-header {
-        height: 45vw;
+        height: 49vw;
         background-image: url('../assets/self/header_bg.png');
         background-repeat: no-repeat;
         background-size: 100% 100%;
@@ -36,6 +36,17 @@ page-self-index {
 }
 
 ion-content.self-index {
+    .badge-ios{
+        border-radius: 50%;
+    }
+    ion-badge{
+        padding:0;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.7em;
+        line-height: 1.5rem;
+        font-weight: normal;
+    }
     .mainBar {
         padding: 10px 0;
         .col {
@@ -47,7 +58,7 @@ ion-content.self-index {
                 color: color($colors, dark, base);
                 text-align: center;
                 img {
-                    width: 4em;
+                    width: 3.5em;
                 }
             }
             .iconButton:active {
@@ -64,17 +75,22 @@ ion-content.self-index {
         }
         .item {
             padding-left: 0;
+          
             .label {
                 color: color($colors, dark, base);
                 padding-top: 0;
                 padding-bottom: 0;
+                font-size: 14px;
+                display: flex;
                 img {
                     float: left;
-                    width: 30px;
+                    width: 2.8rem;
+                    height: 2.8rem;
                     margin: 0 15px;
+                    align-self: center;
                 }
                 .list-title {
-                    padding-top: 1.3mm;
+                   align-self: center;
                     .badge {
                         margin-top: -0.5mm;
                         margin-left: 3mm;

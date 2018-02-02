@@ -60,7 +60,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
         this.state = EnumMessageCenterReadState["已阅"];
         break;
       case EnumMessageCenterType["巡查处理"]:
-        let detailPage = this.modalCtrl.create('PatrolInfoDetailPage', { "keyID": this.navParams.data.businessID });
+        let detailPage = this.modalCtrl.create('PatrolInfoDetailPage', { "keyID": this.navParams.data.businessID,"patrolReplay":true});
         detailPage.onDidDismiss(data => {
          // this.navCtrl.push("PatrolInfoDetailPage",{ "keyID": this.navParams.data.businessID });
         });

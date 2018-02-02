@@ -116,6 +116,15 @@ export enum EnumRunState {
 }
 
 /**
+ * 巡查计划人员类型
+ */
+export enum EnumPlanUserType {
+    巡查人员 = 1,
+    巡查处理人员 = 2,
+    执法人员 = 3,
+}
+
+/**
  * 消息阅读状态
  */
 export enum EnumMessageCenterReadState {

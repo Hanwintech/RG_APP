@@ -9,6 +9,7 @@ page-patrol-info-list {
                             margin: 0;
                             padding: 2px 0;
                             color: #000;
+                            float: left;
                         }
                         div {
                             font-size: 12px;
@@ -33,6 +34,10 @@ page-patrol-info-list {
                         h5 {
                             float: right;
                             color: #999;
+                            margin-right: 1rem;
+                        }
+                        & h5:last-child{
+                            color:#ff8a0f;
                         }
                     }
                 }

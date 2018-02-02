@@ -127,24 +127,34 @@
       <ion-col col-9>{{p.processDate ? (p.processDate | datetime) : '-'}}</ion-col>
     </ion-row>
   </ion-grid>
-<!-- 巡查处理 -->
-<ion-list class="form-list">
+  <!-- 巡查处理 -->
+  <ion-list *ngIf="patrolDispose&&patrolProcessInfo" class="form-list">
     <ion-item>
       <ion-label fixed>处理结果</ion-label>
-      <ion-input type="text" placeholder="请输入同行人员"></ion-input>
+      <ion-select [(ngModel)]="patrolProcessInfo.patrolCaseProcess.ProcessResult" placeholder="请选择" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of patrolProcessInfo.processResultList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="patrolProcessInfo.patrolCaseProcess.ProcessResult==2||patrolProcessInfo.patrolCaseProcess.ProcessResult==3">
+      <ion-label fixed>处理人员</ion-label>
+      <ion-label class="navi">
+        <div *ngIf="patrolProcessInfo.SelectedUserInfoList" style="color:#3a3a3a">{{patrolProcessInfo.SelectedUserInfoList}} </div>
+        <div *ngIf="!patrolProcessInfo.SelectedUserInfoList">请选择处理人员 </div>
+        <button ion-button outline color="secondary" (click)="showPersonPage()">查看</button>
+      </ion-label>
     </ion-item>
     <ion-item>
       <ion-label fixed>处理说明</ion-label>
       <ion-label>
-        <textarea placeholder="请输入情况描述" rows="10"></textarea>
+        <textarea [(ngModel)]="patrolProcessInfo.patrolCaseProcess.ProcessDescription" class="rows10" placeholder="请输入处理说明" rows="10"></textarea>
       </ion-label>
     </ion-item>
-    <!-- <ion-item>
+    <ion-item>
         <ion-label class="attachment-label">
           <div class="title">附件</div>
           <ion-icon name="ios-add-circle-outline" (click)="selectAttachmentList()"></ion-icon>
-          <div *ngIf="culturalRelicPostInfo.attachmentList && culturalRelicPostInfo.attachmentList.length > 0" class="attachment">
-            <div *ngFor="let att of culturalRelicPostInfo.attachmentList" class="attachmentContent">
+          <div *ngIf="patrolProcessInfo.attachmentList && patrolProcessInfo.attachmentList.length > 0" class="attachment">
+            <div *ngFor="let att of patrolProcessInfo.attachmentList" class="attachmentContent">
               <img src="assets/icon/file_{{att.fileType}}.png">
               <div class="description" style="padding-right: 104px;">
                 <div class="fileShowName">{{att.fileShowName}}</div>
@@ -155,14 +165,8 @@
             </div>
           </div>
         </ion-label>
-      </ion-item> -->
+      </ion-item>
   </ion-list>
-  <ion-footer>
-    <ion-row>
-      <button ion-button block (click)="close()">关闭</button>
-    </ion-row>
-  </ion-footer>
-
   <ion-menu [content]="mycontent" type="overlay" class="side-menu">
     <ion-content>
       <ion-list>
@@ -170,17 +174,21 @@
           <div class="img"></div>
           <div class="list-title">巡查记录详情</div>
         </button>
-        <button ion-item class="patrol-handle" (click)="showLogPage()" [ngClass]="{'selected':!canShowLocation}">
+        <button ion-item class="patrol-handle" (click)="showLogPage()" [ngClass]="{'selected':!canShowLocation&&!patrolDispose}">
           <div class="img"></div>
           <div class="list-title">巡查处理日志</div>
         </button>
-        <button ion-item class="patrol-reply" (click)="showReplayPage()" [ngClass]="{'selected':!canShowLocation&&patrolReplay}">
-            <div class="img"></div>
-            <div class="list-title">巡查处理</div>
-          </button>
+        <button ion-item class="patrol-reply" (click)="showReplayPage()" *ngIf="patrolReplay" [ngClass]="{'selected':!canShowLocation&&patrolDispose}">
+          <div class="img"></div>
+          <div class="list-title">巡查处理</div>
+        </button>
       </ion-list>
     </ion-content>
   </ion-menu>
   <ion-nav #mycontent [root]="rootPage"></ion-nav>
-
+  <ion-footer>
+    <ion-row>
+      <button ion-button block (click)="close()">关闭</button>
+    </ion-row>
+  </ion-footer>
 </ion-content>

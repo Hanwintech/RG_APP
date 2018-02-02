@@ -10,6 +10,7 @@ import { GetPatrolInfoList, GetPatrolInfo } from './../../../apis/patrol/patrol-
 import { PatrolInfoDetails, PatrolInfoSearch, PatrolInfoSearchDataSource } from './../../../models/patrol/patrol-info.model';
 import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
+import { Console } from '@angular/core/src/console';
 
 @IonicPage()
 @Component({
@@ -81,5 +82,14 @@ export class PatrolInfoListPage extends PagingListPage {
       }
     });
     modal.present();
+  }
+
+  disposePatrol(data){
+    console.log(data);
+    let disposePatrolPage = this.modalCtrl.create('PatrolInfoDetailPage', { "keyID": data.patrolInfo.keyID,"patrolReplay":true});
+    disposePatrolPage.onDidDismiss(data => {
+    
+    });
+    disposePatrolPage.present();
   }
 }

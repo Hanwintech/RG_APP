@@ -111,6 +111,58 @@ export class UVPatrolCaseProcess {
 
 }
 
+export class UTPatrolCaseProces {
+    /// 主键ID
+    public ID: string;
+    public IDOracleRaw16: string;
+    /// 巡查记录
+    public FK_Patrol_CaseInfoID: string;
+    public PreviousProcessID: string;
+    public ProcessResult: number;
+    /// 处理结果（枚举）
+    public CurrentProcess: number;
+    /// 处理说明
+    public ProcessDescription: string;
+    /// 处理人
+    public TransactUser: string;
+    public TransactUserManageUnitID: string;
+    public SubmitUser: string;
+    /// 所属部门
+    public SubmitUserManageUnitID: string;
+    /// 处理时间
+    public SubmitDate: string;
+    /// 处理状态（1: 未阅   2:未处理   3:已处理   4:已撤销  ）
+    public RunState: number
+    /// 新增时间
+    public AddDate: string;
+    /// 新增人
+    public AdderID: string;
+    /// 更新时间
+    public UpdateDate: string;
+    /// 更新人
+    public UpdaterID: string;
+    /// 逻辑删除标记（0：可用）
+    public IsDeleted: boolean;
+
+}
+
+export class PatrolProcessInfo {
+    /// 巡查处理信息
+    public patrolCaseProcess: UTPatrolCaseProces;
+    /// 巡查处理附件集合
+    public attachmentList: Attachment[];
+    /// 可选择的执法人员
+    public canSelectLawUserInfoList: CommonUserInfo[];
+    /// 可选择的巡查处理人员
+    public canSelectPatrolUserInfoList: CommonUserInfo[];
+    /// 处理结果集合
+    public processResultList: IntegerKeyValue[];
+    /// 选择的处理人员
+    public SelectedUserInfoList: CommonUserInfo[];
+    /// 巡查计划中设置的默认执法处理人员
+    public DefaultLawUserInfoList: CommonUserInfo[];
+}
+
 export class PatrolProcessInfoDetails {
     public patrolCaseProcess: UVPatrolCaseProcess;
     public attachmentList: Attachment[];
@@ -122,7 +174,7 @@ export class PatrolInfo {
     public selectedCaseProblemList: number[];
     public selectedUserInfoList: CommonUserInfo[];
     //人员离文物点距离
-    public personPointDistance:number;
+    public personPointDistance: number;
 
     constructor() {
         this.patrol = new PatrolEntity();

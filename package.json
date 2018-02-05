@@ -104,8 +104,8 @@
       },
       "call-number": {},
       "cordova-plugin-baidumaplocation": {
-        "ANDROID_KEY": "uguRyAOI3S3byHPZO5KDnEmFbP60FiqT",
-        "IOS_KEY": "uguRyAOI3S3byHPZO5KDnEmFbP60FiqT",
+        "ANDROID_KEY": "O9tdMCTso41lpQGp0SzKa7fWG8q8q4tp",
+        "IOS_KEY": "value",
         "IOS_LOCATION_DESC": "请点击'好'以允许访问。"
       },
       "cordova-plugin-geolocation": {

@@ -35,15 +35,10 @@ export class LocationWatchService {
         if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
             baidumap_location.getCurrentPosition(
                 positionData => {
-                    let pointArr = [new BMap.Point(positionData.longitude, positionData.latitude)];
-                    new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
-                        if (data.status === BMAP_STATUS_SUCCESS) {
-                            localStorage.setItem('bdLongitude', data.points[0].lng);
-                            localStorage.setItem('bdLatitude', data.points[0].lat);
-                            localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                            localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-                        }
-                    }.bind(this));
+                    localStorage.setItem('bdLongitude', positionData.longitude);
+                    localStorage.setItem('bdLatitude', positionData.latitude);
+                    localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
+                    localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
                     console.log("1st time baidu_location.getCurrentPosition()");
                     console.log(positionData);
                 },
@@ -92,7 +87,11 @@ export class LocationWatchService {
             if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
                 baidumap_location.getCurrentPosition(
                     positionData => {
-                        this.convertAndSave(positionData.longitude, positionData.latitude);
+                        localStorage.setItem('bdLongitude', positionData.longitude);
+                        localStorage.setItem('bdLatitude', positionData.latitude);
+                        localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
+                        localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
+                        this.uploadLocation();
                         console.log("baidumap_location");
                         console.log(positionData);
                     },
@@ -107,7 +106,7 @@ export class LocationWatchService {
                             this.convertAndSave(res.longitude, res.latitude);
                             console.log("BMap.getCurrentPosition");
                             console.log(res);
-                        } else{
+                        } else {
                             console.log("BMap.getCurrentPosition error");
                             console.log(res);
                         }
@@ -122,8 +121,8 @@ export class LocationWatchService {
         let pointArr = [new BMap.Point(longitude, latitude)];
         new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
             if (data.status === BMAP_STATUS_SUCCESS) {
-                localStorage.setItem('bdLongitude', data.points[0].lng);
-                localStorage.setItem('bdLatitude', data.points[0].lat);
+                localStorage.setItem('bdLongitude', longitude);
+                localStorage.setItem('bdLatitude', latitude);
                 localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
                 localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
                 this.uploadLocation();

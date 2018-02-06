@@ -35,3 +35,4 @@ UserInterfaceState.xcuserstate
 *.apk
 src/services/location-watch.service.ts
 src/services/location-watch.service.ts
+config.xml

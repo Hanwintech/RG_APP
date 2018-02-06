@@ -35,25 +35,6 @@ export class LocationWatchService {
 
     init() {
         if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-            // 百度地图API功能
-            var map = new BMap.Map("allmap");
-            var point = new BMap.Point(116.331398,39.897445);
-            map.centerAndZoom(point,12);
-             
-            var geolocation = new BMap.Geolocation();
-            geolocation.getCurrentPosition(function(r){
-            if(this.getStatus() == BMAP_STATUS_SUCCESS){
-            var mk = new BMap.Marker(r.point);
-            map.addOverlay(mk);
-            map.panTo(r.point);
-            alert('您的位置：'+r.point.lng+','+r.point.lat);
-            }
-            else {
-            alert('failed'+this.getStatus());
-            }        
-            },{enableHighAccuracy: true})
-            
-            
         //     this.geolocation.getCurrentPosition().then((resp) => {
         //         console.log(resp.coords.latitude);
         //         console.log(resp.coords.longitude);
@@ -90,60 +71,4 @@ export class LocationWatchService {
         localStorage.removeItem('latitude');
     }
 
-    // getPosition() {
-    //     if (this._isWatching && localStorage.getItem('userId')) {
-    //         if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-    //             baidumap_location.getCurrentPosition(
-    //                 positionData => {
-    //                     this.convertAndSave(positionData.longitude, positionData.latitude);
-    //                     console.log("baidumap_location");
-    //                     console.log(positionData);
-    //                 },
-    //                 error => {
-    //                     this.getPositionByNativeGeolocation();
-    //                     console.log("baidumap_location error");
-    //                     console.log(error);
-    //                 });
-    //         } else {
-    //             this.getPositionByNativeGeolocation();
-    //         }
-    //     } else {
-    //         this.stop();
-    //     }
-    // }
-
-    // getPositionByNativeGeolocation() {
-    //     this.geolocation.getCurrentPosition().then((resp) => {
-    //         this.convertAndSave(resp.coords.longitude, resp.coords.latitude);
-    //     }).catch((error) => {
-    //         localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-    //         localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-    //     });
-    // }
-
-    // convertAndSave(longitude, latitude) {
-    //     let pointArr = [new BMap.Point(longitude, latitude)];
-    //     new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
-    //         if (data.status === BMAP_STATUS_SUCCESS) {
-    //             localStorage.setItem('longitude', data.points[0].lng);
-    //             localStorage.setItem('latitude', data.points[0].lat);
-    //             this.uploadLocation();
-    //         } else {
-    //             localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-    //             localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-    //         }
-    //     }.bind(this));
-    // }
-
-    // uploadLocation() {
-    //     let location: UserLocationInfo = new UserLocationInfo();
-    //     location.userId = localStorage.getItem('userId')
-    //     location.longitude = localStorage.getItem('longitude')
-    //     location.latitude = localStorage.getItem('latitude')
-    //     this.apiService.sendApi(new PostUserCoordinateInfo(location)).subscribe(
-    //         res => { },
-    //         error => { this.pageService.showErrorMessage("上传地理坐标出错！"); },
-    //         () => { }
-    //     );
-    // }
 }

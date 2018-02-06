@@ -15,7 +15,6 @@ import { CallNumber } from '@ionic-native/call-number';
 import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Network } from '@ionic-native/network';
-import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 
@@ -76,7 +75,6 @@ import { NetworkInformationService } from './../services/network-information.ser
     Device,
     LocationWatchService,
     NetworkInformationService,
-    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

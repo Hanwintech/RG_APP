@@ -22,7 +22,9 @@
         <div class="messageTitle">
           <h3>{{data.subject}}</h3>
         </div>
-        <div>{{data.sourceOfInformation}} ({{data.addDate | datetime:"yyyy-MM-dd"}})</div>
+        <div class="h6">{{data.sourceOfInformation}}</div>
+        <div class="h7">{{data.addDate | datetime:"yyyy-MM-dd"}}</div>
+        <div style="clear:both;"></div>
         <h4>{{data.area | keyToValue:conditionDataSource.areaList}}</h4>
         <h5>{{data.publicOpinionTypeName}}</h5>
       </ion-item>

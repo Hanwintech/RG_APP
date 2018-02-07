@@ -18,6 +18,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
   private messageCenterEntity: MessageCenterEntity;
   private state: number;
   private viewDetail;
+  private isDispose;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,7 +31,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
   ) {
     super(navCtrl, file, fileTransfer, pageService);
     this.messageCenterEntity = this.navParams.data;
-    this.viewDetail=this.messageCenterEntity.messageType== EnumMessageCenterType["巡查处理"]?false:true;
+    this.viewDetail = this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] ? false : true;
   }
 
   detail() {
@@ -38,11 +39,13 @@ export class MessageCenterInfoDetailPage extends DetailPage {
       case EnumMessageCenterType["督察令通知"]:
         let InspectionNoticeDetailPage = this.modalCtrl.create('InspectionNoticeDetailPage', { "keyID": this.navParams.data.businessID, "segmentIndex": "0" });
         InspectionNoticeDetailPage.onDidDismiss(data => {
-          if (data.inspectorNotice.recordState == EnumInspectorNoticeState["已回复"]) {
-            this.state = EnumMessageCenterReadState["已处理"];
-          }
-          else{
-            this.state = EnumMessageCenterReadState["已阅未处理"];
+          if(data){
+            if (data.inspectorNotice.recordState == EnumInspectorNoticeState["已回复"]) {
+              this.state = EnumMessageCenterReadState["已处理"];
+            }
+            else {
+              this.state = EnumMessageCenterReadState["已阅未处理"];
+            }
           }
         });
         InspectionNoticeDetailPage.present();
@@ -60,9 +63,16 @@ export class MessageCenterInfoDetailPage extends DetailPage {
         this.state = EnumMessageCenterReadState["已阅"];
         break;
       case EnumMessageCenterType["巡查处理"]:
-        let detailPage = this.modalCtrl.create('PatrolInfoDetailPage', { "keyID": this.navParams.data.businessID,"patrolReplay":true});
+        let detailPage = this.modalCtrl.create('PatrolInfoDetailPage', { "keyID": this.navParams.data.businessID, "patrolReplay": true });
         detailPage.onDidDismiss(data => {
-         // this.navCtrl.push("PatrolInfoDetailPage",{ "keyID": this.navParams.data.businessID });
+          this.isDispose = data;
+          if (data) {
+            this.state = EnumMessageCenterReadState["已处理"];
+            this.uploadStatus();
+          }
+          else {
+            this.state = EnumMessageCenterReadState["已阅未处理"];
+          }
         });
         detailPage.present();
         break;
@@ -73,21 +83,29 @@ export class MessageCenterInfoDetailPage extends DetailPage {
   }
 
   close() {
+    this.viewCtrl.dismiss(false);
+  }
+
+  setMessageStatu() {
     //在没有打开详情页面的情况下，根据当页面的messageType,赋值messageCenterReadState;
     //产生此操作原因为，“代办事宜”和“消息中心”公用同一页面
     if (!this.state) {
       if (this.messageCenterEntity.messageType == EnumMessageCenterType["督察令通知"] || this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"]) {
         this.state = EnumMessageCenterReadState["已阅未处理"];
       }
-      else{
+      else {
         this.state = EnumMessageCenterReadState["已阅"];
       }
     }
-    if (this.navParams.data.readState == EnumMessageCenterReadState["未阅"]) {
+    this.uploadStatus();
+  }
+
+  uploadStatus() {
+    if (this.navParams.data.readState == EnumMessageCenterReadState["未阅"] || this.navParams.data.readState == EnumMessageCenterReadState["已阅未处理"]) {
       this.apiService.sendApi(new SetMessageStatus(this.navParams.data.msgCenterID, localStorage.getItem("userId"), this.state)).subscribe(
         res => {
           if (res.success) {
-
+            this.viewCtrl.dismiss(this.state);
           } else {
             this.pageService.showErrorMessage(res.reason);
           }

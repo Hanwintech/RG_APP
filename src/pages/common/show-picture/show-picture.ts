@@ -16,8 +16,8 @@ export class ShowPicturePage {
     public navParams: NavParams,
     public file: File
   ) {
-    this.tempPicUrls = this.navParams.data.picUrls
-    this.currentIndex = this.navParams.data.currentIndex
+    this.tempPicUrls = this.navParams.data.picUrls;
+    this.currentIndex = this.navParams.data.currentIndex;
     for (let i = 0; i < this.tempPicUrls.length; i++) {
       if (this.tempPicUrls[i].substr(0, 4) == "file") {
         let dir = this.tempPicUrls[i].substring(0, this.tempPicUrls[i].lastIndexOf("/") + 1);
@@ -27,6 +27,9 @@ export class ShowPicturePage {
           this.checkFinish();
         });
         this.tempPicUrls[i] = "";
+      }
+      else{
+        this.checkFinish();
       }
     }
   }

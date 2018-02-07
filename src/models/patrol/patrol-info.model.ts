@@ -113,36 +113,36 @@ export class UVPatrolCaseProcess {
 
 export class UTPatrolCaseProces {
     /// 主键ID
-    public ID: string;
-    public IDOracleRaw16: string;
+    public id: string;
+    public iDOracleRaw16: string;
     /// 巡查记录
-    public FK_Patrol_CaseInfoID: string;
-    public PreviousProcessID: string;
-    public ProcessResult: number;
+    public fk_Patrol_CaseInfoID: string;
+    public previousProcessID: string;
+    public processResult: number;
     /// 处理结果（枚举）
-    public CurrentProcess: number;
+    public currentProcess: number;
     /// 处理说明
-    public ProcessDescription: string;
+    public processDescription: string;
     /// 处理人
-    public TransactUser: string;
-    public TransactUserManageUnitID: string;
-    public SubmitUser: string;
+    public transactUser: string;
+    public transactUserManageUnitID: string;
+    public submitUser: string;
     /// 所属部门
-    public SubmitUserManageUnitID: string;
+    public submitUserManageUnitID: string;
     /// 处理时间
-    public SubmitDate: string;
+    public submitDate: string;
     /// 处理状态（1: 未阅   2:未处理   3:已处理   4:已撤销  ）
-    public RunState: number
+    public runState: number
     /// 新增时间
-    public AddDate: string;
+    public addDate: string;
     /// 新增人
-    public AdderID: string;
+    public adderID: string;
     /// 更新时间
-    public UpdateDate: string;
+    public updateDate: string;
     /// 更新人
-    public UpdaterID: string;
+    public updaterID: string;
     /// 逻辑删除标记（0：可用）
-    public IsDeleted: boolean;
+    public isDeleted: boolean;
 
 }
 
@@ -158,9 +158,9 @@ export class PatrolProcessInfo {
     /// 处理结果集合
     public processResultList: IntegerKeyValue[];
     /// 选择的处理人员
-    public SelectedUserInfoList: CommonUserInfo[];
+    public selectedUserInfoList: CommonUserInfo[];
     /// 巡查计划中设置的默认执法处理人员
-    public DefaultLawUserInfoList: CommonUserInfo[];
+    public defaultLawUserInfoList: CommonUserInfo[];
 }
 
 export class PatrolProcessInfoDetails {

@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+      <ion-buttons left>
+          <button ion-button icon-only (click)="backPrev()">
+            <ion-icon name="ios-compass"></ion-icon>
+          </button>
+        </ion-buttons>
     <ion-title>巡查在线</ion-title>
     <ion-buttons right>
       <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索巡查记录')">

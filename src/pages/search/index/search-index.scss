@@ -11,20 +11,25 @@ page-search-index {
         .segment {
             border-color: #fff;
             .segment-button {
-                height: 4rem;
+                padding: 0 12px;
+                height: 4.8rem;
                 border-width: 0 0 2px 0;
                 border-radius: 0 !important;
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
                 border-color: #fff;
                 color: color($colors, dark, base);
-                font-size: 1.2rem;
+                font-size: 1.38rem;
+                font-weight: bold;
                 line-height: 1.5rem!important; //垂直居中
-                display: -webkit-box;
-                -webkit-box-pack: center;
-                -webkit-box-align: center;
-                -webkit-box-orient: vertical;
-                text-align: center;
+                // display: -webkit-box;
+                // -webkit-box-pack: center;
+                // -webkit-box-align: center;
+                // -webkit-box-orient: vertical;
+                // text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: Center;
             }
             .segment-button.segment-activated {
                 background-color: #fff;
@@ -107,7 +112,7 @@ page-search-index {
         }
         p {
             margin-top: 1px;
-            font-size: 1rem;
+            font-size: 1.18rem;
             color: color($colors, dark, base);
         }
         img {
@@ -115,7 +120,4 @@ page-search-index {
             height: 54px;
         }
     }
-    // ion-refresher {
-    //     top: 97px;
-    // }
 }

@@ -3,7 +3,7 @@
     <name>文物安全巡查APP</name>
     <description>文物安全巡查APP</description>
     <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.10.10.110:8100" />
     <access origin="*" />
     <access launch-external="yes" origin="tel:*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -113,5 +113,5 @@
         <variable name="IOS_KEY" value="value" />
         <variable name="IOS_LOCATION_DESC" value="请点击'好'以允许访问。" />
     </plugin>
-    <engine name="android" spec="~6.4.0" />
+    <engine name="android" spec="6.4.0" />
 </widget>

@@ -11,8 +11,8 @@ page-self-index {
         }
         .avatar {
             float: left;
-            width: 64px;
-            height: 64px;
+            width: 60px;
+            height: 60px;
             background-image: url('../assets/self/head_portrait.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
@@ -21,7 +21,7 @@ page-self-index {
         .name {
             float: left;
             div {
-                margin: 7px 0;
+                margin: 5px 0;
                 font-size: 16px;
             }
         }

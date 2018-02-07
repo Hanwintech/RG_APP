@@ -12,6 +12,10 @@ page-public-opinion-info-list {
                             white-space: nowrap;
                             overflow: hidden;
                             padding-top: 7px;
+                            word-wrap: break-word;
+                            word-break: break-all;
+                            text-overflow: clip;
+                            white-space: normal;
                         }
                     }
                     .h6, .h7 {
@@ -29,6 +33,7 @@ page-public-opinion-info-list {
                     h5 {
                         font-size: 12px;
                         color: color($colors, tertiary, base);
+                        padding-bottom: 4px;
                     }
                     h4 {
                         float: left;
@@ -43,7 +48,7 @@ page-public-opinion-info-list {
             .item {
                 .item-inner {
                     .label {
-                        height: 73px;
+                        height: auto;
                         margin: 0px 10px;
                     }
                 }

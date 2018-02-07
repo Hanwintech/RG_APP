@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar class="modal-nav">
-    <ion-searchbar [placeholder]="'请输入关键字'" (ionInput)="getItems($event)">
+    <ion-searchbar [placeholder]="'请输入关键字'">
     </ion-searchbar>
     <ion-buttons right>
       <button ion-button (click)="getData(null, true)">搜索</button>
@@ -22,31 +22,7 @@
           <div>{{person.manageUnitName}}</div>
           <div><a>{{person.mobilePhone}}</a></div>
         </ion-label>
-        <ion-checkbox></ion-checkbox>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      <div>号鼠标号</div>
-      <div>号鼠标号号鼠标号号鼠标号</div>
-      <div>1212313213</div>
-    </ion-label>
-    <ion-checkbox></ion-checkbox>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      <div>号鼠标号号鼠标号号鼠标号</div>
-      <div>号鼠标号</div>
-      <div>1212313213</div>
-    </ion-label>
-    <ion-checkbox></ion-checkbox>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      <div>号鼠标号</div>
-      <div>号鼠标号号鼠标号号鼠标号</div>
-      <div>1212313213</div>
-    </ion-label>
-    <ion-checkbox></ion-checkbox>
+        <ion-checkbox [(ngModel)]="person.boolData"></ion-checkbox>
   </ion-item>
 </ion-content>
 <ion-footer>

@@ -36,7 +36,7 @@ export class MessageCenterInfoListPage extends PagingListPage {
     this.pageService.showLoading("数据加载中...");
 
     //初始化父类参数
-    this.api = new GetMessageCenterInfoList()
+    this.api = new GetMessageCenterInfoList();
     this.condition = new MessageCenterInfoSearch();
     this.conditionDataSource = new MessageCenterInfoSearchDataSource();
     this.dataList = [];
@@ -61,6 +61,7 @@ export class MessageCenterInfoListPage extends PagingListPage {
   view(messageCenterEntity: MessageCenterEntity) {
     let detailPage = this.modalCtrl.create('MessageCenterInfoDetailPage', messageCenterEntity);
     detailPage.onDidDismiss(data => {
+      this.refreshData();
       if(data){
         messageCenterEntity.readState=data;
         messageCenterEntity.readStateName=EnumMessageCenterReadState[data];
@@ -70,5 +71,16 @@ export class MessageCenterInfoListPage extends PagingListPage {
       }
     });
     detailPage.present();
+  }
+
+  refreshData(){
+    this.apiService.sendApi(this.api).subscribe(res=>{
+      if(res.success){
+        this.dataList=res.data.messageCenterInfoList;
+      }
+      else{
+        this.pageService.showErrorMessage(res.reason);
+      }
+    },error=>{ this.pageService.showErrorMessage(error);});
   }
 }

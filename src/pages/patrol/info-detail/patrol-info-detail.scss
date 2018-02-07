@@ -22,7 +22,7 @@ page-patrol-info-detail {
             display: none;
         }
     }
-    .grid {
+    .grid.list-grid {
         border-bottom: 1px solid color($colors, border, base);
         padding: 15px 0;
         .row {
@@ -113,11 +113,23 @@ page-patrol-info-detail {
             visibility: visible;
         }
     }
+    .list.form-list .item .label.navi div{
+        white-space: normal;
+    }
     ion-menu{
         top:49px;
         position: fixed;
     }
     ion-footer{
         position: fixed;
+    }
+    footer.footer-ios{
+        .grid {
+            padding: 0;
+            .col {
+                height: 12.5mm;
+                padding: 0;
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, ActionSheetController, ModalController, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { SMS } from '@ionic-native/sms';
@@ -9,9 +9,9 @@ import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
 import { DetailPage } from './../../../base-pages/detail-page';
 import { GetPatrolInfo } from './../../../apis/patrol/patrol-info.api';
-import { PatrolInfoDetails, UVPatrolCaseProcess,PatrolProcessInfo } from './../../../models/patrol/patrol-info.model';
-import { GetPatrolProcessInfoList, getPatrolProcessInfo, PostPatrolProcessInfo, GetPatrolPlanUserInfos } from './../../../apis/patrol/patrol-info.api';
-import { EnumProcessResult, EnumRunState, EnumPlanUserType,EnumAttachmentType } from './../../../models/enum';
+import { PatrolInfoDetails, UVPatrolCaseProcess, PatrolProcessInfo } from './../../../models/patrol/patrol-info.model';
+import { GetPatrolProcessInfoList, getPatrolProcessInfo, PostPatrolProcessInfo } from './../../../apis/patrol/patrol-info.api';
+import { EnumProcessResult, EnumRunState, EnumAttachmentType } from './../../../models/enum';
 import { nativeImgService } from './../../../services/nativeImg.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
 import { FileUploadService } from './../../../services/file-upload.service';
@@ -28,15 +28,20 @@ export class PatrolInfoDetailPage extends DetailPage {
   private patrolInfo: PatrolInfoDetails;
   private caseProblem: string[];
   private patrolProcess: UVPatrolCaseProcess[];
-  private patrolProcessInfo:PatrolProcessInfo;
+  private patrolProcessInfo: PatrolProcessInfo;
   private canShowLocation = true;
-  private patrolReplay;
-  private patrolDispose;
+  private patrolReplay = this.navParams.data.patrolReplay ? true : false;//控制ion-menu里巡查处理按钮显示
+  private patrolDispose = this.navParams.data.patrolReplay ? true : false;//ion-menu里按钮的选中状态判断
+  private segmentOne;
+  private segmentTwo;
+  private segmentThree;
   constructor(
     public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController,
     public navParams: NavParams,
-    private sms: SMS,
-    private callNumber: CallNumber,
+    public sms: SMS,
+    public callNumber: CallNumber,
     public menuCtrl: MenuController,
     public apiService: ApiService,
     public nativeImgService: nativeImgService,
@@ -48,11 +53,27 @@ export class PatrolInfoDetailPage extends DetailPage {
     public fileTransfer: FileTransfer
   ) {
     super(navCtrl, file, fileTransfer, pageService);
-    this.patrolReplay = this.navParams.data.patrolReplay ? true : false;
-    this.patrolDispose=this.navParams.data.patrolReplay ? true : false;
-    console.log("处理页面");
-    console.log(this.navParams.data);
-    this.getPatroInfo();
+    if (this.navParams.data.patrolReplay) {
+      this.segmentThree = true;
+      this.showReplayPage();
+      let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
+      this.apiService.sendApi(new getPatrolProcessInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
+        res => {
+          if (res.success) {
+            this.patrolProcessInfo = res.data;
+          } else {
+            this.pageService.showErrorMessage(res.reason);
+          }
+        },
+        error => {
+          this.pageService.showErrorMessage(error);
+        });
+    }
+    else {
+      this.segmentOne = true;
+      this.getPatroInfo();
+    }
+
   }
 
   getPatroInfo() {
@@ -112,14 +133,16 @@ export class PatrolInfoDetailPage extends DetailPage {
 
   showLogPage() {
     this.menuCtrl.close();
+    this.canShowLocation=false;
+    this.patrolDispose=false;
+    this.segmentOne = false;
+    this.segmentTwo = true;
+    this.segmentThree = false;
     let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
     this.apiService.sendApi(new GetPatrolProcessInfoList(keyID)).subscribe(
       res => {
         if (res.success) {
           this.patrolProcess = res.data.patrolProcessInfoList;
-          this.canShowLocation = false;
-          this.patrolDispose=false;
-          this.patrolInfo = null;
         } else {
           this.pageService.showErrorMessage(res.reason);
         }
@@ -131,29 +154,19 @@ export class PatrolInfoDetailPage extends DetailPage {
 
   showSelfPage() {
     this.menuCtrl.close();
-    this.patrolProcess = null;
-    this.patrolDispose=false;
+    this.segmentOne = true;
+    this.segmentTwo = false;
+    this.segmentThree = false;
     this.getPatroInfo();
-
   }
 
   showReplayPage() {
     this.menuCtrl.close();
-    this.patrolDispose=true;
-    this.patrolInfo = null;
+    this.patrolDispose = true;
+    this.segmentOne = false;
+    this.segmentTwo = false;
+    this.segmentThree = true;
     this.canShowLocation = false;
-    let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
-    this.apiService.sendApi(new getPatrolProcessInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
-      res => {
-        if (res.success) {
-          this.patrolProcessInfo=res.data;
-        } else {
-          this.pageService.showErrorMessage(res.reason);
-        }
-      },
-      error => {
-        this.pageService.showErrorMessage(error);
-      });
   }
 
   getProcessResultName(value: number): string {
@@ -174,9 +187,9 @@ export class PatrolInfoDetailPage extends DetailPage {
         if (attachments) {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
-            att.category = EnumAttachmentType.不可移动文物附件;
+            att.category = EnumAttachmentType.巡查处理附件;
           }
-          if (!this.patrolProcessInfo) {
+          if (!this.patrolProcessInfo.attachmentList) {
             this.patrolProcessInfo.attachmentList = [];
           }
           this.patrolProcessInfo.attachmentList = this.patrolProcessInfo.attachmentList.concat(attachments);
@@ -212,8 +225,17 @@ export class PatrolInfoDetailPage extends DetailPage {
   }
 
 
-  showPersonPage(){
-    this.navCtrl.push("PatrolUserInfoPage", this.patrolProcessInfo.canSelectPatrolUserInfoList);
+  showPersonPage() {
+    let showPerson = this.modalCtrl.create("PatrolUserInfoPage", this.patrolProcessInfo.canSelectPatrolUserInfoList);
+    showPerson.onDidDismiss(data => {
+      if (data) {
+        for (let item of data) {
+          delete item.boolData;
+        }
+        this.patrolProcessInfo.selectedUserInfoList = data;
+      }
+    });
+    showPerson.present();
   }
 
   optPhone(event, phoneNo: string) {
@@ -257,7 +279,46 @@ export class PatrolInfoDetailPage extends DetailPage {
     });
   }
 
+  saveData() {
+    let valiMessage = "";
+
+    if (!this.patrolProcessInfo.patrolCaseProcess.processResult) {
+      valiMessage += '、处理结果';
+    }
+
+    if (this.patrolProcessInfo.patrolCaseProcess.processResult == EnumProcessResult["转送处理"]) {
+      if (!this.patrolProcessInfo.selectedUserInfoList || this.patrolProcessInfo.selectedUserInfoList.length < 0) {
+        valiMessage += '、处理人员';
+      }
+    }
+
+    if (valiMessage) {
+      this.pageService.showErrorMessage("请填写以下内容：" + valiMessage.substring(1) + "！");
+      return;
+    }
+
+    this.pageService.showComfirmMessage("确定要提交巡查处理信息吗？",
+      () => {
+        this.patrolProcessInfo.patrolCaseProcess.updaterID = localStorage.getItem("userId");
+        this.patrolProcessInfo.patrolCaseProcess.submitUser = localStorage.getItem("userId");
+        this.patrolProcessInfo.patrolCaseProcess.submitUserManageUnitID = localStorage.getItem("manageUnitId");
+        this.apiService.sendApi(new PostPatrolProcessInfo(this.patrolProcessInfo)).subscribe(
+          res => {
+            if (res.success) {
+              this.viewCtrl.dismiss(true);
+            } else {
+              this.pageService.showErrorMessage(res.reason);
+            }
+          },
+          error => {
+            this.pageService.showErrorMessage(error);
+          });
+      },
+      () => { });
+    this.viewCtrl.dismiss(true);
+  }
+
   close() {
-    this.navCtrl.pop();
+    this.viewCtrl.dismiss(false);
   }
 }

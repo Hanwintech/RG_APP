@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { CommonUserInfo } from "./../../../models/user-info.model";
 
 @IonicPage()
@@ -8,43 +8,68 @@ import { CommonUserInfo } from "./../../../models/user-info.model";
   templateUrl: 'patrol-user-info.html',
 })
 export class PatrolUserInfoPage {
-  private userInfo:string[];
-  searchQuery: string = '';
-  items;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  this.userInfo=this.navParams.data;
-  console.log(this.userInfo);
+  private userInfo: string[];
+  private searchQuery: string = '';
+  private items;
+  constructor(
+    public navCtrl: NavController,
+    public viewCtrl: ViewController,
+    public navParams: NavParams,
+  ) {
+    this.userInfo = this.navParams.data;
   }
 
-  selectAll(){
-
+  ionViewDidLoad() {
+    //解决监听中文输入拼音的问题
+    var node:any = document.querySelector('.searchbar-input');
+    var cpLock = false;
+    let that = this;
+    node.addEventListener('compositionstart', function () {
+      cpLock = true;
+    })
+    node.addEventListener('compositionend', function () {
+      cpLock = false;
+      if (!cpLock) {
+        that.getItems(node.value);
+      };
+    })
+    node.addEventListener('input', function () {
+      if (!cpLock) {
+        that.getItems(this.value);
+      };
+    });
+  }
+  
+  selectAll() {
+    for (let item of this.userInfo) {
+      let itemData: any = item;
+      itemData.boolData = true;
+    }
   }
 
-  emptyData(){
-
+  emptyData() {
+    for (let item of this.userInfo) {
+      let itemData: any = item;
+      itemData.boolData = false;
+    }
   }
 
-  save(){
-    
+  save() {
+    let result = this.userInfo.filter((item: any) => {
+      if (item.boolData) return item;
+    })
+    this.viewCtrl.dismiss(result);
   }
 
-  // initializeItems() {
-  //   this.items = this.userInfo.userName;
-  // }
-
-
-  getItems(ev: any) {
-    console.log( this.userInfo)
-    // Reset items back to all of the items
-
-    // set val to the value of the searchbar
-    let val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    // if (val && val.trim() != '') {
-    //   this.userInfo= this.userInfo.filter((item:CommonUserInfo) => {
-    //     return (item.userN.indexOf(val) >0);
-    //   })
-    // }
+  getItems(data: any) {
+    this.userInfo = this.navParams.data;
+    if (data) {
+      this.userInfo = this.userInfo.filter((item: any) => {
+        if (item.userName.indexOf(data) != -1 || item.manageUnitName.indexOf(data) != -1) return item;
+      })
+    }
+    else {
+      this.userInfo = this.navParams.data;
+    }
   }
 }

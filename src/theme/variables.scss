@@ -141,6 +141,12 @@ ion-header {
             .icon.ion-ios-menu-outline:active {
                 background-image: url('../assets/icon/title_bar_list_press.png');
             }
+            .icon.ion-ios-compass {
+                background-image: url('../assets/icon/ic_title_bar_map_normal.png');
+            }
+            .icon.ion-ios-compass:active {
+                background-image: url('../assets/icon/ic_title_bar_map_press.png');
+            }
         }
     }
     .modal-nav {
@@ -179,11 +185,6 @@ ion-content {
                 padding-bottom: 2mm;
                 font-size: 4.3mm;
                 margin: 2.1mm 0;
-            }
-        }
-        ion-item-options {
-            .button {
-                width:3rem;
             }
         }
     }
@@ -440,8 +441,8 @@ ion-content {
             }
         }
     }
-    ion-item-options button{
-        width: 7rem;
+    ion-item-options button {
+        width:8.5rem;
         background: #ff8a0f;
         color: #fff;
         font-size: 2rem;

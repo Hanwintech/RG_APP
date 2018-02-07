@@ -38,7 +38,7 @@ export class PatrolMapPage extends MapPage {
     this.hideDetailContrl = false;
     this.CardContrl = false;
     this.zoomendControle = true;
-    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Volunteer);
+    this.canAdd = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
   }
 
   list() {

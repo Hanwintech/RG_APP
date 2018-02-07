@@ -1,7 +1,7 @@
 import { URLSearchParams } from '@angular/http';
 import { BaseRequest } from './../base-request.api';
 import { GetListAPI } from './../get-list-api.api';
-import { PatrolInfo } from './../../models/patrol/patrol-info.model';
+import { PatrolInfo,PatrolProcessInfo} from './../../models/patrol/patrol-info.model';
 
 export class GetPatrolInfoList extends GetListAPI {
     constructor() {
@@ -82,11 +82,11 @@ export class getPatrolProcessInfo extends BaseRequest {
 }
 
 export class PostPatrolProcessInfo extends BaseRequest {
-    constructor(public patrolInfo: PatrolInfo) {
+    constructor(public patrolProcessInfo: PatrolProcessInfo) {
         super();
         this.method = "POST";
         this.requestUrl = "/api/system/submit_patrol_process_info";
-        this.requestBody = this.patrolInfo;
+        this.requestBody = this.patrolProcessInfo;
     }
 }
 

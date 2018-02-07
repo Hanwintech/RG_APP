@@ -36,8 +36,8 @@ page-patrol-info-list {
                             color: #999;
                             margin-right: 1rem;
                         }
-                        & h5:last-child{
-                            color:#ff8a0f;
+                        & h5:last-child {
+                            color: #ff8a0f;
                         }
                     }
                 }
@@ -53,5 +53,8 @@ page-patrol-info-list {
     }
     .color_4 {
         color: gray;
+    }
+    .back-button.show-back-button {
+        display: none;
     }
 }

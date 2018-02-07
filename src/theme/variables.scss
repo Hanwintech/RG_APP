@@ -320,6 +320,7 @@ ion-content {
                                 text-overflow: ellipsis;
                                 white-space: nowrap;
                                 overflow: hidden;
+                                font-weight: normal;
                             }
                             .fileShowName {
                                 color: color($colors, dark, base);

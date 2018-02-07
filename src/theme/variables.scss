@@ -183,7 +183,7 @@ ion-content {
         }
         ion-item-options {
             .button {
-                width:3rem;
+                width: 3rem;
             }
         }
     }
@@ -277,14 +277,14 @@ ion-content {
                 color: color($colors, primary, base) !important;
             }
             .label.attachment-label {
-                margin: 2mm 0;
-                padding: 2mm 0;
+                margin: 0;
+                padding: 0;
                 font-weight: bold;
                 border: 0px;
                 color: color($colors, primary, base);
                 .title {
                     width: 100%;
-                    padding-right: 60px;
+                    padding: 4mm 60px 4mm 0;
                     float: left;
                 }
                 .icon {
@@ -294,32 +294,29 @@ ion-content {
                     margin-left: -22px;
                 }
                 div.attachment {
-                    margin-top: 30px;
                     .attachmentContent {
                         width: 100%;
-                        height: 55px;
-                        margin: 15px 0 0 0;
-                        padding: 15px 0 5px;
+                        height: auto;
+                        padding: 5px 0;
                         border-top: 1px solid color($colors, border, base);
+                        display: flex;
+                        align-items: center;
                         img {
-                            float: left;
                             max-width: 40px;
                             max-height: 40px;
-                            position: absolute;
+                            margin: 0.4rem 0.2rem;
                         }
                         .description {
                             width: 100%;
-                            padding-left: 40px;
-                            padding-right: 54px;
-                            float: left;
                             .fileShowName,
                             .fileName {
                                 font-size: 12px;
                                 width: 100%;
                                 padding: 3px;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                                overflow: hidden;
+                                word-wrap: break-word;
+                                word-break: break-all;
+                                text-overflow: clip;
+                                white-space: normal;
                             }
                             .fileShowName {
                                 color: color($colors, dark, base);
@@ -331,10 +328,6 @@ ion-content {
                         .button {
                             font-size: 13px;
                             height: 24px;
-                            float: right;
-                            position: absolute;
-                            margin-left: -52px;
-                            margin-top: 4px;
                             padding: 14px 10px;
                         }
                     }
@@ -440,10 +433,10 @@ ion-content {
             }
         }
     }
-    iframe{
+    iframe {
         border: 0;
     }
-    ion-item-options button{
+    ion-item-options button {
         width: 7rem;
         background: #ff8a0f;
         color: #fff;

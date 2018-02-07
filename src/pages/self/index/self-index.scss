@@ -36,11 +36,11 @@ page-self-index {
 }
 
 ion-content.self-index {
-    .badge-ios{
+    .badge-ios {
         border-radius: 50%;
     }
-    ion-badge{
-        padding:0;
+    ion-badge {
+        padding: 0;
         width: 1.5rem;
         height: 1.5rem;
         font-size: 0.7em;
@@ -75,7 +75,6 @@ ion-content.self-index {
         }
         .item {
             padding-left: 0;
-          
             .label {
                 color: color($colors, dark, base);
                 padding-top: 0;
@@ -90,7 +89,12 @@ ion-content.self-index {
                     align-self: center;
                 }
                 .list-title {
-                   align-self: center;
+                    //align-self: center;
+                    //line-height: 1.5rem!important;
+                    //垂直居中
+                    display: flex;
+    justify-content:center;
+    align-items:Center;
                     .badge {
                         margin-top: -0.5mm;
                         margin-left: 3mm;

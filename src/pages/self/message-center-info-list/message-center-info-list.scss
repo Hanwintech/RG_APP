@@ -41,13 +41,14 @@ page-message-center-info-list {
                     h4,
                     h5 {
                         font-size: 12px;
-                        color: color($colors, tertiary, base);
                     }
                     h4 {
                         float: left;
+                        color: color($colors, tertiary, base);
                     }
                     h5 {
                         float: right;
+                        color: color($colors, dark, base);
                     }
                 }
             }

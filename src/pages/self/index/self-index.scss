@@ -11,8 +11,8 @@ page-self-index {
         }
         .avatar {
             float: left;
-            width: 64px;
-            height: 64px;
+            width: 60px;
+            height: 60px;
             background-image: url('../assets/self/head_portrait.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
@@ -21,26 +21,33 @@ page-self-index {
         .name {
             float: left;
             div {
-                margin: 7px 0;
+                margin: 4px 0;
                 font-size: 16px;
             }
-        }
-        [name=ios-create-outline] {
+        } 
+        // [name=ios-create-outline] {
+        //     float: right;
+        //     font-size: 35px;
+        //     width: 35px;
+        //     height: 35px;
+        //     margin: 14px 7px;
+        // }
+        .deal {
             float: right;
-            font-size: 35px;
-            width: 35px;
-            height: 35px;
-            margin: 14px 7px;
+            //font-size: 32px;
+            width: 26px;
+            height: 26px;
+            margin: 14px 12px;
         }
     }
 }
 
 ion-content.self-index {
-    .badge-ios{
+    .badge-ios {
         border-radius: 50%;
     }
-    ion-badge{
-        padding:0;
+    ion-badge {
+        padding: 0;
         width: 1.5rem;
         height: 1.5rem;
         font-size: 0.7em;
@@ -75,7 +82,6 @@ ion-content.self-index {
         }
         .item {
             padding-left: 0;
-          
             .label {
                 color: color($colors, dark, base);
                 padding-top: 0;
@@ -90,7 +96,12 @@ ion-content.self-index {
                     align-self: center;
                 }
                 .list-title {
-                   align-self: center;
+                    //align-self: center;
+                    //line-height: 1.5rem!important;
+                    //垂直居中
+                    display: flex;
+                    justify-content: center;
+                    align-items: Center;
                     .badge {
                         margin-top: -0.5mm;
                         margin-left: 3mm;

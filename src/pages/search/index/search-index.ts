@@ -50,13 +50,14 @@ export class SearchIndexPage extends PagingListPage {
       this.statistics = "cases";
     } else if (!searchDefaultPage && this.hasPatrol || searchDefaultPage == "inspect" && this.hasPatrol) {
       this.statistics = "inspect";
+    } else if (searchDefaultPage) {
+      this.statistics = searchDefaultPage;
     } else {
       this.statistics = "culturalRelic";
     }
   }
 
   changeSegment(segValue) {
-    
     this.navCtrl.parent.viewCtrl.instance.searchDefaultPage = segValue;
 
     if (segValue == 'laws') {

@@ -1,33 +1,85 @@
 page-tabs {
-    #tab-t0-0 .ion-ios-eye-outline:before{
+    #tab-t0-0 .ion-ios-eye-outline:before {
         content: "";
     }
-    .copyTwoLine{
+    .copyTwoLine {
         width: 40px;
         height: 40px;
-        position:absolute;
+        position: absolute;
         left: 25px;
-        z-index:10;
-        bottom:5px;
+        z-index: 10;
+        bottom: 5px;
         background-image: url('../assets/icon/tabs_twoLine_normal.png');
         background-size: 40px;
     }
-    .copyTwoLine:active{
+    .copyTwoLine:active {
         background-image: url('../assets/icon/tabs_twoLine_active.png');
     }
-    .tabbar.show-tabbar{
-        background:#ddd;
+    .tabbar.show-tabbar {
+        background: #ddd;
         border-top: 1px solid #ccc;
     }
-    .tabs-ios .tab-button-icon{
-        margin-top:0;
+    .tabs-ios .tab-button-icon {
+        margin-top: 0;
         font-size: 26px;
-        color:#545454;
+        color: #545454;
     }
-   .tab-button-text{
+    .tab-button-text {
         font-size: 12px;
         font-weight: normal;
-        padding-bottom:2px;
-        color:#545454;
+        padding-bottom: 2px;
+        color: #545454;
+    }
+    .ion-tab-icon-base {  
+        width: 20px;  
+        height: 20px;  
+        padding: 4px 4px 2px;  
+      }  
+        
+      .ion-tab-icon-md-base {  
+        min-width: 0 !important;  
+        height: 20px;  
+      }  
+      .tabs-ios .tab-button-icon{
+          min-width:20px;
+          height:26px;
+      }
+    .ion-ios-tab-tab2 {
+        content:url("../assets/self/ic_bottom_tab_patrol_highlighted.png");
+    }
+    .ion-ios-tab-tab2-outline {
+        content:url("../assets/self/ic_bottom_tab_patrol.png");
+    }
+    .tabs-md .tab-button[aria-selected=true] .ion-md-tab-tab2 {
+        content: url("../assets/self/ic_bottom_tab_patrol_highlighted.png");
+    }
+    .tabs-md .tab-button[aria-selected=false] .ion-md-tab-tab2 {
+        content: url("../assets/self/ic_bottom_tab_patrol.png");
+    }
+
+    .ion-ios-tab-tab3 {
+        content:url("../assets/self/ic_bottom_tab_search_highlighted.png");
+    }
+    .ion-ios-tab-tab3-outline {
+        content:url("../assets/self/ic_bottom_tab_search.png");
+    }
+    .tabs-md .tab-button[aria-selected=true] .ion-md-tab-tab3 {
+        content: url("../assets/self/ic_bottom_tab_search_highlighted.png");
+    }
+    .tabs-md .tab-button[aria-selected=false] .ion-md-tab-tab3 {
+        content: url("../assets/self/ic_bottom_tab_search.png");
+    }
+
+    .ion-ios-tab-tab4 {
+        content:url("../assets/self/ic_bottom_tab_self_highlighted.png");
+    }
+    .ion-ios-tab-tab4-outline {
+        content:url("../assets/self/ic_bottom_tab_self.png");
+    }
+    .tabs-md .tab-button[aria-selected=true] .ion-md-tab-tab4 {
+        content: url("../assets/self/ic_bottom_tab_self_highlighted.png");
+    }
+    .tabs-md .tab-button[aria-selected=false] .ion-md-tab-tab4 {
+        content: url("../assets/self/ic_bottom_tab_self.png");
     }
 }

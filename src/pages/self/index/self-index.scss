@@ -24,13 +24,20 @@ page-self-index {
                 margin: 4px 0;
                 font-size: 16px;
             }
-        }
-        [name=ios-create-outline] {
+        } 
+        // [name=ios-create-outline] {
+        //     float: right;
+        //     font-size: 35px;
+        //     width: 35px;
+        //     height: 35px;
+        //     margin: 14px 7px;
+        // }
+        .deal {
             float: right;
-            font-size: 35px;
-            width: 35px;
-            height: 35px;
-            margin: 14px 7px;
+            //font-size: 32px;
+            width: 26px;
+            height: 26px;
+            margin: 14px 12px;
         }
     }
 }

@@ -20,11 +20,11 @@
     <ion-list class="data-list">
       <ion-item *ngFor="let data of dataList" (click)="view(data.messageCenter)">
         <div class="messageTitle">
-          <h2>{{data.messageCenter.messageTypeName}}</h2>
-          <h3>{{data.messageCenter.messageTitle}}</h3>
+          <h3>{{data.messageCenter.messageTypeName}}</h3>
+          <h2>{{data.messageCenter.messageTitle}}</h2>
         </div>
         <div>{{data.messageCenter.messageContent}}</div>
-        <h4>{{data.messageCenter.readStateName}}</h4>
+        <h4 [ngClass]="{'noRead':data.messageCenter.readState==1}">{{data.messageCenter.readStateName}}</h4>
         <h5>{{data.messageCenter.readTime | datetime}}</h5>
       </ion-item>
     </ion-list>

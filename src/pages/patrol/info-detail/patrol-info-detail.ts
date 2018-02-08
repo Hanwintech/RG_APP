@@ -32,6 +32,7 @@ export class PatrolInfoDetailPage extends DetailPage {
   private canShowLocation = true;
   private patrolReplay = this.navParams.data.patrolReplay ? true : false;//控制ion-menu里巡查处理按钮显示
   private patrolDispose = this.navParams.data.patrolReplay ? true : false;//ion-menu里按钮的选中状态判断
+  private pageTitle;
   private segmentOne;
   private segmentTwo;
   private segmentThree;
@@ -55,6 +56,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     super(navCtrl, file, fileTransfer, pageService);
     if (this.navParams.data.patrolReplay) {
       this.segmentThree = true;
+      this.pageTitle="巡查处理";
       this.showReplayPage();
       let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
       this.apiService.sendApi(new getPatrolProcessInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
@@ -70,6 +72,7 @@ export class PatrolInfoDetailPage extends DetailPage {
         });
     }
     else {
+      this.pageTitle="巡查记录详情";
       this.segmentOne = true;
       this.getPatroInfo();
     }
@@ -124,6 +127,7 @@ export class PatrolInfoDetailPage extends DetailPage {
   }
 
   showCaseProblem() {
+    console.log(this.patrolInfo);
     this.navCtrl.push('CaseProblemListPage', { "list": this.patrolInfo.patrolCaseProblemList, "selected": this.patrolInfo.selectedCaseProblemList });
   }
 
@@ -137,6 +141,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.patrolDispose=false;
     this.segmentOne = false;
     this.segmentTwo = true;
+    this.pageTitle="巡查处理日志";
     this.segmentThree = false;
     let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
     this.apiService.sendApi(new GetPatrolProcessInfoList(keyID)).subscribe(
@@ -157,6 +162,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.segmentOne = true;
     this.segmentTwo = false;
     this.segmentThree = false;
+    this.pageTitle="巡查记录详情";
     this.getPatroInfo();
   }
 
@@ -166,6 +172,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.segmentOne = false;
     this.segmentTwo = false;
     this.segmentThree = true;
+    this.pageTitle="巡查处理";
     this.canShowLocation = false;
   }
 

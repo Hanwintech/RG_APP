@@ -1,5 +1,10 @@
 page-message-center-info-list {
     ion-content {
+        .list.data-list{
+            .item .item-inner .label{
+                margin:8px 14px 5px 14px;
+            }
+        }
         .list {
             .item {
                 .label {
@@ -8,18 +13,18 @@ page-message-center-info-list {
                         height: 25px;
                         text-overflow: ellipsis;
                         overflow: hidden;
-                        h2 {
-                            font-size: 13px;
+                        h3 {
+                            font-size: 12px;
                             margin: 0 5px 0 0;
-                            padding: 5px 10px;
+                            padding: 4px 9px;
                             float: left;
                             background-color: color($colors, primary, base);
                             color: #fff;
                             border-radius: 5px;
                         }
-                        h3 {
+                        h2 {
                             line-height: 25px;
-                            font-size: 13px;
+                            font-size: 14px;
                             float: left;
                             color: #000;
                             max-width: 70%;
@@ -45,6 +50,9 @@ page-message-center-info-list {
                     h4 {
                         float: left;
                         color: color($colors, tertiary, base);
+                    }
+                    .noRead{
+                        color: color($colors, primary, base);
                     }
                     h5 {
                         float: right;

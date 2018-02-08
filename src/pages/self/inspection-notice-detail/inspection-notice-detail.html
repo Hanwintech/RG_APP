@@ -20,9 +20,8 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
-      <ion-label class="navi">
+      <ion-label class="navi" (click)="showCulturalRelic(inspectionNotice.inspectorNotice.fK_CulturalRelicID)">
         <div>{{inspectionNotice.inspectorNotice.culturalRelicName}}</div>
-        <button ion-button outline color="secondary" (click)="showCulturalRelic(inspectionNotice.inspectorNotice.fK_CulturalRelicID)">查看</button>
       </ion-label>
     </ion-item>
     <ion-item>

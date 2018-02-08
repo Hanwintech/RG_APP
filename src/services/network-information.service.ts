@@ -35,9 +35,9 @@ export class NetworkInformationService {
             this.pageService.showMessage("网络已连接");
         });
 
-        this._changeSubscription = this.network.onchange().subscribe(() => {
-            this._isConnected = true;
-            this._connectionType = this.network.type;
-        });
+        // this._changeSubscription = this.network.onchange().subscribe(() => {
+        //     this._isConnected = true;
+        //     this._connectionType = this.network.type;
+        // });
     }
 }

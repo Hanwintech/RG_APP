@@ -7,12 +7,12 @@ page-inspect-chart {
             display: inline-block;
             width: 48.5%;
             font-size: 1rem;
-            padding: 5px 0 5px 16px;
+            padding: 0px 0 5px 16px;
             height: 52px;
             border-right: solid 1px color($colors, border, base);
             div:last-child {
                 padding-top: 2px;
-                font-size: 15px;
+                font-size: 16px;
             }
         }
         .total:last-child {

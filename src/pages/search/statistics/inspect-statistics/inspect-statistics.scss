@@ -8,17 +8,18 @@ page-inspect-statistics {
         .item-block {
             padding-left: 0;
             min-height: 0ch;
-            height:40px;
+            height: 45px;
             .item-inner {
                 padding-left: 16px;
             }
+           
         }
     }
     .top {
         height: 22mm;
         .toolbar-background {
-            border-width: 0 0 1px 0!important; 
-            border-color:color($colors, border, base);
+            border-width: 0 0 1px 0!important;
+            border-color: color($colors, border, base);
         }
     }
     ion-content .list .item .label {
@@ -30,7 +31,7 @@ page-inspect-statistics {
         .total {
             display: inline-block;
             width: 48.5%;
-            font-size: 1.22rem; 
+            font-size: 1.22rem;
             padding: 5px 0 5px 16px;
             height: 52px;
             border-right: solid 1px color($colors, border, base);
@@ -58,8 +59,9 @@ page-inspect-statistics {
             float: left;
             margin-right: 12px;
         }
-        // p {
-        //     line-height: 1.5;
-        // }
+        p {
+            line-height: 1.5;
+            
+        }
     }
 }

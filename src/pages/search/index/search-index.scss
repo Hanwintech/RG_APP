@@ -39,6 +39,9 @@ page-search-index {
         }
     }
     ion-content {
+         .list.data-list .item .item-inner .label {
+            margin: 10px 10px 0 12px;
+        }
         .grid {
             padding: 16px 5px 30px 5px !important;
         }
@@ -48,7 +51,7 @@ page-search-index {
         .item-block {
             padding-left: 0;
             .label {
-                margin: 0.4em;
+               margin: 0.4em;
                 img {
                     margin: 0.3em;
                     float: left;
@@ -57,12 +60,16 @@ page-search-index {
                     position: absolute;
                 }
                 .messageTitle {
+                    //垂直居中
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center; //      
                     width: 100%;
-                    height: 25px;
+                    height: 20px;
                     text-overflow: ellipsis;
                     overflow: hidden;
                     h2 {
-                        font-size: 13px;
+                        font-size: 12px;
                         margin: 0 5px 0 0;
                         padding: 5px 10px;
                         float: left;
@@ -72,7 +79,7 @@ page-search-index {
                     }
                     h3 {
                         line-height: 25px;
-                        font-size: 13px;
+                        font-size: 14px;
                         float: left;
                         color: #000;
                         max-width: 70%;
@@ -120,4 +127,5 @@ page-search-index {
             height: 54px;
         }
     }
+    
 }

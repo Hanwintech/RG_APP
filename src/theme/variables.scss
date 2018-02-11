@@ -21,7 +21,7 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #2ead8c, secondary: #2ead8c, tertiary: #ff8a0f, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #f7f7f7, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9,phoneNo:#4d7898);
+$colors: ( primary: #2ead8c, secondary: #2ead8c, tertiary: #ff8a0f, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #f7f7f7, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9, phoneNo:#4d7898);
 $toolbar-background:color($colors, primary, base);
 $img-placeholder-background: #EDAA45;
 // App iOS Variables
@@ -303,9 +303,10 @@ ion-content {
                         display: flex;
                         align-items: center;
                         img {
-                            max-width: 40px;
-                            max-height: 40px;
-                            margin: 0.4rem 0.4rem;
+                            width: 50px;
+                            max-width: 60px;
+                            max-height: 60px;
+                            margin: 0.4rem 0.8rem 0.4rem 0rem;
                         }
                         .description {
                             width: 100%;
@@ -330,14 +331,15 @@ ion-content {
                             }
                         }
                         .button {
-                            width: 56px;
+                            width: 54px;
                             font-size: 14px;
-                            height: 10px;
-                            min-height:0;
-                            padding: 14px 10px; 
-                            // display: flex !important;
-                            // justify-content: center;
-                            // align-items: Center;
+                            height: 29px; padding: 1px 22px 0 10px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: Center;
+                            // .button-inner {
+                            //     //padding: 0 10px 0 10px;
+                            // }
                         }
                     }
                 }

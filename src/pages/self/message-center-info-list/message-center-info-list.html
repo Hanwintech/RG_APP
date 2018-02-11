@@ -18,15 +18,17 @@
   </ion-refresher>
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list class="data-list">
-      <ion-item *ngFor="let data of dataList" (click)="view(data.messageCenter)">
-        <div class="messageTitle">
-          <h3>{{data.messageCenter.messageTypeName}}</h3>
-          <h2>{{data.messageCenter.messageTitle}}</h2>
-        </div>
-        <div>{{data.messageCenter.messageContent}}</div>
-        <h4 [ngClass]="{'noRead':data.messageCenter.readState==1}">{{data.messageCenter.readStateName}}</h4>
-        <h5>{{data.messageCenter.readTime | datetime}}</h5>
-      </ion-item>
+      <div *ngFor="let data of dataList" (click)="view(data.messageCenter)">
+        <ion-item *ngIf="data.messageCenter.messageType!=1&&data.messageCenter.readState!=4">
+          <div class="messageTitle">
+            <h3>{{data.messageCenter.messageTypeName}}</h3>
+            <h2>{{data.messageCenter.messageTitle}}</h2>
+          </div>
+          <div>{{data.messageCenter.messageContent}}</div>
+          <h4 [ngClass]="{'noRead':data.messageCenter.readState==1}">{{data.messageCenter.readStateName}}</h4>
+          <h5>{{data.messageCenter.readTime | datetime}}</h5>
+        </ion-item>
+      </div>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="nextPage($event)">
       <ion-infinite-scroll-content loadingSpinner="circles" loadingText="正在加载...">

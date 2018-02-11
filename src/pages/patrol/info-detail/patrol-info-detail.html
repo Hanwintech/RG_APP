@@ -19,7 +19,7 @@
   <!-- 巡查记录详情 -->
   <div *ngIf="segmentOne&&patrolInfo">
     <ion-slides *ngIf="patrolInfo.attachmentList && patrolInfo.attachmentList.length > 1" pager>
-      <ion-slide *ngFor="let pic of patrolInfo.attachmentList">
+      <ion-slide *ngFor="let pic of patrolInfo.attachmentList" (click)="showSlideAttachment(pic)">
         <img src="{{pic.fileUrl}}">
       </ion-slide>
     </ion-slides>

@@ -217,6 +217,12 @@ export class PatrolInfoDetailPage extends DetailPage {
     super.showSlidesPage(this.patrolProcessInfo.attachmentList, attachment.fileUrl);
   }
 
+
+  showSlideAttachment(attachment){
+    super.showSlidesPage( this.patrolInfo.attachmentList, attachment.fileUrl);
+  }
+
+
   delAttachmentList(attachment) {
     this.pageService.showComfirmMessage("确定要删除吗？",
       () => {
@@ -322,7 +328,6 @@ export class PatrolInfoDetailPage extends DetailPage {
           });
       },
       () => { });
-    this.viewCtrl.dismiss(true);
   }
 
   close() {

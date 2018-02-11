@@ -5,6 +5,9 @@ page-message-center-info-list {
                 margin:8px 14px 5px 14px;
             }
         }
+        .list .item:last-child{
+            border-bottom:none;
+        }
         .list {
             .item {
                 .label {

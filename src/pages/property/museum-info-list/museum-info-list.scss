@@ -1,5 +1,13 @@
 page-museum-info-list {
     ion-content {
+        .list.data-list {
+            .item {
+                .item-inner .label {
+                    min-height: 90px;
+                    margin: 10px 11px 10px 5px;
+                }
+            }
+        }
         .list {
             .item {
                 .label {

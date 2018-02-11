@@ -1,10 +1,15 @@
 <ion-header>
   <ion-navbar class="modal-nav">
-    <ion-title>督查通知详情</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>督察通知详情</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-list *ngIf="inspectionNotice" class="form-list">
     <ion-item>
       <ion-label fixed>接收单位</ion-label>

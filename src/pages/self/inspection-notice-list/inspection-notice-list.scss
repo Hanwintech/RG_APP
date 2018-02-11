@@ -19,6 +19,9 @@ page-inspection-notice-list {
         }
     }
     ion-content {
+        .list.data-list .item .item-inner .label{
+           margin:13px 12px;
+        }
         .list {
             .item {
                 .label {

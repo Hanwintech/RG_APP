@@ -280,59 +280,74 @@ ion-content {
                 text-decoration: underline;
                 color: color($colors, phoneNo, base) !important;
             }
-            .label.attachment-label {
-                margin: 0;
-                padding: 0;
-                font-weight: bold;
-                border: 0px;
-                color: color($colors, primary, base);
-                .title {
-                    width: 100%;
-                    padding: 4mm 60px 4mm 0;
-                    float: left;
-                }
-                .icon {
-                    float: right;
-                    position: absolute;
-                    font-size: 22px;
-                    margin-left: -22px;
-                }
-                div.attachment {
-                    .attachmentContent {
+            .item-inner {
+                padding-right:0;
+                .label.attachment-label {
+                    margin: 0;
+                    padding: 0;
+                    font-weight: bold;
+                    border: 0px;
+                    color: color($colors, primary, base);
+                    .title {
                         width: 100%;
-                        height: auto;
-                        padding: 5px 0;
-                        border-top: 1px solid color($colors, border, base);
-                        display: flex;
-                        align-items: center;
-                        img {
-                            max-width: 40px;
-                            max-height: 40px;
-                            margin: 0.4rem 0.2rem;
-                        }
-                        .description {
+                        padding: 4mm 60px 4mm 0;
+                        float: left;
+                    }
+                    .icon {
+                        float: right;
+                        position: absolute;
+                        font-size: 28px;
+                        margin-left: -23px;
+                       line-height: 55px;
+                    }
+                    div.attachment {
+                        .attachmentContent {
                             width: 100%;
-                            .fileShowName,
-                            .fileName {
-                                font-size: 12px;
+                            height: auto;
+                            padding: 5px 0;
+                            border-top: 1px solid color($colors, border, base);
+                            display: flex;
+                            align-items: center;
+                            img {
+                                width: 50px;
+                                max-width: 60px;
+                                max-height: 60px;
+                                margin: 0.4rem 0.8rem 0.4rem 0rem;
+                            }
+                            .description {
                                 width: 100%;
-                                padding: 3px;
-                                word-wrap: break-word;
-                                word-break: break-all;
-                                text-overflow: clip;
-                                white-space: normal;
+                                .fileShowName,
+                                .fileName {
+                                    width: 100%;
+                                    padding: 3px;
+                                    word-wrap: break-word;
+                                    word-break: break-all;
+                                    text-overflow: clip;
+                                    white-space: normal;
+                                    font-weight: normal;
+                                }
+                                .fileShowName {
+                                    font-size: 14px;
+                                    color: color($colors, dark, base);
+                                }
+                                .fileName {
+                                    font-size: 12px;
+                                    width: 90%;
+                                    color: color($colors, grayText, base);
+                                }
                             }
-                            .fileShowName {
-                                color: color($colors, dark, base);
+                            .button {
+                                width: 54px;
+                                font-size: 14px;
+                                height: 29px;
+                                .button-inner {
+                                    position: absolute;
+                                    left: 50%;
+                                    top: 50%;
+                                    -webkit-transform: translate(-50%, -50%);
+                                    transform: translate(-50%, -50%);
+                                }
                             }
-                            .fileName {
-                                color: color($colors, grayText, base);
-                            }
-                        }
-                        .button {
-                            font-size: 13px;
-                            height: 24px;
-                            padding: 14px 10px;
                         }
                     }
                 }

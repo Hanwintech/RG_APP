@@ -53,19 +53,25 @@ page-cultural-relic-statistics {
     }
     .Total11,
     .Total12 {
-        padding-top: 12px;
+        height: 85px; //display: flex;
+        //justify-content:center;
+        //align-items:Center;
+        display: table-cell;
+        vertical-align: middle;
+        padding-top: 13px;
+        padding-bottom: 15px;
         width: 49.5%;
         float: left;
         border-left: solid 1px color($colors, border, base);
         font-size: 14px;
         .Total1 {
-            padding: 4px 0 0 0;
+            padding: 4px 0 0 0; //height:60px;
             .total1 {
                 display: inline-block;
                 width: 49.5%;
                 font-size: 0.1rem;
                 padding: 0;
-                height: 52px;
+                height: 35px;
                 color: color($colors, dark, base); //设置字体颜色为灰色
                 div:last-child {
                     padding-top: 5px;

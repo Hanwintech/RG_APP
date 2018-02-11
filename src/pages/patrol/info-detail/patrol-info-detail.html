@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>巡查记录详情</ion-title>
+    <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons left>
       <button ion-button icon-only (click)="toogelMenu()">
         <ion-icon name="ios-menu-outline"></ion-icon>
@@ -34,9 +34,9 @@
     <ion-list class="form-list">
       <ion-item>
         <ion-label fixed>文物名称</ion-label>
-        <ion-label class="navi">
+        <ion-label class="navi" (click)="showCulturalRelic(patrolInfo.patrolInfo.fK_CulturalRelicID)">
           <div>{{patrolInfo.patrolInfo.culturalRelicName}}</div>
-          <button ion-button outline color="secondary" (click)="showCulturalRelic(patrolInfo.patrolInfo.fK_CulturalRelicID)">查看</button>
+          <span></span>
         </ion-label>
       </ion-item>
       <ion-item>
@@ -70,13 +70,12 @@
       <ion-item>
         <ion-label fixed>问题情况</ion-label>
         <ion-label *ngIf="!caseProblem || caseProblem.length == 0">无</ion-label>
-        <ion-label *ngIf="caseProblem && caseProblem.length > 0" class="navi">
-          <div>
+        <ion-label *ngIf="caseProblem && caseProblem.length > 0" class="navi"  >
+          <div (click)="showCaseProblem()">
             <span *ngFor="let s of caseProblem">{{s}}
               <br>
             </span>
           </div>
-          <button ion-button outline color="secondary" (click)="showCaseProblem()">查看</button>
         </ion-label>
       </ion-item>
       <ion-item>
@@ -99,34 +98,35 @@
     <ion-grid class="list-grid" *ngFor="let p of patrolProcess" (click)="showProcessDetail(p)">
       <ion-row>
         <ion-col col-3>处理结果</ion-col>
-        <ion-col col-9>{{p.processResult ? getProcessResultName(p.processResult) : '-'}}</ion-col>
+        <ion-col col-9>{{p.processResult ? getProcessResultName(p.processResult) : ''}}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-3>处理人</ion-col>
-        <ion-col col-9>{{p.transactUser ? p.transactUser : '-'}}</ion-col>
+        <ion-col col-9>{{p.transactUser ? p.transactUser : ''}}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-3>处理人单位</ion-col>
-        <ion-col col-9>{{p.transactUserManageUnitName ? p.transactUserManageUnitName : '-'}}</ion-col>
+        <ion-col col-9>{{p.transactUserManageUnitName ? p.transactUserManageUnitName : ''}}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-3>处理人电话</ion-col>
-        <ion-col col-9 *ngIf="p.mobilePhone" class="phoneNo">{{p.mobilePhone}}
-          <button ion-button outline color="secondary" (click)="optPhone($event, p.mobilePhone)">操作</button>
+        <ion-col col-9 *ngIf="p.mobilePhone" class="phoneNo">
+          <span (click)="optPhone($event, p.mobilePhone)">{{p.mobilePhone}}</span>
+          <span class="navi"></span>
         </ion-col>
-        <ion-col col-9 *ngIf="!p.mobilePhone">-</ion-col>
+        <ion-col col-9 *ngIf="!p.mobilePhone"></ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-3>到达时间</ion-col>
-        <ion-col col-9>{{p.arriveDate ? (p.arriveDate | datetime) : '-'}}</ion-col>
+        <ion-col col-9>{{p.arriveDate ? (p.arriveDate | datetime) : ''}}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-3>处理状态</ion-col>
-        <ion-col col-9>{{p.runState ? getRunStateName(p.runState) : '-'}}</ion-col>
+        <ion-col col-9>{{p.runState ? getRunStateName(p.runState) : ''}}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-3>处理时间</ion-col>
-        <ion-col col-9>{{p.processDate ? (p.processDate | datetime) : '-'}}</ion-col>
+        <ion-col col-9>{{p.processDate ? (p.processDate | datetime) : ''}}</ion-col>
       </ion-row>
     </ion-grid>
   </div>
@@ -142,14 +142,11 @@
       </ion-item>
       <ion-item *ngIf="patrolProcessInfo.patrolCaseProcess.processResult==2||patrolProcessInfo.patrolCaseProcess.processResult==3">
         <ion-label fixed>处理人员</ion-label>
-        <ion-label class="navi">
+        <ion-label class="navi" (click)="showPersonPage()">
           <div *ngFor="let singlePerson of patrolProcessInfo.selectedUserInfoList" style="color:#3a3a3a">
             <span>{{singlePerson.userName}}</span>
           </div>
-
-
           <div *ngIf="!patrolProcessInfo.selectedUserInfoList">请选择处理人员 </div>
-          <button ion-button outline color="secondary" (click)="showPersonPage()">人员</button>
         </ion-label>
       </ion-item>
       <ion-item>
@@ -177,8 +174,9 @@
       </ion-item>
     </ion-list>
   </div>
+</ion-content>
 
-  <ion-menu [content]="mycontent" type="overlay" class="side-menu">
+<ion-menu [content]="mycontent" type="overlay" id="side-menu" class="side-menu">
     <ion-content>
       <ion-list>
         <button ion-item class="patrol-history" (click)="showSelfPage()" [ngClass]="{'selected':canShowLocation}">
@@ -197,8 +195,7 @@
     </ion-content>
   </ion-menu>
   <ion-nav #mycontent [root]="rootPage"></ion-nav>
-
-  <ion-footer>
+<ion-footer>
     <ion-grid>
       <ion-row>
         <ion-col *ngIf="!canShowLocation&&patrolDispose">
@@ -210,5 +207,3 @@
       </ion-row>
     </ion-grid>
   </ion-footer>
-
-</ion-content>

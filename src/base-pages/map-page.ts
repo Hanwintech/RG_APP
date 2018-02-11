@@ -64,6 +64,7 @@ export class MapPage extends DetailPage {
             res => {
                 if (res.success) {
                     this.culturalRelicInfo = res.data;
+                    console.log( this.culturalRelicInfo);
                     if (this.culturalRelicInfo.twoLimitImageList) {
                         super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
                         this.showPicture("", this.culturalRelicInfo.twoLimitImageList);

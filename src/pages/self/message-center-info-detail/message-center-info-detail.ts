@@ -19,6 +19,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
   private state: number;
   private viewDetail;
   private isDispose;
+  private pageTitle;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,6 +33,9 @@ export class MessageCenterInfoDetailPage extends DetailPage {
     super(navCtrl, file, fileTransfer, pageService);
     this.messageCenterEntity = this.navParams.data;
     this.viewDetail = this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] ? false : true;
+    if( this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"]|| this.messageCenterEntity.messageType == EnumMessageCenterType["督察令通知"]){
+      this.pageTitle="代办详情";
+    }
   }
 
   detail() {

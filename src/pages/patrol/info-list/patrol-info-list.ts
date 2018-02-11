@@ -34,7 +34,7 @@ export class PatrolInfoListPage extends PagingListPage {
   ) {
     super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "patrolSearchDataSource", "patrolInfoList");
 
-    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Volunteer);
+    this.canAdd = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
     this.pageService.showLoading("数据加载中...");
 
     //初始化父类参数

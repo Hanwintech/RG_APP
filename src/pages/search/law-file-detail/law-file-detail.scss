@@ -2,4 +2,13 @@ page-law-file-detail {
     ion-list {
         padding: 0 16px 0 0;
     }
+    .item-ios.item-block .item-inner {
+        padding-right: 0;
+    }
+    .title{
+        height: 51.94px;
+        display: flex;
+        align-items:Center;
+        font-size:18px;
+    }
 }

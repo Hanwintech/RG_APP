@@ -305,31 +305,39 @@ ion-content {
                         img {
                             max-width: 40px;
                             max-height: 40px;
-                            margin: 0.4rem 0.2rem;
+                            margin: 0.4rem 0.4rem;
                         }
                         .description {
                             width: 100%;
                             .fileShowName,
                             .fileName {
-                                font-size: 12px;
                                 width: 100%;
                                 padding: 3px;
                                 word-wrap: break-word;
                                 word-break: break-all;
                                 text-overflow: clip;
                                 white-space: normal;
+                                font-weight: normal;
                             }
                             .fileShowName {
+                                font-size: 14px;
                                 color: color($colors, dark, base);
                             }
                             .fileName {
+                                font-size: 12px;
+                                width: 100%;
                                 color: color($colors, grayText, base);
                             }
                         }
                         .button {
-                            font-size: 13px;
-                            height: 24px;
-                            padding: 14px 10px;
+                            width: 56px;
+                            font-size: 14px;
+                            height: 10px;
+                            min-height:0;
+                            padding: 14px 10px; 
+                            // display: flex !important;
+                            // justify-content: center;
+                            // align-items: Center;
                         }
                     }
                 }
@@ -435,7 +443,7 @@ ion-content {
         }
     }
     ion-item-options button {
-        width:8.5rem;
+        width: 8.5rem;
         background: #ff8a0f;
         color: #fff;
         font-size: 2rem;

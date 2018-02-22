@@ -8,7 +8,7 @@
   <div *ngIf="noticeBasicInfo">
     <h2>{{noticeBasicInfo.title}}</h2>
     <h5>{{noticeBasicInfo.sendDeptName}}&nbsp;&nbsp;&nbsp;{{noticeBasicInfo.sendDate | datetime}}</h5>
-    <div [innerHTML]="noticeBasicInfo.noticeText"></div>
+    <div [innerHTML]="innerHtmlData"></div>
   </div>
 </ion-content>
 

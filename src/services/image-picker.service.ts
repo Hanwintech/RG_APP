@@ -17,7 +17,7 @@ export class ImagePickerService {
     */
     getPictures(): Promise<Attachment[]> {
         return new Promise<Attachment[]>((resolve, reject) => {
-            let opt: ImagePickerOptions = { width: 1980, height: 1440, quality: 80 };
+            let opt: ImagePickerOptions = { maximumImagesCount:8, width: 1980, height: 1440, quality: 80 };
             this.imagePicker.getPictures(opt).then(
                 files => {
                     if (files && files.length > 0) {

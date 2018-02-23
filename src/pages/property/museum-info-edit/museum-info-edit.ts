@@ -145,7 +145,7 @@ export class MuseumInfoEditPage extends BasePage {
   }
 
   selectAttachmentList() {
-    this.imagePickerService.getPictures().then(
+    this.imagePickerService.getPictures(null).then(
       attachments => {
         if (attachments) {
           super.changeAttachmentFileType(attachments);

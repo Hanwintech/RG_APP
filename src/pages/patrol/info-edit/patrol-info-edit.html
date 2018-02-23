@@ -12,13 +12,19 @@
 <ion-content>
   <ion-list class="form-list">
     <div class="imagePicker">
-      <div *ngFor="let att of patrolInfo.attachmentList" class="img" (click)="showAttachmentList(att)">
-        <img src="{{att.fileUrl}}">
-        <div class="close" (click)="delAttachmentList($event, att)"></div>
+      <div class="container" *ngFor="let att of patrolInfo.attachmentList" (click)="showAttachmentList(att)">
+        <div class="img">
+          <img src="{{att.fileUrl}}">
+          <div class="close" (click)="delAttachmentList($event, att)"></div>
+        </div>
       </div>
-      <div class="img" (click)="selectAttachmentList()">
-        <img src="assets/icon/common_publish_image_empty.png">
+      <div class="container" (click)="selectAttachmentList()" *ngIf="patrolInfo.attachmentList.length<8">
+        <div class="img">
+          <img src="assets/icon/common_publish_image_empty.png">
+        </div>
       </div>
+      <div class="descImg" *ngIf="patrolInfo.attachmentList.length==0">添加照片(最多8张)</div>
+      <div class="clear"></div>
     </div>
     <ion-item>
       <ion-label fixed>文物名称</ion-label>

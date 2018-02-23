@@ -19,8 +19,9 @@ page-inspection-notice-list {
         }
     }
     ion-content {
-        .list.data-list .item .item-inner .label{
-           margin:13px 12px;
+        .list.data-list .item .item-inner .label {
+            margin: 5px 12px 12px 12px;
+            min-height: 0;
         }
         .list {
             .item {
@@ -31,9 +32,9 @@ page-inspection-notice-list {
                         text-overflow: ellipsis;
                         overflow: hidden;
                         h2 {
-                            font-size: 13px;
+                            font-size: 12px;
                             margin: 0 5px 0 0;
-                            padding: 5px 10px;
+                            padding:4px 9px;
                             float: left;
                             background-color: color($colors, primary, base);
                             color: #fff;
@@ -41,7 +42,7 @@ page-inspection-notice-list {
                         }
                         h3 {
                             line-height: 25px;
-                            font-size: 13px;
+                            font-size: 14px;
                             float: left;
                             color: #000;
                             max-width: 70%;
@@ -60,6 +61,15 @@ page-inspection-notice-list {
                         text-overflow: ellipsis;
                         overflow: hidden;
                     }
+                    .messageDescription {
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        width: 100%;
+                        height: 100%;
+                        line-height: 14px;
+                    }
                     h4,
                     h5 {
                         font-size: 12px;
@@ -75,6 +85,11 @@ page-inspection-notice-list {
             }
             .list {
                 margin-top: 0;
+            }
+            &:first-child{
+                label{
+                    margin-top:0;
+                }
             }
         }
     }

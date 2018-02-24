@@ -91,7 +91,7 @@ export class PatrolInfoEditPage extends BasePage {
   }
 
   selectAttachmentList() {
-    this.imagePickerService.getPictures().then(
+    this.imagePickerService.getPictures(this.patrolInfo.attachmentList.length).then(
       attachments => {
         if (attachments) {
           super.changeAttachmentFileType(attachments);

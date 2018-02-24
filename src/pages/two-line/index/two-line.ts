@@ -43,9 +43,9 @@ export class TwoLinePage extends MapPage {
   }
 
   ionViewDidLoad() {
-    setInterval(()=>{
-      this.getLocation(localStorage.getItem("longitude"),localStorage.getItem("latitude"));
-    },60000);
+    setInterval(() => {
+      this.getLocation(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
+    }, 60000);
     this.initSearchData();
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
@@ -56,7 +56,7 @@ export class TwoLinePage extends MapPage {
         BMAP_HYBRID_MAP
       ]
     }));
-    let longT =localStorage.getItem("longitude");
+    let longT = localStorage.getItem("longitude");
     let lati = localStorage.getItem("latitude");
     super.getLocation(longT, lati);
     let pointData = new BMap.Point(longT, lati);
@@ -70,7 +70,7 @@ export class TwoLinePage extends MapPage {
   controlBottom() {
     this.hideContrl = this.hideContrl ? false : true;
     this.upArrowContrl = this.hideContrl;
-    if(!this.hideDetailContrl){
+    if (!this.hideDetailContrl) {
       this.hideDetailContrl = false
     }
   }
@@ -86,11 +86,32 @@ export class TwoLinePage extends MapPage {
   }
 
   showSearch() {
+    if (this.navParams.data && this.navParams.data.title) {
+      this.showMapSearch();
+    }
+    else {
+      this.shoTwoLineSearch();
+    }
+  }
+
+  shoTwoLineSearch() {
     let that = this;
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("TwoLineSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      if (data&&data.needSearch) {
+      if (data && data.needSearch) {
+        that.getSearchData(data.search);
+      }
+    });
+    searchModal.present();
+  }
+
+  showMapSearch() {
+    let that = this;
+    this.search.isDefaultSearch = false;
+    let searchModal = this.modalCtrl.create("MapSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
+    searchModal.onDidDismiss(data => {
+      if (data && data.needSearch) {
         that.getSearchData(data.search);
       }
     });

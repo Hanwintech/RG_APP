@@ -36,3 +36,4 @@ UserInterfaceState.xcuserstate
 src/services/location-watch.service.ts
 src/services/location-watch.service.ts
 config.xml
+src/services/api.service.ts

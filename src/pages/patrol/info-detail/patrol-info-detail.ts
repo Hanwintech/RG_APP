@@ -189,7 +189,7 @@ export class PatrolInfoDetailPage extends DetailPage {
   }
 
   selectAttachmentList() {
-    this.imagePickerService.getPictures().then(
+    this.imagePickerService.getPictures(null).then(
       attachments => {
         if (attachments) {
           super.changeAttachmentFileType(attachments);
@@ -216,6 +216,12 @@ export class PatrolInfoDetailPage extends DetailPage {
   showAttachmentList(attachment) {
     super.showSlidesPage(this.patrolProcessInfo.attachmentList, attachment.fileUrl);
   }
+
+
+  showSlideAttachment(attachment){
+    super.showSlidesPage( this.patrolInfo.attachmentList, attachment.fileUrl);
+  }
+
 
   delAttachmentList(attachment) {
     this.pageService.showComfirmMessage("确定要删除吗？",
@@ -322,7 +328,6 @@ export class PatrolInfoDetailPage extends DetailPage {
           });
       },
       () => { });
-    this.viewCtrl.dismiss(true);
   }
 
   close() {

@@ -174,6 +174,9 @@ ion-content {
         .item:last-child {
             border-bottom: 1px solid color($colors, border, base);
         }
+        ion-item-sliding .item:last-child {
+            border-bottom: none;
+        }
         .item {
             .item-inner {
                 border-bottom: 1px solid color($colors, border, base);
@@ -194,29 +197,29 @@ ion-content {
             .item-inner {
                 padding-right: 0;
                 .label {
-                    height: 80px;
+                    min-height: 80px;
                     margin: 15px 5px;
                     padding: 0;
                     .img {
                         position: absolute;
                         float: left;
-                        width: 68px;
-                        height: 68px;
-                        line-height: 64px;
-                        margin: 6px;
+                        width: 90px;
+                        height: 86px;
+                        line-height: 65px;
+                        margin: 3px;
                         border: 1px solid color($colors, border, base);
                         text-align: center;
                         vertical-align: middle;
+                        overflow: hidden;
                         img {
-                            vertical-align: middle;
-                            max-width: 66px;
-                            max-height: 66px;
+                            width: 90px;
+                            height: 86px;
                         }
                     }
                     .description {
                         width: 100%;
                         height: 100%;
-                        padding-left: 80px;
+                        padding-left: 102px;
                     }
                 }
             }
@@ -378,6 +381,15 @@ ion-content {
                 color: color($colors, primary, base);
             }
         }
+    } 
+    .list.list-ios {
+        ion-item-sliding .item-block:last-child,
+        ion-item-sliding .item-wrapper:last-child .item-block {
+            border-bottom: none;
+        }
+    }
+    ion-item-sliding:last-child {
+        border-bottom: 1px solid color($colors, border, base);
     }
     .commonNoResult {
         text-align: center;

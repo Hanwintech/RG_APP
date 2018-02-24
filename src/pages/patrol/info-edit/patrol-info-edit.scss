@@ -3,6 +3,10 @@ page-patrol-info-edit {
         .imagePicker {
             background-color: color($colors, border, base);
             padding: 5px;
+            .container {
+                width: 25%;
+                float: left;
+            }
             .img {
                 display: inline-block;
                 position: relative;
@@ -15,7 +19,7 @@ page-patrol-info-edit {
                     height: 80px;
                 }
                 .close {
-                    background-image: url('..s/icon/ic_delete_photo.png');
+                    background-image: url('../assets/icon/ic_delete_photo.png');
                     background-size: 100%;
                     float: right;
                     right: 0;
@@ -25,6 +29,16 @@ page-patrol-info-edit {
                     height: 20px;
                 }
             }
+            .descImg {
+                display: inline-block;
+                color: color($colors, dark, dark);
+                position: relative;
+                bottom:-30px;
+                margin-left: 10px;
+            }
+        }
+        .clear {
+            clear: both;
         }
     }
 }

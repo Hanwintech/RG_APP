@@ -33,8 +33,11 @@ export class MessageCenterInfoDetailPage extends DetailPage {
     super(navCtrl, file, fileTransfer, pageService);
     this.messageCenterEntity = this.navParams.data;
     this.viewDetail = this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] ? false : true;
-    if( this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"]|| this.messageCenterEntity.messageType == EnumMessageCenterType["督察令通知"]){
-      this.pageTitle="代办详情";
+    if (this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] || this.messageCenterEntity.messageType == EnumMessageCenterType["督察令通知"]) {
+      this.pageTitle = "代办详情";
+    }
+    else{
+      this.pageTitle="消息详情";
     }
   }
 
@@ -43,9 +46,10 @@ export class MessageCenterInfoDetailPage extends DetailPage {
       case EnumMessageCenterType["督察令通知"]:
         let InspectionNoticeDetailPage = this.modalCtrl.create('InspectionNoticeDetailPage', { "keyID": this.navParams.data.businessID, "segmentIndex": "0" });
         InspectionNoticeDetailPage.onDidDismiss(data => {
-          if(data){
+          if (data) {
             if (data.inspectorNotice.recordState == EnumInspectorNoticeState["已回复"]) {
               this.state = EnumMessageCenterReadState["已处理"];
+              this.uploadStatus();
             }
             else {
               this.state = EnumMessageCenterReadState["已阅未处理"];
@@ -87,7 +91,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
   }
 
   close() {
-    this.viewCtrl.dismiss(false);
+    this.setMessageStatu();
   }
 
   setMessageStatu() {
@@ -109,7 +113,12 @@ export class MessageCenterInfoDetailPage extends DetailPage {
       this.apiService.sendApi(new SetMessageStatus(this.navParams.data.msgCenterID, localStorage.getItem("userId"), this.state)).subscribe(
         res => {
           if (res.success) {
-            this.viewCtrl.dismiss(this.state);
+            if (this.viewCtrl) {
+              this.viewCtrl.dismiss(this.state);
+            }
+            else {
+              this.navCtrl.pop();
+            }
           } else {
             this.pageService.showErrorMessage(res.reason);
           }
@@ -118,6 +127,13 @@ export class MessageCenterInfoDetailPage extends DetailPage {
           this.pageService.showErrorMessage(error);
         });
     }
-    this.viewCtrl.dismiss(this.state);
+    else{
+      if (this.viewCtrl) {
+        this.viewCtrl.dismiss(this.state);
+      }
+      else {
+        this.navCtrl.pop();
+      }
+    }
   }
 }

@@ -8,4 +8,11 @@ page-inspection-notice-detail {
         background-repeat: no-repeat;
         background-size: 8px;
     }
+    ion-header .toolbar .bar-buttons .icon:before {
+        content:"\f3cf";
+        display: inline-block;
+     }
+     ion-header .modal-nav .back-button{
+         display: none;
+     }
 }

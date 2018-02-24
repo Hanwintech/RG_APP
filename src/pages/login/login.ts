@@ -61,7 +61,7 @@ export class LoginPage {
             this.pageService.showErrorMessage('推送服务注册失败！');
           }.bind(this));
       }
-      //this.locationWatchService.stop();
+      this.locationWatchService.stop();
     }
   }
 
@@ -99,7 +99,7 @@ export class LoginPage {
             }.bind(this));
         }
 
-        //this.locationWatchService.start();
+        this.locationWatchService.start();
         this.navCtrl.setRoot("TabsPage");
       },
       error => {

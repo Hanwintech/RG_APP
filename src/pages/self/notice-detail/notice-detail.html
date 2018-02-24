@@ -7,7 +7,7 @@
 <ion-content padding>
   <h2>{{noticeBasicInfo.title}}</h2>
   <h5>{{noticeBasicInfo.sendDeptName}}&nbsp;&nbsp;&nbsp;{{noticeBasicInfo.sendDate | datetime:"yyyy-MM-dd"}}</h5>
-  <div [innerHTML]="noticeBasicInfo.noticeText"></div>
+  <div [innerHTML]="innerHtmlData"></div>
 </ion-content>
 
 <ion-footer>

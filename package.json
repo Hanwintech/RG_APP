@@ -66,7 +66,7 @@
     "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
-    "jpush-phonegap-plugin": "^3.3.2",
+    "jpush-phonegap-plugin": "^3.3.3",
     "mx.ferreyra.callnumber": "0.0.2",
     "rxjs": "^5.5.6",
     "sdk": "^0.5.0",

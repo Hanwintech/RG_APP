@@ -33,7 +33,7 @@ export class MyApp {
     this.statusBar.hide();
 
     this.platform.ready().then(() => {
-      //this.locationWatchService.init();
+      this.locationWatchService.init();
 
       this.splashScreen.hide();
 

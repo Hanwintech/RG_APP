@@ -53,9 +53,6 @@ export class InspectionNoticeReplyPage {
         })
     },
     () => { });
-
-
-
   }
 
   closeReply() {

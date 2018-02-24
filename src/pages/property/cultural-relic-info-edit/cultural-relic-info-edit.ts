@@ -160,7 +160,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
   }
 
   selectAttachmentList() {
-    this.imagePickerService.getPictures().then(
+    this.imagePickerService.getPictures(null).then(
       attachments => {
         if (attachments) {
           super.changeAttachmentFileType(attachments);
@@ -203,7 +203,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
   }
 
   selectTwoLimitAttachmentList() {
-    this.imagePickerService.getPictures().then(
+    this.imagePickerService.getPictures(null).then(
       attachments => {
         if (attachments) {
           super.changeAttachmentFileType(attachments);

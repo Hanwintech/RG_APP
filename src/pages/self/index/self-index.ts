@@ -93,7 +93,19 @@ export class SelfIndexPage extends BasePage {
       this.hasMoveableStatistic = true;
       this.hasPublicOpinion = true;
     }
+    this.GetUnreadMsgCountInfo();
+  }
 
+  ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#5d2102");
+    this.GetUnreadMsgCountInfo();
+  }
+
+  ionViewDidLeave() {
+    this.statusBar.backgroundColorByHexString("#2ead8c");
+  }
+
+  GetUnreadMsgCountInfo() {
     let unreadMessageCountInfo = new MessageCenterUnreadInfo();
     unreadMessageCountInfo.userId = localStorage.getItem("userId");
     unreadMessageCountInfo.manageUnitId = localStorage.getItem("manageUnitId");
@@ -136,14 +148,6 @@ export class SelfIndexPage extends BasePage {
         this.pageService.dismissLoading();
         this.pageService.showErrorMessage(error);
       });
-  }
-
-  ionViewWillEnter() {
-    this.statusBar.backgroundColorByHexString("#5d2102");
-  }
-
-  ionViewDidLeave() { 
-    this.statusBar.backgroundColorByHexString("#2ead8c");
   }
 
   editInfo() {

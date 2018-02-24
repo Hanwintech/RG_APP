@@ -509,3 +509,13 @@ ion-footer {
         }
     }
 }
+
+.searchbar-ios.searchbar-left-aligned .searchbar-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}

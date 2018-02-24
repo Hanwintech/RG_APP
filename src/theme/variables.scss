@@ -281,7 +281,7 @@ ion-content {
                 color: color($colors, phoneNo, base) !important;
             }
             .item-inner {
-                padding-right:0;
+                padding-right: 0;
                 .label.attachment-label {
                     margin: 0;
                     padding: 0;
@@ -298,7 +298,7 @@ ion-content {
                         position: absolute;
                         font-size: 28px;
                         margin-left: -23px;
-                       line-height: 55px;
+                        line-height: 55px;
                     }
                     div.attachment {
                         .attachmentContent {
@@ -381,7 +381,7 @@ ion-content {
                 color: color($colors, primary, base);
             }
         }
-    } 
+    }
     .list.list-ios {
         ion-item-sliding .item-block:last-child,
         ion-item-sliding .item-wrapper:last-child .item-block {
@@ -489,4 +489,14 @@ ion-footer {
             padding: 0;
         }
     }
+}
+
+.searchbar-ios.searchbar-left-aligned .searchbar-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }

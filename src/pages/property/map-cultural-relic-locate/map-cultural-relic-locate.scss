@@ -78,7 +78,20 @@ page-map-cultural-relic-locate {
         background-image: url('../assets/map/ic_map_location_to_self_press.png');
     }
     ion-footer {
-        height: 45px;
+        .list-ios {
+            margin: 0;
+        }
+        .item-ios.item-select.item-label-fixed {
+            border-top: none;
+        }
+        .select.select-ios {
+            width: 100%;
+            max-width: 100%;
+            margin: 2mm 0 2mm 1.5mm;
+            padding: 1.8mm 1.5mm;
+            border-left: 1px solid color($colors, border, base);
+            color: color($colors, dark, base);
+        }
         .grid {
             padding: 0;
             .col {
@@ -91,7 +104,7 @@ page-map-cultural-relic-locate {
         }
     }
     ion-header .toolbar .bar-buttons .icon:before {
-       content:"\f3cf";
-       display: inline-block;
+        content: "\f3cf";
+        display: inline-block;
     }
 }

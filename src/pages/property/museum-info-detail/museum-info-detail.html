@@ -11,7 +11,8 @@
 
 <ion-content>
   <div class="headImg">
-    <img src="{{museumInfo.miniImageUrl ? museumInfo.miniImageUrl : 'assets/icon/empty_middle.png'}}">
+    <img *ngIf="museumInfo.miniImageUrl" src="{{museumInfo.miniImageUrl}}" (click)="showPic(museumInfo.miniImageUrl)">
+    <img *ngIf="!museumInfo.miniImageUrl" src="assets/icon/empty_middle.png">
   </div>
 
   <ion-list class="form-list">

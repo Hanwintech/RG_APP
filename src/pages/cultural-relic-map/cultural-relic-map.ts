@@ -59,7 +59,7 @@ export class CulturalRelicMapPage extends MapPage {
     let lati = localStorage.getItem("latitude");
     super.getLocation(longT, lati);
     let pointData = new BMap.Point(longT, lati);
-    this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
+    this.map.centerAndZoom(pointData, this.showTwoLineMapLevel-2);
     this.mapLevel = this.map.getZoom() + 1;
     this.getData(this.mapLevel);
     this.mapAddEventListener();

@@ -60,6 +60,13 @@ $popover-ios-width: 75%;
     background-color: color($colors, primary, base);
 }
 
+.text-input.text-input-ios {
+    margin: 2mm 0 2mm 1mm;
+    margin-left: 0;
+    padding: 0;
+    width: calc(100% - 8px);
+}
+
 ion-header {
     .toolbar {
         height: 13mm;
@@ -163,6 +170,15 @@ ion-header {
             }
         }
     }
+    .searchbar-ios.searchbar-left-aligned .searchbar-search-icon {
+        left: 5px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    .bar-buttons.bar-buttons-ios .ion-ios-arrow-back{
+        line-height:0.9;
+    }
 }
 
 ion-content {
@@ -238,12 +254,15 @@ ion-content {
                 white-space: normal;
             }
             .text-input {
-                width: 100%;
+                width: 90%;
                 max-width: 100%;
-                margin: 2mm 0 2mm 1.5mm;
                 padding: 2mm 1.5mm;
                 border-left: 1px solid color($colors, border, base);
                 color: color($colors, dark, base);
+            }
+            .label-ios + ion-input .text-input,
+            .label-ios + .input + .cloned-input{
+                margin-left: 1.5mm;
             }
             .select {
                 width: 100%;
@@ -281,7 +300,7 @@ ion-content {
                 color: color($colors, phoneNo, base) !important;
             }
             .item-inner {
-                padding-right:0;
+                padding-right: 0;
                 .label.attachment-label {
                     margin: 0;
                     padding: 0;
@@ -298,7 +317,7 @@ ion-content {
                         position: absolute;
                         font-size: 28px;
                         margin-left: -23px;
-                       line-height: 55px;
+                        line-height: 55px;
                     }
                     div.attachment {
                         .attachmentContent {
@@ -381,7 +400,7 @@ ion-content {
                 color: color($colors, primary, base);
             }
         }
-    } 
+    }
     .list.list-ios {
         ion-item-sliding .item-block:last-child,
         ion-item-sliding .item-wrapper:last-child .item-block {

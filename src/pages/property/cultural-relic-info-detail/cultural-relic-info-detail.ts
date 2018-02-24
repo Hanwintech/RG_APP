@@ -78,12 +78,19 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
 
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfo.coordinateAccurateList });
     locate.onDidDismiss(data => {
-      if(data){
-        this.culturalRelicInfo.culturalRelic.coordinateX=data.culturalRelicX;
-        this.culturalRelicInfo.culturalRelic.coordinateY=data.culturalRelicY;
-        this.culturalRelicInfo.culturalRelic.coordinateAccurate=data.coordinateAccurate;
+      if (data) {
+        this.culturalRelicInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicInfo.culturalRelic.coordinateY = data.culturalRelicY;
+        this.culturalRelicInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
       }
     });
     locate.present();
   }
+
+  showPic(pic) {
+    let picArray = [];
+    picArray.push(pic);
+    this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
+  }
+  
 }

@@ -88,6 +88,7 @@
     <allow-navigation href="http://192.168.2.7:8100" />
     <allow-navigation href="http://10.10.10.110:8100" />
     <allow-navigation href="http://10.10.10.110:8101" />
+    <engine name="android" spec="6.4.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
@@ -113,5 +114,4 @@
         <variable name="IOS_KEY" value="value" />
         <variable name="IOS_LOCATION_DESC" value="请点击'好'以允许访问。" />
     </plugin>
-    <engine name="android" spec="~6.4.0" />
 </widget>

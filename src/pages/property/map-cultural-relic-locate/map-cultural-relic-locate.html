@@ -15,48 +15,51 @@
 </ion-header>
 <ion-content>
   <div class="map-box">
-      <div class="topHeader">
-        <table *ngIf="culturalRelicMapInfo">
-          <tr>
-            <td style="font-size:15px;">{{culturalRelicMapInfo.name}}</td>
-          </tr>
-          <tr>
-              <td style="font-size:0.8em;">{{culturalRelicMapInfo.location}}</td>
-            </tr>
-        </table>
-        </div>
-        <div id="map-content">
-            <div class="card">
-                <div class="selfThing">
-                  <span></span>本体</div>
-                <div class="protect">
-                  <span></span>保护范围</div>
-                <div class="controlPlace">
-                  <span></span>建设控制地带</div>
-              </div>
-          <div id="map" #map></div>
-        </div>
+    <div class="topHeader">
+      <table *ngIf="culturalRelicMapInfo">
+        <tr>
+          <td style="font-size:15px;">{{culturalRelicMapInfo.name}}</td>
+        </tr>
+        <tr>
+          <td style="font-size:0.8em;">{{culturalRelicMapInfo.location}}</td>
+        </tr>
+      </table>
+    </div>
+    <div id="map-content">
+      <div class="card">
+        <div class="selfThing">
+          <span></span>本体</div>
+        <div class="protect">
+          <span></span>保护范围</div>
+        <div class="controlPlace">
+          <span></span>建设控制地带</div>
+      </div>
+      <div id="map" #map></div>
+    </div>
   </div>
 
-  <div class="locateContainer" *ngIf="!canShowFooter" style="bottom:15px;" (click)="selfLocation()"><div></div></div>
-  <div class="locateContainer" *ngIf="canShowFooter" style="bottom:110px;" (click)="selfLocation()"><div></div></div>
-  <div *ngIf="culturalRelicMapInfo&&canShowFooter" style="position:absolute;bottom:45px;width:100%;">
-  <ion-list class="form-list">
-      <ion-item>
-          <ion-label fixed>标注精确度</ion-label>
-          <ion-select [(ngModel)]="culturalRelicMapInfo.coordinateAccurate" interface="popover">
-            <ion-option *ngFor="let item of coordinateAccurateList" value="{{item.key}}">{{item.value}}</ion-option>
-          </ion-select>
-        </ion-item>
-  </ion-list>
-
+  <div class="locateContainer" *ngIf="!canShowFooter" style="bottom:15px;" (click)="selfLocation()">
+    <div></div>
+  </div>
+  <div class="locateContainer" *ngIf="canShowFooter" style="bottom:110px;" (click)="selfLocation()">
+    <div></div>
   </div>
 </ion-content>
 <ion-footer *ngIf="canShowFooter">
+  <div *ngIf="culturalRelicMapInfo&&canShowFooter" style="width:100%;">
+    <ion-list class="form-list">
+      <ion-item>
+        <ion-label fixed>标注精确度</ion-label>
+        <ion-select [(ngModel)]="culturalRelicMapInfo.coordinateAccurate" interface="popover">
+          <ion-option *ngFor="let item of coordinateAccurateList" value="{{item.key}}">{{item.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <button ion-button block (click)="showLog()">取消</button>
+        <button ion-button block (click)="cancel()">取消</button>
       </ion-col>
       <ion-col style="border-left: solid 1px #fff;">
         <button ion-button block (click)="saveCoordinate()">确定标注点位</button>

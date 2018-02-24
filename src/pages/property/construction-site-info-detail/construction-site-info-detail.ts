@@ -86,4 +86,10 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
     });
     locate.present();
   }
+
+  showPic(pic) {
+    let picArray = [];
+    picArray.push(pic);
+    this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
+  }
 }

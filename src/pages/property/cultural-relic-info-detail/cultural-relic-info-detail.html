@@ -11,7 +11,8 @@
 
 <ion-content>
   <div class="headImg">
-    <img src="{{culturalRelicInfo.miniImageUrl ? culturalRelicInfo.miniImageUrl : 'assets/icon/empty_middle.png'}}">
+    <img *ngIf="culturalRelicInfo.miniImageUrl" src="{{culturalRelicInfo.miniImageUrl}}" (click)="showPic(culturalRelicInfo.miniImageUrl)">
+    <img *ngIf="!culturalRelicInfo.miniImageUrl" src="assets/icon/empty_middle.png">
   </div>
 
   <ion-list class="form-list">

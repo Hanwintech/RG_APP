@@ -70,7 +70,7 @@
       <ion-item>
         <ion-label fixed>问题情况</ion-label>
         <ion-label *ngIf="!caseProblem || caseProblem.length == 0">无</ion-label>
-        <ion-label *ngIf="caseProblem && caseProblem.length > 0" class="navi"  >
+        <ion-label *ngIf="caseProblem && caseProblem.length > 0" class="navi">
           <div (click)="showCaseProblem()">
             <span *ngFor="let s of caseProblem">{{s}}
               <br>
@@ -129,6 +129,9 @@
         <ion-col col-9>{{p.processDate ? (p.processDate | datetime) : ''}}</ion-col>
       </ion-row>
     </ion-grid>
+    <div *ngIf="!patrolProcess || patrolProcess.length == 0" class="commonNoResult">
+      无巡查处理日志
+    </div>
   </div>
 
   <!-- 巡查处理 -->
@@ -177,33 +180,33 @@
 </ion-content>
 
 <ion-menu [content]="mycontent" type="overlay" id="side-menu" class="side-menu">
-    <ion-content>
-      <ion-list>
-        <button ion-item class="patrol-history" (click)="showSelfPage()" [ngClass]="{'selected':canShowLocation}">
-          <div class="img"></div>
-          <div class="list-title">巡查记录详情</div>
-        </button>
-        <button ion-item class="patrol-handle" (click)="showLogPage()" [ngClass]="{'selected':!canShowLocation&&!patrolDispose}">
-          <div class="img"></div>
-          <div class="list-title">巡查处理日志</div>
-        </button>
-        <button ion-item class="patrol-reply" (click)="showReplayPage()" *ngIf="patrolReplay" [ngClass]="{'selected':!canShowLocation&&patrolDispose}">
-          <div class="img"></div>
-          <div class="list-title">巡查处理</div>
-        </button>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-nav #mycontent [root]="rootPage"></ion-nav>
+  <ion-content>
+    <ion-list>
+      <button ion-item class="patrol-history" (click)="showSelfPage()" [ngClass]="{'selected':canShowLocation}">
+        <div class="img"></div>
+        <div class="list-title">巡查记录详情</div>
+      </button>
+      <button ion-item class="patrol-handle" (click)="showLogPage()" [ngClass]="{'selected':!canShowLocation&&!patrolDispose}">
+        <div class="img"></div>
+        <div class="list-title">巡查处理日志</div>
+      </button>
+      <button ion-item class="patrol-reply" (click)="showReplayPage()" *ngIf="patrolReplay" [ngClass]="{'selected':!canShowLocation&&patrolDispose}">
+        <div class="img"></div>
+        <div class="list-title">巡查处理</div>
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
 <ion-footer>
-    <ion-grid>
-      <ion-row>
-        <ion-col *ngIf="!canShowLocation&&patrolDispose">
-          <button ion-button block (click)="saveData()">提交</button>
-        </ion-col>
-        <ion-col style="border-left: solid 1px #fff;">
-          <button ion-button block (click)="close()">关闭</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngIf="!canShowLocation&&patrolDispose">
+        <button ion-button block (click)="saveData()">提交</button>
+      </ion-col>
+      <ion-col style="border-left: solid 1px #fff;">
+        <button ion-button block (click)="close()">关闭</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

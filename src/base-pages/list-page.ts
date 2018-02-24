@@ -114,7 +114,6 @@ export class PagingListPage extends ListBasePage {
                     for (let cr of temp) {
                         this.dataList.push(cr);
                     }
-                    console.log(this.dataList);
 
                     this._isLastPage = res.data.isLastPage
 
@@ -140,17 +139,21 @@ export class PagingListPage extends ListBasePage {
     }
 
     refreshDataList(ionRefreshEvent) {
-        this.getData(null, true); 
+        this.getData(null, true);
         ionRefreshEvent.complete();
     }
 
     showSimpleSearch() {
+        this.pageService.showLoading("数据加载中...");
         super.showKeywordSearchPage(this.condition.keyword)
             .then(data => {
                 if (data.needSearch) {
                     this.condition.keyword = data.keyword;
                     this.condition.isDefaultSearch = true;
                     this.getData(null, true);
+                }
+                else{
+                    this.pageService.dismissLoading();
                 }
             })
             .catch(error => {
@@ -173,9 +176,9 @@ export class PagingListPage extends ListBasePage {
             });
     }
 
-    defaultView(page:string,data:any) {
+    defaultView(page: string, data: any) {
         this.navCtrl.push(page, data);
-      }
+    }
 
     defaultAdd;
 

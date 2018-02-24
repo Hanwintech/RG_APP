@@ -10,7 +10,7 @@
 
 <ion-content>
   <div *ngIf="dataList && dataList.length > 0">
-    <ion-list>
+    <ion-list class="data-list">
       <ion-item *ngFor="let data of dataList" (click)="select(data)">
         <div class="img">
           <img src="{{data.miniImageUrl ? data.miniImageUrl : 'assets/icon/empty_small.png'}}">

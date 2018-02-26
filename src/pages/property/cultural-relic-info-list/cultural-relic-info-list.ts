@@ -58,7 +58,6 @@ export class CulturalRelicInfoListPage extends PagingListPage {
     if (latitude) {
       this.condition.currentLatitude = Number(latitude);
     }
-    console.log(longitude + "-" + latitude);
     this.condition.culturalRelicSearchType = EnumCulturalRelicSearchType.不可移动文物;
 
     //查询首页数据

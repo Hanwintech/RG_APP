@@ -64,7 +64,6 @@ export class MapPage extends DetailPage {
             res => {
                 if (res.success) {
                     this.culturalRelicInfo = res.data;
-                    console.log( this.culturalRelicInfo);
                     if (this.culturalRelicInfo.twoLimitImageList) {
                         super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
                         this.showPicture("", this.culturalRelicInfo.twoLimitImageList);
@@ -110,7 +109,6 @@ export class MapPage extends DetailPage {
                     this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
                     this.search = res.data.search;//采用服务器端的默认查询条件
                     this.bindMarker();
-                    console.log(res.data);
                 }
             }, error => {
             }

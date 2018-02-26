@@ -63,7 +63,6 @@ export class PatrolMapPage extends MapPage {
       this.pageService.showMessage("正在初始化页面！");
     }
     setInterval(() => {
-      console.log(localStorage.getItem("longitude") + "----" + localStorage.getItem("latitude"));
       this.getLocation(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
 
     }, 60000);

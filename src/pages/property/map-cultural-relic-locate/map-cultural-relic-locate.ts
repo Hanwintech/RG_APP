@@ -82,7 +82,6 @@ export class MapCulturalRelicLocatePage extends BasePage {
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     this.addMarker();
     this.personLocate();
-    console.log(this.navParams.data);
   }
 
   //人员定位

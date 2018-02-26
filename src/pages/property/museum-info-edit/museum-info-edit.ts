@@ -232,7 +232,6 @@ export class MuseumInfoEditPage extends BasePage {
       res => {
         if (res.success) {
           this.pageService.showMessage("保存成功！");
-          console.log(res.data)
           this.viewCtrl.dismiss(res.data);
         } else {
           this.pageService.showErrorMessage(res.reason);

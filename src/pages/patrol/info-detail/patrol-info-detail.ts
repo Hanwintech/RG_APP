@@ -127,7 +127,6 @@ export class PatrolInfoDetailPage extends DetailPage {
   }
 
   showCaseProblem() {
-    console.log(this.patrolInfo);
     this.navCtrl.push('CaseProblemListPage', { "list": this.patrolInfo.patrolCaseProblemList, "selected": this.patrolInfo.selectedCaseProblemList });
   }
 

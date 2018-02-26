@@ -3,8 +3,13 @@ page-cultural-relic-info-list {
         .list.data-list {
             .item {
                 .item-inner .label {
+                    width:100px !important;
                     min-height: 90px;
                     margin: 10px 11px 10px 5px;
+                    .img{
+                        width:92px !important;
+                        //height: 90px;
+                    }
                 }
             }
         }

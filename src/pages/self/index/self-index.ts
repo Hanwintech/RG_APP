@@ -138,7 +138,6 @@ export class SelfIndexPage extends BasePage {
                 break;
             }
           }
-          console.log(res.data.messageShowTypeList);
         } else {
           this.pageService.showErrorMessage(res.reason);
         }

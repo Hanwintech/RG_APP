@@ -6,7 +6,8 @@ page-notice-message-center {
         h5 {
             margin-top: 12px;
             font-size: 12px;
-            color: color($colors, border, base);
+            color: color($colors, dark, dark);
+            font-weight: normal;
         }
     }
 }

@@ -169,15 +169,14 @@ ion-header {
                 font-size: 4.2mm;
             }
         }
-    }
-    // .searchbar-ios.searchbar-left-aligned .searchbar-search-icon {
+    } // .searchbar-ios.searchbar-left-aligned .searchbar-search-icon {
     //     left: 5px;
     //     top: 0;
     //     bottom: 0;
     //     margin: auto;
     // }
-    .bar-buttons.bar-buttons-ios .ion-ios-arrow-back{
-        line-height:0.9;
+    .bar-buttons.bar-buttons-ios .ion-ios-arrow-back {
+        line-height: 0.9;
     }
 }
 
@@ -195,6 +194,7 @@ ion-content {
         }
         .item {
             .item-inner {
+               // margin-right:16px;
                 border-bottom: 1px solid color($colors, border, base);
             }
         }
@@ -260,8 +260,8 @@ ion-content {
                 border-left: 1px solid color($colors, border, base);
                 color: color($colors, dark, base);
             }
-            .label-ios + ion-input .text-input,
-            .label-ios + .input + .cloned-input{
+            .label-ios+ion-input .text-input,
+            .label-ios+.input+.cloned-input {
                 margin-left: 1.5mm;
             }
             .select {

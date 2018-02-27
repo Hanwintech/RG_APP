@@ -1,8 +1,8 @@
 page-two-line-search {
-    .toolbar-title {
-        padding-left: 30px;
-        line-height: 30px;
-    }
+    // .toolbar-title {
+    //     padding-left: 30px;
+    //     line-height: 30px;
+    // }
     ion-content {
         ion-item.item {
             padding-left: 0;
@@ -11,9 +11,9 @@ page-two-line-search {
                 max-width: 100%;
             }
             ion-label:first-child {
-                padding-left: 16px;
-                height: 35px;
-                line-height: 37px;
+                //padding-left: 16px;
+                //height: 35px;
+                //line-height: 37px;
                 border-right: solid 1px #c7c7c7;
             }
             ion-label:last-child {
@@ -29,6 +29,18 @@ page-two-line-search {
                 height: 37px;
                 line-height: 18px;
             }
+        }
+    }
+   
+    ion-item {
+        border-bottom-width: 0!important;
+        .item-inner {
+            .input-wrapper {
+                border-bottom: solid 1px color($colors, border, base);
+            }
+            border-bottom-width: 0!important;
+            margin-right: 8px;
+            margin-left: 16px;
         }
     }
 }

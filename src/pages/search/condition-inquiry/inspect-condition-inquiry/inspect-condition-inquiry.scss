@@ -1,3 +1,12 @@
 page-inspect-condition-inquiry {
-    
+    ion-item {
+        border-bottom-width: 0!important;
+        .item-inner {
+            .input-wrapper {
+                border-bottom: solid 1px color($colors, border, base);
+            }
+            border-bottom-width: 0!important;
+            margin-right: 16px;
+        }
+    }
 }

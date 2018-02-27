@@ -3,12 +3,17 @@ page-cultural-relic-info-list {
         .list.data-list {
             .item {
                 .item-inner .label {
-                    width:100px !important;
+                    //width:100px !important;
                     min-height: 90px;
                     margin: 10px 11px 10px 5px;
-                    .img{
-                        width:92px !important;
-                        //height: 90px;
+                    .img {
+                        width: 92px !important; //height:84px;
+                       //垂直居中
+                        background: #000;
+                        overflow: auto; 
+                        margin: auto; 
+                        position: absolute; 
+                        top: 0;  bottom: 2px;left:10px;
                     }
                 }
             }
@@ -20,7 +25,7 @@ page-cultural-relic-info-list {
                         h3 {
                             font-size: 16px;
                             color: #000;
-                            margin-bottom:5px;
+                            margin-bottom: 5px;
                             float: left;
                         }
                         h6 {

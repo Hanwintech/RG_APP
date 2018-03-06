@@ -81,9 +81,9 @@ export class LoginPage {
         localStorage.setItem('manageUnitName', res.manageUnitName);
         localStorage.setItem('userType', res.userType);
         localStorage.setItem('appRole', "[" + res.appRole + "]");
-        localStorage.setItem('mobile', res.mobilePhone);
-        localStorage.setItem('phone', res.officePhone);
-        localStorage.setItem('email', res.email);
+        localStorage.setItem('mobile', res.mobilePhone ? res.mobilePhone : "");
+        localStorage.setItem('phone', res.officePhone ? res.officePhone : "");
+        localStorage.setItem('email', res.email ? res.email : "");
         this.apiService.token = res.access_token;
 
         if (this.device.platform == 'Android' || this.device.platform == 'iOS') {

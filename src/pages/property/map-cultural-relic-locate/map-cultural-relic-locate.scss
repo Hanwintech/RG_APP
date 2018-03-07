@@ -51,6 +51,7 @@ page-map-cultural-relic-locate {
         float: left;
         margin-left: 0.6em;
         margin-bottom: 0.6em;
+        position: absolute;
     }
     .header-ios .toolbar-ios:last-child .toolbar-background-ios {
         border-width: 0;
@@ -60,11 +61,6 @@ page-map-cultural-relic-locate {
     }
     .anchorBL {
         display: none;
-    }
-    .locateContainer {
-        margin-left: 0.6em;
-        margin-bottom: 0.6em;
-        position: absolute;
     }
     .locateContainer div {
         width: 3.4em;

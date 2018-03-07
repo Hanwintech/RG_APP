@@ -107,7 +107,7 @@ export class PagingListPage extends ListBasePage {
                         this.dataList = [];
                         this._nextPageIndex = 0;
                     }
-
+console.log(res.data);
                     this.conditionDataSource = res.data[this.conditionDataSourceName];
                     //获取新一页的数据
                     let temp = res.data[this.dataListName] ? res.data[this.dataListName] : [];

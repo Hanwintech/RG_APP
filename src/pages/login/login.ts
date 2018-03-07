@@ -66,6 +66,7 @@ export class LoginPage {
   }
 
   private login() {
+    this.pageService.showLoading("登录中");
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       return;
     }
@@ -103,6 +104,7 @@ export class LoginPage {
         this.navCtrl.setRoot("TabsPage");
       },
       error => {
+        this.pageService.dismissLoading();
         var message = '登录失败！';
         if (error.status == 401) {
           message = "用户名或密码错误！"

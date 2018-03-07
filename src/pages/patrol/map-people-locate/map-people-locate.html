@@ -10,27 +10,29 @@
 </ion-header>
 <ion-content>
   <div class="map-box">
-      <div class="topHeader">
-          <table style="width:100%;">
-            <tr>
-              <th style="font-size:15px;">{{culturalRelicName}}</th>
-            </tr>
-            <tr>
-                <th style="font-size:0.8em;">{{location}}</th>
-              </tr>
-          </table>
-        </div>
-        <div id="map-content">
-            <div class="card">
-                <div class="selfThing">
-                  <span></span>本体</div>
-                <div class="protect">
-                  <span></span>保护范围</div>
-                <div class="controlPlace">
-                  <span></span>建设控制地带</div>
-              </div>
-          <div id="map" #map></div>
-        </div>
+    <div class="topHeader">
+      <table style="width:100%;">
+        <tr>
+          <th style="font-size:15px;">{{culturalRelicName}}</th>
+        </tr>
+        <tr>
+          <th style="font-size:0.8em;">{{location}}</th>
+        </tr>
+      </table>
+    </div>
+    <div id="map-content">
+      <div class="card">
+        <div class="selfThing">
+          <span></span>本体</div>
+        <div class="protect">
+          <span></span>保护范围</div>
+        <div class="controlPlace">
+          <span></span>建设控制地带</div>
+      </div>
+      <div id="map" #map></div>
+    </div>
+    <div class="locateContainer" style="bottom:15px;" (click)="selfLocation()">
+      <div></div>
+    </div>
   </div>
-  <div class="locateContainer"  style="bottom:15px;" (click)="selfLocation()"><div></div></div>
 </ion-content>

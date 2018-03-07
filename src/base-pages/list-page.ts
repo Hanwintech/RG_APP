@@ -151,8 +151,7 @@ export class PagingListPage extends ListBasePage {
                     this.condition.keyword = data.keyword;
                     this.condition.isDefaultSearch = true;
                     this.getData(null, true);
-                }
-                else{
+                } else {
                     this.pageService.dismissLoading();
                 }
             })

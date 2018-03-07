@@ -1,4 +1,9 @@
 page-inspect-chart {
+    img{
+        width:31px;
+        height:26px;
+        padding-left:5px;
+    }
     .Total {
         padding: 12px 0;
         color: color($colors, dark, base); //设置字体颜色为灰色
@@ -24,5 +29,8 @@ page-inspect-chart {
         height: 6px;
         background-color: rgb(247, 247, 248);
         width: 100%;
+    }
+    .back-button.show-back-button {
+        display: none;
     }
 }

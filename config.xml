@@ -3,11 +3,7 @@
     <name>文物安全巡查APP</name>
     <description>文物安全巡查APP</description>
     <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
-<<<<<<< HEAD
     <content original-src="index.html" src="http://10.10.10.110:8100" />
-=======
-    <content original-src="index.html" src="http://10.10.10.85:8100" />
->>>>>>> bb18f21df7c7bb71b873d1899a0d5bbf0dda6176
     <access origin="*" />
     <access launch-external="yes" origin="tel:*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -96,9 +92,11 @@
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
     <plugin name="mx.ferreyra.callnumber" spec="0.0.2" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
@@ -112,8 +110,6 @@
         <variable name="IOS_KEY" value="value" />
         <variable name="IOS_LOCATION_DESC" value="请点击'好'以允许访问。" />
     </plugin>
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
-    <plugin name="cordova-plugin-image-picker" spec="D:\~Git\cordova-imagePicker" />
+    <plugin name="cordova-plugin-image-picker" spec="https://github.com/Findiglay/cordova-imagePicker.git" />
     <engine name="android" spec="6.3.0" />
 </widget>

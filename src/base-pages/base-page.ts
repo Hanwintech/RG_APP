@@ -77,11 +77,17 @@ export class BasePage {
 
     private downloadFilePrivately(fileUrl: string, fileName: string) {
         fileUrl = fileUrl.replace("/CompressionFile/", "/OriginalFile/")
+        console.log(this._localFileDir);
+        console.log(fileName);
         this.fileTransferObj.download(fileUrl, this._localFileDir + fileName).then((entry) => {
             this.pageService.showMessage('下载完成: ' + entry.toURL());
         }, (error) => {
             console.log(error);
-            this.pageService.showErrorMessage(JSON.stringify(error));
+            if (error.http_status == 404) {
+                this.pageService.showErrorMessage("文件丢失，请联系管理员！");
+            } else {
+                this.pageService.showErrorMessage(JSON.stringify(error));
+            }
         });
     }
 

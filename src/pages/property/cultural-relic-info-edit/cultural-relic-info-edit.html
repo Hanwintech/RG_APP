@@ -43,12 +43,11 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>坐标</ion-label>
-      <ion-label class="navi" style="padding-right: 75px;">
-        <div *ngIf="!culturalRelicPostInfo.culturalRelic.coordinateX && !culturalRelicPostInfo.culturalRelic.coordinateY">-</div>
+      <ion-label class="navi" (click)="getCoordinate()">
+        <div *ngIf="!culturalRelicPostInfo.culturalRelic.coordinateX && !culturalRelicPostInfo.culturalRelic.coordinateY">请从地图标注坐标</div>
         <div *ngIf="culturalRelicPostInfo.culturalRelic.coordinateX || culturalRelicPostInfo.culturalRelic.coordinateY">
           {{culturalRelicPostInfo.culturalRelic.coordinateX}},{{culturalRelicPostInfo.culturalRelic.coordinateY}}
         </div>
-        <button ion-button outline color="secondary" (click)="getCoordinate()">请从地图标注坐标</button>
       </ion-label>
     </ion-item>
     <ion-item>

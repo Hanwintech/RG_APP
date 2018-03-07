@@ -59,6 +59,7 @@ export class PatrolInfoEditPage extends BasePage {
           this.patrolInfo.patrol.patrolUserID = localStorage.getItem("userId");
           this.patrolInfo.patrol.adderID = localStorage.getItem("userId");
           this.patrolInfo.patrol.updaterID = localStorage.getItem("userId");
+          this.patrolInfo.patrol.fK_ManageUnitID=localStorage.getItem("manageUnitId");
           this.patroller = localStorage.getItem("name");
           this.areaName = EnumAreaCode[this.apiService.areaCode];
           this.patrolInfo.patrol.patroDate = dateTimePipe.transform(new Date(), "yyyy-MM-dd");

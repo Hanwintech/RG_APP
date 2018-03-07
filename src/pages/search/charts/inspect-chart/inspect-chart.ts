@@ -271,4 +271,8 @@ export class InspectChartPage {
     this.chart3 = echarts.init(this.element3.nativeElement);
     this.chart3.setOption(op3);
   }
+  
+  backPrev() {
+    this.navCtrl.pop();
+  }
 }

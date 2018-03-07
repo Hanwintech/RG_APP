@@ -45,7 +45,7 @@ export class TwoLinePage extends MapPage {
   ionViewDidLoad() {
     setInterval(() => {
       this.getLocation(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
-    }, 5000);
+    },10000);
     this.initSearchData();
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用

@@ -56,7 +56,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     super(navCtrl, file, fileTransfer, pageService);
     if (this.navParams.data.patrolReplay) {
       this.segmentThree = true;
-      this.pageTitle="巡查处理";
+      this.pageTitle = "巡查处理";
       this.showReplayPage();
       let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
       this.apiService.sendApi(new getPatrolProcessInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
@@ -72,7 +72,7 @@ export class PatrolInfoDetailPage extends DetailPage {
         });
     }
     else {
-      this.pageTitle="巡查记录详情";
+      this.pageTitle = "巡查记录详情";
       this.segmentOne = true;
       this.getPatroInfo();
     }
@@ -136,11 +136,11 @@ export class PatrolInfoDetailPage extends DetailPage {
 
   showLogPage() {
     this.menuCtrl.close();
-    this.canShowLocation=false;
-    this.patrolDispose=false;
+    this.canShowLocation = false;
+    this.patrolDispose = false;
     this.segmentOne = false;
     this.segmentTwo = true;
-    this.pageTitle="巡查处理日志";
+    this.pageTitle = "巡查处理日志";
     this.segmentThree = false;
     let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
     this.apiService.sendApi(new GetPatrolProcessInfoList(keyID)).subscribe(
@@ -161,7 +161,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.segmentOne = true;
     this.segmentTwo = false;
     this.segmentThree = false;
-    this.pageTitle="巡查记录详情";
+    this.pageTitle = "巡查记录详情";
     this.getPatroInfo();
   }
 
@@ -171,7 +171,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.segmentOne = false;
     this.segmentTwo = false;
     this.segmentThree = true;
-    this.pageTitle="巡查处理";
+    this.pageTitle = "巡查处理";
     this.canShowLocation = false;
   }
 
@@ -217,8 +217,8 @@ export class PatrolInfoDetailPage extends DetailPage {
   }
 
 
-  showSlideAttachment(attachment){
-    super.showSlidesPage( this.patrolInfo.attachmentList, attachment.fileUrl);
+  showSlideAttachment(attachment) {
+    super.showSlidesPage(this.patrolInfo.attachmentList, attachment.fileUrl);
   }
 
 
@@ -302,6 +302,10 @@ export class PatrolInfoDetailPage extends DetailPage {
       if (!this.patrolProcessInfo.selectedUserInfoList || this.patrolProcessInfo.selectedUserInfoList.length < 0) {
         valiMessage += '、处理人员';
       }
+    }
+
+    if (!this.patrolProcessInfo.patrolCaseProcess.processDescription) {
+      valiMessage += '、处理说明';
     }
 
     if (valiMessage) {

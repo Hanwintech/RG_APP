@@ -29,7 +29,7 @@
           <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
           <h6>{{data.upCulturalRelic.distance | distance}}</h6>
           <div>{{data.upCulturalRelic.remark}}</div>
-          <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
+          <h4>{{data.enumAreaName}}{{data.upCulturalRelic.districtName ? ('-' + data.upCulturalRelic.districtName) : ''}}</h4>
           <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>
         </div>
       </ion-item>

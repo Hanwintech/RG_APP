@@ -1,5 +1,14 @@
 page-patrol-info-edit {
     ion-content {
+        .navi {
+            background-image: url('../assets/icon/ic_self_right_arrows.png');
+            padding-right: 32px;
+            background-position: right 14px center;
+            background-position: right calc(14px + constant(safe-area-inset-right)) center;
+            background-position: right calc(14px + env(safe-area-inset-right)) center;
+            background-repeat: no-repeat;
+            background-size: 8px;
+        }
         .imagePicker {
             background-color: color($colors, border, base);
             padding: 10px 5px;

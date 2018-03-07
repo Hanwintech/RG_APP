@@ -28,9 +28,9 @@
     </div>
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
-      <ion-label class="navi" style="padding-right: 40px;">
-        <div>{{culturalRelicName}}</div>
-        <button ion-button outline color="secondary" (click)="getCulturalRelic()">请选择文物</button>
+      <ion-label class="navi" (click)="getCulturalRelic()">
+        <div *ngIf="culturalRelicName">{{culturalRelicName}}</div>
+        <div *ngIf="!culturalRelicName">请选择文物</div>
       </ion-label>
     </ion-item>
     <ion-item>

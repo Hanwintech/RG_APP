@@ -123,6 +123,8 @@ export class UPGetCulturalRelicInfos {
     public totalCount: number;
     public coordinateX: number;
     public coordinateY: number;
+    public coordinateAccurate:number;
+    public coordinateAccurateName: string;
 }
 
 export class CulturalRelicPostInfo {

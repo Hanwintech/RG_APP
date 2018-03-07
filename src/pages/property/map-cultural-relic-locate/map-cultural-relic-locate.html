@@ -36,13 +36,12 @@
       </div>
       <div id="map" #map></div>
     </div>
-  </div>
-
-  <div class="locateContainer" *ngIf="!canShowFooter" style="bottom:15px;" (click)="selfLocation()">
-    <div></div>
-  </div>
-  <div class="locateContainer" *ngIf="canShowFooter" style="bottom:110px;" (click)="selfLocation()">
-    <div></div>
+    <div class="locateContainer" *ngIf="!canShowFooter" style="bottom:15px;" (click)="selfLocation()">
+      <div></div>
+    </div>
+    <div class="locateContainer" *ngIf="canShowFooter" style="bottom:110px;" (click)="selfLocation()">
+      <div></div>
+    </div>
   </div>
 </ion-content>
 <ion-footer *ngIf="canShowFooter">

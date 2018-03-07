@@ -34,7 +34,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
     this.messageCenterEntity = this.navParams.data;
     this.viewDetail = this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] ? false : true;
     if (this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] || this.messageCenterEntity.messageType == EnumMessageCenterType["督察令通知"]) {
-      this.pageTitle = "代办详情";
+      this.pageTitle = "待办详情";
     }
     else{
       this.pageTitle="消息详情";

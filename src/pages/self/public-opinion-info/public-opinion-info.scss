@@ -1,18 +1,19 @@
 page-public-opinion-info {
     ion-content {
         .grid {
-            margin-top:15px;
+            margin-top: 15px;
             .col {
                 text-align: center;
                 .iconButton {
                     display: inline-block;
                     font-size: 12px;
                     text-align: center;
+                    color:#888;
                     img {
                         // width:4em;
                         width: 52px;
-                        height：: 52px;
-                        margin-bottom:4px;
+                        height: 52px;
+                        margin-bottom: 4px;
                     }
                 }
             }

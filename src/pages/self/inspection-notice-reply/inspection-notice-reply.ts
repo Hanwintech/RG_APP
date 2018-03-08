@@ -33,7 +33,7 @@ export class InspectionNoticeReplyPage {
       this.pageService.showErrorMessage('请输入回复内容！');
       return;
     }
-    this.pageService.showComfirmMessage("确定要回复督查通知吗？",
+    this.pageService.showComfirmMessage("确定要回复督察通知吗？",
     () => {
       this.pageService.showLoading("提交中...");
       this.apiService.sendApi(new PostInspectorNoticeReply(this.inspectionNotice)).subscribe(

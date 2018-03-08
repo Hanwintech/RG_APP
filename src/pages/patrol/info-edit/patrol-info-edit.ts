@@ -59,7 +59,7 @@ export class PatrolInfoEditPage extends BasePage {
           this.patrolInfo.patrol.patrolUserID = localStorage.getItem("userId");
           this.patrolInfo.patrol.adderID = localStorage.getItem("userId");
           this.patrolInfo.patrol.updaterID = localStorage.getItem("userId");
-          this.patrolInfo.patrol.fK_ManageUnitID=localStorage.getItem("manageUnitId");
+          this.patrolInfo.patrol.fK_ManageUnitID = localStorage.getItem("manageUnitId");
           this.patroller = localStorage.getItem("name");
           this.areaName = EnumAreaCode[this.apiService.areaCode];
           this.patrolInfo.patrol.patroDate = dateTimePipe.transform(new Date(), "yyyy-MM-dd");
@@ -162,8 +162,10 @@ export class PatrolInfoEditPage extends BasePage {
     let map = new BMap.Map();
     let personPoint = new BMap.Point(longitude, latitude);
     this.patrolInfo.personPointDistance = map.getDistance(this.pointA, personPoint).toFixed(0);
+    this.pageService.showLoading("数据提交中...");
     this.apiService.sendApi(new PostPatrolInfo(this.patrolInfo)).subscribe(
       res => {
+        this.pageService.dismissLoading();
         if (res.success) {
           this.pageService.showMessage("保存成功！");
           this.viewCtrl.dismiss(res.data);
@@ -172,6 +174,7 @@ export class PatrolInfoEditPage extends BasePage {
         }
       },
       error => {
+        this.pageService.dismissLoading();
         this.pageService.showErrorMessage(error);
       });
   }

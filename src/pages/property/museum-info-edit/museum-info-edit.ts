@@ -227,9 +227,10 @@ export class MuseumInfoEditPage extends BasePage {
       this.pageService.showErrorMessage('请正确填写传真！格式：(区号)-(座机号)');
       return;
     }
-
+    this.pageService.showLoading("数据提交中...");
     this.apiService.sendApi(new MuseumAPI.PostMuseumInfo(this.museumPostInfo)).subscribe(
       res => {
+        this.pageService.dismissLoading();
         if (res.success) {
           this.pageService.showMessage("保存成功！");
           this.viewCtrl.dismiss(res.data);
@@ -238,6 +239,7 @@ export class MuseumInfoEditPage extends BasePage {
         }
       },
       error => {
+        this.pageService.dismissLoading();
         this.pageService.showErrorMessage(error);
       });
   }

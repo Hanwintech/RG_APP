@@ -14,7 +14,7 @@ export class InspectionNoticeInfo {
 }
 
 export class UVInspectorNotice {
-    //督查通知主键
+    //督察通知主键
     public keyID: string;
     //接收单位Id
     public toManageUnitID: string;

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>督查通知</ion-title>
+    <ion-title>督察通知</ion-title>
     <ion-buttons right>
       <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索督察通知')">
         <ion-icon name="ios-search-outline"></ion-icon>
@@ -47,7 +47,7 @@
         </ion-infinite-scroll>
       </div>
       <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
-        无接收的督查通知
+        无接收的督察通知
       </div>
     </div>
 
@@ -69,7 +69,7 @@
         </ion-infinite-scroll>
       </div>
       <div *ngIf="!dataList || dataList.length == 0" class="commonNoResult">
-        无发送的督查通知
+        无发送的督察通知
       </div>
     </div>
   </div>

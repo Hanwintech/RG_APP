@@ -10,8 +10,9 @@ page-patrol-info-edit {
             background-size: 8px;
         }
         .imagePicker {
-            background-color: color($colors, border, base);
+            background-color:RGB(247, 247, 248);
             padding: 10px 5px;
+            border-bottom: 1px solid color($colors, border, base);
             .container {
                 width: 25%;
                 float: left;
@@ -21,8 +22,8 @@ page-patrol-info-edit {
             .img {
                 display: inline-block;
                 position: relative;
-                width: 100%;
-                height: 90%;
+                // width: 100%;
+                // height: 90%;
                 margin: 4px;
                 margin-left: 2px;
                 align-self: center;

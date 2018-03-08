@@ -6,6 +6,15 @@ page-cultural-relic-info-detail {
                 height: 54vw;
             }
         }
+        .navi {
+            background-image: url('../assets/icon/ic_self_right_arrows.png');
+            padding-right: 32px;
+            background-position: right 14px center;
+            background-position: right calc(14px + constant(safe-area-inset-right)) center;
+            background-position: right calc(14px + env(safe-area-inset-right)) center;
+            background-repeat: no-repeat;
+            background-size: 8px;
+        }
     }
     ion-list {
         padding: 0 16px 0 0;

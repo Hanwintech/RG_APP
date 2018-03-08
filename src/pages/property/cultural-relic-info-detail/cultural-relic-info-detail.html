@@ -103,9 +103,8 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>相关图片</ion-label>
-      <ion-label *ngIf="culturalRelicInfo.twoLimitImageList && culturalRelicInfo.twoLimitImageList.length > 0" class="navi">
-        <div></div>
-        <button ion-button outline color="secondary" (click)="showTwoLimitImageList()" style="margin-left: -137px;">点击查看相关图片</button>
+      <ion-label *ngIf="culturalRelicInfo.twoLimitImageList && culturalRelicInfo.twoLimitImageList.length > 0" class="navi" (click)="showTwoLimitImageList()">
+        <div>点击查看相关图片</div>
       </ion-label>
       <ion-label *ngIf="!culturalRelicInfo.twoLimitImageList || culturalRelicInfo.twoLimitImageList.length == 0">
         无

@@ -322,7 +322,8 @@ export class SearchStatisticsPage {
     conditionSearch() {
         let searchModal = this.modalCtrl.create("CaseConditionInquiryPage", { "search": this.search, "dataSource": this.searchDataSource });
         searchModal.onDidDismiss(data => {
-            if (data.needSearch) {
+            console.log(data);
+            if (data && data.needSearch) {
                 this.search = data.search;
                 this.search.isDefaultSearch = false;
                 this.dataSource = [];

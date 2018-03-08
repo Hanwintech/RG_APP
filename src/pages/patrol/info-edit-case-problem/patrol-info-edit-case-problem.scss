@@ -1,4 +1,4 @@
-page-case-problem-list {
+page-patrol-info-edit-case-problem {
     ion-content {
         .input-wrapper {
             .label {
@@ -8,6 +8,16 @@ page-case-problem-list {
                 text-overflow: clip;
                 white-space: normal;
             }
+        }
+    }
+    ion-footer {
+        button {
+            display: inline-block;
+            width: 31.6%;
+            border-right: solid 1px white;
+        }
+        button:last-child {
+            border-right: 0;
         }
     }
     .item-ios.item-block .item-inner {

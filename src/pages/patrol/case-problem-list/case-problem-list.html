@@ -5,12 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of list">
-      <ion-label class="navi" >
-        <div class="text">{{item.caseProblem}}</div>
-        <ion-checkbox  checked="{{item.selectedCheck}}"></ion-checkbox>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-item *ngFor="let item of list">
+    <ion-label>{{item.caseProblem}}</ion-label>
+    <ion-checkbox checked="{{item.selectedCheck}}"></ion-checkbox>
+  </ion-item>
 </ion-content>

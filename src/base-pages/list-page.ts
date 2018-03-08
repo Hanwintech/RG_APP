@@ -147,7 +147,7 @@ console.log(res.data);
         this.pageService.showLoading("数据加载中...");
         super.showKeywordSearchPage(this.condition.keyword)
             .then(data => {
-                if (data.needSearch) {
+                if (data && data.needSearch) {
                     this.condition.keyword = data.keyword;
                     this.condition.isDefaultSearch = true;
                     this.getData(null, true);

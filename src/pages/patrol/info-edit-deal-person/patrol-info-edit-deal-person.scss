@@ -1,0 +1,50 @@
+page-patrol-info-edit-deal-person {
+    ion-header {
+        .thead {
+            background: #f0f2f4;
+            padding-left: 55px;
+            padding-right: 16px;
+            .thead-label {
+                display: flex;
+                align-items: center;
+                div{
+                    height:38px;
+                    line-height: 38px;
+                font-size: 17px;
+                font-weight: bold;
+                color: color($colors, dark, base);
+                }
+            }
+        }
+    }
+    ion-content {
+        .fixed-content,.scroll-content{
+            margin-top: 87px !important;
+        }
+        .label {
+            display: flex;
+            align-items: center;
+            div {
+                font-size: 14px;
+                color: color($colors, dark, base);
+                word-wrap: break-word;
+                word-break: break-all;
+                text-overflow: clip;
+                white-space: normal;
+            }
+        }
+    }
+    ion-footer {
+        button {
+            display: inline-block;
+            width: 31.6%;
+            border-right: solid 1px white;
+        }
+        button:last-child {
+            border-right: 0;
+        }
+    }
+    .item-ios.item-block .item-inner {
+        border-bottom: 1px solid color($colors, border, base)!important;
+    }
+}

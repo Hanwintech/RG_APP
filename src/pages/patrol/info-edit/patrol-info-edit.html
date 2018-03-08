@@ -66,6 +66,38 @@
         <ion-option *ngFor="let kvp of selectDataSource.patrolStatusList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2">
+      <ion-label fixed>处理人员</ion-label>
+      <ion-label class="navi multiline" (click)="getDealPerson()">
+        <div *ngIf="patrolInfo.selectedUserInfoList.length > 0">{{dealPersonNames}}</div>
+        <div *ngIf="patrolInfo.selectedUserInfoList.length == 0">请选择处理人员</div>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3">
+      <ion-label fixed>问题情况</ion-label>
+      <ion-label class="navi multiline" (click)="getCaseProblem()">
+        <div *ngIf="patrolInfo.selectedCaseProblemList.length > 0"><p *ngFor="let problem of caseProblemNames">{{problem}}</p></div>
+        <div *ngIf="patrolInfo.selectedCaseProblemList.length == 0">请选择问题情况</div>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3">
+      <ion-label fixed>问题描述</ion-label>
+      <ion-label>
+        <textarea placeholder="请输入问题描述" rows="10" class="rows10" [(ngModel)]="patrolInfo.patrol.problemDescription"></textarea>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3">
+      <ion-label fixed>是否经过许可</ion-label>
+      <ion-select [(ngModel)]="patrolInfo.patrol.permission" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of selectDataSource.permissionList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="patrolInfo.patrol.patrolState == 3">
+      <ion-label fixed>是否当场处理</ion-label>
+      <ion-select [(ngModel)]="patrolInfo.patrol.isImmediately" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of selectDataSource.disposeTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      </ion-select>
+    </ion-item>
   </ion-list>
 </ion-content>
 

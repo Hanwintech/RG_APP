@@ -204,14 +204,16 @@ export class PatrolEntity {
     public updaterID: string;
     public updateDate: string;
     public isDeleted: boolean;
-    public permission: boolean;
+    public permission: number;
     public approvalNumber: string;
 
     constructor() {
         this.clearNumbers();
     }
     clearNumbers() {
+        this.isImmediately = -1;
         this.patrolState = -1;
+        this.permission = -1;
     }
 }
 

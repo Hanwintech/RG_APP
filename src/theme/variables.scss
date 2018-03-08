@@ -93,7 +93,7 @@ ion-header {
             .title {
                 padding: 0 30mm 0 15mm;
                 .toolbar-title {
-                    // padding-bottom: 5px;
+                    padding-top: 3px;//页面名称与返回键未水平对其
                     font-size: 4.8mm;
                     font-weight: lighter;
                     text-align: left;
@@ -102,7 +102,6 @@ ion-header {
         }
         .bar-buttons {
             min-width: 30mm;
-            padding-top: 3px; //页面名称与返回键未水平对其
             .icon {
                 width: 7.5mm;
                 height: 7.5mm;

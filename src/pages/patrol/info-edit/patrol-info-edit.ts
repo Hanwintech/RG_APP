@@ -31,6 +31,8 @@ export class PatrolInfoEditPage extends BasePage {
   private selectDataSource: PatrolEditDataSource;
   private pointA;
 
+  private dealPersonNames;
+  private caseProblemNames;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -55,6 +57,7 @@ export class PatrolInfoEditPage extends BasePage {
     this.apiService.sendApi(new GetPatrolEditDataSource(localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
         if (res.success) {
+          console.log(res.data);
           this.selectDataSource = res.data;
           this.patrolInfo.patrol.patrolUserID = localStorage.getItem("userId");
           this.patrolInfo.patrol.adderID = localStorage.getItem("userId");
@@ -133,6 +136,48 @@ export class PatrolInfoEditPage extends BasePage {
         this.patrolInfo.attachmentList = tempArray;
       },
       () => { });
+  }
+
+  getDealPerson() {
+    return new Promise((resolve, reject) => {
+      let searchModal = this.modalCtrl.create('PatrolInfoEditDealPersonPage', {
+        "canSelectUserInfoList": this.selectDataSource.canSelectUserInfoList,
+        "selectedUserInfoList": this.patrolInfo.selectedUserInfoList
+      });
+      searchModal.onDidDismiss(data => {
+        if (data) {
+          this.dealPersonNames = "";
+          this.patrolInfo.selectedUserInfoList = [];
+          for (let person of data) {
+            this.dealPersonNames += "，" + person.userName;
+            this.patrolInfo.selectedUserInfoList.push(person);
+          }
+          this.dealPersonNames = this.dealPersonNames.substr(1);
+        }
+      });
+      searchModal.present();
+    });
+  }
+
+  getCaseProblem() {
+    return new Promise((resolve, reject) => {
+      let searchModal = this.modalCtrl.create('PatrolInfoEditCaseProblemPage', {
+        "patrolCaseProblemList": this.selectDataSource.patrolCaseProblemList,
+        "selectedCaseProblemList":this.patrolInfo.selectedCaseProblemList
+       });
+      searchModal.onDidDismiss(data => {
+        if (data) {
+          console.log(data);
+          this.caseProblemNames = [];
+          this.patrolInfo.selectedCaseProblemList = [];
+          for (let i = 0; i < data.length; i++) {
+            this.caseProblemNames.push((i + 1).toString() + "." + data[i].caseProblem);
+            this.patrolInfo.selectedCaseProblemList.push(data[i].caseValue);
+          }
+        }
+      });
+      searchModal.present();
+    });
   }
 
   submit() {

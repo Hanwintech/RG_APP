@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar class="modal-nav">
+    <ion-title>问题情况</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let data of patrolCaseProblemList; let i = index">
+    <ion-label>{{data.caseProblem}}</ion-label>
+    <ion-checkbox [(ngModel)]="selectedIds[i]"></ion-checkbox>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <button ion-button (click)="doSelectAll()">全选</button>
+  <button ion-button (click)="doEmptied()">清空</button>
+  <button ion-button (click)="doSearch()">确定</button>
+</ion-footer>

@@ -1,1 +1,10 @@
-page-inspection-notice-reply {}
+page-inspection-notice-reply {
+    ion-header .toolbar .bar-buttons .icon:before {
+        content:"\f3cf";
+        display: inline-block;
+        font-size: 3rem;
+     }
+     ion-header .modal-nav .back-button{
+         display: none;
+     }
+}

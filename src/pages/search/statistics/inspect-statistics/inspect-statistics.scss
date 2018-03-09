@@ -53,9 +53,10 @@ page-inspect-statistics {
             float: left;
             margin-right: 12px;
             margin-top: 2px;
-        } // p{
-        //     line-height: 1;
-        // }
+        }
+         p{
+            line-height: 1.9;
+        }
     }
     .inspectTimes {
         display: table-cell;
@@ -67,6 +68,9 @@ page-inspect-statistics {
             float: left;
             margin-right: 12px;
             margin-top: 2px;
+        }
+        p{
+            line-height: 1.9;
         }
     }
 }

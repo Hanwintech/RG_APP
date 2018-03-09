@@ -8,18 +8,23 @@ page-patrol-info-list {
                 }
             }
         }
-        .list {
-            .item {
+        .list.data-list {
+            .item .item-inner {
                 .label {
                     .description {
+                        height: 90px;
+                        display: flex;
+                        .inner-contain{
+                        width: 100%;
+                        height: auto;
+                        align-self: center;
+                        }
                         h3 {
                             font-size: 16px;
                             margin: 0;
                             padding: 2px 0;
                             color: #000;
                             float: left;
-                            position: relative;
-                            top: -2px;
                         }
                         .desContent {
                             font-size: 12px;
@@ -53,7 +58,7 @@ page-patrol-info-list {
                             margin-right: 1rem;
                             margin-top: 3px;
                         }
-                        & h5:last-child {
+                        h5.need-handle {
                             color: #ff8a0f;
                         }
                     }

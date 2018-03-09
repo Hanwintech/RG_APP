@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
-      <ion-buttons left>
-          <button ion-button icon-only (click)="backPrev()">
-            <ion-icon name="ios-compass"></ion-icon>
-          </button>
-        </ion-buttons>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="backPrev()">
+        <ion-icon name="ios-compass"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>巡查在线</ion-title>
     <ion-buttons right>
       <button ion-button icon-only (click)="showSimpleSearch()" (press)="pageService.showMessage('搜索巡查记录')">
@@ -27,17 +27,20 @@
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list class="data-list">
       <ion-item-sliding *ngFor="let data of dataList">
-        <ion-item  (click)="defaultView('PatrolInfoDetailPage', data)">
+        <ion-item (click)="defaultView('PatrolInfoDetailPage', data)">
           <div class="img">
             <img src="{{data.patrolImageUrl ? data.patrolImageUrl : 'assets/icon/empty_small.png'}}">
           </div>
           <div class="description">
-            <h3>{{data.patrolInfo.culturalRelicName}}</h3>
-            <h5>{{data.patrolInfo.patroDate | datetime:'yyyy-MM-dd'}}</h5>
-            <div class="clear"></div>
-            <div class="desContent">{{data.patrolInfo.patrolDescription}}</div>
-            <h4 class="color_{{data.patrolInfo.patrolState}}">{{data.patrolStateName}}</h4>
-            <h5 *ngIf="data.isCanDispose">待处理</h5>
+            <div class="inner-contain">
+              <h3>{{data.patrolInfo.culturalRelicName}}</h3>
+              <h5>{{data.patrolInfo.patroDate | datetime:'yyyy-MM-dd'}}</h5>
+              <div class="clear"></div>
+              <div class="desContent">{{data.patrolInfo.patrolDescription}}</div>
+              <h4 class="color_{{data.patrolInfo.patrolState}}">{{data.patrolStateName}}</h4>
+              <h5 class="need-handle" *ngIf="data.isCanDispose">待处理</h5>
+              <div class="clear"></div>
+            </div>
           </div>
         </ion-item>
         <ion-item-options *ngIf="data.isCanDispose">

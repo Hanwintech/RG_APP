@@ -105,10 +105,8 @@ page-patrol-info-detail {
         .menu-content.menu-content-overlay {
             display: none;
         }
-        .list.form-list .item{
+        .list.form-list .item .item-inner{
             .label.attachment-label{
-                display: flex;
-                align-items: center;
                 .title{
                     font-size: 5mm;
                     border-bottom:1px solid color($colors, border, base);
@@ -117,7 +115,10 @@ page-patrol-info-detail {
                     align-self: center;
                     right:12px;
                     font-size: 27px;
-                    position: static;
+                }
+                div.attachment .attachmentContent{
+                    border-bottom: 1px solid #f0f0f0;
+                    border-top: none;
                 }
             }
         }

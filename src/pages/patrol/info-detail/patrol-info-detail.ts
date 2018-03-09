@@ -194,6 +194,7 @@ export class PatrolInfoDetailPage extends DetailPage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.巡查处理附件;
+            att.fileShowName="巡查处理附件.jpg";
           }
           if (!this.patrolProcessInfo.attachmentList) {
             this.patrolProcessInfo.attachmentList = [];

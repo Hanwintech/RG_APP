@@ -5,27 +5,31 @@ page-login {
         background-repeat: no-repeat;
         background-size: 100%;
         form {
-            margin-top: 45%;
+            margin-top: 40%;
             padding: 20px;
             .logo {
-                margin-left: 15%;
-                width: 70%;
+                margin-left: 0;
+                width: 100%;
             }
             .loginBar {
                 background: rgba(255, 255, 255, 0.8);
                 border: solid 1px #745d50;
-                height: 43px;
+                height: 49px; 
+                //
+                display: flex;
+                //justify-content: center;
+                align-items: Center;
                 img {
                     position: absolute;
                     float: left;
-                    width: 41px;
-                    height: 41px;
+                    width: 45px;
+                    height: 45px;
                     padding: 8px 10px;
                     z-index: 99999;
                 }
                 .text-input {
-                    margin-top: 13px;
                     padding-left: 43px;
+                    font-size: 16px;
                 }
             }
             .accountBar {
@@ -36,6 +40,8 @@ page-login {
                 border-radius: 0 0 4px 4px;
             }
             .button {
+                height: 50px;
+                font-size: 20px;
                 border: solid 1px #442c20;
                 background: linear-gradient(rgba(84, 84, 84, 0.8), rgba(42, 42, 42, 0.8));
             }
@@ -43,7 +49,7 @@ page-login {
                 background: linear-gradient(rgba(42, 42, 42, 0.8), rgba(84, 84, 84, 0.8));
             }
             .spacer {
-                height: 40px
+                height: 45px
             }
         }
         .version {

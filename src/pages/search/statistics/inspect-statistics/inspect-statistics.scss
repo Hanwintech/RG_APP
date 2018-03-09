@@ -44,33 +44,30 @@ page-inspect-statistics {
             border-right: 0;
         }
     }
-    .category {
-        float: left;
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-        h3 {
-            float: left;
-            margin-right: 12px;
-            margin-top: 2px;
+    .label {
+        display: flex;
+        align-items: center;
+        padding-top: 0 !important;
+        .category {
+            width:70%;
+            display: flex;
+            align-items: center;
+            h3 {
+                width:30px;
+                margin-bottom: 0;
+                margin-right: 12px;
+            } 
         }
-         p{
-            line-height: 1.9;
-        }
-    }
-    .inspectTimes {
-        display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-        float: right;
-        margin-right: 50px;
-        h3 {
-            float: left;
-            margin-right: 12px;
-            margin-top: 2px;
-        }
-        p{
-            line-height: 1.9;
+        .inspectTimes {
+            width:29%;
+            display: flex;
+            align-items: center;
+            margin-right: 30px; 
+            h3 {
+                widows: 80px;
+                margin-bottom: 0;
+                margin-right: 12px;
+            }
         }
     }
 }

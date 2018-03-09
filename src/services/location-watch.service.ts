@@ -70,8 +70,8 @@ export class LocationWatchService {
         this._isWatching = true;
         this._needAlert = true;
 
-       // this.getPosition();
-        //this._intervalId = setInterval(() => { this.getPosition(); }, 5000);
+        this.getPosition();
+        this._intervalId = setInterval(() => { this.getPosition(); }, 5000);
     }
 
     stop() {

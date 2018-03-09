@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string name="multi_app_name">图片选择器</string>
+    <string name="free_version_label">免费版本 - 剩余图片: %d</string>
+    <string name="error_database">打开相册出现错误.</string>
+    <string name="requesting_thumbnails">请稍后...</string>
+    <string name="processing_images_header">图像选择</string>
+    <string name="processing_images_message">这可能是一个短暂的瞬间的时间.</string>
+    <string name="maximum_selection_count_error_header">Auswahllimit erreicht</string>
+    <string name="maximum_selection_count_error_message">Sie können maximal %d Bilder auf einmal auswählen.</string>
+    <string name="discard">取消</string>
+    <string name="done">确定</string>
+</resources>

@@ -12,7 +12,6 @@ page-inspect-statistics {
             .item-inner {
                 padding-left: 16px;
             }
-           
         }
     }
     .top {
@@ -47,21 +46,27 @@ page-inspect-statistics {
     }
     .category {
         float: left;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
         h3 {
             float: left;
             margin-right: 12px;
-        }
+            margin-top: 2px;
+        } // p{
+        //     line-height: 1;
+        // }
     }
     .inspectTimes {
+        display: table-cell;
+    vertical-align: middle;
+    text-align: center;
         float: right;
         margin-right: 50px;
         h3 {
             float: left;
             margin-right: 12px;
-        }
-        p {
-            line-height: 1.5;
-            
+            margin-top: 2px;
         }
     }
 }

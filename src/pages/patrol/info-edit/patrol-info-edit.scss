@@ -32,14 +32,16 @@ page-patrol-info-edit {
             }
             .img {
                 display: inline-block;
-                position: relative; // width: 100%;
-                // height: 90%;
+                position: relative; 
+                width: 100%;
+                height: 90%;
                 margin: 4px;
                 margin-left: 2px;
                 align-self: center;
                 img {
                     width: 100%;
                     height: 100%;
+                    object-fit: fill;
                 }
                 .close {
                     background-image: url('../assets/icon/ic_delete_photo.png');

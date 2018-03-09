@@ -43,9 +43,11 @@ page-inspection-notice-list {
                         h3 {
                             line-height: 25px;
                             font-size: 14px;
-                            float: left;
                             color: #000;
-                            max-width: 70%;
+                            max-width: 100%;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
                         }
                     }
                     div {
@@ -73,7 +75,7 @@ page-inspection-notice-list {
                     h4,
                     h5 {
                         font-size: 12px;
-                        color: color($colors, tertiary, base);
+                        color: color($colors, dark, base);
                     }
                     h4 {
                         float: left;

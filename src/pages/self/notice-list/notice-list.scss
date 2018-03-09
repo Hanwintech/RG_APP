@@ -9,9 +9,6 @@ page-notice-list {
                     .messageTitle {
                         width: 100%;
                         height: 25px;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                        overflow: hidden;
                         h2 {
                             font-size: 12px;
                             margin: 0 5px 0 0;
@@ -24,9 +21,11 @@ page-notice-list {
                         h3 {
                             line-height: 25px;
                             font-size: 14px;
-                            float: left;
                             color: #000;
-                            max-width: 70%;
+                            max-width: 100%;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
                         }
                     }
                     div {

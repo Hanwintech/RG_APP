@@ -4,12 +4,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>{{noticeBasicInfo.title}}</h2>
-  <h5>{{noticeBasicInfo.sendDeptName}}&nbsp;&nbsp;&nbsp;{{noticeBasicInfo.sendDate | datetime:"yyyy-MM-dd"}}</h5>
-  <div [innerHTML]="innerHtmlData"></div>
+<ion-content>
+  <div class="map-box">
+    <div class="topHeight">
+      <h2>{{noticeBasicInfo.title}}</h2>
+      <h5>{{noticeBasicInfo.sendDeptName}}&nbsp;&nbsp;&nbsp;{{noticeBasicInfo.sendDate | datetime:"yyyy-MM-dd"}}</h5>
+    </div>
+    <div class="autoHeight">
+        <div [innerHTML]="innerHtmlData"></div>
+      </div>
+  </div>
 </ion-content>
-
 <ion-footer>
   <button ion-button block (click)="close()">关闭</button>
 </ion-footer>

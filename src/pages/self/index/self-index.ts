@@ -190,10 +190,7 @@ export class SelfIndexPage extends BasePage {
   }
 
   patrolAdd() {
-    let patrolModal = this.modalCtrl.create('PatrolInfoEditPage');
-    patrolModal.onDidDismiss(data => {
-    });
-    patrolModal.present();
+    this.navCtrl.push("PatrolInfoEditPage");
   }
 
   patrolOnline() {

@@ -34,7 +34,8 @@
           <div class="description">
             <h3>{{data.patrolInfo.culturalRelicName}}</h3>
             <h5>{{data.patrolInfo.patroDate | datetime:'yyyy-MM-dd'}}</h5>
-            <div>{{data.patrolInfo.patrolDescription}}</div>
+            <div class="clear"></div>
+            <div class="desContent">{{data.patrolInfo.patrolDescription}}</div>
             <h4 class="color_{{data.patrolInfo.patrolState}}">{{data.patrolStateName}}</h4>
             <h5 *ngIf="data.isCanDispose">待处理</h5>
           </div>

@@ -214,9 +214,10 @@ export class ConstructionSiteInfoEditPage extends BasePage {
       this.pageService.showErrorMessage("请填写以下内容：" + valiMessage.substring(1) + "！");
       return;
     }
-
+    this.pageService.showLoading("数据提交中...");
     this.apiService.sendApi(new PostCulturalRelicInfo(this.culturalRelicPostInfo)).subscribe(
       res => {
+        this.pageService.dismissLoading();
         if (res.success) {
           this.pageService.showMessage("保存成功！");
           this.viewCtrl.dismiss(res.data);
@@ -225,6 +226,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
         }
       },
       error => {
+        this.pageService.dismissLoading();
         this.pageService.showErrorMessage(error);
       });
   }

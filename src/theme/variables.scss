@@ -67,6 +67,10 @@ $popover-ios-width: 75%;
     width: calc(100% - 8px);
 }
 
+ion-toast.toast-ios.toastText {
+    text-align: center;
+}
+
 ion-header {
     .toolbar {
         height: 13mm;
@@ -171,12 +175,7 @@ ion-header {
                 font-size: 4.2mm;
             }
         }
-    } // .searchbar-ios.searchbar-left-aligned .searchbar-search-icon {
-    //     left: 5px;
-    //     top: 0;
-    //     bottom: 0;
-    //     margin: auto;
-    // }
+    }
     .bar-buttons.bar-buttons-ios .ion-ios-arrow-back {
         line-height: 0.9;
     }

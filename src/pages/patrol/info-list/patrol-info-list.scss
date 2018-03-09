@@ -18,13 +18,15 @@ page-patrol-info-list {
                             padding: 2px 0;
                             color: #000;
                             float: left;
+                            position: relative;
+                            top: -2px;
                         }
-                        div {
+                        .desContent {
                             font-size: 12px;
                             color: color($colors, dark, base);
                             width: 100%;
                             line-height: 14px;
-                            margin: 2px 0 7px 0;
+                            margin: 4px 0 9px 0;
                             white-space: normal;
                             word-wrap: break-word;
                             word-break: break-all;
@@ -34,6 +36,9 @@ page-patrol-info-list {
                             -webkit-line-clamp: 3;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
+                        }
+                        .clear{
+                            clear: both;
                         }
                         h4,
                         h5 {
@@ -46,6 +51,7 @@ page-patrol-info-list {
                             float: right;
                             color: #999;
                             margin-right: 1rem;
+                            margin-top: 3px;
                         }
                         & h5:last-child {
                             color: #ff8a0f;

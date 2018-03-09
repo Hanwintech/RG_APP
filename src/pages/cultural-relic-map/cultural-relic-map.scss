@@ -62,7 +62,7 @@ page-cultural-relic-map {
         .ios-arrow-down div {
             width: 2.3em;
             height: 2.5em;
-            background-size:1.5em;
+            background-size: 1.5em;
             float: right;
             margin-top: -0.6em;
         }
@@ -122,6 +122,7 @@ page-cultural-relic-map {
                     width: 30%;
                     text-align: center;
                     border-right: 1px solid #ddd;
+                    padding: 0.4rem 0.3rem 0.5rem 0.4rem;
                 }
                 div:active {
                     background: #e0e0e0;

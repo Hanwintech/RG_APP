@@ -13,7 +13,6 @@ export class PatrolInfoEditCaseProblemPage {
   constructor(private params: NavParams, private viewCtrl: ViewController) {
     this.patrolCaseProblemList = this.params.data.patrolCaseProblemList;
     this.selectedIds = [];
-console.log(this.params.data);
     for (let i = 0; i < this.params.data.selectedCaseProblemList.length; i++) {
       for (let j = 0; j < this.patrolCaseProblemList.length; j++) {
         if (this.params.data.selectedCaseProblemList[i] == this.patrolCaseProblemList[j].caseValue) {
@@ -22,7 +21,6 @@ console.log(this.params.data);
         }
       }
     }
-console.log(this.selectedIds);
   }
 
   doSelectAll() {

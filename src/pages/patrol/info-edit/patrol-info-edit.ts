@@ -181,18 +181,48 @@ export class PatrolInfoEditPage extends BasePage {
   }
 
   submit() {
+    let valiMessage = "";
+
     if (!this.patrolInfo.patrol.fK_CulturalRelicID) {
-      this.pageService.showErrorMessage('请选择文物！');
-      return;
+      valiMessage += '请选择文物！';
     }
 
     if (!this.patrolInfo.patrol.patrolDescription) {
-      this.pageService.showErrorMessage('请填写情况描述！');
-      return;
+      valiMessage += '请填写情况描述！';
     }
 
     if (this.patrolInfo.patrol.patrolState == -1) {
-      this.pageService.showErrorMessage('请选择巡查状态！');
+      valiMessage += '请选择巡查状态！';
+    } else if (this.patrolInfo.patrol.patrolState == 2) {
+      if(this.patrolInfo.selectedUserInfoList.length == 0){  
+        valiMessage += '请选择处理人员！';
+      }
+      if(this.patrolInfo.selectedCaseProblemList.length == 0){  
+        valiMessage += '请选择问题情况！';
+      }
+      if(!this.patrolInfo.patrol.problemDescription){  
+        valiMessage += '请输入问题描述！';
+      }
+      // if(this.patrolInfo.attachmentList.length == 0){  
+      //   valiMessage += '请上传巡查照片！';
+      // }
+    } else if(this.patrolInfo.patrol.patrolState == 3){
+      if(this.patrolInfo.selectedCaseProblemList.length == 0){  
+        valiMessage += '请选择问题情况！';
+      }
+      if(!this.patrolInfo.patrol.problemDescription){  
+        valiMessage += '请输入问题描述！';
+      }
+      if(this.patrolInfo.patrol.isImmediately == -1){  
+        valiMessage += '请选择是否当场处理！';
+      }
+      // if(this.patrolInfo.attachmentList.length == 0){  
+      //   valiMessage += '请上传巡查照片！';
+      // }
+    }
+
+    if (valiMessage) {
+      this.pageService.showErrorMessage(valiMessage);
       return;
     }
 

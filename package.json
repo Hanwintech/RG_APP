@@ -36,7 +36,7 @@
     "@ionic-native/camera": "4.4.2",
     "@ionic-native/core": "4.4.2",
     "@ionic-native/device": "4.4.2",
-    "@ionic-native/file": "^4.5.3",
+    "@ionic-native/file": "^4.4.2",
     "@ionic-native/file-transfer": "4.4.2",
     "@ionic-native/image-picker": "^4.4.2",
     "@ionic-native/in-app-browser": "4.4.2",

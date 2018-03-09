@@ -78,6 +78,11 @@ ion-header {
         .toolbar-background {
             border-color: color($colors, shadow, base);
         }
+        ion-buttons[left].bar-buttons{
+            margin-top: 8px;
+            margin-left: 6px;
+
+        }
         .back-button {
             padding-top: 5px;
             .back-button-icon {
@@ -107,6 +112,7 @@ ion-header {
                 height: 7.5mm;
                 background-size: 7mm;
                 margin: 0 1mm;
+                font-size: 2.8rem;
                 background-repeat: no-repeat;
             }
             .icon:before {
@@ -173,6 +179,7 @@ ion-header {
             min-width: 0;
             .button-inner {
                 font-size: 4.2mm;
+                margin-top: 1px;
             }
         }
     }

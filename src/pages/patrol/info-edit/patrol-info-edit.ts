@@ -203,9 +203,12 @@ export class PatrolInfoEditPage extends BasePage {
       if(!this.patrolInfo.patrol.problemDescription){  
         valiMessage += '请输入问题描述！';
       }
-      // if(this.patrolInfo.attachmentList.length == 0){  
-      //   valiMessage += '请上传巡查照片！';
-      // }
+      if(this.patrolInfo.patrol.permission == -1){  
+        valiMessage += '请选择是否经过许可！';
+      }
+      if(this.patrolInfo.attachmentList.length == 0){  
+        valiMessage += '请上传巡查照片！';
+      }
     } else if(this.patrolInfo.patrol.patrolState == 3){
       if(this.patrolInfo.selectedCaseProblemList.length == 0){  
         valiMessage += '请选择问题情况！';
@@ -213,12 +216,15 @@ export class PatrolInfoEditPage extends BasePage {
       if(!this.patrolInfo.patrol.problemDescription){  
         valiMessage += '请输入问题描述！';
       }
+      if(this.patrolInfo.patrol.permission == -1){  
+        valiMessage += '请选择是否经过许可！';
+      }
       if(this.patrolInfo.patrol.isImmediately == -1){  
         valiMessage += '请选择是否当场处理！';
       }
-      // if(this.patrolInfo.attachmentList.length == 0){  
-      //   valiMessage += '请上传巡查照片！';
-      // }
+      if(this.patrolInfo.attachmentList.length == 0){  
+        valiMessage += '请上传巡查照片！';
+      }
     }
 
     if (valiMessage) {

@@ -1,0 +1,27 @@
+Image Picker插件需要Git上面的（https://github.com/Findiglay/cordova-imagePicker.git），clone到本地后，在本地安装，命令如下：
+$ ionic cordova plugins add ../cordova-imagePicker
+
+
+
+重新生成platform后，需要在platforms/android/目录下添加以下文件：build-extras.gradle
+
+
+
+选择图片的操作页面汉化：把values-zh复制到platforms/android/res/目录下。
+然后修改源码文件platforms/android/src/com/synconset/MultiImageChooserActivity.java（200行左右），内容如下：
+progress = new ProgressDialog(this);
+progress.setTitle("图片处理");
+progress.setMessage("请稍后...");
+
+builder.setTitle("最多 " + maxImageCount + " 张图片");
+builder.setMessage("你一次只能选择 " + maxImageCount + " 张图片。");
+builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+
+
+ionic cordova build android --prod --release --device --minifyjs --minifycss --optimizejs
+
+
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release/com.hanwintech.wwaqxc_app.keystore release/android-release-unsigned.apk androiddebugkey
+密码：hanwin@0512

@@ -8,7 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { nativeImgService } from './../../../services/nativeImg.service';
 import { FileUploadService } from './../../../services/file-upload.service';
 import { ImagePickerService } from './../../../services/image-picker.service';
-import { GetPatrolEditDataSource, PostPatrolInfo } from './../../../apis/patrol/patrol-info.api';
+import { GetPatrolEditDataSource, PostPatrolInfo, GetPatrolPlanUserInfos } from './../../../apis/patrol/patrol-info.api';
 import { PatrolInfo, PatrolEditDataSource } from './../../../models/patrol/patrol-info.model';
 import { EnumAttachmentType, EnumCulturalRelicLevel, EnumAreaCode } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
@@ -30,6 +30,8 @@ export class PatrolInfoEditPage extends BasePage {
   private patrolInfo: PatrolInfo;
   private selectDataSource: PatrolEditDataSource;
   private pointA;
+
+  private canChooseDealPerson: boolean;
 
   private dealPersonNames;
   private caseProblemNames;
@@ -53,6 +55,7 @@ export class PatrolInfoEditPage extends BasePage {
 
     this.patrolInfo = new PatrolInfo();
     this.selectDataSource = new PatrolEditDataSource();
+    this.canChooseDealPerson = true;
 
     this.apiService.sendApi(new GetPatrolEditDataSource(localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
@@ -88,6 +91,32 @@ export class PatrolInfoEditPage extends BasePage {
           this.patrolInfo.patrol.fK_CulturalRelicID = data.upCulturalRelic.culturalRelicID;
           this.culturalRelicName = data.upCulturalRelic.culturalRelicName;
           this.culturalRelicLevelName = EnumCulturalRelicLevel[data.upCulturalRelic.culturalRelicLevel];
+
+          this.apiService.sendApi(new GetPatrolPlanUserInfos(data.upCulturalRelic.culturalRelicID, localStorage.getItem("userType"), localStorage.getItem("userId"))).subscribe(
+            res => {
+              if (res.success) {
+                console.log(res.data.commonUserInfoList);
+                if (res.data.commonUserInfoList && res.data.commonUserInfoList.length > 0) {
+                  this.canChooseDealPerson = false;
+                  this.patrolInfo.selectedUserInfoList = res.data.commonUserInfoList;
+
+                  this.dealPersonNames = "";
+                  for (let person of this.patrolInfo.selectedUserInfoList) {
+                    this.dealPersonNames += "，" + person.userName;
+                  }
+                  this.dealPersonNames = this.dealPersonNames.substr(1);
+                } else {
+                  this.canChooseDealPerson = true;
+                  this.patrolInfo.selectedUserInfoList = [];
+                  this.dealPersonNames = "";
+                }
+              } else {
+                this.pageService.showErrorMessage("获取数据失败！");
+              }
+            },
+            error => {
+              this.pageService.showErrorMessage(error);
+            });
         }
       });
       searchModal.present();
@@ -163,8 +192,8 @@ export class PatrolInfoEditPage extends BasePage {
     return new Promise((resolve, reject) => {
       let searchModal = this.modalCtrl.create('PatrolInfoEditCaseProblemPage', {
         "patrolCaseProblemList": this.selectDataSource.patrolCaseProblemList,
-        "selectedCaseProblemList":this.patrolInfo.selectedCaseProblemList
-       });
+        "selectedCaseProblemList": this.patrolInfo.selectedCaseProblemList
+      });
       searchModal.onDidDismiss(data => {
         if (data) {
           console.log(data);
@@ -194,35 +223,35 @@ export class PatrolInfoEditPage extends BasePage {
     if (this.patrolInfo.patrol.patrolState == -1) {
       valiMessage += '请选择巡查状态！';
     } else if (this.patrolInfo.patrol.patrolState == 2) {
-      if(this.patrolInfo.selectedUserInfoList.length == 0){  
+      if (this.patrolInfo.selectedUserInfoList.length == 0) {
         valiMessage += '请选择处理人员！';
       }
-      if(this.patrolInfo.selectedCaseProblemList.length == 0){  
+      if (this.patrolInfo.selectedCaseProblemList.length == 0) {
         valiMessage += '请选择问题情况！';
       }
-      if(!this.patrolInfo.patrol.problemDescription){  
+      if (!this.patrolInfo.patrol.problemDescription) {
         valiMessage += '请输入问题描述！';
       }
-      if(this.patrolInfo.patrol.permission == -1){  
+      if (this.patrolInfo.patrol.permission == -1) {
         valiMessage += '请选择是否经过许可！';
       }
-      if(this.patrolInfo.attachmentList.length == 0){  
+      if (this.patrolInfo.attachmentList.length == 0) {
         valiMessage += '请上传巡查照片！';
       }
-    } else if(this.patrolInfo.patrol.patrolState == 3){
-      if(this.patrolInfo.selectedCaseProblemList.length == 0){  
+    } else if (this.patrolInfo.patrol.patrolState == 3) {
+      if (this.patrolInfo.selectedCaseProblemList.length == 0) {
         valiMessage += '请选择问题情况！';
       }
-      if(!this.patrolInfo.patrol.problemDescription){  
+      if (!this.patrolInfo.patrol.problemDescription) {
         valiMessage += '请输入问题描述！';
       }
-      if(this.patrolInfo.patrol.permission == -1){  
+      if (this.patrolInfo.patrol.permission == -1) {
         valiMessage += '请选择是否经过许可！';
       }
-      if(this.patrolInfo.patrol.isImmediately == -1){  
+      if (this.patrolInfo.patrol.isImmediately == -1) {
         valiMessage += '请选择是否当场处理！';
       }
-      if(this.patrolInfo.attachmentList.length == 0){  
+      if (this.patrolInfo.attachmentList.length == 0) {
         valiMessage += '请上传巡查照片！';
       }
     }

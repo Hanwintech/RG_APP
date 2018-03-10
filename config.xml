@@ -3,7 +3,7 @@
     <name>文物安全巡查APP</name>
     <description>文物安全巡查APP</description>
     <author email="wangyj@hanwintech.com" href="http://www.hanwintech.com/">Hanwintech</author>
-    <content original-src="index.html" src="http://10.10.10.110:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <access launch-external="yes" origin="tel:*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -98,7 +98,6 @@
     <plugin name="mx.ferreyra.callnumber" spec="0.0.2" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
-    <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="jpush-phonegap-plugin" spec="^3.3.3">
@@ -112,4 +111,5 @@
     </plugin>
     <plugin name="cordova-plugin-image-picker" spec="../cordova-imagePicker" />
     <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
 </widget>

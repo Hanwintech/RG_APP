@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Console } from '@angular/core/src/console';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -11,7 +13,6 @@ import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-in
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
 import { EnumAppRole } from "./../../../models/enum";
 import { Attachment } from "./../../../models/attachment.model";
-import { Console } from '@angular/core/src/console';
 
 @IonicPage()
 @Component({
@@ -30,6 +31,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     public pageService: PageService,
     public file: File,
     public fileTransfer: FileTransfer,
+    public fileOpener: FileOpener,
     public networkInfoService: NetworkInformationService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
@@ -61,6 +63,10 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
 
   download(attachment: Attachment) {
     super.downloadAttachment(this.networkInfoService, attachment);
+  }
+
+  open(file: Attachment) {
+    super.openFile(this.fileOpener, file);
   }
 
   showAttachmentList(fileUrl: string) {

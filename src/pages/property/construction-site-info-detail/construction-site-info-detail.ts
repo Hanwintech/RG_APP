@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -27,6 +28,7 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
     public modalCtrl: ModalController,
     public file: File,
     public fileTransfer: FileTransfer,
+    public fileOpener: FileOpener,
     public apiService: ApiService,
     public pageService: PageService,
     public networkInfoService: NetworkInformationService
@@ -58,8 +60,12 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
     super.showSlidesPage(attachmentList, fileUrl);
   }
 
-  download(fileUrl: string, fileName: string) {
-    super.downloadFile(this.networkInfoService, fileUrl, fileName);
+  download(file: Attachment) {
+    super.downloadFile(this.networkInfoService, file);
+  }
+
+  open(file: Attachment) {
+    super.openFile(this.fileOpener, file);
   }
 
   showAttachmentList(fileUrl: string) {

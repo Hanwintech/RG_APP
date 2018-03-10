@@ -1,7 +1,7 @@
 import { URLSearchParams } from '@angular/http';
 import { BaseRequest } from './../base-request.api';
 import { GetListAPI } from './../get-list-api.api';
-import { PatrolInfo,PatrolProcessInfo} from './../../models/patrol/patrol-info.model';
+import { PatrolInfo, PatrolProcessInfo } from './../../models/patrol/patrol-info.model';
 
 export class GetPatrolInfoList extends GetListAPI {
     constructor() {
@@ -68,7 +68,7 @@ export class PostPatrolInfo extends BaseRequest {
 }
 
 export class getPatrolProcessInfo extends BaseRequest {
-    constructor(private patrolId:string, private userId: string, private manageUnitId: string, private userType: string) {
+    constructor(private patrolId: string, private userId: string, private manageUnitId: string, private userType: string) {
         super();
         let params: URLSearchParams = new URLSearchParams();
         params.set('patrolId', this.patrolId);
@@ -77,7 +77,7 @@ export class getPatrolProcessInfo extends BaseRequest {
         params.set('userType', this.userType);
         this.method = "GET";
         this.requestUrl = "/api/system/get_patrol_process_info";
-        this.requestArgument =params;
+        this.requestArgument = params;
     }
 }
 
@@ -91,14 +91,14 @@ export class PostPatrolProcessInfo extends BaseRequest {
 }
 
 export class GetPatrolPlanUserInfos extends BaseRequest {
-    constructor(private culId: string,private planUserType:any,private userId: string) {
+    constructor(public cultualRelicId: string, public planUserType: any, public userId: string) {
         super();
         let params: URLSearchParams = new URLSearchParams();
-        params.set('culId', this.culId);
+        params.set('cultualRelicId', this.cultualRelicId);
         params.set('planUserType', this.planUserType);
         params.set('userId', this.userId);
         this.method = "GET";
         this.requestUrl = "/api/system/get_patrol_plan_user_infos";
-        this.requestArgument =params;
+        this.requestArgument = params;
     }
 }

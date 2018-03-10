@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -29,6 +30,7 @@ export class MuseumInfoDetailPage extends DetailPage {
     public pageService: PageService,
     public file: File,
     public fileTransfer: FileTransfer,
+    public fileOpener: FileOpener,
     public networkInfoService: NetworkInformationService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
@@ -56,8 +58,12 @@ export class MuseumInfoDetailPage extends DetailPage {
     super.showSlidesPage(attachmentList, fileUrl);
   }
 
-  download(fileUrl: string, fileName: string) {
-    super.downloadFile(this.networkInfoService, fileUrl, fileName);
+  download(file) {
+    super.downloadFile(this.networkInfoService, file);
+  }
+
+  open(file: Attachment) {
+    super.openFile(this.fileOpener, file);
   }
 
   showAttachmentList(fileUrl: string) {

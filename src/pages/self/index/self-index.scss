@@ -68,10 +68,13 @@ ion-content.self-index {
                     width: 3.5em;
                 }
             }
-            .iconButton:active {
+            // .iconButton:active {
+            //     background-color: color($colors, background, base);
+            // }
+        }
+        .col:active {
                 background-color: color($colors, background, base);
             }
-        }
         .col:last-child {
             border-right: 0px;
         }

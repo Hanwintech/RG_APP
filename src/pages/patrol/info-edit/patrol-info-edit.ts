@@ -271,6 +271,7 @@ export class PatrolInfoEditPage extends BasePage {
     }
     let map = new BMap.Map();
     let personPoint = new BMap.Point(longitude, latitude);
+    this.patrolInfo.patrol.isDeleted = false;
     this.patrolInfo.personPointDistance = map.getDistance(this.pointA, personPoint).toFixed(0);
     this.pageService.showLoading("数据提交中...");
     this.apiService.sendApi(new PostPatrolInfo(this.patrolInfo)).subscribe(

@@ -33,7 +33,7 @@ export class ApiService {
         // return ""; //苏州市 = 6,
         // return ""; //南通市 = 7,
         // return ""; //连云港市 = 8,
-        return "http://hmerc.hanwintech.com:29090"; //淮安市 = 9,
+        return "http://hmerc.hanwintech.com:29091"; //淮安市 = 9,
         // return "http://10.10.10.219:9090";
         // return ""; //盐城市 = 10,
         // return ""; //扬州市 = 11,

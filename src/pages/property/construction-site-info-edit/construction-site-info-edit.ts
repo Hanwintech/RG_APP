@@ -13,6 +13,7 @@ import { CulturalRelicInfo, CulturalRelicPostInfo, CulturalRelicInfoSearchDataSo
 import { EnumAttachmentType, EnumCulturalRelicLevel } from './../../../models/enum';
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
+import { EnumAppRole } from "./../../../models/enum";
 
 import { BasePage } from "./../../../base-pages/base-page";
 
@@ -27,6 +28,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
   private districtList: IntegerKeyValue[];
   private pageTitle: string;
   private culturalRelicPostInfo: CulturalRelicPostInfo;
+  private canShowLocation: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -49,6 +51,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
 
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
 
     if (this.navParams.data.culturalRelicInfo) {
       this.culturalRelicInfo = this.navParams.data.culturalRelicInfo;
@@ -96,6 +99,22 @@ export class ConstructionSiteInfoEditPage extends BasePage {
       if (data && data.culturalRelicX.toString() != "{}") {
         this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
         this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
+      }
+    });
+    locate.present();
+  }
+
+  showLocation() {
+    let constructionMapInfo = new CulturalRelicInfo();
+    constructionMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
+    constructionMapInfo.culturalRelicPostInfo = this.culturalRelicInfo.culturalRelicPostInfo;
+
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": constructionMapInfo, "coordinateAccurateList": this.culturalRelicInfo.coordinateAccurateList });
+    locate.onDidDismiss(data => {
+      if (data) {
+        this.culturalRelicInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicInfo.culturalRelic.coordinateY = data.culturalRelicY;
+        this.culturalRelicInfo.culturalRelic.coordinateAccurate = data.culturalRelic.coordinateAccurate;
       }
     });
     locate.present();

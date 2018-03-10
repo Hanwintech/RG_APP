@@ -14,6 +14,7 @@ import { EnumAttachmentType, EnumCulturalRelicLevel } from './../../../models/en
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
 import { BasePage } from "./../../../base-pages/base-page";
+import { EnumAppRole } from "./../../../models/enum";
 
 @IonicPage()
 @Component({
@@ -27,6 +28,8 @@ export class CulturalRelicInfoEditPage extends BasePage {
   private twoStageTypeList: IntegerKeyValue[];
   private pageTitle: string;
   private culturalRelicPostInfo: CulturalRelicPostInfo;
+  private canShowLocation: boolean;
+  private culturalRelicInfoEdit;
 
   constructor(
     public navCtrl: NavController,
@@ -50,15 +53,21 @@ export class CulturalRelicInfoEditPage extends BasePage {
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
     this.twoStageTypeList = this.systemConst.EMPTY_SELECT_LIST;
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
+
 
     if (this.navParams.data.culturalRelicInfo) {
       this.culturalRelicInfo = this.navParams.data.culturalRelicInfo;
+      console.log("传参");
+      console.log(this.culturalRelicInfo );
+      console.log("传参");
       this.pageTitle = "编辑文物";
 
       this.apiService.sendApi(new EditCulturalRelicInfo(this.culturalRelicInfo.upCulturalRelic.culturalRelicID, localStorage.getItem("userId"))).subscribe(
         res => {
           if (res.success) {
             this.culturalRelicPostInfo = res.data;
+            this.culturalRelicInfoEdit=res.data;
             this.areaChanged(this.culturalRelicPostInfo.culturalRelic.district);
             this.typeChanged(this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType);
 
@@ -111,6 +120,23 @@ export class CulturalRelicInfoEditPage extends BasePage {
       if (data && data.culturalRelicX.toString() != "{}") {
         this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
         this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
+      }
+    });
+    locate.present();
+  }
+
+  showLocation() {
+    let culturalRelicMapInfo = new CulturalRelicInfo();
+    culturalRelicMapInfo.culturalRelic = this.culturalRelicInfoEdit.culturalRelic;
+    culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
+    culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
+    console.log(culturalRelicMapInfo);
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
+    locate.onDidDismiss(data => {
+      if (data) {
+        // this.culturalRelicInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        // this.culturalRelicInfo.culturalRelic.coordinateY = data.culturalRelicY;
+        // this.culturalRelicInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
       }
     });
     locate.present();

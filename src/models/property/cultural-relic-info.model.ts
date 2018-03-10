@@ -20,6 +20,9 @@ export class CulturalRelicInfo implements MapMark {
     public get id() {
         return this.culturalRelic.keyID;
     }
+    public set id(value) { 
+        this.culturalRelic.keyID= value;
+     }
     public get name() {
         return this.culturalRelic.culturalRelicName;
     }

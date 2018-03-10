@@ -16,6 +16,7 @@ import { ValidateService } from './../../../services/validate.service';
 import { SystemConst } from './../../../services/system-const.service';
 import { BasePage } from "./../../../base-pages/base-page";
 import { EnumCulturalRelicLevel } from './../../../models/enum';
+import { EnumAppRole } from "./../../../models/enum";
 
 @IonicPage()
 @Component({
@@ -28,6 +29,7 @@ export class MuseumInfoEditPage extends BasePage {
   private districtList: IntegerKeyValue[];
   private pageTitle: string;
   private museumPostInfo: MuseumPostInfo;
+  private canShowLocation: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -51,6 +53,8 @@ export class MuseumInfoEditPage extends BasePage {
 
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
+
 
     if (this.navParams.data.museumInfo) {
       this.museumInfo = this.navParams.data.museumInfo;
@@ -96,6 +100,20 @@ export class MuseumInfoEditPage extends BasePage {
       if (data && data.culturalRelicX.toString() != "{}") {
         this.museumPostInfo.museumInfo.coordinateX = data.culturalRelicX;
         this.museumPostInfo.museumInfo.coordinateY = data.culturalRelicY;
+      }
+    });
+    locate.present();
+  }
+
+  showLocation() {
+    let museumMapInfo = new MuseumInfo();
+    museumMapInfo.museumDetailInfo = this.museumInfo.museumDetailInfo;
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": museumMapInfo, "coordinateAccurateList": this.museumInfo.coordinateAccurateList });
+    locate.onDidDismiss(data => {
+      if (data) {
+        this.museumInfo.museumDetailInfo.coordinateX = data.culturalRelicX;
+        this.museumInfo.museumDetailInfo.coordinateY = data.culturalRelicY;
+        this.museumInfo.museumDetailInfo.coordinateAccurate = data.coordinateAccurate;
       }
     });
     locate.present();

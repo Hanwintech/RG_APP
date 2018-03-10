@@ -109,6 +109,7 @@ export class MapPage extends DetailPage {
                     this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
                     this.search = res.data.search;//采用服务器端的默认查询条件
                     this.bindMarker();
+                    console.log(res.data);
                 }
             }, error => {
             }
@@ -338,6 +339,11 @@ export class MapPage extends DetailPage {
                 let movePoint = new BMap.Point(cluster.coordinateX, cluster.coordinateY);
                 this.map.setCenter(movePoint);
                 this.map.setZoom(this.showTwoLineMapLevel);
+                setTimeout(() => {
+                    this.selectedItem(cluster, picName);
+                }, 800);
+            }
+            else{
                 setTimeout(() => {
                     this.selectedItem(cluster, picName);
                 }, 800);

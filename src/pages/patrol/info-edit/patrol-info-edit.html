@@ -68,7 +68,10 @@
     </ion-item>
     <ion-item *ngIf="patrolInfo.patrol.patrolState == 2">
       <ion-label fixed>处理人员</ion-label>
-      <ion-label class="navi multiline" (click)="getDealPerson()">
+      <ion-label *ngIf="!canChooseDealPerson" class="multiline">
+        <div>{{dealPersonNames}}</div>
+      </ion-label>
+      <ion-label *ngIf="canChooseDealPerson" class="navi multiline" (click)="getDealPerson()">
         <div *ngIf="patrolInfo.selectedUserInfoList.length > 0">{{dealPersonNames}}</div>
         <div *ngIf="patrolInfo.selectedUserInfoList.length == 0">请选择处理人员</div>
       </ion-label>

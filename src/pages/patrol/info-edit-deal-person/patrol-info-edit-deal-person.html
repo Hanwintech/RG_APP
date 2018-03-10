@@ -19,8 +19,8 @@
   <div *ngFor="let data of canSelectUserInfoList; let i = index">
     <ion-item *ngIf="!keyword || data.userName.indexOf(keyword) > -1 || data.manageUnitName.indexOf(keyword) > -1">
       <ion-label>
-        <div style="width:24%;text-align: center;">{{data.userName}}</div>
-        <div style="width:42%;">{{data.manageUnitName}}</div>
+        <div style="width:24%;padding:0 5px;">{{data.userName}}</div>
+        <div style="width:42%;padding:0 5px;">{{data.manageUnitName}}</div>
         <div style="width:33%;text-align: center;">{{data.mobilePhone}}</div>
       </ion-label>
       <ion-checkbox [(ngModel)]="selectUserIds[i]"></ion-checkbox>

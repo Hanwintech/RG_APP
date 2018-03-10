@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -28,6 +29,7 @@ export class LawFileDetailPage extends DetailPage {
     public apiService: ApiService,
     public file: File,
     public fileTransfer: FileTransfer,
+    public fileOpener: FileOpener,
     public pageService: PageService,
     public networkInfoService: NetworkInformationService
   ) {
@@ -37,7 +39,6 @@ export class LawFileDetailPage extends DetailPage {
 
     super.changeAttachmentFileType(this.lawFileInfo.attachmentList)
     this.do();
-    //console.log(this.lawFileInfo);
   }
   do() {
     if (this.lawFileInfo.typeName == "法律法规") {
@@ -50,12 +51,12 @@ export class LawFileDetailPage extends DetailPage {
   showPicture(fileUrl: string, attachmentList: Attachment[]) {
     super.showSlidesPage(attachmentList, fileUrl);
   }
-  download(fileUrl: string, fileName: string) {
-    super.downloadFile(this.networkInfoService, fileUrl, fileName);
+  download(file: Attachment) {
+    super.downloadFile(this.networkInfoService, file);
   }
 
-  showAttachmentList(fileUrl: string) {
-    super.showSlidesPage(this.lawFileInfo.attachmentList, fileUrl);
+  showAttachment(file: Attachment) {
+    super.openFile(this.fileOpener, file);
   }
 
   close() {

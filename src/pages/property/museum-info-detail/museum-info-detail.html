@@ -79,7 +79,8 @@
               <div class="fileName">{{att.fileName}}</div>
             </div>
             <button ion-button outline color="secondary" (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img' && att.isDownloaded">查看</button>
-            <button ion-button outline color="tertiary" (click)="download(att.fileUrl)" *ngIf="att.fileType != 'img' || !att.isDownloaded">下载</button>
+            <button ion-button outline color="secondary" (click)="open(att)" *ngIf="att.fileType != 'img' && att.isDownloaded">查看</button>
+            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded">下载</button>
           </div>
         </div>
       </ion-label>

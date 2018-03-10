@@ -32,13 +32,16 @@ export class LocationWatchService {
     }
 
     init() {
+        localStorage.removeItem('longitude');
+        localStorage.removeItem('latitude');
         if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+            console.log(baidumap_location);
             baidumap_location.getCurrentPosition(
                 positionData => {
                     localStorage.setItem('bdLongitude', positionData.longitude);
                     localStorage.setItem('bdLatitude', positionData.latitude);
-                    localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                    localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
+                    localStorage.setItem('longitude', positionData.longitude);
+                    localStorage.setItem('latitude', positionData.latitude);
                     console.log("1st time baidu_location.getCurrentPosition()");
                     console.log(positionData);
                 },
@@ -55,8 +58,8 @@ export class LocationWatchService {
                             if (data.status === BMAP_STATUS_SUCCESS) {
                                 localStorage.setItem('bdLongitude', data.points[0].lng);
                                 localStorage.setItem('bdLatitude', data.points[0].lat);
-                                localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                                localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
+                                localStorage.setItem('longitude', data.points[0].lng);
+                                localStorage.setItem('latitude', data.points[0].lat);
                             }
                         }.bind(this));
                     }
@@ -71,7 +74,7 @@ export class LocationWatchService {
         this._needAlert = true;
 
         this.getPosition();
-        this._intervalId = setInterval(() => { this.getPosition(); }, 5000);
+        this._intervalId = setInterval(() => { this.getPosition(); }, 8000);
     }
 
     stop() {
@@ -89,16 +92,17 @@ export class LocationWatchService {
                     positionData => {
                         localStorage.setItem('bdLongitude', positionData.longitude);
                         localStorage.setItem('bdLatitude', positionData.latitude);
-                        localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                        localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-                        this.uploadLocation();
+                        localStorage.setItem('longitude', positionData.longitude);
+                        localStorage.setItem('latitude', positionData.latitude);
+                        this.uploadLocation(JSON.stringify(positionData));
                         console.log("baidumap_location");
                         console.log(positionData);
                     },
                     error => {
                         console.log("baidumap_location error");
                         console.log(error);
-                    });
+                    },
+                    { "enableHighAccuracy": true, "maximumAge": 8000, "timeout": 8000 });
             } else {
                 this._baiduMapGeolocation.getCurrentPosition(
                     res => {
@@ -121,23 +125,21 @@ export class LocationWatchService {
         let pointArr = [new BMap.Point(longitude, latitude)];
         new BMap.Convertor().translate(pointArr, 1, 5, function (data) {
             if (data.status === BMAP_STATUS_SUCCESS) {
-                localStorage.setItem('bdLongitude', longitude);
-                localStorage.setItem('bdLatitude', latitude);
-                localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
-                this.uploadLocation();
-            } else {
-                localStorage.setItem('longitude', localStorage.getItem('bdLongitude'));
-                localStorage.setItem('latitude', localStorage.getItem('bdLatitude'));
+                localStorage.setItem('bdLongitude', data.points[0].lng);
+                localStorage.setItem('bdLatitude', data.points[0].lat);
+                localStorage.setItem('longitude', data.points[0].lng);
+                localStorage.setItem('latitude', data.points[0].lng);
+                this.uploadLocation("");
             }
         }.bind(this));
     }
 
-    uploadLocation() {
+    uploadLocation(msg) {
         let location: UserLocationInfo = new UserLocationInfo();
-        location.userId = localStorage.getItem('userId')
-        location.longitude = localStorage.getItem('longitude')
-        location.latitude = localStorage.getItem('latitude')
+        location.userId = localStorage.getItem('userId');
+        location.longitude = localStorage.getItem('longitude');
+        location.latitude = localStorage.getItem('latitude');
+        location.message = msg;
         this.apiService.sendApi(new PostUserCoordinateInfo(location)).subscribe(
             res => { },
             error => { this.pageService.showErrorMessage("上传地理坐标出错！"); },

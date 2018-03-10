@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Device } from '@ionic-native/device';
@@ -59,6 +60,7 @@ import { NetworkInformationService } from './../services/network-information.ser
     CallNumber,
     File,
     FileTransfer,
+    FileOpener,
     ApiService,
     PageService,
     ValidateService,

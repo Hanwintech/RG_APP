@@ -47,4 +47,18 @@ page-patrol-info-edit-deal-person {
     .item-ios.item-block .item-inner {
         border-bottom: 1px solid color($colors, border, base)!important;
     }
+    .item{
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+     .item-ios.item-block .item-inner{
+        border-bottom: 0 !important;
+     }
+    .checkbox-ios .checkbox-icon {
+        width: 16px;
+        height: 16px;
+        .checkbox-inner {
+            left: 5px;
+            top: 2px;
+        }
+    }
 }

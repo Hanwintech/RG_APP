@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
+import { SMS } from '@ionic-native/sms';
+import { CallNumber } from '@ionic-native/call-number';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -10,8 +13,7 @@ import { DetailPage } from './../../../base-pages/detail-page';
 import { GetPatrolProcessDetailInfo } from './../../../apis/patrol/patrol-info.api';
 import { PatrolProcessInfoDetails } from './../../../models/patrol/patrol-info.model';
 import { EnumProcessResult, EnumRunState } from './../../../models/enum';
-import { SMS } from '@ionic-native/sms';
-import { CallNumber } from '@ionic-native/call-number';
+import { Attachment } from "./../../../models/attachment.model";
 
 @IonicPage()
 @Component({
@@ -27,10 +29,11 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
     public actionSheetCtrl: ActionSheetController,
     public apiService: ApiService,
     public pageService: PageService,
-    private sms: SMS,
-    private callNumber: CallNumber,
     public file: File,
     public fileTransfer: FileTransfer,
+    public fileOpener: FileOpener,
+    public sms: SMS,
+    public callNumber: CallNumber,
     public networkInfoService: NetworkInformationService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
@@ -61,8 +64,12 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
     return EnumRunState[value];
   }
 
-  download(fileUrl: string, fileName: string) {
-    super.downloadFile(this.networkInfoService, fileUrl, fileName);
+  download(file: Attachment) {
+    super.downloadFile(this.networkInfoService, file);
+  }
+
+  open(file: Attachment) {
+    super.openFile(this.fileOpener, file);
   }
 
   showPicture(fileUrl: string) {

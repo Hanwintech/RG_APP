@@ -1,6 +1,7 @@
 import { NavController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { PageService } from './../services/page.service';
 import { NetworkInformationService } from './../services/network-information.service';
@@ -17,7 +18,8 @@ export class BasePage {
         public pageService: PageService
     ) {
         this.fileTransferObj = this.fileTransfer.create();
-        this._localFileDir = this.file.externalRootDirectory + 'download/'
+        //this._localFileDir = "file:///data/user/0/download/";
+        this._localFileDir = this.file.dataDirectory;
     }
 
     public changeAttachmentFileType(attachmentList: Attachment[]) {
@@ -42,52 +44,65 @@ export class BasePage {
                         att.fileType = "other_file";
                     }
 
-                    this.file.checkFile(this._localFileDir, att.fileName).then(() => { att.isDownloaded = true; }).catch(error => { console.log(error); })
+                    console.log(this._localFileDir + att.fileName);
+                    this.file.checkFile(this._localFileDir, att.fileName)
+                        .then(() => {
+                            console.log("文件已下载：" + att.fileName);
+                            att.isDownloaded = true;
+                        })
+                        .catch(error => {
+                            console.log("文件未下载：" + att.fileName);
+                            console.log(error);
+                        })
                 }
             }
         }
     }
 
-    public downloadFile(networkInfoService: NetworkInformationService, fileUrl: string, fileName: string) {
+    public downloadFile(networkInfoService: NetworkInformationService, file: Attachment) {
         if (networkInfoService.connectionType != "wifi" && networkInfoService.connectionType != "ethernet") {
             this.pageService.showComfirmMessage(
                 "正在使用数据流量,是否确定要下载？",
-                () => { this.downloadFilePrivately(fileUrl, fileName); },
+                () => { this.downloadFilePrivately(file); },
                 () => { }
             );
         } else {
-            this.downloadFilePrivately(fileUrl, fileName);
+            this.downloadFilePrivately(file);
         }
     }
 
     public downloadAttachment(networkInfoService: NetworkInformationService, attachment: Attachment) {
         if (attachment.isDownloaded) {
-            console.log(this._localFileDir + attachment.fileName);
             this.pageService.showMessage('文件已存在: ' + this._localFileDir + attachment.fileName);
         } else if (networkInfoService.connectionType != "wifi" && networkInfoService.connectionType != "ethernet") {
             this.pageService.showComfirmMessage(
                 "正在使用数据流量,是否确定要下载？",
-                () => { this.downloadFilePrivately(attachment.fileUrl, attachment.fileName); },
+                () => { this.downloadFilePrivately(attachment); },
                 () => { }
             );
         } else {
-            this.downloadFilePrivately(attachment.fileUrl, attachment.fileName);
+            this.downloadFilePrivately(attachment);
         }
     }
 
-    private downloadFilePrivately(fileUrl: string, fileName: string) {
-        fileUrl = fileUrl.replace("/CompressionFile/", "/OriginalFile/")
-        console.log(this._localFileDir);
-        console.log(fileName);
-        this.fileTransferObj.download(fileUrl, this._localFileDir + fileName).then((entry) => {
-            this.pageService.showMessage('下载完成: ' + entry.toURL());
-        }, (error) => {
-            console.log(error);
-            if (error.http_status == 404) {
-                this.pageService.showErrorMessage("文件丢失，请联系管理员！");
-            } else {
-                this.pageService.showErrorMessage(JSON.stringify(error));
-            }
+    private downloadFilePrivately(file: Attachment) {
+        let fileUrl = file.fileUrl.replace("/CompressionFile/", "/OriginalFile/")
+        console.log(this.file.dataDirectory);
+        console.log(this._localFileDir + file.fileName);
+        this.file.createFile(this._localFileDir, file.fileName, true).then(() => {
+            this.fileTransferObj.download(fileUrl, this._localFileDir + file.fileName).then(
+                (entry) => {
+                    file.isDownloaded = true;
+                    this.pageService.showMessage('下载完成: ' + entry.toURL());
+                },
+                (error) => {
+                    console.log(error);
+                    if (error.http_status == 404) {
+                        this.pageService.showErrorMessage("文件丢失，请联系管理员！");
+                    } else {
+                        this.pageService.showErrorMessage(JSON.stringify(error));
+                    }
+                });
         });
     }
 
@@ -107,6 +122,30 @@ export class BasePage {
             }
         }
         this.navCtrl.push("ShowPicturePage", { "picUrls": picUrls, "currentIndex": currentIndex });
+    }
+
+    public openFile(fileOpener: FileOpener, attachment: Attachment) {
+        let fileMIMEType: string = 'application/octet-stream';
+
+        if (attachment.fileType == 'pdf') {
+            fileMIMEType = "application/pdf";
+        } else if (attachment.fileType == 'excel') {
+            fileMIMEType = "application/vnd.ms-excel";
+        } else if (attachment.fileType == 'word') {
+            fileMIMEType = "application/msword";
+        } else if (attachment.fileType == 'ppt') {
+            fileMIMEType = "application/vnd.ms-powerpoint";
+        } else if (attachment.fileType == 'html') {
+            fileMIMEType = "text/html";
+        } else if (attachment.fileType == 'img') {
+            fileMIMEType = "image/jpeg";
+        } else if (attachment.fileType == 'txt') {
+            fileMIMEType = "text/plain";
+        }
+
+        fileOpener.open(this._localFileDir + attachment.fileName, fileMIMEType)
+            .then(() => console.log("open file：" + this._localFileDir + attachment.fileName))
+            .catch(e => console.log("open file error：" + this._localFileDir + attachment.fileName));
     }
 
     public hasRole(role: number): boolean {

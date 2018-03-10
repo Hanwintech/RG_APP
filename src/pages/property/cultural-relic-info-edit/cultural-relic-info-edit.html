@@ -69,8 +69,8 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>类型</ion-label>
-      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicType" cancelText="取消" interface="popover" (ngModelChange)="typeChanged()">
-        <ion-option *ngFor="let kvp of selectDataSource.culturalRelicTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      <ion-select style="word-wrap:word-break;" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicType" cancelText="取消" interface="popover" (ngModelChange)="typeChanged()">
+        <ion-option  *ngFor="let kvp of selectDataSource.culturalRelicTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -94,6 +94,7 @@
             <img src="assets/icon/file_{{culturalRelicPostInfo.miniImage.fileType}}.png">
             <div class="description" style="padding-right: 104px;">
               <div class="fileShowName">{{culturalRelicPostInfo.miniImage.fileShowName}}</div>
+              <!-- <div class="fileShowName">不可移动文物缩略图.jpg</div> -->
               <div class="fileName">{{culturalRelicPostInfo.miniImage.fileName}}</div>
             </div>
             <button ion-button outline color="secondary" (click)="showMiniImage()" style="margin-left: -104px;">查看</button>

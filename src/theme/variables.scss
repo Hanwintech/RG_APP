@@ -497,6 +497,11 @@ ion-content {
     }
 }
 
+    //下拉框字体
+    .popover-viewport{
+        .label{
+        font-size: 1.5rem !important;
+    }}
 ion-content.has-refresher>.scroll-content {
     border-top: 0;
 }

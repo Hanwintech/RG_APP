@@ -1,4 +1,5 @@
 page-cultural-relic-info-edit {
+   
     ion-content {
         .headImg {
             text-align: center;
@@ -18,5 +19,11 @@ page-cultural-relic-info-edit {
     }
     ion-list {
         padding: 0 16px 0 0;
+    }
+    .select-text{
+        word-wrap: break-word;
+        word-break: break-all;
+        text-overflow: clip;
+        white-space: normal;
     }
 }

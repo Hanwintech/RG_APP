@@ -9,4 +9,10 @@ page-cultural-relic-search {
             margin-right: 16px;
         }
     }
+    .select-text{
+        word-wrap: break-word;
+        word-break: break-all;
+        text-overflow: clip;
+        white-space: normal;
+    }
 }

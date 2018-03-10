@@ -139,7 +139,7 @@
           <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
               <h2>{{data.typeName}}</h2>
-              <h3>{{data.lawFile.fileTitle}}</h3>
+              <h3 class="lawsfileTitle">{{data.lawFile.fileTitle}}</h3>
             </div>
             <div>{{data.lawFile.abstract}}</div>
             <h5>{{data.lawFile.updateDate| datetime}}</h5>
@@ -161,7 +161,7 @@
           <ion-item *ngFor="let data of dataList" (click)="view(data)">
             <div class="messageTitle">
               <h2>{{data.typeName}}</h2>
-              <h3>{{data.lawFile.fileTitle}}</h3>
+              <h3 class="licensefileTitle">{{data.lawFile.fileTitle}}</h3>
             </div>
             <div>{{data.lawFile.abstract}}</div>
             <h5>{{data.lawFile.updateDate| datetime}}</h5>

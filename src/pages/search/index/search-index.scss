@@ -39,7 +39,7 @@ page-search-index {
         }
     }
     ion-content {
-         .list.data-list .item .item-inner .label {
+        .list.data-list .item .item-inner .label {
             margin: 10px 10px 0 12px;
         }
         .grid {
@@ -51,7 +51,7 @@ page-search-index {
         .item-block {
             padding-left: 0;
             .label {
-               margin: 0.4em;
+                margin: 0.4em;
                 img {
                     margin: 0.3em;
                     float: left;
@@ -77,7 +77,16 @@ page-search-index {
                         color: #fff;
                         border-radius: 5px;
                     }
+                    .lawsfileTitle {
+                        max-width: 66vw!important;
+                    }
+                    .licensefileTitle {
+                        max-width: 66vw!important; //max-width: 40%!important;
+                    }
                     h3 {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                         line-height: 25px;
                         font-size: 14px;
                         float: left;
@@ -86,6 +95,14 @@ page-search-index {
                     }
                 }
                 div {
+                    max-width: 100%!important;
+                    //多行文本省略
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    height: auto!important;
                     font-size: 12px;
                     color: color($colors, dark, base);
                     width: 100%;
@@ -127,5 +144,4 @@ page-search-index {
             height: 54px;
         }
     }
-    
 }

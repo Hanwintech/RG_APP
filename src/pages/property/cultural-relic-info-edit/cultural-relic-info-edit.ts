@@ -58,9 +58,6 @@ export class CulturalRelicInfoEditPage extends BasePage {
 
     if (this.navParams.data.culturalRelicInfo) {
       this.culturalRelicInfo = this.navParams.data.culturalRelicInfo;
-      console.log("传参");
-      console.log(this.culturalRelicInfo );
-      console.log("传参");
       this.pageTitle = "编辑文物";
 
       this.apiService.sendApi(new EditCulturalRelicInfo(this.culturalRelicInfo.upCulturalRelic.culturalRelicID, localStorage.getItem("userId"))).subscribe(
@@ -130,13 +127,13 @@ export class CulturalRelicInfoEditPage extends BasePage {
     culturalRelicMapInfo.culturalRelic = this.culturalRelicInfoEdit.culturalRelic;
     culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
     culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
-    console.log(culturalRelicMapInfo);
+    culturalRelicMapInfo.culturalRelic.patrolCount=this.culturalRelicInfoEdit.patrolCount;
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
     locate.onDidDismiss(data => {
       if (data) {
-        // this.culturalRelicInfo.culturalRelic.coordinateX = data.culturalRelicX;
-        // this.culturalRelicInfo.culturalRelic.coordinateY = data.culturalRelicY;
-        // this.culturalRelicInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
+        this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
+        this.culturalRelicPostInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
       }
     });
     locate.present();

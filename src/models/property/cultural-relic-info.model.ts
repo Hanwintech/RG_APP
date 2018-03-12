@@ -53,6 +53,12 @@ export class CulturalRelicInfo implements MapMark {
     public get twolineInfo() {
         return this.twoLineInfoList;
     }
+    public get patrolCount() {
+        return this.culturalRelic.patrolCount;
+    }
+    public set patrolCount(value) {
+        this.culturalRelic.patrolCount=value;
+    }
     public get coordinateAccurate() {
         return this.culturalRelic.coordinateAccurate;
     }

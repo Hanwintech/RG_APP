@@ -44,7 +44,6 @@ export class MuseumInfoDetailPage extends DetailPage {
       res => {
         if (res.success) {
           this.museumInfo = res.data;
-          console.log( res);
           super.changeAttachmentFileType(this.museumInfo.attachmentList)
         } else {
           this.pageService.showErrorMessage(res.reason);

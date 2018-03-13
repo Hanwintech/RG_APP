@@ -27,4 +27,10 @@ page-cultural-relic-info-edit {
         text-overflow: clip;
         white-space: normal;
     }
+    .select-disabled, .item-select-disabled ion-label{
+        opacity: 1;
+    }
+    .item-select-disabled .select-ios .select-icon{
+        opacity: 0.4;
+    }
 }

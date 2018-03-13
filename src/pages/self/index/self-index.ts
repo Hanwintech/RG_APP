@@ -93,7 +93,9 @@ export class SelfIndexPage extends BasePage {
       this.hasMoveableStatistic = true;
       this.hasPublicOpinion = true;
     }
-    this.GetUnreadMsgCountInfo();
+    setInterval(() => {
+      this.GetUnreadMsgCountInfo();
+    }, 60000);
   }
 
   ionViewWillEnter() {
@@ -139,13 +141,12 @@ export class SelfIndexPage extends BasePage {
             }
           }
         } else {
-          this.pageService.showErrorMessage(res.reason);
+          this.pageService.dismissLoading();
         }
         this.pageService.dismissLoading();
       },
       error => {
         this.pageService.dismissLoading();
-        this.pageService.showErrorMessage(error);
       });
   }
 

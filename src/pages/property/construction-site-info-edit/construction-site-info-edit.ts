@@ -134,6 +134,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
@@ -148,6 +149,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
@@ -173,6 +175,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物附件;
+            att.fileShowName="不可移动文物附件.jpg";
           }
           if (!this.culturalRelicPostInfo.attachmentList) {
             this.culturalRelicPostInfo.attachmentList = [];

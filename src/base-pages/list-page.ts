@@ -93,19 +93,20 @@ export class PagingListPage extends ListBasePage {
             this.condition.pageIndex = this._nextPageIndex++;
             this.getData(ionInfiniteScrollEvent, false);
         } else if (ionInfiniteScrollEvent) {
-            ionInfiniteScrollEvent.enable(false);
+            ionInfiniteScrollEvent.complete();
             this.pageService.dismissLoading();
         }
     }
 
     getData(ionInfiniteScrollEvent, isNewSearch) {
+        console.log(this._nextPageIndex);
         this.api.condition = this.condition;
         this.apiService.sendApi(this.api).subscribe(
             res => {
                 if (res.success) {
                     if (isNewSearch) {
                         this.dataList = [];
-                        this._nextPageIndex = 0;
+                        this._nextPageIndex = 1;
                     }
 console.log(res.data);
                     this.conditionDataSource = res.data[this.conditionDataSourceName];
@@ -139,8 +140,10 @@ console.log(res.data);
     }
 
     refreshDataList(ionRefreshEvent) {
+        this.condition.pageIndex = 0;
         this.getData(null, true);
         ionRefreshEvent.complete();
+        
     }
 
     showSimpleSearch() {

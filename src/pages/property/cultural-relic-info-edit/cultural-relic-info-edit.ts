@@ -53,6 +53,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
     this.twoStageTypeList = this.systemConst.EMPTY_SELECT_LIST;
+    this.culturalRelicPostInfo.culturalRelic.enumArea=9;//默认选择淮安
     this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
 
 
@@ -150,6 +151,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
@@ -164,6 +166,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
@@ -189,6 +192,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物附件;
+            att.fileShowName="不可移动文物附件.jpg";
           }
           if (!this.culturalRelicPostInfo.attachmentList) {
             this.culturalRelicPostInfo.attachmentList = [];
@@ -232,6 +236,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物两线附件;
+            att.fileShowName="不可移动文物两线附件.jpg";
           }
           if (!this.culturalRelicPostInfo.twoLimitAttachmentList) {
             this.culturalRelicPostInfo.twoLimitAttachmentList = [];

@@ -66,12 +66,12 @@ export class LoginPage {
   }
 
   private login() {
-    this.pageService.showLoading("登录中");
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
-      this.pageService.dismissLoading();
       this.pageService.showErrorMessage("请输入用户名密码！");
       return;
     }
+
+    this.pageService.showLoading("登录中");
 
     this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
       res => {

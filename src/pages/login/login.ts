@@ -68,52 +68,50 @@ export class LoginPage {
   private login() {
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       this.pageService.showErrorMessage("请输入用户名密码！");
-      return;
+    } else {
+      this.pageService.showLoading("登录中");
+      this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
+        res => {
+          this.pageService.dismissLoading();
+          localStorage.setItem('account', this.auth.account);
+          localStorage.setItem('password', this.auth.password);
+          localStorage.setItem('name', res.userName);
+          localStorage.setItem('userId', res.userID);
+          localStorage.setItem('manageUnitId', res.manageUnitID);
+          localStorage.setItem('manageUnitName', res.manageUnitName);
+          localStorage.setItem('userType', res.userType);
+          localStorage.setItem('appRole', "[" + res.appRole + "]");
+          localStorage.setItem('mobile', res.mobilePhone ? res.mobilePhone : "");
+          localStorage.setItem('phone', res.officePhone ? res.officePhone : "");
+          localStorage.setItem('email', res.email ? res.email : "");
+          this.apiService.token = res.access_token;
+  
+          if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+            let alias = res.userID.replace("-", "").replace("-", "").replace("-", "").replace("-", "");
+            (<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": alias },
+              function (r) {
+                console.log(r);
+              },
+              function (errorMsg) {
+                console.log("setAlias error:");
+                console.log(errorMsg);
+                this.pageService.showErrorMessage('推送服务注册失败！');
+              }.bind(this));
+          }
+  
+          this.locationWatchService.start();
+          this.navCtrl.setRoot("TabsPage");
+        },
+        error => {
+          this.pageService.dismissLoading();
+          var message = '登录失败！';
+          if (error.status == 401) {
+            message = "用户名或密码错误！"
+          } else {
+            console.log(error)
+          }
+          this.pageService.showErrorMessage(message);
+        });
     }
-
-    this.pageService.showLoading("登录中");
-
-    this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
-      res => {
-        this.pageService.dismissLoading();
-        localStorage.setItem('account', this.auth.account);
-        localStorage.setItem('password', this.auth.password);
-        localStorage.setItem('name', res.userName);
-        localStorage.setItem('userId', res.userID);
-        localStorage.setItem('manageUnitId', res.manageUnitID);
-        localStorage.setItem('manageUnitName', res.manageUnitName);
-        localStorage.setItem('userType', res.userType);
-        localStorage.setItem('appRole', "[" + res.appRole + "]");
-        localStorage.setItem('mobile', res.mobilePhone ? res.mobilePhone : "");
-        localStorage.setItem('phone', res.officePhone ? res.officePhone : "");
-        localStorage.setItem('email', res.email ? res.email : "");
-        this.apiService.token = res.access_token;
-
-        if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-          let alias = res.userID.replace("-", "").replace("-", "").replace("-", "").replace("-", "");
-          (<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": alias },
-            function (r) {
-              console.log(r);
-            },
-            function (errorMsg) {
-              console.log("setAlias error:");
-              console.log(errorMsg);
-              this.pageService.showErrorMessage('推送服务注册失败！');
-            }.bind(this));
-        }
-
-        this.locationWatchService.start();
-        this.navCtrl.setRoot("TabsPage");
-      },
-      error => {
-        this.pageService.dismissLoading();
-        var message = '登录失败！';
-        if (error.status == 401) {
-          message = "用户名或密码错误！"
-        } else {
-          console.log(error)
-        }
-        this.pageService.showErrorMessage(message);
-      });
   }
 }

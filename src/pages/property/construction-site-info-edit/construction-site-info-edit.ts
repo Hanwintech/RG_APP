@@ -29,6 +29,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
   private pageTitle: string;
   private culturalRelicPostInfo: CulturalRelicPostInfo;
   private canShowLocation: boolean;
+  private culturalRelicInfoEdit;
 
   constructor(
     public navCtrl: NavController,
@@ -61,6 +62,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
         res => {
           if (res.success) {
             this.culturalRelicPostInfo = res.data;
+            this.culturalRelicInfoEdit=res.data;
             this.areaChanged(this.culturalRelicPostInfo.culturalRelic.district);
 
             super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
@@ -105,16 +107,17 @@ export class ConstructionSiteInfoEditPage extends BasePage {
   }
 
   showLocation() {
-    let constructionMapInfo = new CulturalRelicInfo();
-    constructionMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
-    constructionMapInfo.culturalRelicPostInfo = this.culturalRelicInfo.culturalRelicPostInfo;
-
-    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": constructionMapInfo, "coordinateAccurateList": this.culturalRelicInfo.coordinateAccurateList });
+    let culturalRelicMapInfo = new CulturalRelicInfo();
+    culturalRelicMapInfo.culturalRelic = this.culturalRelicInfoEdit.culturalRelic;
+    culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
+    culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
+    culturalRelicMapInfo.culturalRelic.patrolCount=this.culturalRelicInfoEdit.patrolCount;
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
     locate.onDidDismiss(data => {
       if (data) {
-        this.culturalRelicInfo.culturalRelic.coordinateX = data.culturalRelicX;
-        this.culturalRelicInfo.culturalRelic.coordinateY = data.culturalRelicY;
-        this.culturalRelicInfo.culturalRelic.coordinateAccurate = data.culturalRelic.coordinateAccurate;
+        this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
+        this.culturalRelicPostInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
       }
     });
     locate.present();
@@ -131,6 +134,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
@@ -145,6 +149,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
@@ -170,6 +175,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物附件;
+            att.fileShowName="不可移动文物附件.jpg";
           }
           if (!this.culturalRelicPostInfo.attachmentList) {
             this.culturalRelicPostInfo.attachmentList = [];

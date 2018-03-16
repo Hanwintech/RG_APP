@@ -68,8 +68,7 @@ export class LoginPage {
   private login() {
     if (this.auth.account.length == 0 || this.auth.password.length == 0) {
       this.pageService.showErrorMessage("请输入用户名密码！");
-    }
-    else{
+    } else {
       this.pageService.showLoading("登录中");
       this.apiService.getToken(this.auth.account, this.auth.password).subscribe(
         res => {

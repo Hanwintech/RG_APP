@@ -111,7 +111,6 @@ export class MuseumInfoEditPage extends BasePage {
     let museumInfoEdit = new MuseumInfo();
     museumInfoEdit.museumDetailInfo = this.museumInfoEdit.museumInfo;
     museumInfoEdit.id=this.museumInfoEdit.museumInfo.id;
-    museumInfoEdit.patrolCount=this.museumInfoEdit.patrolCount;
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": museumInfoEdit, "coordinateAccurateList": this.museumInfoEdit.coordinateAccurateList });
     locate.onDidDismiss(data => {
       if (data) {

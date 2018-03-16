@@ -168,7 +168,7 @@ export class MapCulturalRelicLocatePage extends BasePage {
       title: '操作',
       buttons: [
         { text: '查看相关图片', handler: () => { this.viewPic() } },
-        { text: '查看相关巡查(' + this.culturalRelicMapInfo.patrolCount + ')', handler: () => { this.viewPatrol() } },
+        { text: '查看相关巡查(' + (this.culturalRelicMapInfo.patrolCount?this.culturalRelicMapInfo.patrolCount:"0") + ')', handler: () => { this.viewPatrol() } },
         { text: '标注文物点', handler: () => { this.pageService.showMessage("您可以通过在地图上点击或者拖动图标进行文物点标注！"); this.canShowFooter = true; this.moveMarker(); } }
       ]
     });

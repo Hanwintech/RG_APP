@@ -16,6 +16,7 @@ import { ValidateService } from './../../../services/validate.service';
 import { SystemConst } from './../../../services/system-const.service';
 import { BasePage } from "./../../../base-pages/base-page";
 import { EnumCulturalRelicLevel } from './../../../models/enum';
+import { EnumAppRole } from "./../../../models/enum";
 
 @IonicPage()
 @Component({
@@ -28,6 +29,8 @@ export class MuseumInfoEditPage extends BasePage {
   private districtList: IntegerKeyValue[];
   private pageTitle: string;
   private museumPostInfo: MuseumPostInfo;
+  private canShowLocation: boolean;
+  private museumInfoEdit;
 
   constructor(
     public navCtrl: NavController,
@@ -51,6 +54,8 @@ export class MuseumInfoEditPage extends BasePage {
 
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
+
 
     if (this.navParams.data.museumInfo) {
       this.museumInfo = this.navParams.data.museumInfo;
@@ -60,6 +65,7 @@ export class MuseumInfoEditPage extends BasePage {
         res => {
           if (res.success) {
             this.museumPostInfo = res.data;
+            this.museumInfoEdit=res.data;
             this.areaChanged(this.museumPostInfo.museumInfo.district);
 
             super.changeAttachmentFileType([this.museumPostInfo.miniImage]);
@@ -101,6 +107,21 @@ export class MuseumInfoEditPage extends BasePage {
     locate.present();
   }
 
+  showLocation() {
+    let museumInfoEdit = new MuseumInfo();
+    museumInfoEdit.museumDetailInfo = this.museumInfoEdit.museumInfo;
+    museumInfoEdit.id=this.museumInfoEdit.museumInfo.id;
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": museumInfoEdit, "coordinateAccurateList": this.museumInfoEdit.coordinateAccurateList });
+    locate.onDidDismiss(data => {
+      if (data) {
+        this.museumPostInfo.museumInfo.coordinateX = data.culturalRelicX;
+        this.museumPostInfo.museumInfo.coordinateY = data.culturalRelicY;
+        this.museumPostInfo.museumInfo.coordinateAccurate = data.coordinateAccurate;
+      }
+    });
+    locate.present();
+  }
+
   selectMiniImage() {
     let actionSheet = this.actionSheetCtrl.create({
       buttons:
@@ -112,6 +133,7 @@ export class MuseumInfoEditPage extends BasePage {
                 data => {
                   this.museumPostInfo.miniImage = data;
                   this.museumPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.museumPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.museumPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
@@ -126,6 +148,7 @@ export class MuseumInfoEditPage extends BasePage {
                 data => {
                   this.museumPostInfo.miniImage = data;
                   this.museumPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.museumPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.museumPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
@@ -151,6 +174,7 @@ export class MuseumInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物附件;
+            att.fileShowName="不可移动文物附件.jpg";
           }
           if (!this.museumPostInfo.attachmentList) {
             this.museumPostInfo.attachmentList = [];

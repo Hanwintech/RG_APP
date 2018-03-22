@@ -62,7 +62,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
   }
 
   download(attachment: Attachment) {
-    super.downloadAttachment(this.networkInfoService, attachment);
+    this.downloadAttachment(this.networkInfoService, attachment);
   }
 
   open(file: Attachment) {

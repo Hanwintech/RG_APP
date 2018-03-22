@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar class="modal-nav">
     <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons *ngIf="canShowLocation" right>
+      <button ion-button icon-only (click)="showLocation()" (press)="pageService.showMessage('在地图上查看或标注当前文物所处位置')">
+        <ion-icon name="ios-pin-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -19,14 +24,14 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
-      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.enumArea" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.enumArea" disabled  cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
         <ion-option *ngFor="let kvp of selectDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>县区</ion-label>
-      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.district" cancelText="取消" interface="popover">
-        <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.district" placeholder="请选择" cancelText="取消" interface="popover">
+        <ion-option *ngFor="let kvp of selectDataSource.districtList" value="{{kvp.value}}">{{kvp.text}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -69,8 +74,9 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>类型</ion-label>
-      <ion-select style="word-wrap:word-break;" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicType" cancelText="取消" interface="popover" (ngModelChange)="typeChanged()">
-        <ion-option  *ngFor="let kvp of selectDataSource.culturalRelicTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
+      <ion-select style="word-wrap:word-break;" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicType" cancelText="取消"
+        interface="popover" (ngModelChange)="typeChanged()">
+        <ion-option *ngFor="let kvp of selectDataSource.culturalRelicTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -125,7 +131,9 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>标注情况</ion-label>
-      <ion-input type="text" placeholder="请在PC端进行标注"></ion-input>
+      <ion-label *ngIf="!culturalRelicPostInfo.twoLineInfoList&&this.navParams.data.culturalRelicInfo">未标注</ion-label>
+      <ion-label *ngIf="culturalRelicPostInfo.twoLineInfoList&&this.navParams.data.culturalRelicInfo">已标注</ion-label>
+      <ion-label *ngIf="!this.navParams.data.culturalRelicInfo">请在PC端进行标注</ion-label>
     </ion-item>
     <ion-item>
       <ion-label fixed>保护范围</ion-label>

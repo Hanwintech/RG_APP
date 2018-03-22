@@ -13,6 +13,9 @@ export class MuseumInfo implements MapMark {
     public get id() {
         return this.museumDetailInfo.id;
     }
+    public set id(value) { 
+        this.museumDetailInfo.id= value;
+     }
     public get name() {
         return this.museumDetailInfo.museumName;
     }
@@ -42,6 +45,12 @@ export class MuseumInfo implements MapMark {
     }
     public get twolineInfo() {
         return false;
+    }
+    public get patrolCount() {
+        return this.museumDetailInfo.patrolCount;
+    }
+    public set patrolCount(value) {
+        this.museumDetailInfo.patrolCount= value;
     }
     public get coordinateAccurate() {
         return this.museumDetailInfo.coordinateAccurate;

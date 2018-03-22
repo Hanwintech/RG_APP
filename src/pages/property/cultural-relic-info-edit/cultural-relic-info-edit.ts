@@ -14,6 +14,7 @@ import { EnumAttachmentType, EnumCulturalRelicLevel } from './../../../models/en
 import { IntegerKeyValue } from "./../../../models/integer-key-value.model";
 import { SystemConst } from './../../../services/system-const.service';
 import { BasePage } from "./../../../base-pages/base-page";
+import { EnumAppRole } from "./../../../models/enum";
 
 @IonicPage()
 @Component({
@@ -27,6 +28,8 @@ export class CulturalRelicInfoEditPage extends BasePage {
   private twoStageTypeList: IntegerKeyValue[];
   private pageTitle: string;
   private culturalRelicPostInfo: CulturalRelicPostInfo;
+  private canShowLocation: boolean;
+  private culturalRelicInfoEdit;
 
   constructor(
     public navCtrl: NavController,
@@ -50,6 +53,9 @@ export class CulturalRelicInfoEditPage extends BasePage {
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
     this.twoStageTypeList = this.systemConst.EMPTY_SELECT_LIST;
+    this.culturalRelicPostInfo.culturalRelic.enumArea=9;//默认选择淮安
+    this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
+
 
     if (this.navParams.data.culturalRelicInfo) {
       this.culturalRelicInfo = this.navParams.data.culturalRelicInfo;
@@ -59,6 +65,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
         res => {
           if (res.success) {
             this.culturalRelicPostInfo = res.data;
+            this.culturalRelicInfoEdit=res.data;
             this.areaChanged(this.culturalRelicPostInfo.culturalRelic.district);
             this.typeChanged(this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType);
 
@@ -116,6 +123,23 @@ export class CulturalRelicInfoEditPage extends BasePage {
     locate.present();
   }
 
+  showLocation() {
+    let culturalRelicMapInfo = new CulturalRelicInfo();
+    culturalRelicMapInfo.culturalRelic = this.culturalRelicInfoEdit.culturalRelic;
+    culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
+    culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
+    culturalRelicMapInfo.culturalRelic.patrolCount=this.culturalRelicInfoEdit.patrolCount;
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
+    locate.onDidDismiss(data => {
+      if (data) {
+        this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
+        this.culturalRelicPostInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
+      }
+    });
+    locate.present();
+  }
+
   selectMiniImage() {
     let actionSheet = this.actionSheetCtrl.create({
       buttons:
@@ -127,6 +151,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
@@ -141,6 +166,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
+                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
@@ -166,6 +192,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物附件;
+            att.fileShowName="不可移动文物附件.jpg";
           }
           if (!this.culturalRelicPostInfo.attachmentList) {
             this.culturalRelicPostInfo.attachmentList = [];
@@ -209,6 +236,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物两线附件;
+            att.fileShowName="不可移动文物两线附件.jpg";
           }
           if (!this.culturalRelicPostInfo.twoLimitAttachmentList) {
             this.culturalRelicPostInfo.twoLimitAttachmentList = [];

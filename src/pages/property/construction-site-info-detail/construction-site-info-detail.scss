@@ -4,7 +4,11 @@ page-construction-site-info-detail {
             text-align: center;
             img {
                 height: 54vw;
+                width: 100%;
             }
+        }
+        ion-list {
+            padding: 0 16px 0 0;
         }
     }
 }

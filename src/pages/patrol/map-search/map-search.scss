@@ -9,4 +9,13 @@ page-map-search {
             margin-right: 16px;
         }
     }
+    .navi {
+        background-image: url('../assets/icon/ic_self_right_arrows.png');
+        padding-right: 32px;
+        background-position: right 4px center;
+        background-position: right calc(4px + constant(safe-area-inset-right)) center;
+        background-position: right calc(4px + env(safe-area-inset-right)) center;
+        background-repeat: no-repeat;
+        background-size: 8px;
+    }
 }

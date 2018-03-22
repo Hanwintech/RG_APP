@@ -19,7 +19,7 @@ export class BasePage {
     ) {
         this.fileTransferObj = this.fileTransfer.create();
         //this._localFileDir = "file:///data/user/0/download/";
-        this._localFileDir = this.file.dataDirectory;
+        this._localFileDir = this.file.externalDataDirectory
     }
 
     public changeAttachmentFileType(attachmentList: Attachment[]) {
@@ -87,7 +87,7 @@ export class BasePage {
 
     private downloadFilePrivately(file: Attachment) {
         let fileUrl = file.fileUrl.replace("/CompressionFile/", "/OriginalFile/")
-        console.log(this.file.dataDirectory);
+        console.log(this.file.externalDataDirectory);
         console.log(this._localFileDir + file.fileName);
         this.file.createFile(this._localFileDir, file.fileName, true).then(() => {
             this.fileTransferObj.download(fileUrl, this._localFileDir + file.fileName).then(

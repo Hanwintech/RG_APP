@@ -30,6 +30,8 @@ export class CulturalRelicInfoEditPage extends BasePage {
   private culturalRelicPostInfo: CulturalRelicPostInfo;
   private canShowLocation: boolean;
   private culturalRelicInfoEdit;
+  //private culturalRelic: string;
+  //private culturalRelicInfoDetail: CulturalRelicInfoDetail;
 
   constructor(
     public navCtrl: NavController,

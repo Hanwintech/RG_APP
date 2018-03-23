@@ -78,6 +78,7 @@ export class ConstructionSiteInfoEditPage extends BasePage {
       this.pageTitle = "新增工地";
       this.culturalRelicPostInfo.userId = localStorage.getItem("userId");
       this.culturalRelicPostInfo.culturalRelic.culturalRelicLevel = EnumCulturalRelicLevel.工地;
+      this.canShowLocation=false;
     }
   }
 

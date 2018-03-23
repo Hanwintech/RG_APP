@@ -82,6 +82,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
     } else {
       this.pageTitle = "新增文物";
       this.culturalRelicPostInfo.userId = localStorage.getItem("userId");
+      this.canShowLocation=false;
     }
   }
 
@@ -125,19 +126,20 @@ export class CulturalRelicInfoEditPage extends BasePage {
 
   showLocation() {
     let culturalRelicMapInfo = new CulturalRelicInfo();
+    console.log(this.culturalRelicInfoEdit);
     culturalRelicMapInfo.culturalRelic = this.culturalRelicInfoEdit.culturalRelic;
-    culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
-    culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
-    culturalRelicMapInfo.culturalRelic.patrolCount=this.culturalRelicInfoEdit.patrolCount;
-    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
-    locate.onDidDismiss(data => {
-      if (data) {
-        this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
-        this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
-        this.culturalRelicPostInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
-      }
-    });
-    locate.present();
+    // culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
+    // culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
+    // culturalRelicMapInfo.culturalRelic.patrolCount=this.culturalRelicInfoEdit.patrolCount;
+    // let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
+    // locate.onDidDismiss(data => {
+    //   if (data) {
+    //     this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
+    //     this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
+    //     this.culturalRelicPostInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
+    //   }
+    // });
+    // locate.present();
   }
 
   selectMiniImage() {
@@ -316,6 +318,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
     this.apiService.sendApi(new PostCulturalRelicInfo(this.culturalRelicPostInfo)).subscribe(
       res => {
         this.pageService.dismissLoading();
+        console.log(this.culturalRelicPostInfo);
         if (res.success) {
           this.pageService.showMessage("保存成功！");
           this.viewCtrl.dismiss(res.data);

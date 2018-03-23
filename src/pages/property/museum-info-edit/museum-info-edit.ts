@@ -80,6 +80,7 @@ export class MuseumInfoEditPage extends BasePage {
     } else {
       this.pageTitle = "新增博物馆";
       this.museumPostInfo.userId = localStorage.getItem("userId");
+      this.canShowLocation=false;
     }
   }
 

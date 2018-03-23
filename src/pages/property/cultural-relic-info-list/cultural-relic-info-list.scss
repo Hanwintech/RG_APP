@@ -8,12 +8,15 @@ page-cultural-relic-info-list {
                     margin: 10px 11px 10px 5px;
                     .img {
                         width: 92px !important; //height:84px;
-                       //垂直居中
+                        //垂直居中
                         background: #000;
-                        overflow: auto; 
-                        margin: auto; 
-                        position: absolute; 
-                        top: 0;  bottom: 2px;left:10px;
+                        overflow: auto;
+                        margin: auto;
+                        position: absolute;
+                        top: 0;
+                        bottom: 2px;
+                        left: 10px;
+                        overflow: hidden;
                     }
                 }
             }
@@ -65,8 +68,8 @@ page-cultural-relic-info-list {
                 }
             }
         }
-        .name-mark{
-            font-size:12px;
+        .name-mark {
+            font-size: 12px;
             color: color($colors, dark, base);
         }
     }

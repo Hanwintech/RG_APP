@@ -14,5 +14,6 @@ export class PublicOpinionInfoDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser) {
     this.pageTitle = this.navParams.data.pageTitle;
     let browser = this.iab.create(this.navParams.data.url);
+    this.navCtrl.pop();
   }
 }

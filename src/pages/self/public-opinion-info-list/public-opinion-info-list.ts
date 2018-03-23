@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { ApiService } from './../../../services/api.service';
 import { PageService } from './../../../services/page.service';
@@ -28,7 +27,6 @@ export class PublicOpinionInfoListPage extends PagingListPage {
     public actionSheetCtrl: ActionSheetController,
     public file: File,
     public fileTransfer: FileTransfer,
-    public iab: InAppBrowser, 
     public apiService: ApiService,
     public pageService: PageService,
     public systemConst: SystemConst
@@ -62,7 +60,6 @@ export class PublicOpinionInfoListPage extends PagingListPage {
   }
 
   view(entity: UVPublicOpinion) {
-    let browser = this.iab.create(this.navParams.data.url, "_blank");
-    //this.navCtrl.push('PublicOpinionInfoDetailPage', { "pageTitle": this.pageTitle, "url": entity.originalLink });
+    this.navCtrl.push('PublicOpinionInfoDetailPage', { "pageTitle": this.pageTitle, "url": entity.originalLink });
   }
 }

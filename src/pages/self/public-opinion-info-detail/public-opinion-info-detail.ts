@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @IonicPage()
 @Component({
@@ -9,10 +10,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PublicOpinionInfoDetailPage {
   private pageTitle: string;
-  private iframe: SafeResourceUrl;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser) {
     this.pageTitle = this.navParams.data.pageTitle;
-    this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.navParams.data.url);
+    let browser = this.iab.create(this.navParams.data.url);
   }
 }

@@ -26,13 +26,11 @@ export class NetworkInformationService {
         this._disconnectSubscription = this.network.onDisconnect().subscribe(() => {
             this._isConnected = false;
             this._connectionType = "none";
-            this.pageService.showMessage("网络已断开");
         });
 
         this._connectSubscription = this.network.onConnect().subscribe(() => {
             this._isConnected = true;
             this._connectionType = this.network.type;
-            this.pageService.showMessage("网络已连接");
         });
 
         // this._changeSubscription = this.network.onchange().subscribe(() => {

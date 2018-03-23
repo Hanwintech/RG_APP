@@ -36,7 +36,10 @@ export class SelfEditInfoPage {
   submit() {
     let model: UserInfo = new UserInfo();
 
-    if (this.userInfo.mobilePhone && !this.validateService.isMobilePhoneNumber(this.userInfo.mobilePhone)) {
+    if (!this.userInfo.mobilePhone) {
+      this.pageService.showErrorMessage('请填写手机号！');
+      return;
+    } else if (!this.validateService.isMobilePhoneNumber(this.userInfo.mobilePhone)) {
       this.pageService.showErrorMessage('请正确填写手机号！');
       return;
     }

@@ -28,8 +28,6 @@ export class ImagePickerService {
                                 reject("上传图片失败！");
                             }
                         });
-                    } else {
-                        reject("未选择图片！");
                     }
                 },
                 error => {

@@ -3,6 +3,7 @@ import { Device } from '@ionic-native/device';
 
 import { ApiService } from './../services/api.service';
 import { PageService } from './../services/page.service';
+import { NetworkInformationService } from './../services/network-information.service';
 import { PostUserCoordinateInfo } from './../apis/system/system.api';
 import { UserLocationInfo } from './../models/system/user-location-info.model';
 
@@ -24,7 +25,8 @@ export class LocationWatchService {
     constructor(
         public device: Device,
         public apiService: ApiService,
-        public pageService: PageService
+        public pageService: PageService,
+        public networkInformationService: NetworkInformationService
     ) {
         this._isWatching = false;
         this._needAlert = false;
@@ -135,15 +137,17 @@ export class LocationWatchService {
     }
 
     uploadLocation(msg) {
-        let location: UserLocationInfo = new UserLocationInfo();
-        location.userId = localStorage.getItem('userId');
-        location.longitude = localStorage.getItem('longitude');
-        location.latitude = localStorage.getItem('latitude');
-        location.message = msg;
-        this.apiService.sendApi(new PostUserCoordinateInfo(location)).subscribe(
-            res => { },
-            error => { this.pageService.showErrorMessage("上传地理坐标出错！"); },
-            () => { }
-        );
+        if (this.networkInformationService.isConnected){
+            let location: UserLocationInfo = new UserLocationInfo();
+            location.userId = localStorage.getItem('userId');
+            location.longitude = localStorage.getItem('longitude');
+            location.latitude = localStorage.getItem('latitude');
+            location.message = msg;
+            this.apiService.sendApi(new PostUserCoordinateInfo(location)).subscribe(
+                res => { },
+                error => { },
+                () => { }
+            );
+        }
     }
 }

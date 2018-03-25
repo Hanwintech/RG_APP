@@ -62,8 +62,16 @@ page-notice-list {
                         float: right;
                         color: color($colors, dark, base);
                     }
+                    .readStateName{
+                        margin-left:5px;
+                    }
+                    .noReadStateName{
+                        margin-left:5px;
+                        color:color($colors, primary, base);
+                    }
                 }
             }
         }
+
     }
 }

@@ -33,7 +33,7 @@ export class MapPage extends DetailPage {
     userInfo: UserEntity;
     private twoLine = [];
     searchDataSource: CulturalRelicInfoSearchDataSource;
-    private mapDistrictClusterInfoList: UTMapDistrictClusterInfo[];
+    mapDistrictClusterInfoList: UTMapDistrictClusterInfo[];
     private currentMapLevelMax: number;
     private personLocate;
     uniqueTagList = [];

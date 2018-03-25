@@ -99,7 +99,6 @@ export class TwoLinePage extends MapPage {
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("TwoLineSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      console.log(data);
       if (data && data.needSearch) {
         that.getSearchData(data.search);
       }
@@ -112,9 +111,11 @@ export class TwoLinePage extends MapPage {
     this.search.isDefaultSearch = false;
     let searchModal = this.modalCtrl.create("MapSearchPage", { "search": this.search, "dataSource": this.searchDataSource });
     searchModal.onDidDismiss(data => {
-      console.log(data);
       if (data && data.needSearch) {
         that.getSearchData(data.search);
+      }
+      if(this.mapDistrictClusterInfoList.length==0){
+        this.pageService.showMessage("不存在满足条件的文物信息");
       }
     });
     searchModal.present();

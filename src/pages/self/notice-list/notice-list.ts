@@ -49,9 +49,21 @@ export class NoticeListPage extends PagingListPage {
     this.condition.userType = Number(localStorage.getItem("userType"));
     //查询首页数据
     this.nextPage(null);
+    console.log(this.dataList);
   }
 
   view(messageCenterEntity: UVNoticeBasicInfo) {
     this.navCtrl.push('NoticeDetailPage', messageCenterEntity);
+
+    let detailPage = this.modalCtrl.create('NoticeDetailPage', messageCenterEntity);
+    detailPage.onDidDismiss(data => {
+      if(data){
+        messageCenterEntity.state=data;
+      }
+      else{
+       return;
+      }
+    });
+    detailPage.present();
   }
 }

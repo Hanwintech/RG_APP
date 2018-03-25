@@ -87,7 +87,10 @@ export class PatrolInfoListPage extends PagingListPage {
   disposePatrol(data) {
     let disposePatrolPage = this.modalCtrl.create('PatrolInfoDetailPage', { "keyID": data.patrolInfo.keyID, "patrolReplay": true });
     disposePatrolPage.onDidDismiss(data => {
-
+      this.pageService.dismissLoading();
+      if(data){
+        data.isCanDispose=false;
+      }
     });
     disposePatrolPage.present();
   }

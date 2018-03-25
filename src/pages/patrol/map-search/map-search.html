@@ -8,38 +8,40 @@
 </ion-header>
 
 <ion-content>
+  <form action="javascript:return true;">
   <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>名称</ion-label>
-      <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
+      <ion-input name="search.culturalRelicName" type="search" [(ngModel)]="search.culturalRelicName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>类别</ion-label>
-      <ion-select [(ngModel)]="tempLevel" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="levelChanged()">
+      <ion-select name="tempLevel" [(ngModel)]="tempLevel" placeholder="请选择" type="search" cancelText="取消" interface="popover" (ngModelChange)="levelChanged()">
         <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList" value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
-      <ion-select [(ngModel)]="tempArea" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+      <ion-select name="tempArea" [(ngModel)]="tempArea" type="search" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
         <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>县区</ion-label>
-      <ion-select [(ngModel)]="tempDistrict" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="districtChanged()">
+      <ion-select name="tempDistrict" [(ngModel)]="tempDistrict" type="search" placeholder="请选择" cancelText="取消" interface="popover" (ngModelChange)="districtChanged()">
         <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}_{{kvp.value}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>开始时间</ion-label>
-      <ion-datetime class="navi" placeholder="点击选择开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDate"></ion-datetime>
+      <ion-datetime name="search.startDate" type="search" class="navi" placeholder="点击选择开始时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDate"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label fixed>结束时间</ion-label>
-      <ion-datetime class="navi" placeholder="点击选择结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDate"></ion-datetime>
+      <ion-datetime name="search.endDate" type="search" class="navi" placeholder="点击选择结束时间" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDate"></ion-datetime>
     </ion-item>
   </ion-list>
+</form>
 </ion-content>
 
 <ion-footer>

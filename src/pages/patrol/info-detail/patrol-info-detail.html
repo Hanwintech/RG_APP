@@ -155,7 +155,7 @@
       <ion-item>
         <ion-label fixed>处理说明</ion-label>
         <ion-label>
-          <textarea [(ngModel)]="patrolProcessInfo.patrolCaseProcess.processDescription" class="rows10" placeholder="请输入处理说明" rows="10"></textarea>
+          <textarea required [(ngModel)]="patrolProcessInfo.patrolCaseProcess.processDescription" class="rows10" placeholder="请输入处理说明" rows="10"></textarea>
         </ion-label>
       </ion-item>
       <ion-item>
@@ -198,7 +198,7 @@
   </ion-content>
 </ion-menu>
 <ion-nav #mycontent [root]="rootPage"></ion-nav>
-<ion-footer>
+<ion-footer *ngIf="canShowFooter">
   <ion-grid>
     <ion-row>
       <ion-col *ngIf="!canShowLocation&&patrolDispose">

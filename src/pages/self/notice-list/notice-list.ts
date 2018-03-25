@@ -54,16 +54,5 @@ export class NoticeListPage extends PagingListPage {
 
   view(messageCenterEntity: UVNoticeBasicInfo) {
     this.navCtrl.push('NoticeDetailPage', messageCenterEntity);
-
-    let detailPage = this.modalCtrl.create('NoticeDetailPage', messageCenterEntity);
-    detailPage.onDidDismiss(data => {
-      if(data){
-        messageCenterEntity.state=data;
-      }
-      else{
-       return;
-      }
-    });
-    detailPage.present();
   }
 }

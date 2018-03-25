@@ -13,11 +13,11 @@
   <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>工地名称</ion-label>
-      <ion-input type="text" placeholder="请输入工地名称" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicName"></ion-input>
+      <ion-input required type="text" placeholder="请输入工地名称" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>工地编码</ion-label>
-      <ion-input type="text" placeholder="请输入工地编码" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicCode"></ion-input>
+      <ion-input required type="text" placeholder="请输入工地编码" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicCode"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
@@ -34,7 +34,7 @@
     <ion-item>
       <ion-label fixed>地址</ion-label>
       <ion-label>
-        <textarea placeholder="请输入地址" rows="3" class="rows3" [(ngModel)]="culturalRelicPostInfo.culturalRelic.location"></textarea>
+        <textarea required placeholder="请输入地址" rows="3" class="rows3" [(ngModel)]="culturalRelicPostInfo.culturalRelic.location"></textarea>
       </ion-label>
     </ion-item>
     <ion-item>

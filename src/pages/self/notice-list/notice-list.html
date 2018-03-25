@@ -25,7 +25,7 @@
         </div>
         <div class="messageDescription">{{data.briefIntroduction}}</div>
         <h4>{{data.sendDeptName}}</h4>
-        <h5>{{data.sendDate | datetime:"yyyy-MM-dd"}}</h5>
+        <h5 style="margin-top:3px;">{{data.sendDate | datetime:"yyyy-MM-dd"}}</h5>
       </ion-item>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="nextPage($event)">

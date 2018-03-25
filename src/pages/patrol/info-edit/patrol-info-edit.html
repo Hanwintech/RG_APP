@@ -28,10 +28,7 @@
     </div>
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
-      <ion-label class="navi" (click)="getCulturalRelic()">
-        <div *ngIf="culturalRelicName">{{culturalRelicName}}</div>
-        <div *ngIf="!culturalRelicName">请选择文物</div>
-      </ion-label>
+      <ion-input class="navi" type="text" required (click)="getCulturalRelic()" placeholder="请选择文物" [(ngModel)]="culturalRelicName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>类别</ion-label>
@@ -57,36 +54,44 @@
     <ion-item>
       <ion-label fixed>情况描述</ion-label>
       <ion-label>
-        <textarea placeholder="请输入情况描述" rows="10" class="rows10" [(ngModel)]="patrolInfo.patrol.patrolDescription"></textarea>
+        <textarea required placeholder="请输入情况描述" rows="10" class="rows10" [(ngModel)]="patrolInfo.patrol.patrolDescription"></textarea>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label fixed>巡查状态</ion-label>
-      <ion-select [(ngModel)]="patrolInfo.patrol.patrolState" cancelText="取消" interface="popover">
+      <ion-select required [(ngModel)]="patrolInfo.patrol.patrolState" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of selectDataSource.patrolStatusList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2">
+    <ion-item *ngIf="(patrolInfo.patrol.patrolState == 2)&&canChooseDealPerson" (click)="getDealPerson()">
       <ion-label fixed>处理人员</ion-label>
-      <ion-label *ngIf="!canChooseDealPerson" class="multiline">
+      <ion-label *ngIf="patrolInfo.selectedUserInfoList.length> 0" class="navi multiline">
         <div>{{dealPersonNames}}</div>
       </ion-label>
-      <ion-label *ngIf="canChooseDealPerson" class="navi multiline" (click)="getDealPerson()">
-        <div *ngIf="patrolInfo.selectedUserInfoList.length > 0">{{dealPersonNames}}</div>
-        <div *ngIf="patrolInfo.selectedUserInfoList.length == 0">请选择处理人员</div>
+      <ion-input class="navi multiline" type="text" *ngIf="patrolInfo.selectedUserInfoList.length == 0" required placeholder="请选择处理人员"
+        [(ngModel)]="dealPersonNames"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2&&!canChooseDealPerson">
+      <ion-label fixed>处理人员</ion-label>
+      <ion-label class="multiline">
+        <div>{{dealPersonNames}}</div>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3">
+    <ion-item *ngIf="patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3" (click)="getCaseProblem()">
       <ion-label fixed>问题情况</ion-label>
-      <ion-label class="navi multiline" (click)="getCaseProblem()">
-        <div *ngIf="patrolInfo.selectedCaseProblemList.length > 0"><p *ngFor="let problem of caseProblemNames">{{problem}}</p></div>
-        <div *ngIf="patrolInfo.selectedCaseProblemList.length == 0">请选择问题情况</div>
+      <ion-label class="navi multiline" *ngIf="caseProblemNames">
+        <div>
+          <p *ngFor="let problem of caseProblemNames">{{problem}}</p>
+        </div>
       </ion-label>
+      <ion-input class="navi" type="text" *ngIf="patrolInfo.selectedCaseProblemList.length == 0" placeholder="请选择问题情况" required
+        [(ngModel)]="caseProblemNames"></ion-input>
     </ion-item>
     <ion-item *ngIf="patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3">
       <ion-label fixed>问题描述</ion-label>
       <ion-label>
-        <textarea placeholder="请输入问题描述" rows="10" class="rows10" [(ngModel)]="patrolInfo.patrol.problemDescription"></textarea>
+        <textarea required placeholder="请输入问题描述" rows="10" class="rows10" [(ngModel)]="patrolInfo.patrol.problemDescription"></textarea>
       </ion-label>
     </ion-item>
     <ion-item *ngIf="patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3">

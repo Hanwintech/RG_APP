@@ -35,24 +35,6 @@ export class NoticeDetailPage extends DetailPage {
   }
 
   close() {
-    if (this.navParams.data.state == EnumMessageCenterReadState["未阅"]) { 
-      this.apiService.sendApi(new SetMessageStatus(this.navParams.data.msgCenterID, localStorage.getItem("userId"), EnumMessageCenterReadState["已阅"])).subscribe(
-        res => {
-          if (res.success) {
-            if (this.viewCtrl) {
-              this.viewCtrl.dismiss(EnumMessageCenterReadState["已阅"]);
-            }
-            else {
-              this.navCtrl.pop();
-            }
-          } else {
-            this.pageService.showErrorMessage(res.reason);
-          }
-        },
-        error => {
-          this.pageService.showErrorMessage(error);
-        });
-    }
     this.navCtrl.pop();
   }
 }

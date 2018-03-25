@@ -10,6 +10,7 @@ page-patrol-info-edit {
             background-size: 8px;
         }
         .multiline {
+            max-width:100%;
             div {
                 word-wrap: break-word;
                 word-break: break-all;

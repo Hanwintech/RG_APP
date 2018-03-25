@@ -63,10 +63,11 @@ page-notice-list {
                         color: color($colors, dark, base);
                     }
                     .readStateName{
-                        margin-left:5px;
+                        margin-right:10px;
+                        color: color($colors, tertiary, base);
                     }
                     .noReadStateName{
-                        margin-left:5px;
+                        margin-right:10px;
                         color:color($colors, primary, base);
                     }
                 }

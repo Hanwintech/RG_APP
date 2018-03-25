@@ -36,6 +36,7 @@ export class PatrolInfoDetailPage extends DetailPage {
   private segmentOne;
   private segmentTwo;
   private segmentThree;
+  private canShowFooter=false;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -54,13 +55,16 @@ export class PatrolInfoDetailPage extends DetailPage {
     public fileTransfer: FileTransfer
   ) {
     super(navCtrl, file, fileTransfer, pageService);
+    this.pageService.showLoading("正在加载数据");
     if (this.navParams.data.patrolReplay) {
       this.segmentThree = true;
+      this.canShowFooter=true;
       this.pageTitle = "巡查处理";
       this.showReplayPage();
       let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
       this.apiService.sendApi(new getPatrolProcessInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
         res => {
+          this.pageService.dismissLoading();
           if (res.success) {
             this.patrolProcessInfo = res.data;
           } else {
@@ -68,6 +72,7 @@ export class PatrolInfoDetailPage extends DetailPage {
           }
         },
         error => {
+          this.pageService.dismissLoading();
           this.pageService.showErrorMessage(error);
         });
     }
@@ -83,6 +88,8 @@ export class PatrolInfoDetailPage extends DetailPage {
     let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
     this.apiService.sendApi(new GetPatrolInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
+        this.pageService.dismissLoading();
+        this.canShowFooter=true;
         if (res.success) {
           this.patrolInfo = res.data;
           this.canShowLocation = true;
@@ -102,6 +109,7 @@ export class PatrolInfoDetailPage extends DetailPage {
         }
       },
       error => {
+        this.pageService.dismissLoading();
         this.pageService.showErrorMessage(error);
       });
   }
@@ -335,6 +343,12 @@ export class PatrolInfoDetailPage extends DetailPage {
   }
 
   close() {
+    this.pageService.showLoading("正在关闭");
+    this.segmentOne = false;
+    this.segmentTwo = false;
+    this.segmentThree = false;
+    this.canShowFooter=false;
+    this.pageService.dismissLoading();
     this.viewCtrl.dismiss(false);
   }
 }

@@ -13,7 +13,7 @@
   <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>博物馆名称</ion-label>
-      <ion-input type="text" placeholder="请输入文物名称" [(ngModel)]="museumPostInfo.museumInfo.museumName"></ion-input>
+      <ion-input required type="text" placeholder="请输入文物名称" [(ngModel)]="museumPostInfo.museumInfo.museumName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
@@ -36,7 +36,7 @@
     <ion-item>
       <ion-label fixed>地址</ion-label>
       <ion-label>
-        <textarea placeholder="请输入地址" rows="3" class="rows3" [(ngModel)]="museumPostInfo.museumInfo.location"></textarea>
+        <textarea required placeholder="请输入地址" rows="3" class="rows3" [(ngModel)]="museumPostInfo.museumInfo.location"></textarea>
       </ion-label>
     </ion-item>
     <ion-item>

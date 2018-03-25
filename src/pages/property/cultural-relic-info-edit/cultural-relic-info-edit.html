@@ -16,15 +16,15 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
-      <ion-input type="text" placeholder="请输入文物名称" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicName"></ion-input>
+      <ion-input type="text" placeholder="请输入文物名称" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicName" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>文物编码</ion-label>
-      <ion-input type="text" placeholder="请输入文物编码" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicCode"></ion-input>
+      <ion-input type="text" placeholder="请输入文物编码" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicCode" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
-      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.enumArea" disabled  cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.enumArea" disabled  cancelText="取消" interface="popover" (ngModelChange)="areaChanged()" required>
         <ion-option *ngFor="let kvp of selectDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
@@ -36,14 +36,14 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>类别</ion-label>
-      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicLevel" cancelText="取消" interface="popover">
+      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicLevel" cancelText="取消" interface="popover" required>
         <ion-option *ngFor="let kvp of selectDataSource.culturalRelicLevelList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>地址</ion-label>
       <ion-label>
-        <textarea placeholder="请输入地址" rows="3" class="rows3" [(ngModel)]="culturalRelicPostInfo.culturalRelic.location"></textarea>
+        <textarea placeholder="请输入地址" rows="3" class="rows3" [(ngModel)]="culturalRelicPostInfo.culturalRelic.location" required></textarea>
       </ion-label>
     </ion-item>
     <ion-item>
@@ -57,7 +57,7 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>标注精确度</ion-label>
-      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.coordinateAccurate" cancelText="取消" interface="popover">
+      <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.coordinateAccurate" cancelText="取消" interface="popover" required>
         <ion-option *ngFor="let kvp of selectDataSource.coordinateAccurateList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
@@ -75,12 +75,12 @@
     <ion-item>
       <ion-label fixed>类型</ion-label>
       <ion-select style="word-wrap:word-break;" [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicType" cancelText="取消"
-        interface="popover" (ngModelChange)="typeChanged()">
+        interface="popover" (ngModelChange)="typeChanged()" required>
         <ion-option *ngFor="let kvp of selectDataSource.culturalRelicTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label fixed>二级分类</ion-label>
+      <ion-label fixed required>二级分类</ion-label>
       <ion-select [(ngModel)]="culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of twoStageTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>

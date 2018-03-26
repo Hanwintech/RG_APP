@@ -19,6 +19,12 @@ builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
 
 
+修改百度定位默认坐标系：
+然后修改源码文件node_modules/cordova-plugin-baidumaplocation/src/android/BaiduMapLocation.java（186行左右），内容如下：
+mOption.setCoorType("bd09");
+
+
+
 ionic cordova build android --prod --release --device --minifyjs --minifycss --optimizejs
 
 

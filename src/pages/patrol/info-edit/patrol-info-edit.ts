@@ -60,7 +60,6 @@ export class PatrolInfoEditPage extends BasePage {
     this.apiService.sendApi(new GetPatrolEditDataSource(localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
         if (res.success) {
-          console.log(res.data);
           this.selectDataSource = res.data;
           this.patrolInfo.patrol.patrolUserID = localStorage.getItem("userId");
           this.patrolInfo.patrol.adderID = localStorage.getItem("userId");
@@ -95,7 +94,6 @@ export class PatrolInfoEditPage extends BasePage {
           this.apiService.sendApi(new GetPatrolPlanUserInfos(data.upCulturalRelic.culturalRelicID, localStorage.getItem("userType"), localStorage.getItem("userId"))).subscribe(
             res => {
               if (res.success) {
-                console.log(res.data.commonUserInfoList);
                 if (res.data.commonUserInfoList && res.data.commonUserInfoList.length > 0) {
                   this.canChooseDealPerson = false;
                   this.patrolInfo.selectedUserInfoList = res.data.commonUserInfoList;

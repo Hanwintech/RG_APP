@@ -19,6 +19,7 @@ import { GetNoticeInfo } from './../../../apis/self/get-notice-info.api';
 export class NoticeDetailPage extends DetailPage {
   private noticeBasicInfo: UVNoticeBasicInfo;
   private innerHtmlData;
+  private footerControl=true;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,6 +46,7 @@ export class NoticeDetailPage extends DetailPage {
   }
 
   close() {
+    this.footerControl=false;
     this.navCtrl.pop();
   }
 }

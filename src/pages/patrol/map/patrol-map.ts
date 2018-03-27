@@ -114,12 +114,12 @@ export class PatrolMapPage extends MapPage {
     searchModal.onDidDismiss(data => {
       if (data && data.needSearch) {
         that.getSearchData(data.search);
+        setTimeout(() => {
+          if (this.mapDistrictClusterInfoList.length == 0) {
+            this.pageService.showMessage("不存在满足条件的文物信息");
+          }
+        }, 500);
       }
-      setTimeout(() => {
-        if(this.mapDistrictClusterInfoList.length==0){
-          this.pageService.showMessage("不存在满足条件的文物信息");
-        }
-      }, 500);
     });
     searchModal.present();
   }

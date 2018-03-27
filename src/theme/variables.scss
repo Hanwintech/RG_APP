@@ -69,6 +69,7 @@ $popover-ios-width: 75%;
 
 ion-toast.toast-ios.toastText {
     text-align: center;
+    word-break:break-word;
 }
 
 ion-header {
@@ -563,5 +564,13 @@ ion-footer {
 textarea+.requiredContent:after{
     top:-104px;
     right:3px;
+}
+
+input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focus:invalid {
+    background-image: url("../assets/icon/invalid.png");
+    background-position: right;
+    background-repeat: no-repeat;
+    box-shadow: none;
+    background-size:8px;
 }
 

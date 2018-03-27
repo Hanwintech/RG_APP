@@ -11,6 +11,6 @@
     <div [innerHTML]="innerHtmlData"></div>
   </div>
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="footerControl">
   <button ion-button block (click)="close()">关闭</button>
 </ion-footer>

@@ -8,7 +8,7 @@ import { PageService } from './../../../services/page.service';
 import { PagingListPage } from './../../../base-pages/list-page';
 import { GetMessageCenterInfoList } from './../../../apis/self/get-message-center-info-list.api';
 import { MessageCenterEntity, MessageCenterInfoSearch, MessageCenterInfoSearchDataSource } from './../../../models/self/message-center-info.model';
-import { EnumSearchType, EnumMessageShowType,EnumMessageCenterReadState } from './../../../models/enum';
+import { EnumSearchType,EnumMessageCenterType, EnumMessageShowType,EnumMessageCenterReadState } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
 
 @IonicPage()
@@ -66,7 +66,12 @@ export class MessageCenterInfoListPage extends PagingListPage {
         messageCenterEntity.readStateName=EnumMessageCenterReadState[data];
       }
       else{
-        messageCenterEntity.readStateName="已阅";
+        if(messageCenterEntity.messageType==EnumMessageCenterType["巡查处理"]||messageCenterEntity.messageType==EnumMessageCenterType["督察令通知"]){
+          messageCenterEntity.readStateName="已阅未处理";
+        }
+        else{
+          messageCenterEntity.readStateName="已阅";
+        }
       }
     });
     detailPage.present();

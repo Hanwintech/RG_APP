@@ -532,3 +532,36 @@ ion-footer {
     transform: translate(-50%, -50%);
     text-align: center;
 }
+.requiredContent,{
+    position:relative;
+    display: inline-block;
+    font-family: "Ionicons";
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-rendering: auto;
+    text-transform: none;
+    speak: none;
+
+}
+.requiredContent:after{
+    font-size:10px;
+    color:red;
+    position: absolute;
+    content: "\f45c";
+    right:2px;
+    top:2px;
+    background-position: right;
+    background-repeat: no-repeat;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    display: inline-block;
+}
+textarea+.requiredContent:after{
+    top:-104px;
+    right:3px;
+}
+

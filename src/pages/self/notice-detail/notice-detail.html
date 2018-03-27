@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div>
+  <div *ngIf="noticeBasicInfo">
     <h2>{{noticeBasicInfo.title}}</h2>
     <h5>{{noticeBasicInfo.sendDeptName}}&nbsp;&nbsp;&nbsp;{{noticeBasicInfo.sendDate | datetime:"yyyy-MM-dd"}}</h5>
     <div [innerHTML]="innerHtmlData"></div>

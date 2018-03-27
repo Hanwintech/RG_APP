@@ -8,52 +8,55 @@
 </ion-header>
 
 <ion-content>
+  <form>
   <ion-list class="form-list">
     <ion-item class="form-list">
       <ion-label fixed>工地名称</ion-label>
-      <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
+      <ion-input name="search.culturalRelicName" type="search" [(ngModel)]="search.culturalRelicName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>工地代码</ion-label>
-      <ion-input type="text" [(ngModel)]="search.culturalRelicCode"></ion-input>
+      <ion-input name="search.culturalRelicCode" type="search" [(ngModel)]="search.culturalRelicCode"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>地址</ion-label>
-      <ion-input type="text" [(ngModel)]="search.location"></ion-input>
+      <ion-input name="search.location" type="search" [(ngModel)]="search.location"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>管理单位</ion-label>
-      <ion-input type="text" [(ngModel)]="search.manageUnitName"></ion-input>
+      <ion-input name="search.manageUnitName" type="search" [(ngModel)]="search.manageUnitName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>简介</ion-label>
-      <ion-input type="text" [(ngModel)]="search.remark"></ion-input>
+      <ion-input name="search.remark" type="search" [(ngModel)]="search.remark"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
-      <ion-select [(ngModel)]="search.area" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+      <ion-select name="search.area" [(ngModel)]="search.area" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
         <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>县区</ion-label>
-      <ion-select [(ngModel)]="search.district" cancelText="取消" interface="popover">
+      <ion-select name="search.district" [(ngModel)]="search.district" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>地图标注情况</ion-label>
-      <ion-select [(ngModel)]="search.mapLabelStatus" cancelText="取消" interface="popover">
+      <ion-select name="search.mapLabelStatus" [(ngModel)]="search.mapLabelStatus" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.mapLabelStatusList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>标注精确度</ion-label>
-      <ion-select [(ngModel)]="search.coordinateAccurate" cancelText="取消" interface="popover">
+      <ion-select name="search.coordinateAccurate" [(ngModel)]="search.coordinateAccurate" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.coordinateAccurateList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
+  <button style="display:none;" ion-button block (click)="doSearch()"></button>
+</form>
 </ion-content>
 
 <ion-footer>

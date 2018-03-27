@@ -8,62 +8,66 @@
 </ion-header>
 
 <ion-content>
+  <form>
+
   <ion-list class="form-list">
     <ion-item>
       <ion-label fixed>文物名称</ion-label>
-      <ion-input type="text" [(ngModel)]="search.culturalRelicName"></ion-input>
+      <ion-input name="search.culturalRelicName" type="search" [(ngModel)]="search.culturalRelicName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>巡查人员</ion-label>
-      <ion-input type="text" [(ngModel)]="search.patrolUserName"></ion-input>
+      <ion-input name="search.patrolUserName" type="search" [(ngModel)]="search.patrolUserName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>巡查单位</ion-label>
-      <ion-input type="text" [(ngModel)]="search.manageUnitName"></ion-input>
+      <ion-input name="search.manageUnitName" type="search" [(ngModel)]="search.manageUnitName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>同行人员</ion-label>
-      <ion-input type="text" [(ngModel)]="search.othersPeople"></ion-input>
+      <ion-input name="search.othersPeople" type="search" [(ngModel)]="search.othersPeople"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed>巡查开始日期</ion-label>
-      <ion-datetime placeholder="点击选择巡查开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
+      <ion-datetime name="search.startDateTime" placeholder="点击选择巡查开始日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.startDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label fixed>巡查结束日期</ion-label>
-      <ion-datetime placeholder="点击选择巡查结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
+      <ion-datetime name="search.endDateTime" placeholder="点击选择巡查结束日期" cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="search.endDateTime"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label fixed>地区</ion-label>
-      <ion-select [(ngModel)]="search.area" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
+      <ion-select name="search.area" [(ngModel)]="search.area" cancelText="取消" interface="popover" (ngModelChange)="areaChanged()">
         <ion-option *ngFor="let kvp of searchDataSource.areaList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>县区</ion-label>
-      <ion-select [(ngModel)]="search.district" cancelText="取消" interface="popover">
+      <ion-select name="search.district" [(ngModel)]="search.district" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of districtList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>类别</ion-label>
-      <ion-select [(ngModel)]="search.culturalRelicLevel" cancelText="取消" interface="popover">
+      <ion-select name="search.culturalRelicLevel" [(ngModel)]="search.culturalRelicLevel" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.culturalRelicLevelList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>巡查状态</ion-label>
-      <ion-select [(ngModel)]="search.patrolStatus" cancelText="取消" interface="popover">
+      <ion-select name="search.patrolStatus" [(ngModel)]="search.patrolStatus" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.patrolStatusList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label fixed>是否当场处理</ion-label>
-      <ion-select [(ngModel)]="search.disposeType" cancelText="取消" interface="popover">
+      <ion-select  name="search.disposeType" [(ngModel)]="search.disposeType" cancelText="取消" interface="popover">
         <ion-option *ngFor="let kvp of searchDataSource.disposeTypeList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
+  <button style="display:none;" ion-button block (click)="doSearch()"></button>
+</form>
 </ion-content>
 
 <ion-footer>

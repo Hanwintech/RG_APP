@@ -61,6 +61,7 @@ export class SelfIndexPage extends BasePage {
     this.hasPatrolStatistic = false;
     this.hasPublicOpinion = false;
 
+    // 地级市、区级管理员、巡查录入人员
     if (super.hasRole(EnumAppRole.Patrol)) {
       this.hasCulturalRelicTwoLine = true;
       this.hasAllTodo = true;
@@ -69,15 +70,14 @@ export class SelfIndexPage extends BasePage {
       this.hasMessageCenter = true;
       this.hasPatrolAdd = true;
       this.hasPatrolOnline = true;
-      this.hasMoveableStatistic = true;
       this.hasPatrolStatistic = true;
       this.hasPublicOpinion = true;
     }
 
+    // 巡查数据查看人员
     if (super.hasRole(EnumAppRole.SearchPatrol)) {
       this.hasCulturalRelicTwoLine = true;
       this.hasAllTodo = true;
-      this.hasInspectionNotice = true;
       this.hasNotice = true;
       this.hasMessageCenter = true;
       this.hasPatrolOnline = true;
@@ -86,12 +86,12 @@ export class SelfIndexPage extends BasePage {
       this.hasPublicOpinion = true;
     }
 
+    // 志愿者 文保员 志愿者管理员
     if (super.hasRole(EnumAppRole.Volunteer)) {
       this.hasCulturalRelicTwoLine = true;
       this.hasPatrolAdd = true;
       this.hasPatrolOnline = true;
-      this.hasMoveableStatistic = true;
-      this.hasPublicOpinion = true;
+      this.hasAllTodo = true;
     }
     setInterval(() => {
       this.GetUnreadMsgCountInfo();

@@ -20,10 +20,13 @@ export enum EnumAreaCode {
 }
 
 export enum EnumAppRole {
+    // 地级市、区级管理员、巡查录入人员
     Patrol = 1,
     Law = 2,
+    // 巡查数据查看人员
     SearchPatrol = 3,
     SearchLaw = 4,
+    // 志愿者 文保员 志愿者管理员
     Volunteer = 5
 }
 

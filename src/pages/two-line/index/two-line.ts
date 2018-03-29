@@ -58,12 +58,17 @@ export class TwoLinePage extends MapPage {
     }));
     let longT = localStorage.getItem("longitude");
     let lati = localStorage.getItem("latitude");
-    super.getLocation(longT, lati);
-    let pointData = new BMap.Point(longT, lati);
-    this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
-    this.mapLevel = this.map.getZoom() + 1;
-    this.getData(this.mapLevel);
-    this.mapAddEventListener();
+    if(longT&&lati){
+      super.getLocation(longT, lati);
+      let pointData = new BMap.Point(longT, lati);
+      this.map.centerAndZoom(pointData, this.showTwoLineMapLevel);
+      this.mapLevel = this.map.getZoom() + 1;
+      this.getData(this.mapLevel);
+      this.mapAddEventListener();
+    }
+    else{
+      this.pageService.showErrorMessage("页面获取数据失败，请重新打开该页面！");
+    }
   }
 
   //底部查看详情面板

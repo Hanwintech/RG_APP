@@ -25,7 +25,7 @@
     </ion-slides>
 
     <div *ngIf="patrolInfo.attachmentList && patrolInfo.attachmentList.length == 1" class="headImg">
-      <img src="{{patrolInfo.attachmentList[0].fileUrl}}">
+      <img src="{{patrolInfo.attachmentList[0].fileUrl}}" (click)="showPic(patrolInfo.attachmentList[0].fileUrl)" >
     </div>
 
     <div *ngIf="!patrolInfo.attachmentList || patrolInfo.attachmentList.length == 0" class="headImg">

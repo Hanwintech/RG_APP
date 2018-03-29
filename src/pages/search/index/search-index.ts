@@ -138,9 +138,11 @@ export class SearchIndexPage extends PagingListPage {
     this.navCtrl.push("InspectStatisticsPage", listType);
   }
   culturalRelicStatistics(listType: number) {
+    this.pageService.showLoading("正在加载");
     this.navCtrl.push("CulturalRelicStatisticsPage", listType);
   }
   view(lawFileInfo: LawFileInfo) {
+    this.pageService.showLoading("正在加载");
     this.navCtrl.push("LawFileDetailPage", lawFileInfo);
   }
 

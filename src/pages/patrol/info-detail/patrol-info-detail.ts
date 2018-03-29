@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, ActionSheetController, ModalController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, Platform, ActionSheetController, ModalController, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { SMS } from '@ionic-native/sms';
@@ -36,7 +36,7 @@ export class PatrolInfoDetailPage extends DetailPage {
   private segmentOne;
   private segmentTwo;
   private segmentThree;
-  private canShowFooter=false;
+  private canShowFooter = false;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -51,6 +51,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     public fileUploadService: FileUploadService,
     public actionSheetCtrl: ActionSheetController,
     public pageService: PageService,
+    public platform: Platform,
     public file: File,
     public fileTransfer: FileTransfer
   ) {
@@ -58,7 +59,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.pageService.showLoading("正在加载数据");
     if (this.navParams.data.patrolReplay) {
       this.segmentThree = true;
-      this.canShowFooter=true;
+      this.canShowFooter = true;
       this.pageTitle = "巡查处理";
       this.showReplayPage();
       let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
@@ -81,15 +82,21 @@ export class PatrolInfoDetailPage extends DetailPage {
       this.segmentOne = true;
       this.getPatroInfo();
     }
-
   }
-
+  ionViewWillLeave() {
+    this.pageService.showLoading("");
+    // this.segmentOne = false;
+    // this.segmentTwo = false;
+    // this.segmentThree = false;
+    // this.canShowFooter = false;
+    //this.pageService.dismissLoading();
+  }
   getPatroInfo() {
     let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
     this.apiService.sendApi(new GetPatrolInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(
       res => {
         this.pageService.dismissLoading();
-        this.canShowFooter=true;
+        this.canShowFooter = true;
         if (res.success) {
           this.patrolInfo = res.data;
           this.canShowLocation = true;
@@ -202,7 +209,7 @@ export class PatrolInfoDetailPage extends DetailPage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.巡查处理附件;
-            att.fileShowName="巡查处理附件.jpg";
+            att.fileShowName = "巡查处理附件.jpg";
           }
           if (!this.patrolProcessInfo.attachmentList) {
             this.patrolProcessInfo.attachmentList = [];
@@ -341,14 +348,12 @@ export class PatrolInfoDetailPage extends DetailPage {
       },
       () => { });
   }
-
+  showPic(pic) {
+    let picArray = [];
+    picArray.push(pic);
+    this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
+  }
   close() {
-    this.pageService.showLoading("正在关闭");
-    this.segmentOne = false;
-    this.segmentTwo = false;
-    this.segmentThree = false;
-    this.canShowFooter=false;
-    this.pageService.dismissLoading();
     this.viewCtrl.dismiss(false);
   }
 }

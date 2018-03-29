@@ -561,6 +561,9 @@ ion-footer {
     box-shadow: none;
     display: inline-block;
 }
+textarea+.requiredContent{
+    float:right;
+}
 textarea+.requiredContent:after{
     top:-104px;
     right:3px;

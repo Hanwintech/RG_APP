@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { EnumMessageCenterReadState } from './../../../models/enum';
@@ -19,7 +19,7 @@ import { GetNoticeInfo } from './../../../apis/self/get-notice-info.api';
 export class NoticeDetailPage extends DetailPage {
   private noticeBasicInfo: UVNoticeBasicInfo;
   private innerHtmlData;
-  private footerControl=true;
+  private footerControl = true;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,6 +28,7 @@ export class NoticeDetailPage extends DetailPage {
     public apiService: ApiService,
     private sanitize: DomSanitizer,
     public viewCtrl: ViewController,
+    public platform: Platform,
     public pageService: PageService
   ) {
     super(navCtrl, file, fileTransfer, pageService);
@@ -45,8 +46,11 @@ export class NoticeDetailPage extends DetailPage {
       });
   }
 
+  ionViewWillLeave() {
+    this.footerControl = false;
+  }
+
   close() {
-    this.footerControl=false;
     this.navCtrl.pop();
   }
 }

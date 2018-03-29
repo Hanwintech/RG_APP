@@ -60,7 +60,7 @@ export class BasePage {
     }
 
     public downloadFile(networkInfoService: NetworkInformationService, file: Attachment) {
-        if (networkInfoService.connectionType != "wifi" && networkInfoService.connectionType != "ethernet") {
+        if (networkInfoService.connectionType == "2g"|| networkInfoService.connectionType == "3g"|| networkInfoService.connectionType == "4g") {
             this.pageService.showComfirmMessage(
                 "正在使用数据流量,是否确定要下载？",
                 () => { this.downloadFilePrivately(file); },
@@ -74,7 +74,7 @@ export class BasePage {
     public downloadAttachment(networkInfoService: NetworkInformationService, attachment: Attachment) {
         if (attachment.isDownloaded) {
             this.pageService.showMessage('文件已存在: ' + this._localFileDir + attachment.fileName);
-        } else if (networkInfoService.connectionType != "wifi" && networkInfoService.connectionType != "ethernet") {
+        } else if (networkInfoService.connectionType == "2g"|| networkInfoService.connectionType == "3g"|| networkInfoService.connectionType == "4g") {
             this.pageService.showComfirmMessage(
                 "正在使用数据流量,是否确定要下载？",
                 () => { this.downloadFilePrivately(attachment); },

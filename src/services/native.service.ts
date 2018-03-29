@@ -46,10 +46,12 @@ export class NativeService {
                             let message = "发现新版本,是否立即升级？";
                             if (this.networkInfoService.isConnected
                                 &&
-                                this.networkInfoService.connectionType != "wifi"
-                                &&
-                                this.networkInfoService.connectionType != "ethernet"
-                            
+                                (this.networkInfoService.connectionType == "2g"
+                                    ||
+                                    this.networkInfoService.connectionType == "2g"
+                                    ||
+                                    this.networkInfoService.connectionType == "2g")
+
                             ) {
                                 message += "（会产生数据流量）";
                             }

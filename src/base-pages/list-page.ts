@@ -99,7 +99,6 @@ export class PagingListPage extends ListBasePage {
     }
 
     getData(ionInfiniteScrollEvent, isNewSearch) {
-        console.log(this._nextPageIndex);
         this.api.condition = this.condition;
         this.apiService.sendApi(this.api).subscribe(
             res => {
@@ -108,7 +107,6 @@ export class PagingListPage extends ListBasePage {
                         this.dataList = [];
                         this._nextPageIndex = 1;
                     }
-console.log(res.data);
                     this.conditionDataSource = res.data[this.conditionDataSourceName];
                     //获取新一页的数据
                     let temp = res.data[this.dataListName] ? res.data[this.dataListName] : [];
@@ -143,7 +141,7 @@ console.log(res.data);
         this.condition.pageIndex = 0;
         this.getData(null, true);
         ionRefreshEvent.complete();
-        
+
     }
 
     showSimpleSearch() {

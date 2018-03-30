@@ -17,7 +17,7 @@ import { SystemConst } from './../../../services/system-const.service';
   templateUrl: 'cultural-relic-info-list.html',
 })
 export class CulturalRelicInfoListPage extends PagingListPage {
-  private canAdd: boolean;
+  public canAddCultural: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -32,7 +32,7 @@ export class CulturalRelicInfoListPage extends PagingListPage {
   ) {
     super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "culturalRelicInfoSearchDataSource", "culturalRelicInfoList");
 
-    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol);
+    this.canAddCultural = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol);
 
     this.pageService.showLoading("数据加载中...");
 

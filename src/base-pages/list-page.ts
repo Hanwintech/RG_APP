@@ -21,6 +21,10 @@ export class ListBasePage extends BasePage {
     public get dataList(): any[] { return this._dataList; }
     public set dataList(value) { this._dataList = value; }
 
+    private _canAddCultural: boolean;
+    public get canAddCultural(): boolean { return this._canAddCultural; }
+    public set canAddCultural(value) { this._canAddCultural = value; }
+
     private _api: GetListAPI;
     public get api(): GetListAPI { return this._api; }
     public set api(value) { this._api = value; }
@@ -100,6 +104,7 @@ export class PagingListPage extends ListBasePage {
 
     getData(ionInfiniteScrollEvent, isNewSearch) {
         this.api.condition = this.condition;
+        console.log(this.api.condition);
         this.apiService.sendApi(this.api).subscribe(
             res => {
                 if (res.success) {
@@ -151,6 +156,7 @@ export class PagingListPage extends ListBasePage {
                 if (data && data.needSearch) {
                     this.condition.keyword = data.keyword;
                     this.condition.isDefaultSearch = true;
+                    this.condition.pageIndex = 0;        
                     this.getData(null, true);
                 } else {
                     this.pageService.dismissLoading();
@@ -162,11 +168,13 @@ export class PagingListPage extends ListBasePage {
     }
 
     showSearch(searchPage: string) {
+        console.log(this.conditionDataSource);
         super.showConditionalSearchPage(searchPage, { "search": this.condition, "dataSource": this.conditionDataSource })
             .then(data => {
                 if (data && data.needSearch) {
                     this.condition = data.search;
                     this.condition.isDefaultSearch = false;
+                    this.condition.pageIndex = 0;
                     this.condition.keyword = "";
                     this.getData(null, true);
                 }
@@ -187,6 +195,7 @@ export class PagingListPage extends ListBasePage {
     defaultDelete;
 
     pressDataItem(dataItem) {
+       if(this.canAddCultural){
         let actionSheet = this.actionSheetCtrl.create({
             title: '操作',
             buttons: [
@@ -195,5 +204,6 @@ export class PagingListPage extends ListBasePage {
             ]
         });
         actionSheet.present();
+       }
     }
 }

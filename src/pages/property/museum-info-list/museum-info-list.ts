@@ -17,7 +17,7 @@ import { SystemConst } from './../../../services/system-const.service';
   templateUrl: 'museum-info-list.html',
 })
 export class MuseumInfoListPage extends PagingListPage {
-  private canAdd: boolean;
+  public canAddCultural: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -32,7 +32,7 @@ export class MuseumInfoListPage extends PagingListPage {
   ) {
     super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "museumInfoSearchDataSource", "museumInfoList");
 
-    this.canAdd = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol);
+    this.canAddCultural = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol);
 
     this.pageService.showLoading("数据加载中...");
 

@@ -53,13 +53,15 @@ export class SearchIndexPage extends PagingListPage {
     } else if (searchDefaultPage) {
       this.statistics = searchDefaultPage;
     } else {
-      this.statistics = "culturalRelic";
+      this.pageService.showLoading("数据加载中...");
+      this.statistics = "laws";
+      this.changeSegment("laws");
     }
   }
 
   changeSegment(segValue) {
     this.navCtrl.parent.viewCtrl.instance.searchDefaultPage = segValue;
-
+    this.pageService.dismissLoading();
     if (segValue == 'laws') {
       //初始化父类参数
       this.api = new GetLawFileInfos();

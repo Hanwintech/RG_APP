@@ -8,7 +8,7 @@
       <button ion-button icon-only (click)="showSearch('MuseumSearchPage')" (press)="pageService.showMessage('筛选博物馆')">
         <ion-icon name="ios-funnel-outline"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAdd" (press)="pageService.showMessage('新增博物馆')">
+      <button ion-button icon-only (click)="defaultAdd()" *ngIf="canAddCultural" (press)="pageService.showMessage('新增博物馆')">
         <ion-icon name="ios-add-circle-outline"></ion-icon>
       </button>
     </ion-buttons>

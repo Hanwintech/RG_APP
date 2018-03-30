@@ -563,10 +563,11 @@ ion-footer {
 }
 textarea+.requiredContent{
     float:right;
+    width:25px;
 }
 textarea+.requiredContent:after{
     top:-104px;
-    right:3px;
+    right:8px;
 }
 
 input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focus:invalid {

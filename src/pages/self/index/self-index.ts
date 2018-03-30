@@ -70,6 +70,7 @@ export class SelfIndexPage extends BasePage {
       this.hasMessageCenter = true;
       this.hasPatrolAdd = true;
       this.hasPatrolOnline = true;
+      this.hasMoveableStatistic = true;
       this.hasPatrolStatistic = true;
       this.hasPublicOpinion = true;
     }
@@ -78,6 +79,7 @@ export class SelfIndexPage extends BasePage {
     if (super.hasRole(EnumAppRole.SearchPatrol)) {
       this.hasCulturalRelicTwoLine = true;
       this.hasAllTodo = true;
+      this.hasInspectionNotice = true;
       this.hasNotice = true;
       this.hasMessageCenter = true;
       this.hasPatrolOnline = true;
@@ -91,7 +93,6 @@ export class SelfIndexPage extends BasePage {
       this.hasCulturalRelicTwoLine = true;
       this.hasPatrolAdd = true;
       this.hasPatrolOnline = true;
-      this.hasAllTodo = true;
     }
     setInterval(() => {
       this.GetUnreadMsgCountInfo();

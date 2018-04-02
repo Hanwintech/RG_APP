@@ -48,9 +48,9 @@ export class NativeService {
                                 &&
                                 (this.networkInfoService.connectionType == "2g"
                                     ||
-                                    this.networkInfoService.connectionType == "2g"
+                                    this.networkInfoService.connectionType == "3g"
                                     ||
-                                    this.networkInfoService.connectionType == "2g")
+                                    this.networkInfoService.connectionType == "4g")
 
                             ) {
                                 message += "（会产生数据流量）";

@@ -90,16 +90,22 @@ export class MessageCenterInfoDetailPage extends DetailPage {
     }
   }
 
-  close() {
-    this.setMessageStatu();
+  ionViewWillUnload() {
+    if(this.state!==EnumMessageCenterReadState["已处理"]){
+      this.setMessageStatu();
+    }
+  }
+
+  close(){
+    this.ionViewWillUnload();
   }
 
   setMessageStatu() {
     //在没有打开详情页面的情况下，根据当页面的messageType,赋值messageCenterReadState;
-    //产生此操作原因为，“代办事宜”和“消息中心”公用同一页面
+    //产生此操作原因为，“代办事宜”和“消息中心”共用同一页面
     if (!this.state) {
       if (this.messageCenterEntity.messageType == EnumMessageCenterType["督察令通知"] || this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"]) {
-        this.state = EnumMessageCenterReadState["已阅未处理"];
+          this.state = EnumMessageCenterReadState["已阅未处理"];
       }
       else {
         this.state = EnumMessageCenterReadState["已阅"];

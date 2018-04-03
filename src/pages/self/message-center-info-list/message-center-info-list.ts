@@ -68,9 +68,11 @@ export class MessageCenterInfoListPage extends PagingListPage {
       else{
         if(messageCenterEntity.messageType==EnumMessageCenterType["巡查处理"]||messageCenterEntity.messageType==EnumMessageCenterType["督察令通知"]){
           messageCenterEntity.readStateName="已阅未处理";
+          messageCenterEntity.readState=EnumMessageCenterReadState["已阅未处理"];
         }
         else{
           messageCenterEntity.readStateName="已阅";
+          messageCenterEntity.readState=EnumMessageCenterReadState["已阅"];
         }
       }
     });

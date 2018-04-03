@@ -91,6 +91,10 @@ export class PatrolInfoDetailPage extends DetailPage {
     // this.canShowFooter = false;
     //this.pageService.dismissLoading();
   }
+
+  ionViewDidLeave(){
+    this.pageService.dismissLoading();
+  }
   getPatroInfo() {
     let keyID = this.navParams.data.keyID ? this.navParams.data.keyID : this.navParams.data.patrolInfo.keyID;
     this.apiService.sendApi(new GetPatrolInfo(keyID, localStorage.getItem("userId"), localStorage.getItem("manageUnitId"), localStorage.getItem("userType"))).subscribe(

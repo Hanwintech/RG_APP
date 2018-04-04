@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, Platform } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
+import { JPush } from '@jiguang-ionic/jpush';
 
 import { ApiService } from './../../services/api.service';
 import { PageService } from './../../services/page.service';
@@ -25,7 +26,8 @@ export class LoginPage {
     public apiService: ApiService,
     public pageService: PageService,
     public locationWatchService: LocationWatchService,
-    public nativeService: NativeService
+    public nativeService: NativeService,
+    public jpush: JPush
   ) {
     this.areaCode = this.apiService.areaCode.toString();
 
@@ -85,20 +87,34 @@ export class LoginPage {
           localStorage.setItem('phone', res.officePhone ? res.officePhone : "");
           localStorage.setItem('email', res.email ? res.email : "");
           this.apiService.token = res.access_token;
-  
-          if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+
+          // if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
             let alias = res.userID.replace("-", "").replace("-", "").replace("-", "").replace("-", "");
-            (<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": alias },
-              function (r) {
-                console.log(r);
-              },
-              function (errorMsg) {
+            alert(alias);
+            this.jpush.setAlias({ "sequence": 0, "alias": alias })
+            .then(r => {
+                alert(r); 
+                this.pageService.showMessage('推送服务注册成功！');
+              })
+            .catch(errorMsg => {
                 console.log("setAlias error:");
+                alert(errorMsg);
                 console.log(errorMsg);
                 this.pageService.showErrorMessage('推送服务注册失败！');
-              }.bind(this));
-          }
-  
+              });
+            //(<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": alias },
+              // r => {
+              //   alert(r);
+              //   this.pageService.showMessage('推送服务注册成功！');
+              // },
+              // errorMsg => {
+              //   console.log("setAlias error:");
+              //   alert(errorMsg);
+              //   console.log(errorMsg);
+              //   this.pageService.showErrorMessage('推送服务注册失败！');
+              // });
+          // }
+
           this.locationWatchService.start();
           this.navCtrl.setRoot("TabsPage");
         },

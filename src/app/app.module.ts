@@ -16,6 +16,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Network } from '@ionic-native/network';
+import { JPush } from '@jiguang-ionic/jpush';
 
 import { MyApp } from './app.component';
 
@@ -70,6 +71,7 @@ import { NetworkInformationService } from './../services/network-information.ser
     FileUploadService,
     ImagePickerService,
     Camera,
+    JPush,
     AppVersion,
     InAppBrowser,
     Network,

@@ -16,9 +16,9 @@
           <img src="{{data.miniImageUrl ? data.miniImageUrl : 'assets/icon/empty_small.png'}}">
         </div>
         <div class="description">
-          <h3>{{data.upCulturalRelic.culturalRelicName}}</h3>
+          <h3>{{data.upCulturalRelic.culturalRelicName}}<span class="name-mark" *ngIf="data.upCulturalRelic.coordinateAccurate === 4"> (未标注)</span></h3>
           <div>{{data.upCulturalRelic.remark}}</div>
-          <h4>{{data.enumAreaName}}-{{data.upCulturalRelic.districtName}}</h4>
+          <h4>{{data.enumAreaName}}{{data.upCulturalRelic.districtName ? ('-' + data.upCulturalRelic.districtName) : ''}}</h4>
           <h5>{{getCulturalRelicLevelName(data.upCulturalRelic.culturalRelicLevel)}}</h5>
         </div>
       </ion-item>

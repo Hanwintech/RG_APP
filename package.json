@@ -46,6 +46,7 @@
     "@ionic-native/splash-screen": "4.4.2",
     "@ionic-native/status-bar": "4.4.2",
     "@ionic/storage": "2.0.1",
+    "@jiguang-ionic/jpush": "^1.0.2",
     "call-number": "^1.0.1",
     "cordova-android": "6.3.0",
     "cordova-plugin-app-version": "^0.1.9",
@@ -67,7 +68,7 @@
     "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
-    "jpush-phonegap-plugin": "^3.4.1",
+    "jpush-phonegap-plugin": "file:../jpush-phonegap-plugin-master",
     "mx.ferreyra.callnumber": "0.0.2",
     "rxjs": "^5.5.6",
     "sdk": "^0.5.0",
@@ -92,9 +93,6 @@
       "cordova-plugin-file-opener2": {},
       "cordova-plugin-network-information": {},
       "ionic-plugin-keyboard": {},
-      "jpush-phonegap-plugin": {
-        "APP_KEY": "eb1772f8b0e4ef049a9dc285"
-      },
       "call-number": {},
       "cordova-plugin-baidumaplocation": {
         "ANDROID_KEY": "O9tdMCTso41lpQGp0SzKa7fWG8q8q4tp",
@@ -103,7 +101,10 @@
       },
       "cordova-plugin-file": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-image-picker": {}
+      "cordova-plugin-image-picker": {},
+      "jpush-phonegap-plugin": {
+        "APP_KEY": "eb1772f8b0e4ef049a9dc285"
+      }
     },
     "platforms": [
       "android"

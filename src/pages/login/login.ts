@@ -53,15 +53,13 @@ export class LoginPage {
       localStorage.removeItem('phone');
       localStorage.removeItem('email');
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-        (<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": "" },
-          function (r) {
-            console.log(r);
-          },
-          function (errorMsg) {
-            console.log("setAlias error:");
-            console.log(errorMsg);
+        this.jpush.setAlias({ "sequence": 0, "alias": "" })
+          .then(r => {
+            this.pageService.showMessage('推送服务注册成功！');
+          })
+          .catch(error => {
             this.pageService.showErrorMessage('推送服务注册失败！');
-          }.bind(this));
+          });
       }
       this.locationWatchService.stop();
     }
@@ -88,35 +86,17 @@ export class LoginPage {
           localStorage.setItem('email', res.email ? res.email : "");
           this.apiService.token = res.access_token;
 
-          // if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
+          if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
             let alias = res.userID.replace("-", "").replace("-", "").replace("-", "").replace("-", "");
-            alert(alias);
             this.jpush.setAlias({ "sequence": 0, "alias": alias })
-            .then(r => {
-                alert(r); 
-                this.pageService.showMessage('推送服务注册成功！');
+              .then(r => {
+                this.navCtrl.setRoot("TabsPage");
               })
-            .catch(errorMsg => {
-                console.log("setAlias error:");
-                alert(errorMsg);
-                console.log(errorMsg);
+              .catch(errorMsg => {
                 this.pageService.showErrorMessage('推送服务注册失败！');
               });
-            //(<any>window).plugins.jPushPlugin.setAlias({ "sequence": 0, "alias": alias },
-              // r => {
-              //   alert(r);
-              //   this.pageService.showMessage('推送服务注册成功！');
-              // },
-              // errorMsg => {
-              //   console.log("setAlias error:");
-              //   alert(errorMsg);
-              //   console.log(errorMsg);
-              //   this.pageService.showErrorMessage('推送服务注册失败！');
-              // });
-          // }
-
+          }
           this.locationWatchService.start();
-          this.navCtrl.setRoot("TabsPage");
         },
         error => {
           this.pageService.dismissLoading();

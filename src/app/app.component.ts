@@ -3,7 +3,7 @@ import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Device } from '@ionic-native/device';
-
+import { JPush } from '@jiguang-ionic/jpush';
 import { NativeService } from './../services/native.service';
 import { LocationWatchService } from './../services/location-watch.service';
 
@@ -23,6 +23,7 @@ export class MyApp {
     public toastCtrl: ToastController,
     public ionicApp: IonicApp,
     public device: Device,
+    public jpush:JPush,
     public nativeService: NativeService,
     public locationWatchService: LocationWatchService
   ) {
@@ -38,8 +39,10 @@ export class MyApp {
       this.splashScreen.hide();
 
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-        (<any>window).plugins.jPushPlugin.init();
-        (<any>window).plugins.jPushPlugin.getRegistrationID(function (data) { console.log("RegistrationID:" + data); });
+        this.jpush.init().then(res=>{ }).catch(res=>{
+          console.log(res);
+        });
+        this.jpush.getRegistrationID().then(res=>{console.log("RegistrationID:" + res);}).catch(res=>{console.log(res)});
 
         document.addEventListener("jpush.receiveNotification", event => {
           let alertContent = this.device.platform == "Android" ? (<any>event).alert : (<any>event).aps.alert;

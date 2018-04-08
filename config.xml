@@ -106,11 +106,11 @@
         <variable name="IOS_LOCATION_DESC" value="请点击'好'以允许访问。" />
     </plugin>
     <plugin name="cordova-plugin-image-picker" spec="../cordova-imagePicker" />
-    <engine name="android" spec="6.3.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-jcore" spec="^1.1.12" />
     <plugin name="jpush-phonegap-plugin" spec="^3.3.2">
         <variable name="APP_KEY" value="eb1772f8b0e4ef049a9dc285" />
     </plugin>
+    <engine name="android" spec="~6.3.0" />
 </widget>

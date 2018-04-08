@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import { Device } from '@ionic-native/device';
 import { JPush } from '@jiguang-ionic/jpush';
 
@@ -23,12 +24,15 @@ export class LoginPage {
     public navParams: NavParams,
     public device: Device,
     public platform: Platform,
+    public statusBar: StatusBar,
     public apiService: ApiService,
     public pageService: PageService,
     public locationWatchService: LocationWatchService,
     public nativeService: NativeService,
     public jpush: JPush
   ) {
+    this.statusBar.hide();
+
     this.areaCode = this.apiService.areaCode.toString();
 
     var logout = navParams.get("logout");

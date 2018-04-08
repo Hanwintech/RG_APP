@@ -57,8 +57,8 @@ export class LoginPage {
       localStorage.removeItem('phone');
       localStorage.removeItem('email');
       if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
-        this.jpush.setAlias({ "sequence": 0, "alias": "" })
-          .then(r => { })
+        this.jpush.deleteAlias({ "sequence": 0})
+          .then(r => {})
           .catch(error => { });
       }
       this.locationWatchService.stop();

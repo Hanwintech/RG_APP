@@ -74,8 +74,13 @@ export class InspectionNoticeDetailPage extends DetailPage {
   reply() {
     let searchModal = this.modalCtrl.create('InspectionNoticeReplyPage', this.inspectionNotice);
     searchModal.onDidDismiss(data => {
-      this.inspectionNotice = data;
-      this.record = this.inspectionNotice.inspectorNotice.recordState;
+      if(data){
+        this.inspectionNotice = data;
+        this.record = this.inspectionNotice.inspectorNotice.recordState;
+      }
+      else{
+        return;
+      }
     });
     searchModal.present();
   }

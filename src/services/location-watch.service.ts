@@ -145,9 +145,6 @@ export class LocationWatchService {
             location.message = msg;
             this.apiService.sendApi(new PostUserCoordinateInfo(location)).subscribe(
                 res => {
-                    if (res.data){
-                        this.pageService.showMessage(res.data);
-                    }
                  },
                 error => { },
                 () => { }

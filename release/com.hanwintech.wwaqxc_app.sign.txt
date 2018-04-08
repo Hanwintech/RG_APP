@@ -25,6 +25,11 @@ mOption.setCoorType("bd09");
 
 
 
+ionic cordova plugin add cordova-plugin-jcore@1.1.12
+ionic cordova plugin add jpush-phonegap-plugin@3.3.2 --variable APP_KEY=eb1772f8b0e4ef049a9dc285
+
+
+
 ionic cordova build android --prod --release --device --minifyjs --minifycss --optimizejs
 
 

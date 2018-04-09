@@ -42,7 +42,7 @@ export class LoginPage {
       if (account && password) {
         this.auth.account = account;
         this.auth.password = password;
-        this.login();
+        this.navCtrl.setRoot("TabsPage");
       }
     } else {
       localStorage.removeItem('account');

@@ -43,6 +43,7 @@ export class LoginPage {
         this.auth.account = account;
         this.auth.password = password;
         this.navCtrl.setRoot("TabsPage");
+        this.locationWatchService.start();
       }
     } else {
       localStorage.removeItem('account');

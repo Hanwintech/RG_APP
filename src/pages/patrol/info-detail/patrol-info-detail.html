@@ -17,7 +17,7 @@
 <ion-content>
 
   <!-- 巡查记录详情 -->
-  <div *ngIf="segmentOne&&patrolInfo">
+  <div *ngIf="segmentOne&&patrolInfo" class="contain-bottom">
     <ion-slides *ngIf="patrolInfo.attachmentList && patrolInfo.attachmentList.length > 1" pager>
       <ion-slide *ngFor="let pic of patrolInfo.attachmentList" (click)="showSlideAttachment(pic)">
         <img src="{{pic.fileUrl}}">
@@ -67,7 +67,7 @@
         <ion-label fixed>巡查状态</ion-label>
         <ion-label>{{patrolInfo.patrolStateName ? patrolInfo.patrolStateName : '无'}}</ion-label>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="patrolInfo.patrolInfo.patrolState!=1">
         <ion-label fixed>问题情况</ion-label>
         <ion-label *ngIf="!caseProblem || caseProblem.length == 0">无</ion-label>
         <ion-label *ngIf="caseProblem && caseProblem.length > 0" class="navi">
@@ -78,15 +78,15 @@
           </div>
         </ion-label>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="patrolInfo.patrolInfo.patrolState!=1">
         <ion-label fixed>问题描述</ion-label>
         <ion-label>{{patrolInfo.patrolInfo.problemDescription ? patrolInfo.patrolInfo.problemDescription : '无'}}</ion-label>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="patrolInfo.patrolInfo.patrolState!=1">
         <ion-label fixed>是否经过许可</ion-label>
         <ion-label>{{patrolInfo.patrolInfo.permission ? '是' : '否'}}</ion-label>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="patrolInfo.patrolInfo.patrolState!=1" class="last-border">
         <ion-label fixed>是否当场处理</ion-label>
         <ion-label>{{patrolInfo.patrolInfo.isImmediately ? '是' : '否'}}</ion-label>
       </ion-item>
@@ -94,7 +94,7 @@
   </div>
 
   <!-- 巡查处理日志 -->
-  <div *ngIf="segmentTwo">
+  <div *ngIf="segmentTwo" class="contain-bottom">
     <ion-grid class="list-grid" *ngFor="let p of patrolProcess" (click)="showProcessDetail(p)">
       <ion-row>
         <ion-col col-3>处理结果</ion-col>
@@ -135,7 +135,7 @@
   </div>
 
   <!-- 巡查处理 -->
-  <div *ngIf="segmentThree">
+  <div *ngIf="segmentThree" class="contain-bottom">
     <ion-list *ngIf="patrolDispose&&patrolProcessInfo" class="form-list">
       <ion-item>
         <ion-label fixed>处理结果</ion-label>

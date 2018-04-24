@@ -26,6 +26,7 @@ export class BasePage {
         if (attachmentList && attachmentList.length > 0) {
             for (let att of attachmentList) {
                 if (att) {
+                    att.fileType = att.fileType.toLowerCase();
                     if (att.fileType == 'xls' || att.fileType == 'xlsx') {
                         att.fileType = "excel";
                     } else if (att.fileType == 'html' || att.fileType == 'htm') {
@@ -127,6 +128,7 @@ export class BasePage {
     public openFile(fileOpener: FileOpener, attachment: Attachment) {
         let fileMIMEType: string = 'application/octet-stream';
 
+        attachment.fileType = attachment.fileType.toLowerCase();
         if (attachment.fileType == 'pdf') {
             fileMIMEType = "application/pdf";
         } else if (attachment.fileType == 'excel') {

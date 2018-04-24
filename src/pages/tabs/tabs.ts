@@ -67,17 +67,17 @@ export class TabsPage extends BasePage {
   }
 
   public showPatrolOnline() {
-    this.navCtrl.getAllChildNavs()[0].select(1);
+    this.navCtrl.getAllChildNavs()[0].select(0);
   }
 
   public showMoveableStatistic() {
     this.searchDefaultPage = "culturalRelic";
-    this.navCtrl.getAllChildNavs()[0].select(2);
+    this.navCtrl.getAllChildNavs()[0].select(1);
   }
 
   public showPatrolStatistic() {
     this.searchDefaultPage = "inspect";
-    this.navCtrl.getAllChildNavs()[0].select(2);
+    this.navCtrl.getAllChildNavs()[0].select(1);
   }
 
   public searchSelected() {

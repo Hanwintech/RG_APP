@@ -59,6 +59,7 @@ export class MuseumInfoDetailPage extends DetailPage {
   }
 
   download(file) {
+    file.startDowload=true;
     super.downloadFile(this.networkInfoService, file);
   }
 

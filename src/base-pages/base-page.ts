@@ -94,10 +94,11 @@ export class BasePage {
             this.fileTransferObj.download(fileUrl, this._localFileDir + file.fileName).then(
                 (entry) => {
                     file.isDownloaded = true;
-                    this.pageService.showMessage('下载完成: ' + entry.toURL());
+                    this.pageService.showMessage('下载完成');
                 },
                 (error) => {
                     console.log(error);
+                    file.startDowload=false;
                     if (error.http_status == 404) {
                         this.pageService.showErrorMessage("文件丢失，请联系管理员！");
                     } else {

@@ -61,6 +61,7 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
   }
 
   download(file: Attachment) {
+    file.startDowload=true;
     super.downloadFile(this.networkInfoService, file);
   }
 

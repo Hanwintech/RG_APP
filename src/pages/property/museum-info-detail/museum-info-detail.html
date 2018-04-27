@@ -80,7 +80,7 @@
             </div>
             <button ion-button outline color="secondary" (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img' && att.isDownloaded">查看</button>
             <button ion-button outline color="secondary" (click)="open(att)" *ngIf="att.fileType != 'img' && att.isDownloaded">查看</button>
-            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded">下载</button>
+            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded"><div class="spinner-btn" *ngIf="att.startDowload"></div><span *ngIf="!att.startDowload">下载</span></button>
           </div>
         </div>
       </ion-label>

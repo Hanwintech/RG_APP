@@ -122,28 +122,66 @@ export class PatrolInfoEditPage extends BasePage {
   }
 
   selectAttachmentList() {
-    this.imagePickerService.getPictures(this.patrolInfo.attachmentList.length).then(
-      attachments => {
-        if (attachments) {
-          super.changeAttachmentFileType(attachments);
-          for (let att of attachments) {
-            att.category = EnumAttachmentType.不可移动文物附件;
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons:
+        [{
+          text: '拍摄',
+          handler: () => {
+            this.nativeImgService.getPictureByCamera().subscribe(img => {
+              this.fileUploadService.upload(img).then(
+                data => {
+                  if (data) {
+                    super.changeAttachmentFileType(this.patrolInfo.attachmentList);
+                    data.category = EnumAttachmentType.不可移动文物附件;
+                    if (!this.patrolInfo.attachmentList) {
+                      this.patrolInfo.attachmentList = [];
+                    }
+                    this.patrolInfo.attachmentList.push(data);
+                  }
+                  else{
+                    this.pageService.showErrorMessage("上传图片失败！");
+                  }
+                },
+                error => {
+                  if (typeof error === 'string') {
+                    this.pageService.showErrorMessage(error);
+                  } else {
+                    this.pageService.showErrorMessage("上传图片失败！");
+                  }
+                }
+              );
+            });
           }
-          if (!this.patrolInfo.attachmentList) {
-            this.patrolInfo.attachmentList = [];
+        }, {
+          text: '从相册选择',
+          handler: () => {
+            this.imagePickerService.getPictures(this.patrolInfo.attachmentList.length).then(
+              attachments => {
+                if (attachments) {
+                  super.changeAttachmentFileType(attachments);
+                  for (let att of attachments) {
+                    att.category = EnumAttachmentType.不可移动文物附件;
+                  }
+                  if (!this.patrolInfo.attachmentList) {
+                    this.patrolInfo.attachmentList = [];
+                  }
+                  this.patrolInfo.attachmentList = this.patrolInfo.attachmentList.concat(attachments);
+                } else {
+                  this.pageService.showErrorMessage("上传图片失败！");
+                }
+              },
+              error => {
+                if (typeof error === 'string') {
+                  this.pageService.showErrorMessage(error);
+                } else {
+                  this.pageService.showErrorMessage("上传图片失败！");
+                }
+              });
           }
-          this.patrolInfo.attachmentList = this.patrolInfo.attachmentList.concat(attachments);
-        } else {
-          this.pageService.showErrorMessage("上传图片失败！");
-        }
-      },
-      error => {
-        if (typeof error === 'string') {
-          this.pageService.showErrorMessage(error);
-        } else {
-          this.pageService.showErrorMessage("上传图片失败！");
-        }
-      });
+        }]
+    });
+    actionSheet.present();
+
   }
 
   showAttachmentList(attachment) {

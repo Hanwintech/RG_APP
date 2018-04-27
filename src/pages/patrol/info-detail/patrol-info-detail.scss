@@ -1,4 +1,7 @@
 page-patrol-info-detail {
+    .scroll-content{
+        padding-bottom: 15mm;
+    }
     ion-header .toolbar .toolbar-background {
         border: none;
         height: 50px;
@@ -109,7 +112,7 @@ page-patrol-info-detail {
             .label.attachment-label{
                 .title{
                     font-size: 5mm;
-                    border-bottom:1px solid color($colors, border, base);
+                    // border-bottom:1px solid color($colors, border, base);
                 }
                 .icon{
                     align-self: center;
@@ -123,9 +126,10 @@ page-patrol-info-detail {
             }
         }
         .list .item:last-child{
-            border-bottom: none;
+             border-bottom: none;
+        
         }
-        .contain-bottom .list .last-border{
+        .list .item:last-child .item-inner{
             border-bottom: 1px solid #f0f0f0;
         }
     }
@@ -181,7 +185,7 @@ page-patrol-info-detail {
         border-bottom: 1px solid #f0f0f0;
     }
     .contain-bottom{
-        margin-bottom:55px;
+        // margin-bottom:55px;
     }
 }
 .ios ion-menu[type=overlay] .menu-inner{

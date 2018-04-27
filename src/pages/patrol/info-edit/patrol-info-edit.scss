@@ -1,5 +1,8 @@
 page-patrol-info-edit {
     ion-content {
+       .scroll-content{
+           padding-bottom: 1em;
+       }
         .navi {
             background-image: url('../assets/icon/ic_self_right_arrows.png');
             padding-right: 32px;

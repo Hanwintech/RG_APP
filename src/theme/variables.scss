@@ -578,3 +578,29 @@ input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea
     background-size:8px;
 }
 
+// loading spinner
+.spinner-btn {
+    position: absolute;
+    height: 1em;
+    width:1em;
+    border-radius: 50%;
+    border: 2px solid #ff8a0f;
+    top:50%;
+    left:50%;
+    margin-top:-0.5em;
+    margin-left:-0.5em;
+    border-top-color: transparent;
+    animation: lai-spinnair 1s linear infinite;
+    // animation: lai-spinnair 1.3s cubic-bezier(0.680, -0.550, 0.265, 1.550) infinite;
+    box-sizing: border-box;
+  }
+  
+  @keyframes lai-spinnair {
+    0% {
+      transform: rotateZ(0);
+    }
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
+

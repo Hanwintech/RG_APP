@@ -10,4 +10,5 @@ export class Attachment {
     public keyWords: string;
 
     public isDownloaded: boolean;
+    public startDowload:boolean;
 }

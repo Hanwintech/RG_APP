@@ -52,6 +52,7 @@ export class LawFileDetailPage extends DetailPage {
     super.showSlidesPage(attachmentList, fileUrl);
   }
   download(file: Attachment) {
+    file.startDowload=true;
     super.downloadFile(this.networkInfoService, file);
   }
 

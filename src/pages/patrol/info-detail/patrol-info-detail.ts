@@ -358,6 +358,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
   }
   close() {
-    this.viewCtrl.dismiss(false);
+    var navOptions = { animation: 'wp-transition' };
+    this.viewCtrl.dismiss(false,null,navOptions);
   }
 }

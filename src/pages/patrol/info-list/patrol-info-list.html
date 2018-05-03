@@ -27,7 +27,7 @@
   <div *ngIf="dataList && dataList.length > 0">
     <ion-list class="data-list">
       <ion-item-sliding *ngFor="let data of dataList">
-        <ion-item (click)="defaultView('PatrolInfoDetailPage', data)">
+        <ion-item (click)="defaultView('PatrolInfoDetailPage', data)" [ngClass]="{'removeOption':!data.isCanDispose}">
           <div class="img">
             <img src="{{data.patrolImageUrl ? data.patrolImageUrl : 'assets/icon/empty_small.png'}}">
           </div>

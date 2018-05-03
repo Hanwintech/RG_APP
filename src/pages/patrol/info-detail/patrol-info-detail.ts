@@ -84,7 +84,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     }
   }
   ionViewWillLeave() {
-    this.pageService.showLoading("");
+    //this.pageService.showLoading("");
     // this.segmentOne = false;
     // this.segmentTwo = false;
     // this.segmentThree = false;
@@ -358,7 +358,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
   }
   close() {
-    var navOptions = { animation: 'wp-transition' };
+    var navOptions = {animate:false};
     this.viewCtrl.dismiss(false,null,navOptions);
   }
 }

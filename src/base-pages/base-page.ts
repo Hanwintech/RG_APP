@@ -113,11 +113,12 @@ export class BasePage {
         let currentIndex: number = 0;
         for (let i = 0; i < attachmentList.length; i++) {
             if (attachmentList[i].fileType == "img") {
-                if (attachmentList[i].isDownloaded) {
-                    picUrls.push(this._localFileDir + attachmentList[i].fileName);
-                } else {
-                    picUrls.push(attachmentList[i].fileUrl);
-                }
+                picUrls.push(attachmentList[i].fileUrl);
+                // if (attachmentList[i].isDownloaded) {
+                //     picUrls.push(this._localFileDir + attachmentList[i].fileName);
+                // } else {
+                //     picUrls.push(attachmentList[i].fileUrl);
+                // }
             }
             if (attachmentList[i].fileUrl == fileUrl) {
                 currentIndex = i;

@@ -131,7 +131,7 @@ export class PatrolInfoEditPage extends BasePage {
               this.fileUploadService.upload(img).then(
                 data => {
                   if (data) {
-                    super.changeAttachmentFileType(this.patrolInfo.attachmentList);
+                    super.changeAttachmentFileType([data]);
                     data.category = EnumAttachmentType.不可移动文物附件;
                     if (!this.patrolInfo.attachmentList) {
                       this.patrolInfo.attachmentList = [];

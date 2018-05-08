@@ -95,7 +95,7 @@
         <ion-option *ngFor="let kvp of selectDataSource.permissionList" value="{{kvp.key}}">{{kvp.value}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item *ngIf="patrolInfo.patrol.permission==1">
+    <ion-item *ngIf="patrolInfo.patrol.permission==1&&(patrolInfo.patrol.patrolState == 2 || patrolInfo.patrol.patrolState == 3)">
       <ion-label fixed>批准文号</ion-label>
       <ion-input type="text" placeholder="请输入批准文号" [(ngModel)]="patrolInfo.patrol.approvalNumber"></ion-input>
     </ion-item>

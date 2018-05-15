@@ -116,7 +116,7 @@ export class PatrolMapPage extends MapPage {
         that.getSearchData(data.search);
         setTimeout(() => {
           if (this.mapDistrictClusterInfoList.length == 0) {
-            this.pageService.showMessage("不存在满足条件的文物信息");
+            this.pageService.showMessage("当前可视范围内没有满足条件的文物!");
           }
         }, 500);
       }

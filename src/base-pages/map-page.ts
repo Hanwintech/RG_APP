@@ -440,6 +440,10 @@ export class MapPage extends DetailPage {
             this.isNeedMoveToFirstIcon = true;
         }
         if (this.search.districtCoordinateX && this.search.districtCoordinateY && !this.search.culturalRelicName) {
+            this.map.clearOverlays();
+            this.zoomendControle=false;
+            this.map.setZoom(12);
+            this.mapLevel = 12;
             let movePoint = new BMap.Point(this.search.districtCoordinateX.toString(), this.search.districtCoordinateY.toString());
             this.map.setCenter(movePoint);
         }

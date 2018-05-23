@@ -1,11 +1,14 @@
 page-self-index {
+    .content-ios{
+        background: #f5f5f5;
+    }
     ion-header {
         height: 49vw;
         background-image: url('../assets/self/header_bg.png');
         background-repeat: no-repeat;
         background-size: 100% 100%;
         font-size: 18px;
-        color: #fff;
+        color:color($colors, primary, base);
         .title {
             margin: 15px auto 10px 15px;
         }
@@ -45,6 +48,9 @@ page-self-index {
 ion-content.self-index {
     .badge-ios {
         border-radius: 50%;
+        position: absolute;
+        right: 20%;
+        top:0.5em;
     }
     ion-badge {
         padding: 0;
@@ -55,26 +61,53 @@ ion-content.self-index {
         font-weight: normal;
     }
     .mainBar {
-        padding: 10px 0;
+        padding:5px 0;
+        margin-bottom:1em;
+        background: #fff;
+        .seperateBar{
+            border-bottom: 1px solid color($colors, border, base);
+            padding-bottom: 5px;
+        }
+        .title{
+            width:25%;
+            text-align: center;
+            margin: 0.5em 0;
+            color: color($colors, primary, base);
+            font-weight: bold;
+            div{
+                width: 4em;
+                margin: 0 auto;
+                border-left:2px solid  color($colors, primary, base);
+                height: 1.2rem;
+                line-height: 1.3rem;
+                position: relative;
+                left:-3px;
+            }
+
+span{
+    color: color($colors, primary, base);
+    font-weight: bold;
+    font-size: 16px;
+}
+        }
         .col {
             text-align: center;
-            border-right: 1px solid color($colors, border, base);
-            padding: 5px 0;
+            padding: 0;
             .iconButton {
-                font-size: 12px;
-                color: color($colors, dark, base);
+                padding:10px 0;
+                color: #000;
                 text-align: center;
                 img {
-                    width: 3.5em;
+                    width: 3em;
                 }
             }
-            // .iconButton:active {
-            //     background-color: color($colors, background, base);
-            // }
-        }
-        .col:active {
+            .iconButton:active {
                 background-color: color($colors, background, base);
             }
+        }
+        // .col:active {
+        //         background-color: color($colors, background, base);
+        //     }
         .col:last-child {
             border-right: 0px;
         }

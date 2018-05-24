@@ -343,7 +343,7 @@ export class MapPage extends DetailPage {
                     this.selectedItem(cluster, picName);
                 }, 800);
             }
-            else{
+            else {
                 setTimeout(() => {
                     this.selectedItem(cluster, picName);
                 }, 800);
@@ -441,9 +441,15 @@ export class MapPage extends DetailPage {
         }
         if (this.search.districtCoordinateX && this.search.districtCoordinateY && !this.search.culturalRelicName) {
             this.map.clearOverlays();
-            this.zoomendControle=false;
-            this.map.setZoom(12);
-            this.mapLevel = 12;
+            this.zoomendControle = false;
+            if (this.search.area > 0 && this.search.district < 0) {
+                this.map.setZoom(9);
+                this.mapLevel = 9;
+            }
+            else {
+                this.map.setZoom(12);
+                this.mapLevel = 12;
+            }
             let movePoint = new BMap.Point(this.search.districtCoordinateX.toString(), this.search.districtCoordinateY.toString());
             this.map.setCenter(movePoint);
         }

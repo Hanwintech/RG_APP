@@ -107,9 +107,9 @@ export class TwoLinePage extends MapPage {
       if (data && data.needSearch) {
         that.getSearchData(data.search);
         setTimeout(() => {
-          if(this.mapDistrictClusterInfoList.length==0){
-            this.pageService.showMessage("当前可视范围内没有满足条件的文物!");
-          }
+          // if(this.mapDistrictClusterInfoList.length==0){
+          //   this.pageService.showMessage("当前可视范围内没有满足条件的文物!");
+          // }
         }, 500);
       }
     });
@@ -124,9 +124,9 @@ export class TwoLinePage extends MapPage {
       if (data && data.needSearch) {
         that.getSearchData(data.search);
         setTimeout(() => {
-          if(this.mapDistrictClusterInfoList.length==0){
-            this.pageService.showMessage("当前可视范围内没有满足条件的文物!");
-          }
+          // if(this.mapDistrictClusterInfoList.length==0){
+          //   this.pageService.showMessage("当前可视范围内没有满足条件的文物!");
+          // }
         }, 500);
       }
     });

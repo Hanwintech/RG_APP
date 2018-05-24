@@ -48,6 +48,9 @@ page-search-index {
         .col {
             padding: 20px 5px 5px 5px;
         }
+        .col:active{
+            background: #f7f7f7;
+        }
         .item-block {
             padding-left: 0;
             .label {

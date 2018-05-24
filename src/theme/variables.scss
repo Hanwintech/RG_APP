@@ -604,3 +604,6 @@ input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea
     }
   }
 
+.list.data-list .input-wrapper:active{
+background: #f7f7f7;
+}

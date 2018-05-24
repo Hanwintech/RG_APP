@@ -100,12 +100,12 @@ export class SelfIndexPage extends BasePage {
   }
 
   ionViewWillEnter() {
-    this.statusBar.backgroundColorByHexString("#5d2102");
+    this.statusBar.backgroundColorByHexString("#f3efe7");
     this.GetUnreadMsgCountInfo();
   }
 
   ionViewDidLeave() {
-    this.statusBar.backgroundColorByHexString("#2ead8c");
+    this.statusBar.backgroundColorByHexString("#826c50");
   }
 
   GetUnreadMsgCountInfo() {

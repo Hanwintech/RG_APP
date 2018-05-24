@@ -50,7 +50,7 @@ export class TabsPage extends BasePage {
 
   ionViewDidLoad() {
     this.statusBar.show();
-    this.statusBar.backgroundColorByHexString("#2ead8c");
+    this.statusBar.backgroundColorByHexString("#826c50");
   }
   ionViewWillEnter() { }
   ionViewDidEnter() {

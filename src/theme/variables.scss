@@ -21,7 +21,7 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: ( primary: #826d51, secondary: #826d51, tertiary: #ff8a0f, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #f7f7f7, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9, phoneNo:#4d7898);
+$colors: ( primary: #826c50, secondary: #826c50, tertiary: #ff8a0f, danger: #f53d3d, light: #f4f4f4, dark: #888, background: #f7f7f7, grayText: #bbb, avater: #EDAA45, border: #f0f0f0, shadow: #d9d9d9, phoneNo:#4d7898);
 $toolbar-background:color($colors, primary, base);
 $img-placeholder-background: #EDAA45;
 // App iOS Variables
@@ -533,7 +533,7 @@ ion-footer {
     transform: translate(-50%, -50%);
     text-align: center;
 }
-.requiredContent,{
+.requiredContent{
     position:relative;
     display: inline-block;
     font-family: "Ionicons";

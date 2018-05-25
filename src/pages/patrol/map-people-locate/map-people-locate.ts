@@ -41,6 +41,7 @@ export class MapPeopleLocatePage extends MapPage {
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     this.map.enableContinuousZoom();//连续缩放效果，默认禁用 
     this.peopleLocate();
+    this.culturalShow();
     //巡查人员的定位信息
     if (this.patrolInfo.coordinateX) {
       let pointData = new BMap.Point(this.patrolInfo.coordinateX, this.patrolInfo.coordinateY);
@@ -72,26 +73,8 @@ export class MapPeopleLocatePage extends MapPage {
   //定位到文物
   locateCultural() {
     if (this.patrolInfo.culturalRelicX) {
-      let picName = this.setMarkerByCRlevel(this.patrolInfo.culturalRelicLevel);
       let culturalPointData = new BMap.Point(this.patrolInfo.culturalRelicX, this.patrolInfo.culturalRelicY);
-      let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
-      let mkr = new BMap.Marker(culturalPointData, { icon: myLocation });
-      this.map.addOverlay(mkr);
       this.map.centerAndZoom(culturalPointData, 16);
-      let twoLineInfoList = this.navParams.data.culturalRelicInfo.twoLineInfoList;
-      if (twoLineInfoList) {
-        for (let info of twoLineInfoList) {
-          let color = "#" + info.twoLinePolygon.color;
-          if (info.twoLinePolygon.polygonType == 2) {
-            color = "#507daf";
-          }
-          let line = [];
-          for (let twoLinePoint of info.twoLinePointList) {
-            line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
-          }
-          this.drawTwoLine(line, color);
-        }
-      }
     }
     else {
       let toast = this.toastCtrl.create({
@@ -149,6 +132,31 @@ export class MapPeopleLocatePage extends MapPage {
     let myLocation = new BMap.Icon("assets/map/ic_map_marker_self.png", new BMap.Size(34, 35));
     let personLocate = new BMap.Marker(pointData, { icon: myLocation, enableMassClear: false });
     this.map.addOverlay(personLocate);
+  }
+
+  //文物显示
+  culturalShow(){
+    if (this.patrolInfo.culturalRelicX) {
+      let picName = this.setMarkerByCRlevel(this.patrolInfo.culturalRelicLevel);
+      let culturalPointData = new BMap.Point(this.patrolInfo.culturalRelicX, this.patrolInfo.culturalRelicY);
+      let myLocation = new BMap.Icon("assets/map/" + picName + ".png", new BMap.Size(34, 45));
+      let mkr = new BMap.Marker(culturalPointData, { icon: myLocation });
+      this.map.addOverlay(mkr);
+      let twoLineInfoList = this.navParams.data.culturalRelicInfo.twoLineInfoList;
+      if (twoLineInfoList) {
+        for (let info of twoLineInfoList) {
+          let color = "#" + info.twoLinePolygon.color;
+          if (info.twoLinePolygon.polygonType == 2) {
+            color = "#507daf";
+          }
+          let line = [];
+          for (let twoLinePoint of info.twoLinePointList) {
+            line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
+          }
+          this.drawTwoLine(line, color);
+        }
+      }
+    }
   }
 
   //获取当前所在位置

@@ -23,4 +23,12 @@ export class PublicOpinionInfoPage {
   publicOpinionProvinceGood() {
     this.navCtrl.push('PublicOpinionInfoListPage', EnumPublicOpinionShowType.省内文博大事);
   }
+
+  publicOpinionHuaiAnYuQin(){
+    this.navCtrl.push('PublicOpinionInfoListPage', EnumPublicOpinionShowType.淮安市文物舆情信息);
+  }
+
+  publicOpinionHuaiAnWenBo(){
+    this.navCtrl.push('PublicOpinionInfoListPage', EnumPublicOpinionShowType.淮安市文博大事);
+  }
 }

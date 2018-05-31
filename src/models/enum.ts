@@ -70,7 +70,9 @@ export enum EnumMessageShowType {
 export enum EnumPublicOpinionShowType {
     全国文物舆情信息 = 1,
     省内文物舆情信息 = 2,
-    省内文博大事 = 3
+    省内文博大事 = 3,
+    淮安市文物舆情信息 = 4,
+    淮安市文博大事 = 5,
 }
 
 export enum EnumDistrictType {

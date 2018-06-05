@@ -96,10 +96,16 @@ export class MapPage extends DetailPage {
     }
 
     getData(mapLevel) {
-        this.search.leftTopCoordinateX = this.map.getBounds().Le;
-        this.search.leftTopCoordinateY = this.map.getBounds().Fe;
-        this.search.rightBottomCoordinateX = this.map.getBounds().Ge;
-        this.search.rightBottomCoordinateY = this.map.getBounds().Ke;
+        let bounds = this.map.getBounds();                            //获取地图可视区域 
+        let sw = bounds.getSouthWest();                         //获取西南角的经纬度(左下端点)
+        let ne = bounds.getNorthEast();                           //获取东北角的经纬度(右上端点)
+        let wn = new BMap.Point(sw.lng, ne.lat);             //获取西北角的经纬度(左上端点)
+        let es = new BMap.Point(ne.lng, sw.lat);               //获取东南角的经纬度(右下端点)
+
+        this.search.leftTopCoordinateX = wn.lng;
+        this.search.leftTopCoordinateY = wn.lat;
+        this.search.rightBottomCoordinateX = es.lng;
+        this.search.rightBottomCoordinateY = es.lat;
         this.search.mapLevel = mapLevel;
         this.apiService.sendApi(new GetCulturalRelicMapInfosUrl(this.search)).subscribe(
             res => {

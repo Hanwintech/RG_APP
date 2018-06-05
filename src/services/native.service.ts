@@ -62,9 +62,13 @@ export class NativeService {
                             );
                         }
                     })
-                    .catch(error => { this.pageService.showErrorMessage("检查APP当前版本出错！"); });
+                    .catch(error => { 
+                        // this.pageService.showErrorMessage("检查APP当前版本出错！"); 
+                    });
             },
-            error => { this.pageService.showErrorMessage("检查APP最新版本出错！"); },
+            error => {
+                //  this.pageService.showErrorMessage("检查APP最新版本出错！");
+                 },
             () => { }
         );
     }

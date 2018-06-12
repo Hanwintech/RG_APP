@@ -7,23 +7,40 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-segment [(ngModel)]="statistics">
+  <ion-segment [(ngModel)]="statistics" *ngIf="seflPageToSearch">
     <ion-segment-button text-wrap value="cases" *ngIf="hasCase" (click)="changeSegment('cases')">
       案件统计
     </ion-segment-button>
-    <ion-segment-button text-wrap value="inspect" *ngIf="hasPatrol" (click)="changeSegment('inspect')">
+    <ion-segment-button text-wrap value="inspect" *ngIf="hasPatrol&&statistics=='inspect'" (click)="changeSegment('inspect')">
       巡查统计
     </ion-segment-button>
-    <ion-segment-button text-wrap value="culturalRelic"  *ngIf="hasPatrol" (click)="changeSegment('culturalRelic')" style="font-size: 1.2rem;">
+    <ion-segment-button text-wrap value="culturalRelic"  *ngIf="hasPatrol&&statistics=='culturalRelic'" (click)="changeSegment('culturalRelic')" style="font-size: 1.2rem;">
       可移动文物统计
     </ion-segment-button>
-    <ion-segment-button text-wrap value="laws" (click)="changeSegment('laws')">
+    <ion-segment-button text-wrap value="laws" *ngIf="statistics=='laws'||statistics=='license'" (click)="changeSegment('laws')">
       法律法规
     </ion-segment-button>
-    <ion-segment-button text-wrap value="license" (click)="changeSegment('license')">
+    <ion-segment-button text-wrap value="license"  *ngIf="statistics=='laws'||statistics=='license'" (click)="changeSegment('license')">
       行政许可
     </ion-segment-button>
   </ion-segment>
+  <ion-segment [(ngModel)]="statistics"  *ngIf="!seflPageToSearch">
+      <ion-segment-button text-wrap value="cases" *ngIf="hasCase" (click)="changeSegment('cases')">
+        案件统计
+      </ion-segment-button>
+      <ion-segment-button text-wrap value="inspect" *ngIf="hasPatrol" (click)="changeSegment('inspect')">
+        巡查统计
+      </ion-segment-button>
+      <ion-segment-button text-wrap value="culturalRelic"  *ngIf="hasPatrol" (click)="changeSegment('culturalRelic')" style="font-size: 1.2rem;">
+        可移动文物统计
+      </ion-segment-button>
+      <ion-segment-button text-wrap value="laws" (click)="changeSegment('laws')">
+        法律法规
+      </ion-segment-button>
+      <ion-segment-button text-wrap value="license" (click)="changeSegment('license')">
+        行政许可
+      </ion-segment-button>
+    </ion-segment>
 </ion-header>
 
 <ion-content>

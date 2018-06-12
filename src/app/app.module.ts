@@ -30,6 +30,7 @@ import { SystemConst } from './../services/system-const.service';
 import { NativeService } from './../services/native.service';
 import { LocationWatchService } from './../services/location-watch.service';
 import { NetworkInformationService } from './../services/network-information.service';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { NetworkInformationService } from './../services/network-information.ser
     nativeImgService,
     FileUploadService,
     ImagePickerService,
+    BackgroundMode,
     Camera,
     JPush,
     AppVersion,

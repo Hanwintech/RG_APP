@@ -207,6 +207,10 @@ export class SelfIndexPage extends BasePage {
     this.navCtrl.parent.viewCtrl.instance.showPatrolStatistic();
   }
 
+  otherStatistic(){
+    this.navCtrl.parent.viewCtrl.instance.otherStatistic();
+  }
+
   publicOpinion() {
     this.navCtrl.push("PublicOpinionInfoPage");
   }

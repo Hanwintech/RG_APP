@@ -449,12 +449,12 @@ export class MapPage extends DetailPage {
             this.map.clearOverlays();
             this.zoomendControle = false;
             if (this.search.area > 0 && this.search.district < 0) {
-                this.map.setZoom(9);
-                this.mapLevel = 9;
+                this.map.setZoom(6);
+                this.mapLevel = 6;
             }
             else {
-                this.map.setZoom(12);
-                this.mapLevel = 12;
+                this.map.setZoom(9);
+                this.mapLevel = 9;
             }
             let movePoint = new BMap.Point(this.search.districtCoordinateX.toString(), this.search.districtCoordinateY.toString());
             this.map.setCenter(movePoint);

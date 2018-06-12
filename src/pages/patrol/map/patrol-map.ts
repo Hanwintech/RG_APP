@@ -64,7 +64,7 @@ export class PatrolMapPage extends MapPage {
     }
     setInterval(() => {
       this.getLocation(localStorage.getItem("longitude"), localStorage.getItem("latitude"));
-    }, 10000);
+    }, 2000);
     this.initSearchData();
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
 

@@ -86,7 +86,6 @@ export class LoginPage {
           localStorage.setItem('phone', res.officePhone ? res.officePhone : "");
           localStorage.setItem('email', res.email ? res.email : "");
           this.apiService.token = res.access_token;
-
           if (this.device.platform == 'Android' || this.device.platform == 'iOS') {
             let alias = res.userID.replace("-", "").replace("-", "").replace("-", "").replace("-", "");
             this.jpush.setAlias({ "sequence": 0, "alias": alias })

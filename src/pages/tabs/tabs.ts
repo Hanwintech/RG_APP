@@ -18,7 +18,8 @@ export class TabsPage extends BasePage {
   private backButtonPressed: boolean;  //用于判断返回键是否触发
 
   private showPatrol: boolean;
-  private searchDefaultPage: string;
+  private searchDefaultPage: string = "inspect";
+  private selfPageToSearch: boolean;
 
   private tab1Root: string;
   private tab2Root: string;
@@ -52,7 +53,25 @@ export class TabsPage extends BasePage {
     this.statusBar.show();
     this.statusBar.backgroundColorByHexString("#826c50");
   }
-  ionViewWillEnter() { }
+  ionViewWillEnter() {
+    let that = this;
+    if (document.getElementById('tab-t0-0')) {
+      document.getElementById('tab-t0-0').onclick = function () {
+        that.selfPageToSearch = false;
+      }
+    }
+    if (document.getElementById('tab-t0-1')) {
+      document.getElementById('tab-t0-1').onclick = function () {
+        that.selfPageToSearch = false;
+      }
+    }
+    if (document.getElementById('tab-t0-2')) {
+      document.getElementById('tab-t0-2').onclick = function () {
+        that.selfPageToSearch = false;
+      }
+
+    }
+  }
   ionViewDidEnter() {
     //注册返回按键事件
     //this.registerBackButtonAction();
@@ -72,16 +91,20 @@ export class TabsPage extends BasePage {
 
   public showMoveableStatistic() {
     this.searchDefaultPage = "culturalRelic";
+    this.selfPageToSearch = true;
     this.navCtrl.getAllChildNavs()[0].select(1);
   }
 
   public showPatrolStatistic() {
     this.searchDefaultPage = "inspect";
+    this.selfPageToSearch = true;
     this.navCtrl.getAllChildNavs()[0].select(1);
   }
 
-  public searchSelected() {
-    this.searchDefaultPage = "";
+  public otherStatistic() {
+    this.searchDefaultPage = "other";
+    this.selfPageToSearch = true;
+    this.navCtrl.getAllChildNavs()[0].select(1);
   }
 
   registerBackButtonAction() {

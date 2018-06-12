@@ -21,6 +21,7 @@ export class SearchIndexPage extends PagingListPage {
   private statistics: string;
   private hasCase: boolean;
   private hasPatrol: boolean;
+  private seflPageToSearch:boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -40,19 +41,28 @@ export class SearchIndexPage extends PagingListPage {
     this.hasPatrol = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.SearchPatrol);
 
     this.pageService.showLoading("数据加载中...");
-
-    this.ionViewDidEnter();
   }
 
-  ionViewDidEnter() {
+ionViewWillEnter() {
+  this.seflPageToSearch=this.navCtrl.parent.viewCtrl.instance.selfPageToSearch;
+  console.log( this.seflPageToSearch);
     let searchDefaultPage = this.navCtrl.parent.viewCtrl.instance.searchDefaultPage;
+    console.log(searchDefaultPage);
     if (!searchDefaultPage && this.hasCase || searchDefaultPage == "cases" && this.hasCase) {
       this.statistics = "cases";
     } else if (!searchDefaultPage && this.hasPatrol || searchDefaultPage == "inspect" && this.hasPatrol) {
       this.statistics = "inspect";
-    } else if (searchDefaultPage) {
-      this.statistics = searchDefaultPage;
-    } else {
+    } 
+    else if (searchDefaultPage=='culturalRelic') {
+      this.statistics = "culturalRelic";
+      //this.changeSegment("culturalRelic");
+    }
+    else if (searchDefaultPage=='other') {
+      this.statistics = "laws";
+      this.changeSegment("laws");
+    }
+    
+    else {
       this.pageService.showLoading("数据加载中...");
       this.statistics = "laws";
       this.changeSegment("laws");

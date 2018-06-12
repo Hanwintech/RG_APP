@@ -127,7 +127,11 @@
           <br> 可移动文物统计
         </div>
       </ion-col>
-      <ion-col></ion-col>
+      <ion-col>
+         <div class="iconButton" *ngIf="hasMoveableStatistic" (click)="otherStatistic();">
+        <img src="assets/self/case_statistic.png">
+        <br> 其他统计
+      </div></ion-col>
       <ion-col></ion-col>
     </ion-row>
   </ion-grid>

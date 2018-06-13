@@ -45,7 +45,7 @@ export class SelfIndexPage extends BasePage {
     public apiService: ApiService,
     public pageService: PageService
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
     this.manageUnitName = localStorage.getItem('manageUnitName');
     this.userName = localStorage.getItem('name');

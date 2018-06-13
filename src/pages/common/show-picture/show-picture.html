@@ -5,9 +5,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides pager loop="{{picUrls && picUrls.length > 1}}" initialSlide="{{currentIndex}}">
+  <!-- <ion-slides pager loop="{{picUrls && picUrls.length > 1}}" initialSlide="{{currentIndex}}">
     <ion-slide *ngFor="let pic of picUrls">
       <img src="{{pic}}" alt="">
     </ion-slide>
-  </ion-slides>
+  </ion-slides> -->
+
+  <div #panel class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let path of picUrls">
+        <div class="swiper-zoom-container">
+          <img data-src="{{path}}" class="swiper-lazy">
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
 </ion-content>

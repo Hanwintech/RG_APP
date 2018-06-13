@@ -14,16 +14,10 @@ export class ShowPicturePage {
   private tempPicUrls: string[] = [];
   private picUrls: string[] = [];
   private currentIndex: number = 0;
-
-  initialSlide: number = 0;
-  picturePaths: string[] = [];
-
   constructor(
     public navParams: NavParams,
     public file: File
   ) {
-    this.initialSlide = navParams.get('initialSlide');
-    this.picturePaths = navParams.get('picturePaths');
     this.tempPicUrls = this.navParams.data.picUrls;
     this.currentIndex = this.navParams.data.currentIndex;
     for (let i = 0; i < this.tempPicUrls.length; i++) {
@@ -45,7 +39,7 @@ export class ShowPicturePage {
   ionViewDidLoad() {
     //http://www.swiper.com.cn/api/index.html
     new Swiper(this.panel.nativeElement, {
-      initialSlide: this.initialSlide,//初始化显示第几个
+      initialSlide: this.currentIndex,//初始化显示第几个
       zoom: true,//双击,手势缩放
       loop: true,//循环切换
       lazyLoading: true,//延迟加载

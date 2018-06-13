@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ViewController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ViewController, ActionSheetController,ModalController } from 'ionic-angular';
 import { EnumCulturalRelicLevel, EnumCoordinateObjectType } from './../../../models/enum';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { PostCoordinateInfosUrl } from './../../../apis/two-line/two-line.api';
@@ -37,8 +37,9 @@ export class MapCulturalRelicLocatePage extends BasePage {
     public pageService: PageService,
     public file: File,
     public fileTransfer: FileTransfer,
+    public modalCtrl:ModalController,
     public actionSheetCtrl: ActionSheetController) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
   }
 
   ionViewDidLoad() {

@@ -48,7 +48,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
     public fileUploadService: FileUploadService,
     public systemConst: SystemConst
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
     this.culturalRelicPostInfo = new CulturalRelicPostInfo();
 

@@ -30,7 +30,7 @@ export class MessageCenterInfoDetailPage extends DetailPage {
     public fileTransfer: FileTransfer,
     public pageService: PageService
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
     this.messageCenterEntity = this.navParams.data;
     this.viewDetail = this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] ? false : true;
     if (this.messageCenterEntity.messageType == EnumMessageCenterType["巡查处理"] || this.messageCenterEntity.messageType == EnumMessageCenterType["督察令通知"]) {

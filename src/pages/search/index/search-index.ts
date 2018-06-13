@@ -45,9 +45,7 @@ export class SearchIndexPage extends PagingListPage {
 
 ionViewWillEnter() {
   this.seflPageToSearch=this.navCtrl.parent.viewCtrl.instance.selfPageToSearch;
-  console.log( this.seflPageToSearch);
     let searchDefaultPage = this.navCtrl.parent.viewCtrl.instance.searchDefaultPage;
-    console.log(searchDefaultPage);
     if (!searchDefaultPage && this.hasCase || searchDefaultPage == "cases" && this.hasCase) {
       this.statistics = "cases";
     } else if (!searchDefaultPage && this.hasPatrol || searchDefaultPage == "inspect" && this.hasPatrol) {
@@ -71,6 +69,7 @@ ionViewWillEnter() {
 
   changeSegment(segValue) {
     this.navCtrl.parent.viewCtrl.instance.searchDefaultPage = segValue;
+    this.statistics=segValue;
     this.pageService.dismissLoading();
     if (segValue == 'laws') {
       //初始化父类参数

@@ -48,7 +48,7 @@ export class MapPage extends DetailPage {
         public apiService: ApiService,
         public file: File,
         public fileTransfer: FileTransfer) {
-        super(navCtrl, file, fileTransfer, pageService);
+        super(navCtrl, file, fileTransfer, pageService,modalCtrl);
     }
 
     viewDetail() {
@@ -170,7 +170,13 @@ export class MapPage extends DetailPage {
 
     //查看图片
     showPicture(fileUrl: string, attachmentList: Attachment[]) {
-        super.showSlidesPage(attachmentList, fileUrl);
+        let picUrls: string[] = [];
+        let currentIndex: number = 0;
+        for (let i = 0; i < attachmentList.length; i++) {
+                let fileUrlOriginal = attachmentList[i].fileUrl.replace("/CompressionFile/", "/OriginalFile/");
+                picUrls.push(fileUrlOriginal);
+        }
+        this.modalCtrl.create("ShowPicturePage", {  "picUrls": picUrls, "currentIndex": 0 }).present();
     }
 
     //定位

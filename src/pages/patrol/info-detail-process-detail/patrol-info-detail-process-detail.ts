@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController,ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FileOpener } from '@ionic-native/file-opener';
@@ -34,9 +34,10 @@ export class PatrolInfoDetailProcessDetailPage extends DetailPage {
     public fileOpener: FileOpener,
     public sms: SMS,
     public callNumber: CallNumber,
+    public modalCtrl:ModalController,
     public networkInfoService: NetworkInformationService
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
     this.processInfo = new PatrolProcessInfoDetails();
     this.processInfo.patrolCaseProcess = this.navParams.data;

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, IonicApp, ToastController } from 'ionic-angular';
+import { Nav, Platform, IonicApp, ToastController,AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Device } from '@ionic-native/device';
@@ -25,6 +25,7 @@ export class MyApp {
     public toastCtrl: ToastController,
     public ionicApp: IonicApp,
     public device: Device,
+    public alertCtrl: AlertController,
     public jpush:JPush,
     private app: App,
     public nativeService: NativeService,
@@ -32,6 +33,11 @@ export class MyApp {
     public locationWatchService: LocationWatchService
   ) {
     this.initializeApp();
+    const alert = this.alertCtrl.create({
+      title: '请确保手机定位服务已打开!',
+      buttons: ['确定']
+    });
+    alert.present();
   }
 
   initializeApp() {

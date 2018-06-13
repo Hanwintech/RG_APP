@@ -34,7 +34,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     public fileOpener: FileOpener,
     public networkInfoService: NetworkInformationService
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
     this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
     this.culturalRelicInfo = new CulturalRelicInfo();

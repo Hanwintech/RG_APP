@@ -39,7 +39,7 @@ export class ListBasePage extends BasePage {
         public conditionDataSourceName: string,
         public dataListName: string
     ) {
-        super(navCtrl, file, fileTransfer, pageService);
+        super(navCtrl, file, fileTransfer, pageService,modalCtrl);
     }
 
     showKeywordSearchPage(keyword: string): Promise<any> {

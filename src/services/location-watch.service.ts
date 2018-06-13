@@ -44,6 +44,7 @@ export class LocationWatchService {
                     localStorage.setItem('bdLatitude', positionData.latitude);
                     localStorage.setItem('longitude', positionData.longitude);
                     localStorage.setItem('latitude', positionData.latitude);
+                    localStorage.setItem('accuracy', positionData.radius);
                 },
                 error => {
 
@@ -59,9 +60,10 @@ export class LocationWatchService {
 
     stop() {
         this._isWatching = false;
-        BaiduGeolocation.stopWatch();
+        if (this.device.platform == 'Android' || this.device.platform == 'iOS') { BaiduGeolocation.stopWatch(); }
         localStorage.removeItem('longitude');
         localStorage.removeItem('latitude');
+        localStorage.removeItem('accuracy');
     }
 
     getPosition() {
@@ -73,6 +75,7 @@ export class LocationWatchService {
                         localStorage.setItem('bdLatitude', positionData.latitude);
                         localStorage.setItem('longitude', positionData.longitude);
                         localStorage.setItem('latitude', positionData.latitude);
+                        localStorage.setItem('accuracy', positionData.radius);
                         this.uploadLocation(JSON.stringify(positionData));
                     },
                     error => {

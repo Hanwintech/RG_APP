@@ -1,4 +1,4 @@
-import { NavController } from 'ionic-angular';
+import { NavController,ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { FileOpener } from '@ionic-native/file-opener';
@@ -15,7 +15,8 @@ export class BasePage {
         public navCtrl: NavController,
         public file: File,
         public fileTransfer: FileTransfer,
-        public pageService: PageService
+        public pageService: PageService,
+        public modalCtrl:ModalController,
     ) {
         this.fileTransferObj = this.fileTransfer.create();
         //this._localFileDir = "file:///data/user/0/download/";
@@ -124,7 +125,8 @@ export class BasePage {
                 currentIndex = i;
             }
         }
-        this.navCtrl.push("ShowPicturePage", { "picUrls": picUrls, "currentIndex": currentIndex });
+        // this.navCtrl.push("ShowPicturePage", { "picUrls": picUrls, "currentIndex": currentIndex });
+        this.modalCtrl.create("ShowPicturePage", {  "picUrls": picUrls, "currentIndex": currentIndex }).present();
     }
 
     public openFile(fileOpener: FileOpener, attachment: Attachment) {

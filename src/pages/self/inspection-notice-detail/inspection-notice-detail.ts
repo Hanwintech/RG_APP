@@ -34,7 +34,7 @@ export class InspectionNoticeDetailPage extends DetailPage {
     public pageService: PageService,
     public networkInfoService: NetworkInformationService
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
     this.apiService.sendApi(new GetInspectionNoticeInfo(this.navParams.data.keyID)).subscribe(
       res => {
         if (res.success) {

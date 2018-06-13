@@ -175,7 +175,7 @@ export class PatrolInfo {
     public selectedUserInfoList: CommonUserInfo[];
     //人员离文物点距离
     public personPointDistance: number;
-
+    public accuracy:number;
     constructor() {
         this.patrol = new PatrolEntity();
         this.attachmentList = [];

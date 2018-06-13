@@ -33,7 +33,7 @@ export class LawFileDetailPage extends DetailPage {
     public pageService: PageService,
     public networkInfoService: NetworkInformationService
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
     this.lawFileInfo = this.navParams.data;
 

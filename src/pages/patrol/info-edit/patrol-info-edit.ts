@@ -51,7 +51,7 @@ export class PatrolInfoEditPage extends BasePage {
     public systemConst: SystemConst,
     public dateTimePipe: DateTime
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
     this.patrolInfo = new PatrolInfo();
     this.selectDataSource = new PatrolEditDataSource();
@@ -304,6 +304,9 @@ export class PatrolInfoEditPage extends BasePage {
     let latitude = localStorage.getItem('latitude');
     if (latitude) {
       this.patrolInfo.patrol.coordinateY = Number(latitude);
+    }
+    if(localStorage.getItem('accuracy')){
+      this.patrolInfo.accuracy=Number(localStorage.getItem('accuracy'));
     }
     let map = new BMap.Map();
     let personPoint = new BMap.Point(longitude, latitude);

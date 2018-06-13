@@ -48,7 +48,7 @@ export class MuseumInfoEditPage extends BasePage {
     public validateService: ValidateService,
     public systemConst: SystemConst
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
     this.museumPostInfo = new MuseumPostInfo();
 

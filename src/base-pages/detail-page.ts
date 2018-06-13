@@ -1,4 +1,4 @@
-import { NavController } from 'ionic-angular';
+import { NavController,ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 
@@ -10,8 +10,9 @@ export class DetailPage extends BasePage {
         public navCtrl: NavController, 
         public file: File,
         public fileTransfer: FileTransfer,
-        public pageService: PageService
+        public pageService: PageService,
+        public modalCtrl:ModalController
     ) {
-        super(navCtrl, file, fileTransfer, pageService);
+        super(navCtrl, file, fileTransfer, pageService,modalCtrl);
     }
 }

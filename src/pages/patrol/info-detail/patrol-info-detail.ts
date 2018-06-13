@@ -55,7 +55,7 @@ export class PatrolInfoDetailPage extends DetailPage {
     public file: File,
     public fileTransfer: FileTransfer
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
     this.pageService.showLoading("正在加载数据");
     if (this.navParams.data.patrolReplay) {
       this.segmentThree = true;
@@ -355,7 +355,8 @@ export class PatrolInfoDetailPage extends DetailPage {
   showPic(pic) {
     let picArray = [];
     picArray.push(pic);
-    this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
+   // this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
+    this.modalCtrl.create("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0  }).present();
   }
   close() {
     var navOptions = {animate:false};

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController,ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { EnumMessageCenterReadState } from './../../../models/enum';
@@ -29,9 +29,10 @@ export class NoticeDetailPage extends DetailPage {
     private sanitize: DomSanitizer,
     public viewCtrl: ViewController,
     public platform: Platform,
+    public modalCtrl:ModalController,
     public pageService: PageService
   ) {
-    super(navCtrl, file, fileTransfer, pageService);
+    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
     this.apiService.sendApi(new GetNoticeInfo(this.navParams.data.keyID, localStorage.getItem("userId"))).subscribe(
       res => {
         if (res.success) {

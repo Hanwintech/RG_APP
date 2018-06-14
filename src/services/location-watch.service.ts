@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Device } from '@ionic-native/device';
-
+import { AlertController } from 'ionic-angular';
 import { ApiService } from './../services/api.service';
 import { PageService } from './../services/page.service';
 import { NetworkInformationService } from './../services/network-information.service';
@@ -27,6 +27,7 @@ export class LocationWatchService {
         public device: Device,
         public apiService: ApiService,
         public pageService: PageService,
+        public alertCtrl: AlertController,
         public networkInformationService: NetworkInformationService
     ) {
         this._isWatching = false;
@@ -45,11 +46,13 @@ export class LocationWatchService {
                     localStorage.setItem('longitude', positionData.longitude);
                     localStorage.setItem('latitude', positionData.latitude);
                     localStorage.setItem('accuracy', positionData.radius);
+                    this.uploadLocation(JSON.stringify(positionData));
                 },
                 error => {
 
                 });
         }
+        this.pageService.showMessage("请确保手机定位服务已打开");
     }
 
     start() {

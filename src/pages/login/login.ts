@@ -37,6 +37,7 @@ export class LoginPage {
     this.areaCode = this.apiService.areaCode.toString();
 
     var logout = navParams.get("logout");
+    this.locationWatchService.start();
     if (!logout) {
       var account = localStorage.getItem('account');
       var password = localStorage.getItem('password');
@@ -44,7 +45,6 @@ export class LoginPage {
         this.auth.account = account;
         this.auth.password = password;
         this.navCtrl.setRoot("TabsPage");
-        this.locationWatchService.start();
       }
     } else {
       localStorage.removeItem('account');

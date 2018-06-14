@@ -33,11 +33,6 @@ export class MyApp {
     public locationWatchService: LocationWatchService
   ) {
     this.initializeApp();
-    const alert = this.alertCtrl.create({
-      title: '请确保手机定位服务已打开!',
-      buttons: ['确定']
-    });
-    alert.present();
   }
 
   initializeApp() {

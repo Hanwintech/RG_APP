@@ -74,8 +74,10 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     this.showPicture(fileUrl, this.culturalRelicInfo.attachmentList)
   }
 
-  showTwoLimitImageList() {
-    this.showPicture("", this.culturalRelicInfo.twoLimitImageList)
+  showTwoLimitImageList(att) {
+    let tempPic=[];
+    tempPic.push(att.replace("/CompressionFile/", "/OriginalFile/"));
+    this.modalCtrl.create("ShowPicturePage", {  "picUrls": tempPic, "currentIndex": 0 }).present();
   }
 
   showLocation() {

@@ -15,12 +15,7 @@ import { EnumAppRole } from "./../../models/enum";
   templateUrl: 'tabs.html',
 })
 export class TabsPage extends BasePage {
-  private backButtonPressed: boolean;  //用于判断返回键是否触发
-
   private showPatrol: boolean;
-  private searchDefaultPage: string = "inspect";
-  private selfPageToSearch: boolean;
-
   private tab1Root: string;
   private tab2Root: string;
   private tab3Root: string;
@@ -41,8 +36,6 @@ export class TabsPage extends BasePage {
   ) {
     super(navCtrl, file, fileTransfer, pageService,modalCtrl);
 
-    this.backButtonPressed = false
-
     this.showPatrol = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.SearchPatrol) || super.hasRole(EnumAppRole.Volunteer);
 
     this.tab2Root = 'PatrolMapPage';
@@ -54,32 +47,7 @@ export class TabsPage extends BasePage {
     this.statusBar.show();
     this.statusBar.backgroundColorByHexString("#826c50");
   }
-  ionViewWillEnter() {
-    let that = this;
-    if (document.getElementById('tab-t0-0')) {
-      document.getElementById('tab-t0-0').onclick = function () {
-        that.selfPageToSearch = false;
-      }
-    }
-    if (document.getElementById('tab-t0-1')) {
-      document.getElementById('tab-t0-1').onclick = function () {
-        that.selfPageToSearch = false;
-      }
-    }
-    if (document.getElementById('tab-t0-2')) {
-      document.getElementById('tab-t0-2').onclick = function () {
-        that.selfPageToSearch = false;
-      }
 
-    }
-  }
-  ionViewDidEnter() {
-    //注册返回按键事件
-    //this.registerBackButtonAction();
-  }
-  ionViewWillLeave() { }
-  ionViewDidLeave() { }
-  ionViewWillUnload() { }
 
   twoline() {
     var navOptions = { animation: 'wp-transition' };
@@ -90,49 +58,4 @@ export class TabsPage extends BasePage {
     this.navCtrl.getAllChildNavs()[0].select(0);
   }
 
-  public showMoveableStatistic() {
-    this.searchDefaultPage = "culturalRelic";
-    this.selfPageToSearch = true;
-    this.navCtrl.getAllChildNavs()[0].select(1);
-  }
-
-  public showPatrolStatistic() {
-    this.searchDefaultPage = "inspect";
-    this.selfPageToSearch = true;
-    this.navCtrl.getAllChildNavs()[0].select(1);
-  }
-
-  public otherStatistic() {
-    this.searchDefaultPage = "other";
-    this.selfPageToSearch = true;
-    this.navCtrl.getAllChildNavs()[0].select(1);
-  }
-
-  registerBackButtonAction() {
-    this.platform.registerBackButtonAction(() => {
-      let tabs = this.navCtrl.getAllChildNavs()[0]._tabs;
-      for (let i = 0; i < tabs.length; i++) {
-        if (tabs[i].canGoBack()) {
-          console.log(tabs[i].first())
-          return tabs[i].dismiss();
-        }
-      }
-      return this.showExit()
-    }, 2000);
-  }
-
-  //双击退出提示框
-  showExit() {
-    if (this.backButtonPressed) { //当触发标志为true时，即2秒内双击返回按键则退出APP
-      this.platform.exitApp();
-    } else {
-      this.toastCtrl.create({
-        message: '再按一次退出应用',
-        duration: 2000,
-        position: 'bottom'
-      }).present();
-      this.backButtonPressed = true;
-      setTimeout(() => this.backButtonPressed = false, 2000);//2秒内没有再次点击返回则将触发标志标记为false
-    }
-  }
 }

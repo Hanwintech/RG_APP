@@ -12,16 +12,18 @@ import { LawFileInfoSearch } from './../../../models/search/law-file-info-search
 import { LawFileInfo } from './../../../models/search/law-file-infos.model';
 import { EnumAppRole, EnumSearchType } from './../../../models/enum';
 import { SystemConst } from './../../../services/system-const.service';
+
 @IonicPage()
 @Component({
-  selector: 'page-search-index',
-  templateUrl: 'search-index.html',
+  selector: 'page-other-statistics',
+  templateUrl: 'other-statistics.html',
 })
-export class SearchIndexPage extends PagingListPage {
+export class OtherStatisticsPage extends PagingListPage  {
+
   private statistics: string;
   private hasCase: boolean;
   private hasPatrol: boolean;
-
+  private seflPageToSearch: boolean;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,31 +34,21 @@ export class SearchIndexPage extends PagingListPage {
     public fileTransfer: FileTransfer,
     public apiService: ApiService,
     public pageService: PageService,
-    public systemConst: SystemConst
-  ) {
+    public systemConst: SystemConst) {
     super(navCtrl, modalCtrl, actionSheetCtrl, file, fileTransfer, apiService, pageService, systemConst, "", "lawFileInfoList");
 
     this.hasCase = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.SearchLaw);
     this.hasPatrol = super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.SearchPatrol);
 
-    this.pageService.showLoading("数据加载中...");
   }
 
-  ionViewDidLoad() {
-    if (this.hasCase) {
-      this.statistics = "cases";
-    } else if (this.hasPatrol) {
-      this.statistics = "inspect";
-    } else {
-      this.pageService.showLoading("数据加载中...");
-      this.statistics = "laws";
-      this.changeSegment("laws");
-    }
+  ionViewWillEnter() {
+    this.statistics = "laws";
+    this.changeSegment("laws");
   }
 
   changeSegment(segValue) {
     this.statistics = segValue;
-    this.pageService.dismissLoading();
     if (segValue == 'laws') {
       //初始化父类参数
       this.api = new GetLawFileInfos();
@@ -104,19 +96,13 @@ export class SearchIndexPage extends PagingListPage {
     }
   }
 
+
+
   Statistics(listType: number) {
     this.navCtrl.push("SearchStatisticsPage", listType);
-  }
-  inspectStatistics(listType: number) {
-    this.navCtrl.push("InspectStatisticsPage", listType);
-  }
-  culturalRelicStatistics(listType: number) {
-    this.pageService.showLoading("正在加载");
-    this.navCtrl.push("CulturalRelicStatisticsPage", listType);
   }
   view(lawFileInfo: LawFileInfo) {
     this.pageService.showLoading("正在加载");
     this.navCtrl.push("LawFileDetailPage", lawFileInfo);
   }
-
 }

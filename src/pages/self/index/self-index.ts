@@ -200,15 +200,15 @@ export class SelfIndexPage extends BasePage {
   }
 
   moveableStatistic() {
-    this.navCtrl.parent.viewCtrl.instance.showMoveableStatistic();
+   this.navCtrl.push("CuturalRelicStatisticsPage");
   }
 
   patrolStatistic() {
-    this.navCtrl.parent.viewCtrl.instance.showPatrolStatistic();
+    this.navCtrl.push("PatrolStatisticsPage");
   }
 
   otherStatistic(){
-    this.navCtrl.parent.viewCtrl.instance.otherStatistic();
+    this.navCtrl.push("OtherStatisticsPage");
   }
 
   publicOpinion() {

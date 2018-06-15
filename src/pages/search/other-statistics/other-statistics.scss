@@ -1,0 +1,144 @@
+page-other-statistics{
+    ion-header {
+        .segment {
+            border-color: #fff;
+            .segment-button {
+                padding: 0 12px;
+                height: 4.8rem;
+                border-width: 0 0 2px 0;
+                border-radius: 0 !important;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-color: #fff;
+                color: color($colors, dark, base);
+                font-size: 1.38rem;
+                font-weight: bold;
+                line-height: 1.5rem!important; //垂直居中
+                // display: -webkit-box;
+                // -webkit-box-pack: center;
+                // -webkit-box-align: center;
+                // -webkit-box-orient: vertical;
+                // text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: Center;
+            }
+            .segment-button.segment-activated {
+                background-color: #fff;
+                color: color($colors, primary, base);
+                border-color: color($colors, primary, base);
+            }
+        }
+    }
+    ion-content {
+        .list.data-list .item .item-inner .label {
+            margin: 10px 10px 0 12px;
+        }
+        .grid {
+            padding: 16px 5px 30px 5px !important;
+        }
+        .col {
+            padding: 20px 5px 5px 5px;
+        }
+        .col:active{
+            background: #f7f7f7;
+        }
+        .item-block {
+            padding-left: 0;
+            .label {
+                margin: 0.4em;
+                min-height:68px!important;
+                img {
+                    margin: 0.3em;
+                    float: left;
+                    max-width: 4em;
+                    max-height: 4em;
+                    position: absolute;
+                }
+                .messageTitle {
+                    //垂直居中
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center; //      
+                    width: 100%;
+                    height: 20px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    h2 {
+                        font-size: 12px;
+                        margin: 0 5px 0 0;
+                        padding: 5px 10px;
+                        float: left;
+                        background-color: color($colors, primary, base);
+                        color: #fff;
+                        border-radius: 5px;
+                    }
+                    .lawsfileTitle {
+                        max-width: 73vw!important;
+                    }
+                    .licensefileTitle {
+                        max-width: 66vw!important; //max-width: 40%!important;
+                    }
+                    h3 {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        line-height: 25px;
+                        font-size: 14px;
+                        float: left;
+                        color: #000;
+                        max-width: 70%;
+                    }
+                }
+                div {
+                    max-width: 100%!important;
+                    //多行文本省略
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    height: auto!important;
+                    font-size: 12px;
+                    color: color($colors, dark, base);
+                    width: 100%;
+                    height: 1.2em;
+                    margin: 7px 0;
+                    line-height: 1.2em;
+                    white-space: normal;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                h4,
+                h5 {
+                    font-size: 12px;
+                    color: color($colors, dark, base);
+                    padding-bottom:10px;
+                }
+                h4 {
+                    float: left;
+                }
+                h5 {
+                    float: right;
+                }
+            }
+        }
+        .list {
+            margin-top: 0;
+        }
+        .grid {
+            padding: 20px;
+        }
+        p {
+            margin-top: 1px;
+            font-size: 1.18rem;
+            color: color($colors, dark, base);
+        }
+        img {
+            width: 54px;
+            height: 54px;
+        }
+    }
+}

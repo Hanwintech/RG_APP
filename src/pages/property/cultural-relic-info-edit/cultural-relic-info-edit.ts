@@ -129,10 +129,10 @@ export class CulturalRelicInfoEditPage extends BasePage {
 
   showLocation() {
     let culturalRelicMapInfo = new CulturalRelicInfo();
-    console.log(this.culturalRelicInfoEdit);
     culturalRelicMapInfo.culturalRelic = this.culturalRelicInfoEdit.culturalRelic;
     culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
     culturalRelicMapInfo.patrolCount=this.culturalRelicInfoEdit.patrolCount;
+    culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
     locate.onDidDismiss(data => {
       if (data) {

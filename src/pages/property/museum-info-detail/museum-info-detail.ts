@@ -74,12 +74,9 @@ export class MuseumInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
-    console.log(this.museumInfo);
     let museumMapInfo = new MuseumInfo();
     museumMapInfo.museumDetailInfo = this.museumInfo.museumDetailInfo;
     museumMapInfo.patrolCount=this.museumInfo.patrolCount;
-
-
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":museumMapInfo,"coordinateAccurateList":this.museumInfo.coordinateAccurateList});
     locate.onDidDismiss(data => {
       if(data){

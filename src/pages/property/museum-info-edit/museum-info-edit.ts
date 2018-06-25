@@ -31,6 +31,7 @@ export class MuseumInfoEditPage extends BasePage {
   private museumPostInfo: MuseumPostInfo;
   private canShowLocation: boolean;
   private museumInfoEdit;
+  private patrolCount;
 
   constructor(
     public navCtrl: NavController,
@@ -66,6 +67,7 @@ export class MuseumInfoEditPage extends BasePage {
           if (res.success) {
             this.museumPostInfo = res.data;
             this.museumInfoEdit=res.data;
+            this.patrolCount=res.data.patrolCount;
             this.areaChanged(this.museumPostInfo.museumInfo.district);
 
             super.changeAttachmentFileType([this.museumPostInfo.miniImage]);
@@ -111,7 +113,7 @@ export class MuseumInfoEditPage extends BasePage {
   showLocation() {
     let museumInfoEdit = new MuseumInfo();
     museumInfoEdit.museumDetailInfo = this.museumInfoEdit.museumInfo;
-    museumInfoEdit.id=this.museumInfoEdit.museumInfo.id;
+    museumInfoEdit.patrolCount=this.patrolCount;
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": museumInfoEdit, "coordinateAccurateList": this.museumInfoEdit.coordinateAccurateList });
     locate.onDidDismiss(data => {
       if (data) {

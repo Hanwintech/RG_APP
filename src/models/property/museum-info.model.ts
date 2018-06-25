@@ -11,10 +11,10 @@ export class MuseumInfo implements MapMark {
     public attachmentList: Attachment[];
     public coordinateAccurateList: IntegerKeyValue[];
     public get id() {
-        return this.museumDetailInfo.id;
+        return this.museumDetailInfo.fK_CulturalRelicID;
     }
     public set id(value) { 
-        this.museumDetailInfo.id= value;
+        this.museumDetailInfo.fK_CulturalRelicID= value;
      }
     public get name() {
         return this.museumDetailInfo.museumName;
@@ -108,7 +108,7 @@ export class MuseumInfoDetail {
     //逻辑删除标记
     public isDeleted: boolean;
     //不可移动文物外键ID
-    public fk_CulturalRelicID: string;
+    public fK_CulturalRelicID: string;
     //标注类型
     public coordinateType: string;
     //质量等级

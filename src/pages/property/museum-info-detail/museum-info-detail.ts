@@ -43,6 +43,8 @@ export class MuseumInfoDetailPage extends DetailPage {
     this.apiService.sendApi(new MuseumAPI.GetMuseumInfo(museumID)).subscribe(
       res => {
         if (res.success) {
+          console.log(111);
+          console.log( res.data)
           this.museumInfo = res.data;
           super.changeAttachmentFileType(this.museumInfo.attachmentList)
         } else {
@@ -72,10 +74,12 @@ export class MuseumInfoDetailPage extends DetailPage {
   }
 
   showLocation() {
+    console.log(this.museumInfo);
     let museumMapInfo = new MuseumInfo();
     museumMapInfo.museumDetailInfo = this.museumInfo.museumDetailInfo;
-    museumMapInfo.patrolCount=this.museumInfo.museumDetailInfo.patrolCount;
-    console.log(this.museumInfo.museumDetailInfo);
+    museumMapInfo.patrolCount=this.museumInfo.patrolCount;
+
+
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":museumMapInfo,"coordinateAccurateList":this.museumInfo.coordinateAccurateList});
     locate.onDidDismiss(data => {
       if(data){

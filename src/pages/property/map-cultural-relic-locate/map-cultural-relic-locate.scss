@@ -73,6 +73,9 @@ page-map-cultural-relic-locate {
     .locateContainer div:active {
         background-image: url('../assets/map/ic_map_location_to_self_press.png');
     }
+    .back-button.show-back-button {
+        display: none;
+    }
     ion-footer {
         .list-ios {
             margin: 0;

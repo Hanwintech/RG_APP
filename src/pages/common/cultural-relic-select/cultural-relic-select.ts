@@ -55,7 +55,7 @@ export class CulturalRelicSelectPage extends PagingListPage {
     if (latitude) {
       this.condition.currentLatitude = Number(latitude);
     }
-    this.condition.culturalRelicSearchType = EnumCulturalRelicSearchType.不可移动文物;
+    this.condition.culturalRelicSearchType = EnumCulturalRelicSearchType.全部;
 
     //查询首页数据
     this.nextPage(null);

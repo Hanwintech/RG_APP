@@ -12,6 +12,7 @@ export class CulturalRelicInfo implements MapMark {
     public miniImage: Attachment;
     public miniImageUrl: string;
     public attachmentList: Attachment[];
+    public buryAreaAttachmentList:Attachment[];
     public twoLimitTabTypeName: string;
     public twoLimitAttachmentList: Attachment[];
     public twoLineInfoList: TwoLineInfo[];
@@ -73,6 +74,10 @@ export class CulturalRelicInfo implements MapMark {
 
 export class CulturalRelicInfoDetail {
     public keyID: string;
+    public buryAreaCulturalRelicID:string;
+    public buryAreaScope:string;
+    public buryAreaTabName:string;
+    public buryAreaTabType:number;
     public culturalRelicName: string;
     public culturalRelicCode: string;
     public enumArea: number;
@@ -146,6 +151,7 @@ export class CulturalRelicPostInfo {
     //附件集合
     public attachmentList: Attachment[];
 
+    public buryAreaAttachmentList:Attachment[];
     public twoLimitAttachmentList: Attachment[];
     public twoLinetwoLineInfoList: TwoLineInfo[];
     public twoLimitTabTypeList: IntegerKeyValue[];
@@ -177,6 +183,10 @@ export class CulturalRelicPostInfo {
 
 export class CulturalRelicInfoEntity {
     public id: string;
+    public buryAreaCulturalRelicID:string;
+    public buryAreaScope:string;
+    public buryAreaTabName:string;
+    public buryAreaTabType:number;
     public culturalRelicName: string;
     public culturalRelicLevel: number;
     public culturalRelicCode: string;

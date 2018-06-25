@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ViewController, ActionSheetController,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ViewController, ActionSheetController, ModalController } from 'ionic-angular';
 import { EnumCulturalRelicLevel, EnumCoordinateObjectType } from './../../../models/enum';
 import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-info.api';
 import { PostCoordinateInfosUrl } from './../../../apis/two-line/two-line.api';
@@ -37,9 +37,9 @@ export class MapCulturalRelicLocatePage extends BasePage {
     public pageService: PageService,
     public file: File,
     public fileTransfer: FileTransfer,
-    public modalCtrl:ModalController,
+    public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController) {
-    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
+    super(navCtrl, file, fileTransfer, pageService, modalCtrl);
   }
 
   ionViewDidLoad() {
@@ -77,6 +77,7 @@ export class MapCulturalRelicLocatePage extends BasePage {
   //初始化数据及动作
   initialEvent() {
     this.culturalRelicMapInfo = this.navParams.data.culturalRelicMapInfo;
+    console.log(this.culturalRelicMapInfo);
     this.coordinateAccurateList = this.navParams.data.coordinateAccurateList;
     this.map = new BMap.Map(this.mapElement.nativeElement);//创建地图实例
     this.map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
@@ -165,15 +166,28 @@ export class MapCulturalRelicLocatePage extends BasePage {
   }
 
   operation() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: '操作',
-      buttons: [
-        { text: '查看相关图片', handler: () => { this.viewPic() } },
-        { text: '查看相关巡查(' + (this.culturalRelicMapInfo.patrolCount?this.culturalRelicMapInfo.patrolCount:"0") + ')', handler: () => { this.viewPatrol() } },
-        { text: '标注文物点', handler: () => { this.pageService.showMessage("您可以通过在地图上点击或者拖动图标进行文物点标注！"); this.canShowFooter = true; this.moveMarker(); } }
-      ]
-    });
-    actionSheet.present();
+    if ((this.culturalRelicMapInfo.culturalRelicLevel !== EnumCulturalRelicLevel["工地"]) &&
+      (this.culturalRelicMapInfo.culturalRelicLevel !== EnumCulturalRelicLevel["博物馆"])) {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '操作',
+        buttons: [
+          { text: '查看相关图片', handler: () => { this.viewPic() } },
+          { text: '查看相关巡查(' + (this.culturalRelicMapInfo.patrolCount ? this.culturalRelicMapInfo.patrolCount : "0") + ')', handler: () => { this.viewPatrol() } },
+          { text: '标注文物点', handler: () => { this.pageService.showMessage("您可以通过在地图上点击或者拖动图标进行文物点标注！"); this.canShowFooter = true; this.moveMarker(); } }
+        ]
+      });
+      actionSheet.present();
+    }
+    else {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '操作',
+        buttons: [
+          { text: '查看相关巡查(' + (this.culturalRelicMapInfo.patrolCount ? this.culturalRelicMapInfo.patrolCount : "0") + ')', handler: () => { this.viewPatrol() } },
+          { text: '标注文物点', handler: () => { this.pageService.showMessage("您可以通过在地图上点击或者拖动图标进行文物点标注！"); this.canShowFooter = true; this.moveMarker(); } }
+        ]
+      });
+      actionSheet.present();
+    }
   }
 
   //获取当前所在位置

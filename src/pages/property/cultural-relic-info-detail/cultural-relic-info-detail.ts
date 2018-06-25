@@ -13,6 +13,7 @@ import { GetCulturalRelicInfo } from './../../../apis/property/cultural-relic-in
 import { CulturalRelicInfo } from './../../../models/property/cultural-relic-info.model';
 import { EnumAppRole } from "./../../../models/enum";
 import { Attachment } from "./../../../models/attachment.model";
+import { CordovaFunctionOverride } from '@ionic-native/core';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     public fileOpener: FileOpener,
     public networkInfoService: NetworkInformationService
   ) {
-    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
+    super(navCtrl, file, fileTransfer, pageService, modalCtrl);
 
     this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
     this.culturalRelicInfo = new CulturalRelicInfo();
@@ -44,10 +45,12 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     this.apiService.sendApi(new GetCulturalRelicInfo(culturalRelicID)).subscribe(
       res => {
         if (res.success) {
+          console.log(res);
           this.culturalRelicInfo = res.data;
           super.changeAttachmentFileType(this.culturalRelicInfo.attachmentList)
           super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitImageList)
           super.changeAttachmentFileType(this.culturalRelicInfo.twoLimitAttachmentList)
+          super.changeAttachmentFileType(this.culturalRelicInfo.buryAreaAttachmentList)
         } else {
           this.pageService.showErrorMessage(res.reason);
         }
@@ -62,7 +65,7 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
   }
 
   download(attachment: Attachment) {
-    attachment.startDowload=true;
+    attachment.startDowload = true;
     this.downloadAttachment(this.networkInfoService, attachment);
   }
 
@@ -75,16 +78,47 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
   }
 
   showTwoLimitImageList(att) {
-    let tempPic=[];
+    let tempPic = [];
     tempPic.push(att.replace("/CompressionFile/", "/OriginalFile/"));
-    this.modalCtrl.create("ShowPicturePage", {  "picUrls": tempPic, "currentIndex": 0 }).present();
+    this.modalCtrl.create("ShowPicturePage", { "picUrls": tempPic, "currentIndex": 0 }).present();
+  }
+
+  showRelativeTwoLimitImageList() {
+    if (!this.culturalRelicInfo.twoLimitImageList || this.culturalRelicInfo.twoLimitImageList.length == 0) {
+      this.pageService.showMessage("暂无相关图片");
+    }
+    else {
+      let picUrls: string[] = [];
+      for (let i = 0; i < this.culturalRelicInfo.twoLimitImageList.length; i++) {
+        if (this.culturalRelicInfo.twoLimitImageList[i].fileType == "img") {
+          let origionFile = this.culturalRelicInfo.twoLimitImageList[i].fileUrl.replace("/CompressionFile/", "/OriginalFile/");
+          picUrls.push(origionFile);
+        }
+      }
+      this.modalCtrl.create("ShowPicturePage", { "picUrls": picUrls, "currentIndex": 0 }).present();
+    }
+  }
+
+  showRelativeBuryAreaImageList() {
+    if (!this.culturalRelicInfo.buryAreaAttachmentList || this.culturalRelicInfo.buryAreaAttachmentList.length == 0) {
+      this.pageService.showMessage("暂无相关图片");
+    }
+    else {
+      let picUrls: string[] = [];
+      for (let i = 0; i < this.culturalRelicInfo.buryAreaAttachmentList.length; i++) {
+        if (this.culturalRelicInfo.buryAreaAttachmentList[i].fileType == "img") {
+          let origionFile = this.culturalRelicInfo.buryAreaAttachmentList[i].fileUrl.replace("/CompressionFile/", "/OriginalFile/");
+          picUrls.push(origionFile);
+        }
+      }
+      this.modalCtrl.create("ShowPicturePage", { "picUrls": picUrls, "currentIndex": 0 }).present();
+    }
   }
 
   showLocation() {
     let culturalRelicMapInfo = new CulturalRelicInfo();
     culturalRelicMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
     culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfo.twoLineInfoList;
-
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfo.coordinateAccurateList });
     locate.onDidDismiss(data => {
       if (data) {
@@ -101,5 +135,5 @@ export class CulturalRelicInfoDetailPage extends DetailPage {
     picArray.push(pic);
     this.navCtrl.push("ShowPicturePage", { "picUrls": picArray, "currentIndex": 0 });
   }
-  
+
 }

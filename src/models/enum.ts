@@ -142,6 +142,7 @@ export enum EnumMessageCenterReadState {
 
 export enum EnumAttachmentType {
     不可移动文物附件 = 30,
+    不可移动文物埋藏区附件=76,
     督查通知管理附件 = 31,
     巡查记录附件 = 32,
     法律法规附件 = 33,

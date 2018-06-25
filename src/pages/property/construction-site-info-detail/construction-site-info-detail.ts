@@ -79,8 +79,10 @@ export class ConstructionSiteInfoDetailPage extends DetailPage {
 
   showLocation() {
     let constructionMapInfo = new CulturalRelicInfo();
+    console.log(this.culturalRelicInfo);
     constructionMapInfo.culturalRelic = this.culturalRelicInfo.culturalRelic;
     constructionMapInfo.culturalRelicPostInfo = this.culturalRelicInfo.culturalRelicPostInfo;
+    //constructionMapInfo.patrolCount=this.culturalRelicInfo.culturalRelic.patrolCount;
 
     let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", {"culturalRelicMapInfo":constructionMapInfo,"coordinateAccurateList":this.culturalRelicInfo.coordinateAccurateList});
     locate.onDidDismiss(data => {

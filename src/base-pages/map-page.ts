@@ -32,6 +32,7 @@ export class MapPage extends DetailPage {
     search: CulturalRelicInfoSearch;
     userInfo: UserEntity;
     private twoLine = [];
+    private buryArea=[];//文物埋藏区
     searchDataSource: CulturalRelicInfoSearchDataSource;
     mapDistrictClusterInfoList: UTMapDistrictClusterInfo[];
     private currentMapLevelMax: number;
@@ -111,6 +112,7 @@ export class MapPage extends DetailPage {
             res => {
                 if (res.success) {
                     this.twoLine = res.data.twoLineInfoList;
+                    this.buryArea=res.data.buryAreaInfoList;
                     this.mapDistrictClusterInfoList = res.data.mapDistrictClusterInfoList;
                     this.searchDataSource = res.data.culturalRelicInfoSearchDataSource;
                     this.search = res.data.search;//采用服务器端的默认查询条件
@@ -152,6 +154,15 @@ export class MapPage extends DetailPage {
                                             line.push(new BMap.Point(twoLinePoint.x, twoLinePoint.y));
                                         }
                                         this.drawTwoLine(line, color);
+                                    }
+                                }
+                                if(this.buryArea){ 
+                                    for(let pointList of this.buryArea){
+                                        let point=[];
+                                        for(let item of pointList.buryAreaPointList){
+                                            point.push(new BMap.Point(item.x, item.y));
+                                        }
+                                        this.drawTwoLine(point, "#7719aa");
                                     }
                                 }
                             }

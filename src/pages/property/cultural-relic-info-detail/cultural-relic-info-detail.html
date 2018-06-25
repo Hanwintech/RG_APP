@@ -82,7 +82,10 @@
             </div>
             <button ion-button outline color="secondary" (click)="showAttachmentList(att.fileUrl)" *ngIf="att.fileType == 'img' && att.isDownloaded">查看</button>
             <button ion-button outline color="secondary" (click)="open(att)" *ngIf="att.fileType != 'img' && att.isDownloaded">查看</button>
-            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded"><div class="spinner-btn" *ngIf="att.startDowload"></div><span *ngIf="!att.startDowload">下载</span></button>
+            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded">
+              <div class="spinner-btn" *ngIf="att.startDowload"></div>
+              <span *ngIf="!att.startDowload">下载</span>
+            </button>
           </div>
         </div>
       </ion-label>
@@ -104,7 +107,7 @@
     </ion-item>
     <ion-item>
       <ion-label fixed>相关图片</ion-label>
-      <ion-label *ngIf="culturalRelicInfo.twoLimitImageList && culturalRelicInfo.twoLimitImageList.length > 0" class="navi" (click)="showTwoLimitImageList()">
+      <ion-label *ngIf="culturalRelicInfo.twoLimitImageList && culturalRelicInfo.twoLimitImageList.length > 0" class="navi" (click)="showRelativeTwoLimitImageList()">
         <div>点击查看相关图片</div>
       </ion-label>
       <ion-label *ngIf="!culturalRelicInfo.twoLimitImageList || culturalRelicInfo.twoLimitImageList.length == 0">
@@ -123,7 +126,46 @@
             </div>
             <button ion-button outline color="secondary" (click)="showTwoLimitImageList(att.fileUrl)" *ngIf="att.fileType == 'img' && att.isDownloaded">查看</button>
             <button ion-button outline color="secondary" (click)="open(att)" *ngIf="att.fileType != 'img' && att.isDownloaded">查看</button>
-            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded"><div class="spinner-btn" *ngIf="att.startDowload"></div><span *ngIf="!att.startDowload">下载</span></button>
+            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded">
+              <div class="spinner-btn" *ngIf="att.startDowload"></div>
+              <span *ngIf="!att.startDowload">下载</span>
+            </button>
+          </div>
+        </div>
+      </ion-label>
+    </ion-item>
+    <ion-item class="subTitle">
+      埋藏区信息
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>划定范围</ion-label>
+      <ion-label>{{culturalRelicInfo.culturalRelic.buryAreaScope ? culturalRelicInfo.culturalRelic.buryAreaScope : "无"}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>相关图片</ion-label>
+        <ion-label *ngIf="culturalRelicInfo.buryAreaAttachmentList && culturalRelicInfo.buryAreaAttachmentList.length > 0" class="navi"
+          (click)="showRelativeBuryAreaImageList()">
+          <div>点击查看相关图片</div>
+        </ion-label>
+        <ion-label *ngIf="!culturalRelicInfo.buryAreaAttachmentList || culturalRelicInfo.buryAreaAttachmentList.length == 0">
+          无
+        </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="attachment-label">
+        <div class="title">埋藏区附件</div>
+        <div *ngIf="culturalRelicInfo.buryAreaAttachmentList && culturalRelicInfo.buryAreaAttachmentList.length > 0" class="attachment">
+          <div *ngFor="let att of culturalRelicInfo.buryAreaAttachmentList" class="attachmentContent">
+            <img src="assets/icon/file_{{att.fileType}}.png">
+            <div class="description">
+              <div class="fileShowName">{{att.fileShowName}}</div>
+              <div class="fileName">{{att.fileName}}</div>
+            </div>
+            <button ion-button outline color="secondary" (click)="showTwoLimitImageList(att.fileUrl)" *ngIf="att.fileType == 'img' && att.isDownloaded">查看</button>
+            <button ion-button outline color="tertiary" (click)="download(att)" *ngIf="att.fileType != 'img' || !att.isDownloaded">
+              <div class="spinner-btn" *ngIf="att.startDowload"></div>
+              <span *ngIf="!att.startDowload">下载</span>
+            </button>
           </div>
         </div>
       </ion-label>

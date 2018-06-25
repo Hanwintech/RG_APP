@@ -48,14 +48,14 @@ export class CulturalRelicInfoEditPage extends BasePage {
     public fileUploadService: FileUploadService,
     public systemConst: SystemConst
   ) {
-    super(navCtrl, file, fileTransfer, pageService,modalCtrl);
+    super(navCtrl, file, fileTransfer, pageService, modalCtrl);
 
     this.culturalRelicPostInfo = new CulturalRelicPostInfo();
 
     this.selectDataSource = this.navParams.data.selectDataSource;
     this.districtList = this.systemConst.EMPTY_SELECT_LIST;
     this.twoStageTypeList = this.systemConst.EMPTY_SELECT_LIST;
-    this.culturalRelicPostInfo.culturalRelic.enumArea=9;//默认选择淮安
+    this.culturalRelicPostInfo.culturalRelic.enumArea = 9;//默认选择淮安
     this.canShowLocation = super.hasRole(EnumAppRole.Law) || super.hasRole(EnumAppRole.Patrol) || super.hasRole(EnumAppRole.Volunteer);
 
 
@@ -67,13 +67,14 @@ export class CulturalRelicInfoEditPage extends BasePage {
         res => {
           if (res.success) {
             this.culturalRelicPostInfo = res.data;
-            this.culturalRelicInfoEdit=res.data;
+            this.culturalRelicInfoEdit = res.data;
             this.areaChanged(this.culturalRelicPostInfo.culturalRelic.district);
             this.typeChanged(this.culturalRelicPostInfo.culturalRelic.culturalRelicTwoStageType);
 
             super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
             super.changeAttachmentFileType(this.culturalRelicPostInfo.attachmentList);
             super.changeAttachmentFileType(this.culturalRelicPostInfo.twoLimitAttachmentList);
+            super.changeAttachmentFileType(this.culturalRelicPostInfo.buryAreaAttachmentList);
           } else {
             this.pageService.showErrorMessage("获取数据失败！");
           }
@@ -84,7 +85,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
     } else {
       this.pageTitle = "新增文物";
       this.culturalRelicPostInfo.userId = localStorage.getItem("userId");
-      this.canShowLocation=false;
+      this.canShowLocation = false;
     }
   }
 
@@ -130,18 +131,17 @@ export class CulturalRelicInfoEditPage extends BasePage {
     let culturalRelicMapInfo = new CulturalRelicInfo();
     console.log(this.culturalRelicInfoEdit);
     culturalRelicMapInfo.culturalRelic = this.culturalRelicInfoEdit.culturalRelic;
-    // culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
-    // culturalRelicMapInfo.id=this.culturalRelicInfoEdit.culturalRelic.id;
-    // culturalRelicMapInfo.culturalRelic.patrolCount=this.culturalRelicInfoEdit.patrolCount;
-    // let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
-    // locate.onDidDismiss(data => {
-    //   if (data) {
-    //     this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
-    //     this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
-    //     this.culturalRelicPostInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
-    //   }
-    // });
-    // locate.present();
+    culturalRelicMapInfo.twoLineInfoList = this.culturalRelicInfoEdit.twoLineInfoList;
+    culturalRelicMapInfo.patrolCount=this.culturalRelicInfoEdit.patrolCount;
+    let locate = this.modalCtrl.create("MapCulturalRelicLocatePage", { "culturalRelicMapInfo": culturalRelicMapInfo, "coordinateAccurateList": this.culturalRelicInfoEdit.coordinateAccurateList });
+    locate.onDidDismiss(data => {
+      if (data) {
+        this.culturalRelicPostInfo.culturalRelic.coordinateX = data.culturalRelicX;
+        this.culturalRelicPostInfo.culturalRelic.coordinateY = data.culturalRelicY;
+        this.culturalRelicPostInfo.culturalRelic.coordinateAccurate = data.coordinateAccurate;
+      }
+    });
+    locate.present();
   }
 
   selectMiniImage() {
@@ -155,7 +155,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
-                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
+                  this.culturalRelicPostInfo.miniImage.fileShowName = "不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); }
@@ -170,7 +170,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
                 data => {
                   this.culturalRelicPostInfo.miniImage = data;
                   this.culturalRelicPostInfo.miniImage.category = EnumAttachmentType.不可移动文物缩略图;
-                  this.culturalRelicPostInfo.miniImage.fileShowName="不可移动文物缩略图.jpg";
+                  this.culturalRelicPostInfo.miniImage.fileShowName = "不可移动文物缩略图.jpg";
                   super.changeAttachmentFileType([this.culturalRelicPostInfo.miniImage]);
                 },
                 error => { this.pageService.showErrorMessage("文件上传失败！"); });
@@ -196,7 +196,7 @@ export class CulturalRelicInfoEditPage extends BasePage {
           super.changeAttachmentFileType(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物附件;
-            att.fileShowName="不可移动文物附件.jpg";
+            att.fileShowName = "不可移动文物附件.jpg";
           }
           if (!this.culturalRelicPostInfo.attachmentList) {
             this.culturalRelicPostInfo.attachmentList = [];
@@ -233,14 +233,61 @@ export class CulturalRelicInfoEditPage extends BasePage {
       () => { });
   }
 
+  selectBuryAreaAttachmentList() {
+    this.imagePickerService.getPictures(null).then(
+      attachments => {
+        if (attachments) {
+          super.changeAttachmentFileType(attachments);
+          console.log(attachments);
+          for (let att of attachments) {
+            att.category = EnumAttachmentType.不可移动文物埋藏区附件;
+            att.fileShowName = "不可移动文物埋藏区附件.jpg";
+          }
+          if (!this.culturalRelicPostInfo.buryAreaAttachmentList) {
+            this.culturalRelicPostInfo.buryAreaAttachmentList = [];
+          }
+          this.culturalRelicPostInfo.buryAreaAttachmentList = this.culturalRelicPostInfo.buryAreaAttachmentList.concat(attachments);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      },
+      error => {
+        if (typeof error === 'string') {
+          this.pageService.showErrorMessage(error);
+        } else {
+          this.pageService.showErrorMessage("上传图片失败！");
+        }
+      });
+  }
+
+  showBuryAreaAttachmentList(attachment) {
+    super.showSlidesPage(this.culturalRelicPostInfo.buryAreaAttachmentList, attachment.fileUrl);
+  }
+
+  delBuryAreaAttachmentList(attachment) {
+    this.pageService.showComfirmMessage("确定要删除吗？",
+      () => {
+        let tempArray = [];
+        for (let atta of this.culturalRelicPostInfo.buryAreaAttachmentList) {
+          if (attachment.attachmentId != atta.attachmentId) {
+            tempArray.push(atta);
+          }
+        }
+        this.culturalRelicPostInfo.buryAreaAttachmentList = tempArray;
+      },
+      () => { });
+  }
+
+
   selectTwoLimitAttachmentList() {
     this.imagePickerService.getPictures(null).then(
       attachments => {
         if (attachments) {
           super.changeAttachmentFileType(attachments);
+          console.log(attachments);
           for (let att of attachments) {
             att.category = EnumAttachmentType.不可移动文物两线附件;
-            att.fileShowName="不可移动文物两线附件.jpg";
+            att.fileShowName = "不可移动文物两线附件.jpg";
           }
           if (!this.culturalRelicPostInfo.twoLimitAttachmentList) {
             this.culturalRelicPostInfo.twoLimitAttachmentList = [];

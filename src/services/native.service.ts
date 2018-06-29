@@ -4,7 +4,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-
+import { FileOpener } from '@ionic-native/file-opener';
 import { ApiService } from './api.service';
 import { PageService } from './page.service';
 import { NetworkInformationService } from './network-information.service';
@@ -27,6 +27,7 @@ export class NativeService {
         public inAppBrowser: InAppBrowser,
         public apiService: ApiService,
         public pageService: PageService,
+        public fileOpener: FileOpener,
         public networkInfoService: NetworkInformationService
     ) { }
 
@@ -62,13 +63,13 @@ export class NativeService {
                             );
                         }
                     })
-                    .catch(error => { 
+                    .catch(error => {
                         // this.pageService.showErrorMessage("检查APP当前版本出错！"); 
                     });
             },
             error => {
                 //  this.pageService.showErrorMessage("检查APP最新版本出错！");
-                 },
+            },
             () => { }
         );
     }
@@ -89,7 +90,10 @@ export class NativeService {
             const apk = this.file.externalRootDirectory + this.newVersionInfo.attachmentList[0].fileShowName; //apk保存的目录
 
             fileTransfer.download(this.newVersionInfo.attachmentList[0].fileUrl, apk).then(() => {
-                window['install'].install(apk.replace('file://', ''));
+                //window['install'].install(apk.replace('file://', ''));
+                this.fileOpener.open(apk, 'application/vnd.android.package-archive')
+                    .then(() => console.log())
+                    .catch(e => console.log(e));
             });
 
             fileTransfer.onProgress((event: ProgressEvent) => {

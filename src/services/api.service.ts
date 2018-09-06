@@ -35,8 +35,8 @@ export class ApiService {
         // return ""; //苏州市 = 6,
         // return ""; //南通市 = 7,
         // return ""; //连云港市 = 8,
-        return "http://58.210.177.10:10039"; //淮安市 = 9,
-        //return "http://localhost:9080";
+       return "http://58.210.177.10:10039"; //淮安市 = 9,
+         //return "http://localhost:9080";
         // return ""; //盐城市 = 10,
         // return ""; //扬州市 = 11,
         // return ""; //镇江市 = 12,
@@ -78,12 +78,13 @@ export class ApiService {
         };
         return this.http.request(new Request(options))
             .map(res => <IHttpCommonResponse<any>>res.json())
-            .catch(err => {
+            .catch<IHttpCommonResponse<any>, IHttpCommonResponse<any>>(err => {
                 if (err.status == 401){
                     this.pageService.showErrorMessage("登录时间过长，请重新登录！");
                     this.app.getRootNav().setRoot("LoginPage", { logout: true });
                 }
-                return new Promise(resolve=>{}); 
-            });
+                return new Promise(resolve=>{res => <IHttpCommonResponse<any>>res.json()}); 
+            } );
+       
     }
 }

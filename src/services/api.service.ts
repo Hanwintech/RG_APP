@@ -1,3 +1,4 @@
+import { App } from 'ionic-angular';
 import { IHttpCommonResponse } from './../models/http-common-response.model';
 import { BaseRequest } from './../apis/base-request.api';
 import { Injectable } from '@angular/core';
@@ -5,6 +6,7 @@ import { Http, Headers, RequestMethod, Request } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { EnumAreaCode } from './../models/enum'
+import { PageService } from './../services/page.service';
 
 @Injectable()
 export class ApiService {
@@ -34,7 +36,7 @@ export class ApiService {
         // return ""; //南通市 = 7,
         // return ""; //连云港市 = 8,
         return "http://58.210.177.10:10039"; //淮安市 = 9,
-         //return "http://localhost:9090";
+        //return "http://localhost:9080";
         // return ""; //盐城市 = 10,
         // return ""; //扬州市 = 11,
         // return ""; //镇江市 = 12,
@@ -46,7 +48,7 @@ export class ApiService {
         // return ""; //大丰 = 18
     }
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private app: App, private pageService: PageService) { }
 
     getToken(account: string, password: string) {
         let headers = new Headers();
@@ -75,6 +77,13 @@ export class ApiService {
             params: request.requestArgument
         };
         return this.http.request(new Request(options))
-            .map(res => <IHttpCommonResponse<any>>res.json());
+            .map(res => <IHttpCommonResponse<any>>res.json())
+            .catch(err => {
+                if (err.status == 401){
+                    this.pageService.showErrorMessage("登录时间过长，请重新登录！");
+                    this.app.getRootNav().setRoot("LoginPage", { logout: true });
+                }
+                return new Promise(resolve=>{}); 
+            });
     }
 }
